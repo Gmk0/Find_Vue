@@ -8,45 +8,53 @@
             <!-- Footer Middle -->
             <div class="container flex flex-col p-4 mx-auto overflow-hidden lg:flex-row">
                 <div class="w-full p-2 mx-auto">
-                    <!-- Accordions
 
-                    <div x-data="{open:false}" class="relative mb-3">
+
+                    <div  class="relative mb-3">
                         <h6 class="mb-0">
-                            <button @click="open = !open"
+                            <button @click="handleCollapse"
                                 class="relative flex items-center w-full p-4 text-base font-semibold text-left transition-all ease-in border-solid cursor-pointer text-gray-50 border-slate-100 dark:text-gray-500 rounded-t-1 group text-dark-500"
                                 data-collapse-target="animated-collapse-1">
                                 <span>Categories</span>
-                                <i :class="open ? 'rotate-180 transition-transform' : ''"
+                                <i :class="isOpen ? 'rotate-180 transition-transform' : ''"
                                     class="absolute right-0 pt-1 text-base transition-transform fa fa-chevron-down "></i>
                             </button>
                         </h6>
-                        <div x-show="open" x-collapse class="overflow-hidden transition-all duration-300 ease-in-out ">
-                            <div class="px-6 overflow-hidden leading-normal">
-                                <ul class="flex flex-col w-full p-0 space-y-2 text-left list-none list-inside text-gray-50">
+                         <Collapse :when="isOpen" class="px-6 overflow-hidden leading-normal collapse">
 
 
-                                    <li><a href=""
-                                            class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-200">Nom</a>
+                                <ul class="flex flex-col w-full px-4 space-y-2 text-left list-none list-inside text-gray-50">
+
+
+                                    <li v-for="category in categories">
+                                        <a href=""
+                                            class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-200">{{category.name}}</a>
                                     </li>
 
 
                                 </ul>
-                            </div>
-                        </div>
+
+
+                        </Collapse>
+
                     </div>
-                    <div x-data="{open:false}" class="relative mb-3">
+
+
+                    <div  class="relative mb-3">
                         <h6 class="mb-0">
-                            <button @click="open = !open"
+                            <button @click="handleCollapse2"
                                 class="relative flex items-center w-full p-4 text-base font-semibold text-left transition-all ease-in border-solid cursor-pointer text-gray-50 border-slate-100 dark:text-gray-500 rounded-t-1 group text-dark-500"
                                 data-collapse-target="animated-collapse-1">
                                 <span>A propos</span>
-                                <i :class="open ? 'rotate-180 transition-transform' : ''"
+                                <i :class="isOpen2 ? 'rotate-180 transition-transform' : ''"
                                     class="absolute right-0 pt-1 text-base transition-transform fa fa-chevron-down "></i>
                             </button>
                         </h6>
-                        <div x-show="open" x-collapse class="overflow-hidden transition-all duration-300 ease-in-out ">
-                            <div class="px-6 overflow-hidden leading-normal ">
-                                <ul class="flex flex-col w-full p-0 text-left list-none text-gray-50">
+
+                        <Collapse :when="isOpen2" class="px-6 overflow-hidden leading-normal collapse">
+
+
+                                <ul class="flex flex-col w-full px-4 text-left list-none text-gray-50">
                                     <li><a href=""                                            class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">Privacy
                                             Policy</a></li>
                                     <li><a href=""
@@ -58,59 +66,65 @@
                                             of
                                             Service</a></li>
                                 </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div x-data="{open:false}" class="relative mb-3">
-                        <h6 class="mb-0">
-                            <button @click="open = !open"
-                                class="relative flex items-center w-full p-4 text-base font-semibold text-left transition-all ease-in border-solid cursor-pointer text-gray-50 border-slate-100 dark:text-gray-500 rounded-t-1 group text-dark-500"
-                                data-collapse-target="animated-collapse-1">
-                                <span>Guides</span>
-                                <i :class="open ? 'rotate-180 transition-transform' : ''"
-                                    class="absolute right-0 pt-1 text-base transition-transform fa fa-chevron-down "></i>
-                            </button>
-                        </h6>
-                        <div x-show="open" x-collapse class="overflow-hidden transition-all duration-300 ease-in-out ">
-                            <div class="px-6 overflow-hidden leading-normal">
-                                <ul class="flex flex-col w-full p-0 font-thin text-left list-none text-gray-50">
-                                    <li><a href=""
-                                            class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">Freelance</a>
-                                    </li>
-                                    <li><a href=""
-                                            class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">
-                                            Mission</a>
-                                    </li>
+                         </Collapse>
 
-                                </ul>
-                            </div>
-                        </div>
+
                     </div>
-                    <div x-data="{open:false}" class="relative mb-3">
+
+                    <div  class="relative mb-3">
+                            <h6 class="mb-0">
+                                <button @click="handleCollapse3"
+                                    class="relative flex items-center w-full p-4 text-base font-semibold text-left transition-all ease-in border-solid cursor-pointer text-gray-50 border-slate-100 dark:text-gray-500 rounded-t-1 group text-dark-500"
+                                    data-collapse-target="animated-collapse-1">
+                                    <span>Guides</span>
+                                    <i :class="isOpen3 ? 'rotate-180 transition-transform' : ''"
+                                        class="absolute right-0 pt-1 text-base transition-transform fa fa-chevron-down "></i>
+                                </button>
+                            </h6>
+                              <Collapse :when="isOpen3" class="px-6 overflow-hidden leading-normal collapse">
+
+
+                                    <ul class="flex flex-col w-full px-4 font-thin text-left list-none text-gray-50">
+                                        <li><a href=""
+                                                class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">Freelance</a>
+                                        </li>
+                                        <li><a href=""
+                                                class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">
+                                                Mission</a>
+                                        </li>
+
+                                    </ul>
+                             </Collapse>
+
+                    </div>
+                    <div  class="relative mb-3">
                         <h6 class="mb-0">
-                            <button @click="open = !open"
+                            <button @click="handleCollapse4"
                                 class="relative flex items-center w-full p-4 text-base font-semibold text-left transition-all ease-in border-solid cursor-pointer text-gray-50 border-slate-100 dark:text-gray-500 rounded-t-1 group text-dark-500"
                                 data-collapse-target="animated-collapse-1">
                                 <span>Freelance</span>
-                                <i :class="open ? 'rotate-180 transition-transform' : ''"
+                                <i :class="isOpen4 ? 'rotate-180 transition-transform' : ''"
                                     class="absolute right-0 pt-1 text-base transition-transform fa fa-chevron-down "></i>
                             </button>
                         </h6>
-                        <div x-show="open" x-collapse class="overflow-hidden transition-all duration-300 ease-in-out ">
-                            <div class="px-6 overflow-hidden leading-normal ">
-                                <ul class="flex flex-col w-full p-0 font-thin text-left list-none text-gray-50">
-                                    <li><a href=""
-                                            class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">Freelance</a>
-                                    </li>
-                                    <li><a href=""
-                                            class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">
-                                            Mission</a>
-                                    </li>
 
-                                </ul>
-                            </div>
-                        </div>
-                    </div> -->
+                        <Collapse :when="isOpen4" class="px-6 overflow-hidden leading-normal collapse">
+
+
+                                  <ul class="flex flex-col w-full p-0 px-4 font-thin text-left list-none text-gray-50">
+                                        <li><a href=""
+                                                class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">Freelance</a>
+                                        </li>
+                                        <li><a href=""
+                                                class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">
+                                                Mission</a>
+                                        </li>
+
+                                    </ul>
+                        </Collapse>
+                    </div>
+
+
 
                 </div>
             </div>
@@ -226,17 +240,41 @@ import { ref, onMounted } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import axios from 'axios';
 
-const categories = ref([]);
+import { Collapse } from 'vue-collapsed'
 
-onMounted(async () => {
-    try {
-        const response = await axios.get('/api/fetchAll');
-        categories.value = response.data.categories;
-    } catch (error) {
-        console.error('Erreur lors de la récupération des catégories:', error);
-    }
+defineProps({
+    categories: Array,
 });
+
+const isOpen = ref(false);
+
+function handleCollapse() {
+    isOpen.value = !isOpen.value
+};
+const isOpen2 = ref(false);
+
+function handleCollapse2() {
+    isOpen2.value = !isOpen2.value
+};
+const isOpen3 = ref(false);
+
+function handleCollapse3() {
+    isOpen3.value = !isOpen3.value
+};
+const isOpen4 = ref(false);
+
+function handleCollapse4() {
+    isOpen4.value = !isOpen4.value
+};
+
+
 
 
 </script>
 
+
+<style>
+.collapse {
+    transition: height var(--vc-auto-duration) cubic-bezier(0.3, 0, 0.6, 1);
+}
+</style>

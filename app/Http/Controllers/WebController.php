@@ -16,4 +16,20 @@ class WebController extends Controller
 
         return Inertia::render('Web/Home', ['categories' => $category]);
     }
+    public function about()
+    {
+
+
+
+        return Inertia::render('Web/About');
+    }
+    public function contact()
+    {
+
+        return Inertia::render('Web/Contact');
+    }
+    public function faq(){
+
+        return Inertia::render('Web/Faq');
+    }
 }

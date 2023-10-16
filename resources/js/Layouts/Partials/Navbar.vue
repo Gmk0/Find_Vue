@@ -3,7 +3,8 @@
 
 
 
-<div class="flex header-wrap classicHeader animated">
+<div class="flex header-wrap classicHeader animated"  :class="{ 'stickyNav  dark:text-white fadeInDown dark:bg-gray-800': isSticky, 'bg-white dark:bg-gray-800': isNotHome }"
+        @scroll="handleScroll">
     <div class="w-full px-4 lg:px-12">
         <div class="grid items-center justify-between w-full grid-cols-12 lg:mx-auto">
             <!--Desktop Logo-->
@@ -29,71 +30,116 @@
                 <!--Desktop Menu-->
                 <nav class="relative grid__item" id="AccessibleNav"><!-- for mobile -->
                     <ul id="siteNav" class="site-nav medium center hidearrow">
-                        <li class="lvl1 parent megamenu"><a href="#">Acueil <i class="anm anm-angle-down-l"></i></a>
+                        <li class="lvl1 parent megamenu">
+
+
+                            <Link :href="route('home')">
+                                    <span class="dark:!text-white"  :class="{ 'text-white ': !isSticky && !isNotHome, 'lg:hidden dark:!text-white': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">Accueil</span>
+
+                                    <span  class="dark:!text-white"  :class="{ 'hidden dark:!text-white': !isNotHome }">Accueil</span>
+
+
+
+                            </Link>
+
+
+
 
                         </li>
-                        <li class="lvl1 parent megamenu"><a href="#">Produit <i class="anm anm-angle-down-l"></i></a>
-                            <div class="megamenu hidden lg:block  !dark:bg:gray-800 !pb-12 style4 soft-scrollbar">
+                        <li class="lvl1 parent z-[60]  megamenu">
+
+                                 <a href="">
+                                        <span class="dark:!text-white" :class="{ 'lg:text-white': !isSticky && !isNotHome, 'lg:hidden': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">Categories</span>
+
+                                        <span class="dark:!text-white" :class="{ 'hidden': !isNotHome }">Categories</span>
+
+
+
+                                 </a>
+
+                            <div class="megamenu z-50 hidden lg:block  !dark:bg:gray-800 !pb-12 style4 soft-scrollbar">
                                     <div>
-                                            <h1 class="mb-2 font-bold Text-lg">Toutes les categories</h1>
+                                            <Link :href="route('categories')" class="mb-2 font-bold Text-lg">Toutes les categories</Link>
                                         </div>
                                 <ul class="grid grid-cols-4 rounded-md grid--uniform mmWrapper">
-                                    <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">Shop Pages</a>
+                                    <li  v-for="category in categories" :key="category.id" class="grid__item lvl-1 col-md-3 col-lg-3">
+                                        <Link :href="route('categoryName', category.name)" class="site-nav lvl-1">{{ category.name }}</Link>
                                         <ul class="subLinks">
-                                            <li class="lvl-2"><a href="shop-left-sidebar.html" class="site-nav lvl-2">Left Sidebar</a></li>
-                                            <li class="lvl-2"><a href="shop-right-sidebar.html" class="site-nav lvl-2">Right Sidebar</a></li>
-                                            <li class="lvl-2"><a href="shop-fullwidth.html" class="site-nav lvl-2">Fullwidth</a></li>
-                                            <li class="lvl-2"><a href="shop-grid-3.html" class="site-nav lvl-2">3 items per row</a></li>
-                                            <li class="lvl-2"><a href="shop-grid-4.html" class="site-nav lvl-2">4 items per row</a></li>
-                                            <li class="lvl-2"><a href="shop-grid-5.html" class="site-nav lvl-2">5 items per row</a></li>
-                                            <li class="lvl-2"><a href="shop-grid-6.html" class="site-nav lvl-2">6 items per row</a></li>
-                                            <li class="lvl-2"><a href="shop-grid-7.html" class="site-nav lvl-2">7 items per row</a></li>
-                                            <li class="lvl-2"><a href="shop-listview.html" class="site-nav lvl-2">Product Listview</a></li>
+                                            <li v-for="subcategory in category.subcategories" class="lvl-2">
+                                                <Link :href="route('SubcategoryName', [category.name, subcategory.name])"  class="site-nav lvl-2">{{ subcategory.name}}</Link>
+                                            </li>
+
                                         </ul>
                                     </li>
-                                    <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">Shop Features</a>
-                                        <ul class="subLinks">
-                                            <li class="lvl-2"><a href="shop-left-sidebar.html" class="site-nav lvl-2">Product Countdown <span class="lbl nm_label3">Hot</span></a></li>
-                                            <li class="lvl-2"><a href="shop-right-sidebar.html" class="site-nav lvl-2">Infinite Scrolling</a></li>
-                                            <li class="lvl-2"><a href="shop-grid-3.html" class="site-nav lvl-2">Pagination - Classic</a></li>
-                                            <li class="lvl-2"><a href="shop-grid-6.html" class="site-nav lvl-2">Pagination - Load More</a></li>
-                                            <li class="lvl-2"><a href="product-labels.html" class="site-nav lvl-2">Dynamic Product Labels</a></li>
-                                            <li class="lvl-2"><a href="product-swatches-style.html" class="site-nav lvl-2">Product Swatches <span class="lbl nm_label2">Sale</span></a></li>
-                                            <li class="lvl-2"><a href="product-hover-info.html" class="site-nav lvl-2">Product Hover Info</a></li>
-                                            <li class="lvl-2"><a href="shop-grid-3.html" class="site-nav lvl-2">Product Reviews</a></li>
-                                            <li class="lvl-2"><a href="shop-left-sidebar.html" class="site-nav lvl-2">Discount Label <span class="lbl nm_label1">New</span></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="grid__item lvl-1 col-md-6 col-lg-6">
-                                        <a href="#"><img src="assets/images/megamenu-bg1.jpg" alt="" title="" /></a>
-                                    </li>
+
+
                                 </ul>
                             </div>
                         </li>
-                        <li class="lvl1 parent dropdown"><a href="#">Freelance <i class="anm anm-angle-down-l"></i></a>
+                        <li class="lvl1 parent dropdown">
+                                 <a href="">
+                                    <span  class="dark:!text-white"  :class="{ 'lg:text-white': !isSticky && !isNotHome, 'lg:text-black lg:hidden': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">Freelance</span>
 
-                             <ul class="dropdown">
-                                        <li><a href="" class="site-nav">Devenir Freelance</a></li>
-                                        <li><a href="" class="site-nav">Trouver un freelance</a></li>
+                                    <span class="dark:!text-white"  :class="{ 'hidden': !isNotHome }">Freelance</span>
+
+                                 </a>
 
 
-                                    </ul>
+
+                                <ul class="dropdown">
+                                        <li>
+                                             <Link :href="route('register.begin')">Devenir Freelance</Link>
+
+                                        </li>
+                                        <li> <Link :href="route('find_freelance')">Trouver un freelance</Link></li>
+
+
+                                </ul>
                     </li>
-                    <li class="lvl1 parent dropdown"><a href="#">Mission <i class="anm anm-angle-down-l"></i></a>
+                    <li class="lvl1 parent dropdown">
+                         <a href="#">
+                                        <span class="dark:!text-white"  :class="{ 'lg:text-white': !isSticky && !isNotHome, 'lg:hidden': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">Mission</span>
+
+                                        <span class="dark:!text-white"  :class="{ 'hidden': !isNotHome }">Mission</span>
+
+                         </a>
                          <ul class="dropdown">
 
                             <li><a href="" class="site-nav">Soumettre une Mission</a></li>
                         </ul>
                     </li>
-                        <li class="lvl1 parent dropdown"><a href="#">Services <i class="anm anm-angle-down-l"></i></a>
+                        <li class="lvl1 parent dropdown">
+                                   <Link :href="route('home')">
+                                            <span  class="dark:!text-white"  :class="{ 'lg:text-white': !isSticky && !isNotHome, 'lg:hidden': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">Services</span>
+
+                                            <span class="dark:!text-white"  :class="{ 'hidden': !isNotHome }">Services</span>
+
+                                    </Link>
 
                         </li>
-                    <li class="lvl1 parent dropdown"><a href="#">Contact <i class="anm anm-angle-down-l"></i></a>
-                        <ul class="dropdown">
-                             <li><a href="" class="site-nav">Contact</a></li>
+                    <li class="lvl1 parent dropdown">
+                                       <Link  :href="route('home')">
+                                                <span class="dark:!text-white"  :class="{ 'lg:text-white': !isSticky && !isNotHome, 'lg:hidden': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">Services</span>
 
-                                        <li><a href="" class="site-nav">Votre Avis</a></li>
-                                        <li><a href="" class="site-nav">Faq</a></li>
+                                                <span class="dark:!text-white"  :class="{ 'hidden': !isNotHome }">Services</span>
+
+                                        </Link>
+                        <ul class="dropdown">
+                             <li>
+                                <Link :href="route('contact')">Contact</Link>
+                            </li>
+                            <li>
+                                <Link :href="route('contact')">Contact</Link>
+                            </li>
+                            <li>
+                                    <Link :href="route('about')">A propos de nous</Link>
+                                </li>
+                            <li>
+
+                                    <Link :href="route('faq')">Faq</Link>
+
+
+                            </li>
                         </ul>
                     </li>
 
@@ -105,6 +151,8 @@
             <div class="block col-span-6 mx-auto lg:col-span-2 lg:hidden mobile-logo">
                 <div class="logo">
                     <a href="/">
+
+
                             <img  src="/images/logo/find_02.png" alt="logo-find" class="w-24">
                     </a>
                 </div>
@@ -114,12 +162,12 @@
                 <div v-if="$page.props.auth.user"  class="site-cart">
                       <button @click="isSearchBoxOpen = !isSearchBoxOpen" type="button" class="search-trigger">
 
-                                <svg v-show="isHome" class="hidden w-5 h-5 lg:block " :class="isWhite ? 'dark:!text-white' : '!text-white dark:!text-white'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                <svg v-show="isNotHome" class="hidden w-5 h-5 lg:block " :class="isSticky ? 'dark:!text-white' : '!text-white dark:!text-white'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
-                                <svg  v-show="!isHome" class="hidden w-5 h-5 lg:block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                <svg  v-show="!isNotHome" class="hidden w-5 h-5 lg:block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -132,19 +180,35 @@
 
 
                         </button>
+
+
                 </div>
 
-                <div v-if="!$page.props.auth.user" >
-                     <a href=""
-                            class="relative items-center justify-center hidden w-full h-12 px-8 mx-auto rounded-full lg:flex bg-skin-fill group dark:bg-skin-fill hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
-                            <span
-                                class="relative text-base font-semibold text-white dark:text-white underline-none">S'inscrire</span>
+                <div  v-if="$page.props.auth.user" class="hidden lg:block">
 
-                        </a>
-                        <a href=""
-                            class="relative flex items-center justify-center h-10 px-4 mx-auto mr-4 text-sm duration-300 rounded-md lg:hidden bg-gray-50 before:absolute before:inset-0 before:transition hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
-                            <span class="relative text-base font-semibold text-amber-600">S'inscrire</span>
-                    </a>
+                    <userInfo />
+
+
+                </div>
+
+
+                <div v-if="!$page.props.auth.user" >
+
+                        <Link :href="route('register')"  class="relative items-center justify-center hidden w-full h-12 px-8 mx-auto rounded-full lg:flex bg-skin-fill group dark:bg-skin-fill hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
+
+                             <span
+                                    class="relative text-base font-semibold text-white dark:text-white underline-none">S'inscrire</span>
+
+                        </Link>
+
+                        <Link :href="route('register')"  class="relative flex items-center justify-center h-10 px-4 mx-auto mr-4 text-sm duration-300 rounded-md lg:hidden bg-gray-50 before:absolute before:inset-0 before:transition hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
+
+                                  <span class="relative text-base font-semibold text-amber-600">S'inscrire</span>
+
+                            </Link>
+
+
+
                 </div>
 
             </div>
@@ -162,14 +226,60 @@
 
 <script setup>
 
-import {ref} from 'vue';
+import {ref, watch,computed } from 'vue';
+import { router,Link } from '@inertiajs/vue3';
+import { useStore } from '@/store';
+
+import userInfo from '@/Components/userInfo.vue';
+
+
+
+
 
 
 const navOpen = ref(false);
 const isSearchBoxOpen = ref(false);
-const isWhite=ref(false);
-const isHome = ref(false);
+const isSticky =ref(false);
 
+const store = useStore();
+
+
+
+
+
+const isNotHome = computed(() => store.getVariable);
+
+// Écoutez les changements de la variable isNotHome dans le store
+
+
+
+defineProps({
+    categories: Array,
+});
+
+
+
+
+
+
+
+
+
+
+function handleScroll() {
+    if (window.innerWidth > 1199) {
+        if (window.scrollY > 145) {
+            isSticky.value = true;
+            // Ajoutez d'autres modifications nécessaires ici
+        } else {
+            isSticky.value = false;
+            // Ajoutez d'autres modifications nécessaires ici
+        }
+    }
+}
+
+// Attachez l'événement de défilement au composant
+window.addEventListener('scroll', handleScroll);
 
 </script>
 

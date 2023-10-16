@@ -33,6 +33,15 @@ class Category extends Model
 
 
 
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+    public function freelances(): HasMany
+    {
+        return $this->hasMany(Freelance::class);
+    }
+
     public function subCategories(): HasMany
     {
         return $this->hasMany(SubCategory::class);
