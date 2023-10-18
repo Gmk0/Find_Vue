@@ -109,7 +109,7 @@
                         </ul>
                     </li>
                         <li class="lvl1 parent dropdown">
-                                   <Link :href="route('home')">
+                                   <Link :href="route('Allservices')">
                                             <span  class="dark:!text-white"  :class="{ 'lg:text-white': !isSticky && !isNotHome, 'lg:hidden': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">Services</span>
 
                                             <span class="dark:!text-white"  :class="{ 'hidden': !isNotHome }">Services</span>

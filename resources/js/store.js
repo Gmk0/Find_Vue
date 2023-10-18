@@ -4,27 +4,29 @@ import axios from 'axios';
 
 
 
+
 export const useCategoryStore = defineStore('category', {
     state: () => ({
-        categories: [],
+        categories: []
     }),
     actions: {
         async fetchCategories() {
             try {
-                const response =await axios.get('/api/fetchAll');// Remplacez l'URL par l'endpoint approprié
+                const response = await axios.get('/api/fetchAll');
                 this.categories = response.data;
-
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
-        },
+        }
     },
     getters: {
-        getCategories() {
-            return this.categories;
-        },
-    },
+        getCategoriesArray() {
+            // Convertir l'objet en tableau associatif
+            return Object.values(this.categories);
+        }
+    }
 });
+
 
 export const useStore = defineStore({
     id: 'isNotHome',

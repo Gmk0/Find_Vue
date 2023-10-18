@@ -18,11 +18,11 @@ class FreelanceController extends Controller
        // $this->subCategories = SubCategory::whereIn('id', $this->freelance->sub_categorie)->get();
 
         $freelances = Freelance::query();
-        
+
         return Inertia::render('Web/Freelance/FindFreelance',[
             'filters'
             => RequestFacade::all('search', 'category', 'sub_category', 'price', 'level', 'disponible'),
-            
+
             'freelances'=> $freelances
                 ->with('category')
                 ->with('user')
@@ -48,7 +48,7 @@ class FreelanceController extends Controller
 
     public function portefolio($portefolio)
     {
-   
+
 
         $freelance = Freelance::where('identifiant', $portefolio)->first();
 

@@ -157,6 +157,28 @@ class Freelance extends Model
            ;
     }
 
+    public static function getFilteredFreelances(Request $request, $perPage = 10)
+    {
+        return self::with('category')
+        ->with('user')
+        ->orderBy('created_at', 'asc')
+        ->filter($request->only('search', 'category', 'sub_category', 'price', 'level', 'disponible'))
+        ->paginate($perPage)
+            ->withQueryString()
+            ->through(function ($freelance) {
+                return [
+                    'id' => $freelance->id,
+                    'nom' => $freelance->nom,
+                    'prenom' => $freelance->prenom,
+                    'level' => $freelance->level,
+                    'identifiant' => $freelance->identifiant,
+                    'sub_categorie' => $freelance->subcategories(),
+                    'like' => $freelance->isFavorite(),
+                    'user' => $freelance->user ? $freelance->user->only('name', 'profile_photo_url', 'profile_photo_path') : null,
+                    'category' => $freelance->category ? $freelance->category->only('name', 'id') : null,
+                ];
+            });
+    }
 
 
 

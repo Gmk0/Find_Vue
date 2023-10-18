@@ -34,6 +34,7 @@
         "swiper": "^10.3.1",
         "vue-collapsed": "^1.2.8",
         "vue-multiselect": "^3.0.0-beta.2",
-        "vue-sweetalert2": "^5.0.5"
+        "vue-sweetalert2": "^5.0.5",
+        "vuetify": "^3.3.22"
     }
 }

@@ -34,7 +34,7 @@ import { onMounted, ref } from 'vue';
 
 import { useDark } from '@vueuse/core';
 
-import { useSubcategoriesStore, useStore } from '@/store';
+import { useSubcategoriesStore, useCategoryStore, useStore } from '@/store';
 import axios from 'axios';
 
 const isDark = useDark();
@@ -48,6 +48,7 @@ defineProps({
 
 const categories = ref([]);
 
+const categoriesStore = useCategoryStore();
 const subcategoriesStore = useSubcategoriesStore();
 
 
@@ -59,6 +60,7 @@ onMounted(
 
 
             subcategoriesStore.fetchSubCategories();
+            categoriesStore.fetchCategories();
 
             const response = await axios.get('/api/fetchAll');
             categories.value = response.data.categories;

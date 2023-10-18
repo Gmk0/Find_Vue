@@ -4,15 +4,10 @@
 import WebLayout from '@/Layouts/WebLayout.vue';
 import  SelectCategory from '@/Components/SelectCategory.vue';
 import Pagination from '@/Components/Pagination.vue';
-import FreelanceCard from '@/Components/FreelanceCard.vue'
-
-import SectionBorder from '@/Components/SectionBorder.vue';
+import FreelanceCard from '@/Components/FreelanceCard.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { ref ,watch } from 'vue';
 import { Head, Link, useForm, router } from '@inertiajs/vue3';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { Collapse } from 'vue-collapsed'
 import Checkbox from '@/Components/Checkbox.vue';
@@ -65,7 +60,7 @@ const selectedCategoryId = ref(null);
 const selectedSubcategoryId = ref(null);
 const fetchSubcategories = async () => {
     try {
-       
+
         if (form.value.category) {
             const response = await axios.get(`/api/subcategories/${form.value.category}`);
             subcategories.value = response.data.subcategories;
@@ -98,12 +93,12 @@ onMounted(() => {
 watch(form, throttle(() => {
 
     fetchSubcategories();
-    
+
     router.get('/find-freelance',
         pickBy(form.value),
         {
             preserveState: true,
-            preserveScroll: true, 
+            preserveScroll: true,
             only:['freelances','filters']
         })
 }, 1000), { deep: true,})

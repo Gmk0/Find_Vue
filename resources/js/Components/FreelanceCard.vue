@@ -36,7 +36,7 @@ const like = ref(props.freelance.like);
 <template>
 
     <div class="m-1 lg:mx-0">
-        <div class="relative flex w-full min-w-[18rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
+        <div class="relative flex w-full min-w-[18rem] flex-col rounded-xl bg-white dark:bg-gray-900 bg-clip-border text-gray-700 shadow-lg">
             <div
                 class="relative h-48 mx-4 mt-2 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
 
@@ -50,7 +50,7 @@ const like = ref(props.freelance.like);
 
 
 
-                
+
                 <div v-if="$page.props.auth.user"  class="flex items-center">
                     <button class="absolute top-2 right-2"
                         @click="toogleFavorite()">
@@ -77,7 +77,7 @@ const like = ref(props.freelance.like);
 
 
                 </div>
-                
+
 
             </div>
             <div class="p-3">
@@ -112,7 +112,7 @@ const like = ref(props.freelance.like);
                     @empty(!$subCategories)
 
                     @forelse ($subCategories as $subCategory)
-                    @if ($loop->index < 4) 
+                    @if ($loop->index < 4)
                     <span x-tooltip='"{{$subCategory->name}}"'
                         class="items-center py-1 cursor-default px-2 rounded-md text-[10px] lg:text-[10px] font-medium border border-secondary-200 shadow-sm bg-secondary-100 text-secondary-700 dark:bg-secondary-700 dark:text-secondary-400 dark:border-none">
                         {{ $subCategory -> name }}

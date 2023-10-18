@@ -4,6 +4,8 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\Web\CategoryController;
 use App\Http\Controllers\Web\FreelanceController;
+use App\Http\Controllers\Web\MissionController;
+use App\Http\Controllers\Web\ServiceController;
 use App\Http\Controllers\WebController;
 use App\Models\Category;
 use Illuminate\Foundation\Application;
@@ -56,6 +58,21 @@ Route::controller(CategoryController::class)->group(function(){
     Route::get('/categories','index')->name('categories');
     Route::get('/services/{service_numero}', 'oneService')->name('oneService');
 });
+
+Route::controller(ServiceController::class)->group(function(){
+
+    Route::get('/services', 'allServices')->name('Allservices');
+
+});
+
+
+Route::controller(MissionController::class)->group(function(){
+
+    Route::get('/create-mission', 'createMission')->name('createProject');
+
+
+});
+
 
 
 

@@ -19,17 +19,13 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import AppLayout from './Layouts/AppLayout.vue';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-import Multiselect from 'vue-multiselect';
+
 import PrimeVue from 'primevue/config';
 import Pagination from '@/Components/Pagination.vue';
+import ToastService from 'primevue/toastservice';
 
 
-// register globally
 
-//import Tailwind from "primevue/passthrough/tailwind";
-
-
-// Assurez-vous d'importer votre layout
 
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -45,12 +41,13 @@ createInertiaApp({
             .use(pinia)
             .use(VueSweetalert2)
             .use(PrimeVue)
+            .use(ToastService)
+
 
            // .use(PrimeVue, { unstyled: true, pt: Tailwind })
             .use(ZiggyVue)
             .component('AppLayout', AppLayout)
             .component('pagination',Pagination)
-            .component('multiselect', Multiselect);
 
              // Enregistrez votre composant de layout
 
