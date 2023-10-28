@@ -39,20 +39,15 @@
 <script setup>
 import WebLayout from '@/Layouts/WebLayout.vue';
 import { Head, Link, useForm, router } from '@inertiajs/vue3';
-import { useStore } from '@/store'; // Assurez-vous d'ajuster le chemin d'importation
+// Assurez-vous d'ajuster le chemin d'importation
 import { onMounted } from 'vue';
 
-const store = useStore();
-const change = store.isNotHome;
 
 defineProps({
     categories: Array,
 })
 
-onMounted(() => {
-    // Change la valeur de isNotHome dans le store
-    store.updateIsNotHomeTrue();
-});
+
 
 
 defineOptions({

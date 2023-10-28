@@ -1,0 +1,1 @@
+import{_ as e}from"./WebLayout-ee7bb835.js";import{e as o,o as t}from"./app-fdc68bd6.js";const n=Object.assign({layout:e},{__name:"Portefolio",setup(a){return(r,s)=>(t(),o("div"))}});export{n as default};

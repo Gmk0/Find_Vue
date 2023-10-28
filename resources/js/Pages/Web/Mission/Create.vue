@@ -13,7 +13,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 
 import Dropdown from 'primevue/dropdown';
-import { useCategoryStore, useStore } from '@/store';
+
 
 import { ref, onMounted } from 'vue';
 import { useToast } from "primevue/usetoast";
@@ -24,7 +24,7 @@ const props=defineProps(
     }
 );
 
-const store = useStore();
+
 
 const category = ref(props.categories);
 
@@ -42,15 +42,6 @@ const step = ref(1);
 
 
 
-
-onMounted(() => {
-    // Change la valeur de isNotHome dans le store
-    store.updateIsNotHomeTrue();
-
-
-
-
-});
 
 
 
@@ -73,18 +64,18 @@ defineOptions({
                 Mission/Create
         </div>
 
-        <div class="grid grid-cols-2  px-2 py-3 ">
+        <div class="grid grid-cols-2 px-2 py-3 ">
 
-            <div class="hidden col-span-1  p-4 lg:block">
-                    <img src="/images/hero/team.svg" class="object-cover w-full p-2 bg-white rounded-md h-full " alt="">
+            <div class="hidden col-span-1 p-4 lg:block">
+                    <img src="/images/hero/team.svg" class="object-cover w-full h-full p-2 bg-white rounded-md " alt="">
             </div>
 
-            <div class="flex flex-col w-full mx-auto   lg:mx-0 col-span-1 ">
+            <div class="flex flex-col w-full col-span-1 mx-auto lg:mx-0 ">
 
                 <div class="hidden">
 
-                    <div class=" border  rounded-lg p-4">
-                        <ol class="items-center flex justify-around w-full space-y-4 sm:flex sm:space-x-8 sm:space-y-0">
+                    <div class="p-4 border rounded-lg ">
+                        <ol class="flex items-center justify-around w-full space-y-4 sm:flex sm:space-x-8 sm:space-y-0">
 
                              <li :class="{ 'flex items-center text-blue-600 dark:text-blue-500 space-x-2.5': step === 1, 'flex items-center text-gray-500 dark:text-gray-400 space-x-2.5': step !== 1 }">
 
@@ -110,14 +101,14 @@ defineOptions({
                     <div class="">
 
                          <transition name="fade">
-                        <div v-if="step === 1" class=" mt-4 flex flex-col">
+                        <div v-if="step === 1" class="flex flex-col mt-4 ">
                             <div>
                                 <InputLabel for="name" value="Titre" />
                                 <TextInput
                                     id="name"
 
                                     type="text"
-                                    class="mt-1 block w-full"
+                                    class="block w-full mt-1"
                                     required
                                     autofocus
                                     autocomplete="name"
@@ -148,14 +139,14 @@ defineOptions({
                         </transition>
 
                         <transition name="fade">
-                         <div v-if="step === 2" class="w-full mt-4 flex flex-col">
+                         <div v-if="step === 2" class="flex flex-col w-full mt-4">
                                 <div>
                                     <InputLabel for="name" value="Titre" />
                                     <TextInput
                                         id="name"
 
                                         type="text"
-                                        class="mt-1 block w-full"
+                                        class="block w-full mt-1"
                                         required
                                         autofocus
                                         autocomplete="name"
@@ -186,7 +177,7 @@ defineOptions({
                         </transition>
 
                     </div>
-                    <div class="flex mt-6 justify-between">
+                    <div class="flex justify-between mt-6">
                         <div>
 
                             <button  v-if="step ===2" @click="changeStep(1)" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
