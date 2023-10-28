@@ -1,10 +1,13 @@
 
 <script setup>
 
+
+import Image from 'primevue/image';
+
 import { computed , onMounted, reactive, watch, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import axios from 'axios';
-import { useSubcategoriesStore, useStore } from '@/store';
+
 
 
 
@@ -36,15 +39,20 @@ const like = ref(props.freelance.like);
 <template>
 
     <div class="m-1 lg:mx-0">
-        <div class="relative flex w-full min-w-[18rem] flex-col rounded-xl bg-white dark:bg-gray-900 bg-clip-border text-gray-700 shadow-lg">
+        <div class="relative flex w-full min-w-[18rem] flex-col rounded-xl bg-white dark:bg-gray-800 bg-clip-border text-gray-700 shadow-lg">
             <div
                 class="relative h-48 mx-4 mt-2 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
 
 
 
 
-                <img v-if="props.freelance.user.profile_photo_path != null" src="" alt=""
-                    class="object-cover w-full h-48">
+
+
+
+                       <Image v-if="props.freelance.user.profile_photo_path != null"   class="object-cover w-full h-48"  :src="'/storage/' + props.freelance.user.profile_photo_path" :alt="props.freelance.user.name" width="250" preview />
+
+
+
 
                 <img v-else class="object-cover w-full h-48" :src="props.freelance.user.profile_photo_url" alt="">
 

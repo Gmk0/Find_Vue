@@ -6,23 +6,22 @@ import  SelectCategory from '@/Components/SelectCategory.vue';
 import Pagination from '@/Components/Pagination.vue';
 import FreelanceCard from '@/Components/FreelanceCard.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { ref ,watch } from 'vue';
+import { ref ,watch, computed } from 'vue';
 import { Head, Link, useForm, router } from '@inertiajs/vue3';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { Collapse } from 'vue-collapsed'
 import Checkbox from '@/Components/Checkbox.vue';
 import pickBy from 'lodash/pickBy';
 import throttle from 'lodash/throttle';
-
-
-import { useStore } from '@/store'; // Assurez-vous d'ajuster le chemin d'importation
-import { onMounted } from 'vue';
+import {useCategoryStore} from '@/store/store';
 
 const props= defineProps({
     freelances: Object,
     filters: Object,
 });
 
+
+const useCategory = useCategoryStore();
 const form = ref({
     search: props.filters.search,
     category: props.filters.category,
@@ -40,10 +39,34 @@ const search = ref("");
 
 
 
+const niveauFiltre = ref([
+    { name: 'Nouveau 1', code: '1' },
+    { name: 'Nouveau 2', code: '2' },
+    { name: 'Nouveau 3', code: '3' },
+    { name: 'Nouveau 4', code: '4' },
 
-const store = useStore();
-const change = store.isNotHome;
-const showFilters = ref(false);
+]);
+
+
+const trieElement = ref([
+    {
+        name: 'Plus recent', code: 'created_at-asc'
+    },
+    {
+        name: 'Plus ancient', code: 'created_at-desc'
+    },
+    {
+        name: 'Prix descendant', code: 'basic_price-desc'
+    },
+    {
+        name: 'Prix ascendant', code: 'basic_price-asc'
+    },
+    {
+        name: 'populaire', code: 'populaire-asc'
+    }
+])
+
+const categories = computed(()=> useCategory.categoriesGet.categories);
 
 const showCategoryFilter = ref(false);
 const Specialite = ref(false);
@@ -79,10 +102,6 @@ watch(form, () => {
 
 
 
-onMounted(() => {
-    // Change la valeur de isNotHome dans le store
-    store.updateIsNotHomeTrue();
-});
 
 
 
@@ -117,7 +136,7 @@ defineOptions({
 <template>
     <div class="min-h-screen pt-16">
         <div class="relative flex flex-col pb-8 bg-gray-100 dark:bg-gray-900">
-            <div class="relative h-20 bg-green-500 ">
+            <div class="relative h-20 bg-green-500 dark:bg-gray-600 ">
 
                 <div class="absolute inset-0 flex items-center justify-center">
                     <h1 class="text-4xl font-bold text-white">Trouver un freelance</h1>
@@ -178,8 +197,6 @@ defineOptions({
              <div  class="grid grid-cols-12 px-2">
                 <div class="w-full col-span-3 mt-4 leading-normal text-gray-800 lg:px-2">
 
-
-
                     <div :class="showFilters ? 'fixed inset-0  top-0  bottom-0  dark:bg-gray-800 bg-white z-[600] p-4 transition-all duration-200 w-full' : 'hidden w-full h-auto mt-0  md:top-[6rem]  inset-0 z-20'"
                         class="overflow-x-hidden overflow-y-auto border border-gray-400 rounded-md shadow lg:h-auto lg:block lg:border-transparent lg:shadow-none lg:bg-transparent custom-scrollbar"
                         id="menu-content">
@@ -207,10 +224,9 @@ defineOptions({
                                      <Collapse :when="showCategoryFilter" class="overflow-hidden leading-normal collapse">
 
                                         <div class="m-2">
-                                             <SelectCategory
-                                              id="select-category"
-                                              v-model="form.category"
-                                              />
+
+                                              <Dropdown v-model="form.category" :options="categories" optionValue="id" optionLabel="name" placeholder="Votre categorie" showClear
+                                                 class="w-full border border-gray-300 md:w-12rem"/>
 
                                         </div>
 
@@ -236,13 +252,13 @@ defineOptions({
                                     </button>
                                     <Collapse :when="Specialite" class="overflow-hidden leading-normal collapse">
 
-                                             <div class="m-2">
-                                                <label for="subcategories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a subcategory</label>
-                                                <select id="subcategories" v-model="form.sub_category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                <option value="" selected>Choose a subcategory</option>
-                                                <option v-for="subcategory in subcategories" :key="subcategory.id" :value="subcategory.id">{{ subcategory.name }}</option>
-                                                </select>
-                                            </div>
+                                        <div class="m-2">
+                                              <Dropdown v-model="form.sub_category" :options="subcategories" optionValue="id" optionLabel="name" placeholder="Votre sous categories" showClear
+                                                         class="w-full border border-gray-300 md:w-12rem"/>
+
+                                        </div>
+
+
                                       </Collapse>
                                 </div>
 
@@ -251,7 +267,7 @@ defineOptions({
                                 <div class="py-3 mb-4 border-b border-gray-400">
                                     <button @click="experience=!experience"
                                         class="flex items-center justify-between w-full mb-2 font-bold text-gray-700 dark:text-gray-100 focus:outline-none">
-                                        <span class="text-base dark:text-gray-100">Experience</span>
+                                        <span class="text-base dark:text-gray-100">Annee Experience</span>
                                         <svg v-show="!experience" class="w-4 h-4 fill-current"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                             <path
@@ -265,13 +281,9 @@ defineOptions({
                                     </button>
                                     <Collapse :when="experience">
 
-                                        <div class="m-2">
-                                            <select class="w-full max-w-xs select select-ghost">
-                                                <option disabled selected>Pick the best JS framework</option>
-                                                <option>O-1</option>
-                                                <option>5 ans</option>
-                                                <option>7 ans</option>
-                                                </select>
+                                     <div class="m-2">
+                                                  <Dropdown v-model="form.sub_category" :options="subcategories" optionValue="id" optionLabel="name" placeholder="Votre sous categories" showClear
+                                                             class="w-full border border-gray-300 md:w-12rem"/>
 
                                             </div>
 
@@ -299,10 +311,9 @@ defineOptions({
                                         </svg>
                                     </button>
                                     <Collapse :when="showPriceFilter" class="mt-2">
-                                        <div class="m-2">
 
 
-                                        </div>
+
 
 
 
@@ -329,9 +340,9 @@ defineOptions({
                                     </button>
                                     <Collapse :when="disponibilteFilter" class="">
 
-                                            <div>
-
-                                            <Checkbox id="terms" name="terms"/>
+                                    <div class="m-2">
+                                    <Dropdown v-model="form.disponible" :options="niveauFiltre" optionValue="id" optionLabel="name" placeholder="Disponibilite" showClear
+                                                class="w-full border border-gray-300 md:w-12rem"/>
 
                                             </div>
                                     </Collapse>
@@ -355,12 +366,18 @@ defineOptions({
                                     </button>
                                     <Collapse :when="niveauFilter">
 
-                                        <div class="m-2">
+
+
+                                             <div class="m-2">
+                                                  <Dropdown v-model="form.level" :options="niveauFiltre" optionValue="code" optionLabel="name" placeholder="Disponibilite" showClear
+                                                    class="w-full border border-gray-300 md:w-12rem"/>
+
+                                                </div>
 
 
 
 
-                                        </div>
+
                                     </Collapse>
                                 </div>
 

@@ -13,11 +13,52 @@ import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import 'swiper/css/effect-cube';
 import 'swiper/css/autoplay';
+import { useToast } from 'primevue/usetoast';
+
+const toast = useToast();
 
 
 const props = defineProps({
     service : Object,
 })
+
+import { cartStore } from '@/store/store';
+
+const usecartStore = cartStore();
+
+const swiperInstance = ref(null);
+const onSwiperInitialized = (swiper) => {
+    swiperInstance.value = swiper;
+};
+
+
+const navigateFreelance = (direction) => {
+    if (swiperInstance.value) {
+        if (direction === 'prev') {
+            swiperInstance.value.slidePrev();
+        } else if (direction === 'next') {
+            swiperInstance.value.slideNext();
+        }
+    }
+};
+
+const url='/storage/';
+
+const addToCart = () => {
+    const item =
+    {
+        id: props.service.id,
+        name: props.service.title,
+        price: props.service.basic_price,
+        level: 'basic',
+        image: url + props.service.image[0]
+    }; // Exemple d'article
+    usecartStore.addItem(item);
+
+    toast.add({ severity: 'info', summary: 'Message', detail: 'Service Ajouter au panier', group: 'br', life: 3000 });
+
+
+};
 
 </script>
 
@@ -26,6 +67,7 @@ const props = defineProps({
 
 
     <div>
+         <Toast position="bottom-right" group="br" />
 
         <div
              class="lg:h-[23rem] h-52  overflow-hidden bg-white rounded-xl shadow-md dark:text-gray-200 dark:bg-gray-900 ">
@@ -57,6 +99,15 @@ const props = defineProps({
 
                 </swiper-slide>
                 </Swiper>
+                 <div v-if="props.service.image.lenght > 1" class="px-4 ">
+                                <button type="button" @click="navigateFreelance('prev')" class="absolute left-0 z-50 p-4 ml-3 transition-opacity opacity-0 top-1/2 btn-outline btn-circle btn-sm group-hover:opacity-100 btn">
+                                    prev
+                                </button>
+                                <button type="button" @click="navigateFreelance('next')" class="absolute right-0 z-50 p-4 mr-3 transition-opacity opacity-0 top-1/2 group-hover:opacity-100 btn btn-outline btn-circle btn-sm">
+                                    next
+                                </button>
+
+                    </div>
 
                         <!-- Slides
                         <template x-for="(slide, index) in slides" :key="index">
@@ -178,9 +229,9 @@ const props = defineProps({
                     a partir de
                 </div>
 
-                <button  class=" bg-skin-fill p-2 text-white !rounded-br-xl !rounded-md">
-                    <span class="font-semibold">{{ props.service.basic_price }} $</span>
-                </button>
+                  <button @click="addToCart()" class=" bg-skin-fill p-2 text-white !rounded-br-xl !rounded-md">
+                        <span class="font-semibold">{{ props.service.basic_price }} $</span>
+                    </button>
 
 
 

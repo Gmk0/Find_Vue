@@ -7,6 +7,7 @@
         <title inertia>{{ config('app.name', 'FIND') }}</title>
 
         <link  rel="stylesheet" href="/css/important.css">
+                <link  rel="stylesheet" href="/css/new.css">
         <link  rel="stylesheet" href="/css/lara-dark-blue/theme.css">
         <link id="light" rel="stylesheet" href="/css/lara-light-blue/theme.css">
         <link rel="stylesheet" href="/css/plugin.css">

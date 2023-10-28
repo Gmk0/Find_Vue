@@ -12,7 +12,7 @@ window.jQuery = $;
 
 
 import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
+import { createInertiaApp, Link } from '@inertiajs/vue3';
 import { createPinia } from 'pinia';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
@@ -23,14 +23,29 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import PrimeVue from 'primevue/config';
 import Pagination from '@/Components/Pagination.vue';
 import ToastService from 'primevue/toastservice';
+import CartComponent from '@/components/CartComponent.vue';
+
+import Toast from 'primevue/toast';
+
+
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
+
+import NotificationComponent from '@/components/NotificationComponent.vue';
+
+import MultiSelect from 'primevue/multiselect';
+
+import Skeleton from 'primevue/skeleton';
+import InputText from 'primevue/InputText';
 
 
 
+import Dropdown from 'primevue/dropdown';
 
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate)
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -48,6 +63,14 @@ createInertiaApp({
             .use(ZiggyVue)
             .component('AppLayout', AppLayout)
             .component('pagination',Pagination)
+            .component('CartComponent', CartComponent)
+            .component('NotificationComponent', NotificationComponent)
+            .component('Link', Link)
+            .component('MultiSelect', MultiSelect)
+            .component('Skeleton', Skeleton)
+            .component('Dropdown', Dropdown)
+            .component('InputText', InputText)
+            .component('Toast', Toast)
 
              // Enregistrez votre composant de layout
 

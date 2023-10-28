@@ -3,75 +3,89 @@
          <div class="relative min-h-screen slideshow slideshow-wrapper pb-section sliderFull">
 
             <div class="hidden lg:block">
-                <div class="home-slideshow">
-                    <div class="relative slide slideshow--medium">
-                        <div class="blur-up lazyload bg-size">
-                            <img class="blur-up lazyload bg-img" data-src="/canva/graceBrand.svg" src="/canva/graceBrand.svg"
-                                alt="graceP" title="graceP" />
-                            <div class="slideshow__text-wrap slideshow__overlay classic middle">
-                                <div class="slideshow__text-content classic middle">
-                                    <div class="container">
-                                        <div class="wrap-caption right">
-                                            <h2 class="h1 mega-title slideshow__title"></h2>
-                                            <span class="mega-subtitle slideshow__subtitle"></span>
-                                            <span class=""></span>
+
+                  <div class="home-slideshow">
+                 <Swiper
+                        :modules="[Navigation, Autoplay, Pagination, Scrollbar, EffectFade, A11y]"
+                        effect="fade"
+                        :spaceBetween="30"
+                        :slides-per-view="1"
+                        :autoplay="{
+                            delay: 4000,
+                            disableOnInteraction: false
+                        }"
+                        >
+                        <swiper-slide>
+                        <div class="relative slide slideshow--medium">
+                            <div class="blur-up lazyload bg-size">
+                                <img class="blur-up lazyload bg-img" data-src="/canva/graceBrand.svg" src="/canva/graceBrand.svg"
+                                    alt="graceP" title="graceP" />
+                                <div class="slideshow__text-wrap slideshow__overlay classic middle">
+                                    <div class="slideshow__text-content classic middle">
+                                        <div class="container">
+                                            <div class="wrap-caption right">
+                                                <h2 class="h1 mega-title slideshow__title"></h2>
+                                                <span class="mega-subtitle slideshow__subtitle"></span>
+                                                <span class=""></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="absolute flex flex-col floating gap-1 right-[30%] top-1/2">
+                                <h1 class="text-lg font-medium text-white ">Grace Kabila</h1>
+                                <p class="text-base text-white">Marketeuse Digital</p>
+
+                            </div>
+                        </div>
+                        </swiper-slide>
+
+                        <swiper-slide>
+
+                        <div class="slide slideshow--medium">
+                            <div class="blur-up lazyload bg-size">
+                                <img class="blur-up lazyload bg-[#FFAA76] " data-src="/canva/sans.png" src="/canva/sans.png"
+                                    alt="women sans" title="women sans" />
+                                <div class="slideshow__text-wrap slideshow__overlay classic middle">
+                                    <div class="slideshow__text-content classic middle">
+                                        <div class="container">
+                                            <div class="wrap-caption right">
+                                                <h2 class="h1 mega-title slideshow__title"></h2>
+                                                <span class="mega-subtitle slideshow__subtitle"></span>
+                                                <span class=""></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="absolute flex flex-col floating gap-1 right-[30%] top-1/2">
-                            <h1 class="text-lg font-medium text-white ">Grace Kabila</h1>
-                            <p class="text-base text-white">Marketeuse Digital</p>
-
-                        </div>
-                    </div>
+                        </swiper-slide>
 
 
-
-                    <div class="slide slideshow--medium">
-                        <div class="blur-up lazyload bg-size">
-                            <img class="blur-up lazyload bg-[#FFAA76] " data-src="/canva/sans.png" src="/canva/sans.png"
-                                alt="women sans" title="women sans" />
-                            <div class="slideshow__text-wrap slideshow__overlay classic middle">
-                                <div class="slideshow__text-content classic middle">
-                                    <div class="container">
-                                        <div class="wrap-caption right">
-                                            <h2 class="h1 mega-title slideshow__title"></h2>
-                                            <span class="mega-subtitle slideshow__subtitle"></span>
-                                            <span class=""></span>
+                        <swiper-slide>
+                        <div class="slide slideshow--medium">
+                            <div class="blur-up lazyload bg-size">
+                                <img class="blur-up lazyload " data-src="/canva/homme.png" src="/canva/homme.png"
+                                    alt="New Season Styles" title="New Season Styles" />
+                                <div class="slideshow__text-wrap slideshow__overlay classic middle">
+                                    <div class="slideshow__text-content classic middle">
+                                        <div class="container">
+                                            <div class="wrap-caption right">
+                                                <h2 class="h1 mega-title slideshow__title"></h2>
+                                                <span class="mega-subtitle slideshow__subtitle"></span>
+                                                <span class=""></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        </swiper-slide>
 
-
-
-
-                    <div class="slide slideshow--medium">
-                        <div class="blur-up lazyload bg-size">
-                            <img class="blur-up lazyload " data-src="/canva/homme.png" src="/canva/homme.png" alt="New Season Styles"
-                                title="New Season Styles" />
-                            <div class="slideshow__text-wrap slideshow__overlay classic middle">
-                                <div class="slideshow__text-content classic middle">
-                                    <div class="container">
-                                        <div class="wrap-caption right">
-                                            <h2 class="h1 mega-title slideshow__title"></h2>
-                                            <span class="mega-subtitle slideshow__subtitle"></span>
-                                            <span class=""></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                      </Swiper>
                 </div>
             </div>
-
 
             <div class="absolute top-0 left-0 w-full h-screen bg-skin-fill dark:bg-gray-800 lg:hidden">
 
@@ -148,13 +162,14 @@
 
 
             <div data-aos="fade-right" data-aos-duration="800"
-                class="absolute top-0 left-0 px-6 py-8 mt-8 lg:col-span-6 lg:py-12 md:mb-8 xl:place-self-center xl:mt-0 lg:mb-0 lg:w-1/2">
+                class="absolute top-0 left-0 z-50 px-6 py-8 mt-8 lg:col-span-6 lg:py-12 md:mb-8 xl:place-self-center xl:mt-0 lg:mb-0 lg:w-1/2">
                 <div class="pt-[8rem] px-1">
 
                     <h1 class="text-3xl font-bold text-center text-white md:text-3xl xl:text-5xl lg:text-left">
                         Votre satisfaction dans nos services Freelance <br />
                     </h1>
 
+                     <HomeSearch />
 
 
                 </div>
@@ -166,195 +181,6 @@
         </div>
 
 
-        <!--
-
-         <div class="relative min-h-screen slideshow slideshow-wrapper pb-section sliderFull">
-
-            <div class="hidden lg:block">
-             <Swiper
-                :modules="[Navigation, Autoplay ,Pagination, Scrollbar, EffectFade, A11y]"
-                    effect="fade"
-                :spaceBetween="30"
-                :slides-per-view="1"
-                :autoplay="{
-                delay: 4000,
-                disableOnInteraction: false
-            }"
-                >
-
-
-                        <swiper-slide>
-
-                        <div class="relative slide slideshow--medium">
-                            <div class="blur-up lazyload bg-size">
-                                <img class="blur-up lazyload bg-img" data-src="/canva/graceBrand.svg" src="/canva/graceBrand.svg"
-                                    alt="graceP" title="graceP" />
-                                <div class="slideshow__text-wrap slideshow__overlay classic middle">
-                                    <div class="slideshow__text-content classic middle">
-                                        <div class="container">
-                                            <div class="wrap-caption right">
-                                                <h2 class="h1 mega-title slideshow__title"></h2>
-                                                <span class="mega-subtitle slideshow__subtitle"></span>
-                                                <span class=""></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="absolute flex flex-col floating gap-1 right-[30%] top-1/2">
-                                <h1 class="text-lg font-medium text-white ">Grace Kabila</h1>
-                                <p class="text-base text-white">Marketeuse Digital</p>
-
-                            </div>
-                        </div>
-                        </swiper-slide>
-
-
-                         <swiper-slide>
-
-                        <div class="slide slideshow--medium">
-                            <div class="blur-up lazyload bg-size">
-                                <img class="blur-up lazyload bg-img" data-src="/canva/filleC.png" src="/canva/filleC.png"
-                                    alt="New Season Styles" title="New Season Styles" />
-                                <div class="slideshow__text-wrap slideshow__overlay classic middle">
-                                    <div class="slideshow__text-content classic middle">
-                                        <div class="container">
-                                            <div class="wrap-caption right">
-                                                <h2 class="h1 mega-title slideshow__title"></h2>
-                                                <span class="mega-subtitle slideshow__subtitle"></span>
-                                                <span class=""></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        </swiper-slide>
-
-
-                         <swiper-slide>
-                        <div class="slide slideshow--medium">
-                            <div class="blur-up lazyload bg-size">
-                                <img class="blur-up lazyload " data-src="/canva/brand2/7.png" src="/canva/brand2/7.png"
-                                    alt="New Season Styles" title="New Season Styles" />
-                                <div class="slideshow__text-wrap slideshow__overlay classic middle">
-                                    <div class="slideshow__text-content classic middle">
-                                        <div class="container">
-                                            <div class="wrap-caption right">
-                                                <h2 class="h1 mega-title slideshow__title"></h2>
-                                                <span class="mega-subtitle slideshow__subtitle"></span>
-                                                <span class=""></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                         </swiper-slide>
-
-            </Swiper>
-            </div>
-
-
-
-            <div class="absolute top-0 left-0 w-full h-screen bg-skin-fill dark:bg-gray-800 lg:hidden">
-
-                <div
-                    class="hidden [mask-image:linear-gradient(to_bottom,white_20%,transparent_75%)] absolute bottom-[-100px] md:w-[800px] md:h-[750px] lg:top-[120px] lg:right-[-100px] xl:right-0 w-[500px] h-[500px] 2xl:w-[1026px] 2xl:h-[1026px]">
-                    <svg viewBox="0 0 1026 1026" fill="none" aria-hidden="true"
-                        class="absolute inset-0 w-full h-full animate-spin-slow">
-                        <path d="M1025 513c0 282.77-229.23 512-512 512S1 795.77 1 513 230.23 1 513 1s512 229.23 512 512Z"
-                            stroke="#D4D4D4" stroke-opacity="0.7"></path>
-                        <path d="M513 1025C230.23 1025 1 795.77 1 513" stroke="url(#:R65m:-gradient-1)" stroke-linecap="round">
-                        </path>
-                        <defs>
-                            <linearGradient id=":R65m:-gradient-1" x1="1" y1="513" x2="1" y2="1025" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#f8fafc"></stop>
-                                <stop offset="1" stop-color="#f8fafc" stop-opacity="0"></stop>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                    <svg viewBox="0 0 1026 1026" fill="none" aria-hidden="true"
-                        class="absolute inset-0 w-full h-full animate-spin-slow">
-                        <path d="M913 513c0 220.914-179.086 400-400 400S113 733.914 113 513s179.086-400 400-400 400 179.086 400 400Z"
-                            stroke="#D4D4D4" stroke-opacity="0.7"></path>
-                        <path d="M913 513c0 220.914-179.086 400-400 400" stroke="url(#:R65m:-gradient-2)" stroke-linecap="round">
-                        </path>
-                        <defs>
-                            <linearGradient id=":R65m:-gradient-2" x1="913" y1="513" x2="913" y2="913" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#f8fafc"></stop>
-                                <stop offset="1" stop-color="#f8fafc" stop-opacity="0"></stop>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-
-                <div class="relative w-full lg:-mt-10" id="girl">
-
-
-                    <div data-aos="fade-up" data-aos-delay="300" data-aos-once="true"
-                        class="absolute top-20 left-6 floating-4">
-                        <img class="h-12 bg-white rounded-lg bg-opacity-80 sm:h-16" src="/canva/feedback.png">
-                    </div>
-
-                    <div data-aos="fade-up" data-aos-delay="400" data-aos-once="true"
-                        class="absolute right-24 top-28 floating">
-                        <svg class="h-16 sm:h-24" viewBox="0 0 149 149" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g filter="url(#filter0_d)">
-                                <rect x="40" y="32" width="69" height="69" rx="14" fill="#F3627C" />
-                            </g>
-                            <rect x="51.35" y="44.075" width="47.3" height="44.85" rx="8" fill="white" />
-                            <path d="M74.5 54.425V78.575" stroke="#F25471" stroke-width="4" stroke-linecap="round" />
-                            <path d="M65.875 58.7375L65.875 78.575" stroke="#F25471" stroke-width="4" stroke-linecap="round" />
-                            <path d="M83.125 63.9125V78.575" stroke="#F25471" stroke-width="4" stroke-linecap="round" />
-                            <defs>
-                                <filter id="filter0_d" x="0" y="0" width="149" height="149" filterUnits="userSpaceOnUse"
-                                    color-interpolation-filters="sRGB">
-                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
-                                    <feOffset dy="8" />
-                                    <feGaussianBlur stdDeviation="20" />
-                                    <feColorMatrix type="matrix"
-                                        values="0 0 0 0 0.825 0 0 0 0 0.300438 0 0 0 0 0.396718 0 0 0 0.26 0" />
-                                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
-                                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
-                                </filter>
-                            </defs>
-                        </svg>
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-
-
-
-            <div data-aos="fade-right" data-aos-duration="800"
-                class="absolute hidden left-0 z-10 px-6 py-8  bg-red-400 top-[5rem] lg:mt-8 lg:col-span-6 lg:py-12 md:mb-8 xl:place-self-center xl:mt-0 lg:mb-0 lg:w-1/2">
-                <div class="pt-[8rem] px-1">
-
-                    <h1 class="text-3xl font-bold text-center text-white md:text-3xl xl:text-5xl lg:text-left">
-                        Votre satisfaction dans nos services Freelance <br />
-                    </h1>
-
-
-
-                </div>
-
-            </div>
-
-
-
-
-
-
-        </div>
-         -->
 
         <div id="features" class="bg-gray-100 dark:bg-gray-900">
 
@@ -919,15 +745,16 @@
 
 import WebLayout from '@/Layouts/WebLayout.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { useStore } from '@/store'; // Assurez-vous d'ajuster le chemin d'importation
+import { useStore } from '@/store/store';// Assurez-vous d'ajuster le chemin d'importation
 import { onMounted } from 'vue';
 
 import { Collapse } from 'vue-collapsed';
 import {ref} from 'vue';
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.js';
+
+import HomeSearch from '@/Components/HomeSearch.vue';
+
+
 
 import { Navigation, Pagination, Autoplay , EffectFade,Scrollbar, A11y, EffectCube } from 'swiper/modules';
 

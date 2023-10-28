@@ -1,6 +1,6 @@
 <script setup>
 import WebLayout from '@/Layouts/WebLayout.vue';
-import { useStore } from '@/store'; // Assurez-vous d'ajuster le chemin d'importation
+// Assurez-vous d'ajuster le chemin d'importation
 import { onMounted, ref } from 'vue';
 
 import Galleria from 'primevue/galleria';
@@ -45,8 +45,7 @@ for (let i = 0; i < props.service.files.length; i++) {
 
 
 
-const store = useStore();
-const change = store.isNotHome;
+
 const responsiveOptions = ref([
     {
         breakpoint: '991px',
@@ -62,10 +61,7 @@ const responsiveOptions = ref([
     }
 ]);
 
-onMounted(() => {
-    // Change la valeur de isNotHome dans le store
-    store.updateIsNotHomeTrue();
-});
+
 
 
 defineOptions({
@@ -79,20 +75,20 @@ defineOptions({
 
 <template>
      <div class="min-h-screen py-2 pt-16 bg-gray-100 md:px-6 dark:bg-gray-900">
-         <div class="px-2 hidden">
+         <div class="hidden px-2">
               All/Service
         </div>
         <div class="px-8">
-            <button class="py-2 border text-gray-800 hover:bg-amber-500 hover:text-white transition-all px-4 border-amber-500 rounded-lg" onclick="history.back()">Retour</button>
+            <button class="px-4 py-2 text-gray-800 transition-all border rounded-lg hover:bg-amber-500 hover:text-white border-amber-500" onclick="history.back()">Retour</button>
         </div>
 
         <div class="container relative px-4 py-4 mx-auto">
 
-            <div class="flex flex-col relative md:flex-row md:space-x-4">
-                <div id="card" class="flex-col relative mx-2 mb-4 md:flex md:order-2 md:mb-0 md:w-1/3">
+            <div class="relative flex flex-col md:flex-row md:space-x-4">
+                <div id="card" class="relative flex-col mx-2 mb-4 md:flex md:order-2 md:mb-0 md:w-1/3">
                     <div class="flex sticky top-[8rem] flex-col gap-2 px-2 pt-2 card-sticky ">
 
-                        <div class="sticky p-2 bg-white shadow-lg rounded-md dark:bg-gray-800">
+                        <div class="sticky p-2 bg-white rounded-md shadow-lg dark:bg-gray-800">
 
                         <div class=" sm:col-span-8 lg:col-span-7">
 
@@ -290,7 +286,7 @@ defineOptions({
                     </div>
                 </div>
 
-                <div class="w-full px-4 bg-gray-50 md:w-2/3">
+                <div class="w-full px-4 bg-gray-50 dark:bg-gray-800 md:w-2/3">
                     <div class="p-4 dark:bg-gray-800">
                         <div class="flex flex-col mb-4">
 

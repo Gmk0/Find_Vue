@@ -1,24 +1,32 @@
 <script setup>
 import WebLayout from '@/Layouts/WebLayout.vue';
-import { useStore } from '@/store'; // Assurez-vous d'ajuster le chemin d'importation
-import { onMounted, inject, ref, watch } from 'vue';
+// Assurez-vous d'ajuster le chemin d'importation
+import { onMounted, inject, ref, watch, computed  } from 'vue';
 import SectionBorder from '@/Components/SectionBorder.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm,router } from '@inertiajs/vue3';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue'
+import { useSubcategoriesStore, useCategoryStore, useStore } from '@/store/store';
 
-const props = defineProps({
+import InputNumber from 'primevue/inputnumber';
+
+import axios from 'axios';
+
+
+const props =   defineProps({
     user: Object,
 });
+
+const categoriesStore = useCategoryStore();
+const categories = computed(() => categoriesStore.categoriesGet.categories);
+
 
 
 const swal = inject('$swal')
 
-const store = useStore();
-const change = store.isNotHome;
 
 const step = ref(1);
 
@@ -62,7 +70,7 @@ const updatePhotoPreview = () => {
 
 };
 
-const categories = ref([]);
+
 const subcategories = ref([]);
 const selectedCategoryId = ref(null);
 const selectedSubcategoryId = ref(null);
@@ -71,6 +79,7 @@ const freelanceElement = ref({
     nom: '',
     prenom: '',
     email: props.user.email,
+    phone: props.user.phone,
     taux: '',
     portfolio: '',
     description : '',
@@ -302,25 +311,51 @@ const increaseStep = () => {
 
 
 
+const languagesArray = ref([]);
+function getWorldLanguages() {
+    // Effectuer la requête GET vers l'API restcountries
+    return axios.get('https://restcountries.com/v3/all')
+        .then(response => {
+            const data = response.data;
+            const uniqueLanguagesSet = new Set();
+
+            // Parcourir la liste des pays et ajouter leurs langues à l'ensemble temporaire
+            data.forEach(country => {
+                if (country.languages) {
+                    Object.entries(country.languages).forEach(([id, language]) => {
+                        // Utilisez l'ISO 639-1 code de langue comme identifiant
+                        uniqueLanguagesSet.add(language);
+                    });
+                }
+            });
+
+            // Convertir l'ensemble temporaire en un tableau d'objets
+            const uniqueLanguagesArray = Array.from(uniqueLanguagesSet).map(language => ({
+                language,
+                name: language // Vous pouvez remplacer 'id' par le nom de la langue si vous le souhaitez
+            }));
+
+            // Transformez l'ensemble en un tableau et renvoyez-le
+            languagesArray.value = uniqueLanguagesArray;
+
+            console.log(languagesArray.value);
+            //return languagesArray;
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des langues', error);
+            languagesArray.value = [];
+        });
+}
 
 
+onMounted(() => {
 
-
-
-onMounted(async () => {
-    try {
-        // Assuming you have a store object with an updateIsNotHomeTrue method
-        store.updateIsNotHomeTrue();
-
-        // Make an Axios request to retrieve categories
-        const response = await axios.get('/api/fetchAll');
-
-        // Update the categories ref with the retrieved categories
-        categories.value = response.data.categories;
-    } catch (error) {
-        console.error('An error occurred while making the Axios request:', error);
-    }
+    getWorldLanguages();
 });
+
+
+
+
 
 const fetchSubcategories = async () => {
     try {
@@ -342,7 +377,7 @@ watch(selectedCategoryId, () => {
 
 const register =()=>{
 
-    if (!freelanceElement.value.email || !freelanceElement.value.numero) {
+    if (!freelanceElement.value.email || !freelanceElement.value.phone) {
         swal('Veuillez remplir tous les champs de la 5 em section.');
         return false;
     }
@@ -374,10 +409,7 @@ const register =()=>{
             console.log('La requête a échoué avec des erreurs :', errors);
             // Ajoutez ici le code que vous souhaitez exécuter en cas d'échec
         },
-        onFinish: () => {
-            console.log('La requête a terminé, que ce soit en succès ou en erreur.');
-            // Ajoutez ici le code que vous souhaitez exécuter à la fin de la requête, qu'elle ait réussi ou échoué
-        },
+
     });
 }
 
@@ -414,12 +446,22 @@ defineOptions({
 });
 
 
+const experienceAnnee = ref([
+    { name: '0 a 2 ans', id: '0-2 ans' },
+    { name: '2 a 5 ans', id: '2-5 ans' },
+    { name: '+ 7 ans', id: '+ 7 ans' },
+]);
+const levelSelector = ref([
+    { name: 'Debutant', id: 'Debutant' },
+    { name: 'intermediare', id: 'intermediare' },
+    { name: 'Expert', id: 'Expert' },
+])
 
 </script>
 
 <template>
 
-        <div class="relative min-h-screen pt-16 border-t border-gray-100">
+         <div class="relative min-h-screen pt-16 text-gray-700 border-t border-gray-100">
         <div>
             <header class="bg-white top-0 lg:relative sticky lg:z-0 z-[60] shadow dark:bg-gray-800">
                 <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -557,37 +599,25 @@ defineOptions({
                                     class="px-4 py-5 bg-white rounded-lg shadow dark:bg-gray-800 dark:border dark:border-gray-200 sm:p-6 ">
                                     <div class="gap-6 md:grid md:grid-cols-1 md:mb-2">
                                         <div class="gap-6 md:grid ">
-                                            <div>
-                                                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
-                                                <select v-model="selectedCategoryId" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                <option selected>Choose a country</option>
-                                                <option v-for="category in categories"  :value="category.id">{{ category.name }}</option>
-
-                                                </select>
-
+                                             <div class="flex card justify-content-center">
+                                                <Dropdown v-model="selectedCategoryId" :options="categories" optionValue="id" optionLabel="name" placeholder="Votre categorie" showClear  class="w-full border border-gray-300 md:w-12rem" />
                                             </div>
+
 
                                         </div>
 
-                                        <div v-if="subcategories.length" class="grid grid-cols-2 gap-4 mt-4 mb-6">
-                                            <div>
-                                                    <label for="subcategories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a subcategory</label>
-                                                    <select id="subcategories" v-model="selectedSubcategoryId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                    <option value="" selected>Choose a subcategory</option>
-                                                    <option v-for="subcategory in subcategories" :key="subcategory.id" :value="subcategory.id">{{ subcategory.name }}</option>
-                                                    </select>
-                                                </div>
-                                             <div>
-                                                     <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
-                                                    <select v-model="freelanceElement.experience" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                    <option selected>Choose a experience</option>
+                                        <div v-if="subcategories.length" class="grid gap-4 mt-4 mb-6 lg:grid-cols-2">
 
-                                                    <option value="2 ans">2 ans</option>
-                                                    <option value="5 ans">5 ans </option>
-                                                    <option value="7 ans">7 ans</option>
-                                                    </select>
+
+                                                <div class="flex justify-content-center">
+                                                       <MultiSelect v-model="selectedSubcategoryId" :options="subcategories"  optionLabel="name" optionValue="id" class="w-full border border-gray-300 md:w-10rem" placeholder="Selectionner sous categorie"
+                                                        :maxSelectedLabels="3"  />
 
                                                 </div>
+
+                                                <div class="flex justify-content-center">
+                                                        <Dropdown v-model="freelanceElement.experience" :options="experienceAnnee" showClear  optionValue="id" optionLabel="name" placeholder="Experience" class="w-full !border !border-gray-300 md:w-10rem" />
+                                                 </div>
 
 
                                         </div>
@@ -629,7 +659,7 @@ defineOptions({
                                     <div class="">
                                         <div>
                                             <p class="mb-2 text-lg font-bold">Commpetences :</p>
-                                           <ul class="mb-4">
+                                           <ul class="mb-4 text-gray-700">
                                                 <li v-for="(exp, index) in experience" :key="index" class="flex gap-2 px-2">
                                                     <span>{{ exp.title }} - {{ exp.level }}</span>
 
@@ -643,23 +673,29 @@ defineOptions({
                                         </div>
 
 
-                                        <div class="grid grid-cols-3 gap-2 mb-4">
-                                            <div>
-                                                <TextInput
-                                                 class="block w-full"
+                                        <div class="grid gap-2 mb-4 lg:grid-cols-3">
+
+                                                <InputText
+                                                size="large"
+                                                 class="block w-full border border-gray-300 rounded-lg dark:!text-white dark:focus:!ring-amber-500 dark:!bg-gray-900 "
                                                  v-model="selectedExperiment.title"
 
                                                 />
 
-                                            </div>
 
-                                            <div>
-                                                 <TextInput
-                                                    class="block w-full"
-                                                    v-model="selectedExperiment.level"
-                                                     />
 
-                                            </div>
+
+                                                <Dropdown
+                                                v-model="selectedExperiment.level"
+                                                :options="levelSelector"
+
+                                                 size="small"
+                                                optionValue="id" optionLabel="name"
+                                                 placeholder="Experience"
+                                                class="w-full border border-gray-300 md:w-8rem" />
+
+
+
                                             <div>
                                                 <button @click="addExperience" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                                     Ajouter
@@ -700,10 +736,13 @@ defineOptions({
                                     class="px-4 py-5 bg-white rounded-lg shadow dark:bg-gray-800 dark:border dark:border-gray-200 sm:p-6">
 
 
-                                           <TextInput class="w-1/2"
-                                            placeholder="taux"
-                                            v-model="freelanceElement.taux"
-                                           />
+
+                                           <InputNumber v-model="freelanceElement.taux"
+                                           placeholder="Taux"
+                                           class="block w-full border border-gray-300 rounded-lg "
+                                           inputId="locale-us"
+                                           locale="en-US"
+                                           :minFractionDigits="2" />
 
 
 
@@ -736,7 +775,7 @@ defineOptions({
                             <div>
                                 <div
                                     class="px-4 py-5 bg-white rounded-lg shadow dark:bg-gray-800 dark:border dark:border-gray-200 sm:p-6 ">
-                                    <div class="grid gap-2 md:grid-cols-3">
+                                    <div class="grid gap-2 lg:grid-cols-3">
 
 
                                             <TextInput
@@ -895,7 +934,7 @@ defineOptions({
 
 
 
-                                 <InputError :message="image.errors.photo" class="mt-2" />
+                                 <InputError  class="mt-2" />
                         </div>
 
                                     </div>
@@ -992,21 +1031,33 @@ defineOptions({
                                             </div>
 
 
-                                            <div class="grid grid-cols-3 gap-2 mb-4">
+                                            <div class="grid gap-2 mb-4 lg:grid-cols-3">
                                                 <div>
-                                                    <TextInput
-                                                     class="block w-full"
-                                                     v-model="selectedLangue.langue"
+                                                      <Dropdown
+                                                        v-model="selectedLangue.langue"
+                                                        :options="languagesArray"
 
-                                                    />
+                                                        filter
+
+                                                         size="small"
+                                                        optionValue="name"
+                                                        optionLabel="name"
+                                                         placeholder="Niveau"
+                                                        class="w-full border border-gray-300 md:w-8rem" />
+
 
                                                 </div>
 
                                                 <div>
-                                                     <TextInput
-                                                        class="block w-full"
-                                                        v-model="selectedLangue.level"
-                                                         />
+
+                                                <Dropdown
+                                                    v-model="selectedLangue.level"
+                                                    :options="levelSelector"
+
+                                                     size="small"
+                                                    optionValue="id" optionLabel="name"
+                                                     placeholder="Niveau"
+                                                    class="w-full border border-gray-300 md:w-8rem" />
 
                                                 </div>
                                                 <div>
@@ -1080,7 +1131,7 @@ defineOptions({
                                                                     </th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody class="bg-white divide-y divide-gray-200">
+                                                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800">
 
 
 
@@ -1120,7 +1171,7 @@ defineOptions({
                                             </div>
                                         </div>
 
-                                        <div class="grid gap-4 mt-4 md:grid-cols-3 md:mb-2">
+                                        <div class="grid gap-4 mt-4 lg:grid-cols-3 md:mb-2">
                                             <div>
                                                  <TextInput
                                                  placeholder="Diplomer en"
@@ -1222,7 +1273,7 @@ defineOptions({
                                                                     </th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody class="bg-white divide-y divide-gray-200">
+                                                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800">
 
 
 
@@ -1262,7 +1313,7 @@ defineOptions({
                                             </div>
                                         </div>
 
-                                        <div class="grid gap-4 mt-4 md:grid-cols-3 md:mb-2">
+                                        <div class="grid gap-4 mt-4 lg:grid-cols-3 md:mb-2">
                                             <div>
                                                 <TextInput
                                                 class="block w-full"
@@ -1477,7 +1528,7 @@ defineOptions({
                                         </div>
 
 
-                                        <div class="grid grid-cols-3 gap-2 mb-4">
+                                        <div class="grid gap-2 mb-4 lg:grid-cols-3">
                                                 <div>
                                                     <TextInput
                                                      class="block w-full"
@@ -1561,6 +1612,7 @@ defineOptions({
                                 <div>
                                     <TextInput
                                     v-model="freelanceElement.email"
+                                    disabled
                                      />
 
                                 </div>
@@ -1613,7 +1665,8 @@ defineOptions({
 
 
                                 <TextInput
-                                v-model="freelanceElement.numero"
+                               v-model="freelanceElement.phone"
+                                disabled
 
                                 />
 
@@ -1676,7 +1729,6 @@ defineOptions({
 
 
     </div>
-
 
 
 </template>

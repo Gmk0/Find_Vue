@@ -29,12 +29,12 @@
 import { Head } from '@inertiajs/vue3';
 import Navbar from '@/Layouts/Partials/Navbar.vue';
 import Footer from '@/Layouts/Partials/Footer.vue';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 
 
 import { useDark } from '@vueuse/core';
 
-import { useSubcategoriesStore, useCategoryStore, useStore } from '@/store';
+import { useSubcategoriesStore, useCategoryStore, useStore } from '@/store/store';
 import axios from 'axios';
 
 const isDark = useDark();
@@ -46,28 +46,24 @@ defineProps({
 });
 
 
-const categories = ref([]);
+const categories = computed(()=> categoriesStore.categoriesGet.categories);
 
 const categoriesStore = useCategoryStore();
 const subcategoriesStore = useSubcategoriesStore();
+console.log(categories.value);
 
 
-onMounted(
-
-
-    async () => {
-        try {
-
-
-            subcategoriesStore.fetchSubCategories();
-            categoriesStore.fetchCategories();
-
-            const response = await axios.get('/api/fetchAll');
-            categories.value = response.data.categories;
-        } catch (error) {
-            console.error('Erreur lors de la récupération des catégories:', error);
-        }
+onMounted( () => {
+         subcategoriesStore.fetchSubCategories();
+    categoriesStore.fetchCategories();
     });
+
+
+    const levelSelector = ref([
+    { name: 'Debutant', id: 'Debutant' },
+    { name: 'intermediare', id: 'intermediare' },
+    { name: 'Expert', id: 'Expert' },
+])
 
 
 

@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Freelance\FreelanceAuth;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\User\ChatController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Web\CategoryController;
+use App\Http\Controllers\Web\CheckoutController;
 use App\Http\Controllers\Web\FreelanceController;
 use App\Http\Controllers\Web\MissionController;
 use App\Http\Controllers\Web\ServiceController;
@@ -86,13 +90,40 @@ Route::middleware([
     })->name('dashboard');
 
 
-    Route::controller(RegistrationController::class)->group(function(){
+    Route::prefix('user')->group(function(){
 
+        Route::controller(UserController::class)->group(function(){
+            Route::get('/dashboard','dashboard')->name('user.dashboard');
+            Route::get('/mission', 'missionsList')->name('user.missions');
+            Route::get('/commandes', 'commandesList')->name('user.commandes');
+            Route::get('/transactions', 'transactionsList')->name('user.transactions');
+        });
+
+        Route::get('/chat/{id?}' , ChatController::class)->name('user.chat');
+
+    });
+
+    Route::get('/panier',[CheckoutController::class, 'checkout'])->name('panier');
+
+    Route::controller(RegistrationController::class)->group(function(){
         Route::get('/registration/freelance', 'Registration')->name('freelancer.register')->middleware('freelance_exist');
         Route::put('/updateProfileUser', 'updateProfileUser')->name('updateProfileUser');
         Route::post('/register/freelance', 'register')->name('register.freelance');
     });
+
+
+    Route::prefix('freelance')->group(function(){
+
+        Route::controller(FreelanceAuth::class)->group(function(){
+
+            Route::get('/dashboard', 'dashboard')->name('freelance.dashboard');
+        });
+
     });
+});
+
+
+
 
 
 

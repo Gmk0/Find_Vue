@@ -1,46 +1,32 @@
+
+
+<script setup>
+import { onMounted, ref, computed } from 'vue';
+
+import { useCategoryStore } from '@/store/store';
+
+import Dropdown from 'primevue/dropdown';
+
+defineProps({
+    modelValue: Object,
+});
+
+defineEmits(['update:modelValue']);
+
+const input = ref(null);
+
+const category = useCategoryStore();
+
+const categories= computed(()=> category.categoriesGet.categories);
+
+
+</script>
+
 <template>
-    <select v-model="selectedCategory">
-        <option value="">{{ placeholder }}</option>
-        <option v-for="category in categories" :key="category.id" :value="category.id">
-            {{ category.name }}
-        </option>
-    </select>
+
+       <Dropdown :value="modelValue" :options="categories" optionValue="id" optionLabel="name" placeholder="Votre categorie" showClear
+        class="w-full border border-gray-300 md:w-12rem" @input="$emit('update:modelValue', $event.target.value)"/>
+
+
 </template>
 
-<script>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
-
-export default {
-    props: {
-        placeholder: {
-            type: String,
-            default: 'Sélectionnez une catégorie'
-        }
-    },
-    data() {
-        return {
-            categories: [],
-            selectedCategory: ''
-        };
-    },
-    mounted() {
-        this.fetchCategories();
-    },
-    methods: {
-        async fetchCategories() {
-            try {
-                const response = await axios.get('/api/fetchAll');
-                this.categories = response.data.categories;
-            } catch (error) {
-                console.error('Erreur lors de la récupération des catégories:', error);
-            }
-        }
-    },
-    watch: {
-        selectedCategory(newValue) {
-            this.$emit('input', newValue);
-        }
-    }
-};
-</script>

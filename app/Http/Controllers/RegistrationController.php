@@ -27,6 +27,8 @@ class RegistrationController extends Controller
                 'user' => [
                     'email' => auth()->user()->email,
                     'name' => auth()->user()->name,
+                    'phone' => auth()->user()->phone,
+                    'id'=> auth()->user()->id,
                 ],
             ]
 
@@ -36,15 +38,15 @@ class RegistrationController extends Controller
     public function register(Request $request)
     {
 
-        try{
             $data = $request->all();
+
+            //dd($data);
             Freelance::create($data);
 
-            return redirect(route('dashboard.freelance'));
 
-        }catch(\Exception $e){
+            return redirect(route('freelance.dashboard'));
 
-        }
+
 
 
 

@@ -3,8 +3,8 @@
     <div class="relative w-full min-h-screen py-16 pb-12 ">
 
         <div>
-            <div class="relative h-24 bg-skin-fill">
-                    <img class="hidden object-cover w-full h-full opacity-70" src="" alt="Women"
+            <div class="relative h-24 bg-skin-fill dark:bg-gray-600">
+                    <img class="hidden object-cover w-full h-full opacity-70" src="" alt="image"
                         title="" />
                     <div class="absolute inset-0 flex items-center justify-center">
                         <h1 class="text-lg font-bold text-white lg:text-4xl">{{ props.category.name }}</h1>
@@ -13,7 +13,7 @@
 
             <div class="relative mt-4 ">
 
-                  <div class="sticky top-0 z-30 grid h-auto grid-cols-12 px-4 py-2 bg-white lg:z-0 lg:bg-transparent lg:relative">
+                  <div class="sticky top-0 z-30 grid h-auto grid-cols-12 px-4 py-2 bg-white dark:bg-gray-800 lg:z-0 lg:bg-transparent lg:relative">
                         <div class="lg:col-span-3"></div>
 
                        <div class="grid col-span-12 gap-4 lg:col-span-9 lg:grid-cols-12 lg:gap-2 ">
@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="flex gap-2 lg:hidden ">
                                     <div>
-                                          <Dropdown v-model="form.orderBy" optionValue="code" :options="trieElement" showClear optionLabel="name" placeholder="Trier par" size="small" class="w-full md:w-14rem" />
+                                          <Dropdown v-model="form.orderBy" optionValue="code" :options="trieElement" showClear optionLabel="name" placeholder="Trier par"  class="w-full md:w-14rem" />
 
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
 
                      <div class="relative col-span-3 p-2">
 
-                            <div :class="showFiltre? 'fixed inset-0   top-0  bottom-0  dark:bg-gray-800 bg-white z-50 p-4 transition-all duration-200 w-full' : 'hidden w-full mt-0   z-20'"
+                            <div :class="showFiltre? 'fixed inset-0    top-0  bottom-0  dark:bg-gray-800 bg-white z-[250] p-4 transition-all duration-200 w-full' : 'hidden w-full mt-0   z-20'"
                                 class="overflow-x-hidden overflow-y-auto rounded-md lg:h-auto lg:block">
                                 <div class="flex flex-col p-2">
                                     <h1 class="mb-2 text-lg font-bold text-gray-800">Sous category</h1>
@@ -83,18 +83,18 @@
 
                                             <div class="flex flex-col gap-2 p-2">
 
-                                               <Slider v-model="form.price" />
+
                                             </div>
 
                                             <div aria-hidden="true" class="flex justify-between px-1">
                                                 <div class="flex justify-between gap-4 p-2 border">
-                                                     <TextInput value="10 $" disabled class="w-1/2 rounded-md " size="small" />
-                                                  <TextInput v-model.number="form.price" placeholder=" a" class="w-1/2 rounded-md" size="small" />
+                                                     <TextInput value="10 $" disabled class="w-1/2 rounded-md "  />
+                                                  <TextInput v-model.number="form.price" placeholder=" a" class="w-1/2 rounded-md"  />
                                                 </div>
                                             </div>
 
                                              <button v-if="form.price !=null " @click="clearPrice" class="p-2 text-gray-800 bg-gray-200 rounded-md">
-                                                     Clear
+                                                     Effacer
                                             </button>
                                         </div>
 
@@ -122,22 +122,7 @@
 
                                              <Dropdown v-model="form.level" optionValue="code" :options="cities" showClear optionLabel="name" placeholder="Choisir un niveau" class="w-full md:w-14rem" />
                                         </Collapse>
-                                        <!--
-                                        <div x-bind:class="showCategoryFilter ?'flex relative w-full p-1 mt-2':'hidden'"
-                                            class="">
 
-                                            <div>
-
-                                                <x-checkbox wire:click='level(1)' value="1" label='Nouveau' />
-                                                <x-checkbox wire:click='level(2)' value="2" label='Niveau 2' />
-                                                <x-checkbox wire:click='level(3)' value="3" label='Niveau 3' />
-                                                <x-checkbox wire:click='level(4)' value="4" label='Niveau 4' />
-                                                <x-checkbox wire:click='level(4)' value="5" label='Top prestataire' />
-
-
-                                            </div>
-                                        </div>
-                                            -->
                                         <div
                                             class="relative py-3 mt-4 mb-4 border-t border-gray-400 ">
                                             <button @click="showDeliveryFilter = !showDeliveryFilter"
@@ -159,12 +144,7 @@
                                                 <div class="m-2">
 
                                                      <Dropdown v-model="form.deliveryTime" :options="deliveryTime" showClear optionLabel="name" optionValue="code" placeholder="Choisir un le temps" class="w-full md:w-14rem" />
-                                                    <!--
 
-                                                      <x-select wire:model.live.100ms='delivery_time' class="!w-full" :options="['1-5'=> '1-5 jours',
-                                                          '5-10'=> '5-10 jours',
-                                                          '10-50'=> 'plus de 10 jours',]" />
-                                                        -->
 
                                                 </div>
 
@@ -212,14 +192,19 @@
                                 </div>
 
                                 <div class="flex gap-4 lg:hidden">
-                                    <button class="btn btn-sm" @click="showFiltre=!showFiltre">
-                                        appliquer
 
-                                    </button>
-                                    <button class="btn" @click="showFiltre = !showFiltre">
-                                            Fermer
+                                    <button type="button"
+                                            @click="showFiltre = !showFiltre"
+                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                                appliquer
+                                            </button>
 
-                                        </button>
+                                            <button
+                                            @click="showFiltre = !showFiltre"
+                                            type="button"
+                                            class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                                                Fermer
+                                            </button>
                                 </div>
 
                             </div>
@@ -348,7 +333,7 @@
 <script setup>
 import WebLayout from '@/Layouts/WebLayout.vue';
 import { Head, Link, useForm, router } from '@inertiajs/vue3';
-import { useStore } from '@/store'; // Assurez-vous d'ajuster le chemin d'importation
+import { useStore } from '@/store/store'; // Assurez-vous d'ajuster le chemin d'importation
 import { onMounted, ref, watch } from 'vue';
 import { Collapse } from 'vue-collapsed'
 import pickBy from 'lodash/pickBy';
@@ -466,10 +451,6 @@ defineOptions({
 
 });
 
-onMounted(() => {
-    // Change la valeur de isNotHome dans le store
-    store.updateIsNotHomeTrue();
-});
 
 
 

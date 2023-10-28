@@ -46,7 +46,7 @@ class ServiceFactory extends Factory
             'delivery_time_unit' => 'jours',
             'need_service' => $this->faker->text,
             'example' => $this->faker->text,
-            'sub_category' => ["8", "4", "14"],
+            'sub_category' => ["1", "2"],
             'files' => ['illustration/deco.png'],
             'format' => $this->faker->word,
             'video_url' => $this->faker->word,

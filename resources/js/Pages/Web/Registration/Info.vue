@@ -103,18 +103,11 @@
 
 <script setup>
 import WebLayout from '@/Layouts/WebLayout.vue';
-import { useStore } from '@/store'; // Assurez-vous d'ajuster le chemin d'importation
+// Assurez-vous d'ajuster le chemin d'importation
 import { onMounted } from 'vue';
 import { router, Link } from '@inertiajs/vue3';
 
 
-const store = useStore();
-const change = store.isNotHome;
-
-onMounted(() => {
-    // Change la valeur de isNotHome dans le store
-    store.updateIsNotHomeTrue();
-});
 
 
 defineOptions({
@@ -125,4 +118,4 @@ defineOptions({
 
 
 </script>
-<style lang="scss" scoped></style>
+<style lang="css" scoped></style>

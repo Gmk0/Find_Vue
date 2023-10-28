@@ -118,7 +118,7 @@ class Freelance extends Model
 
         static::creating(function ($freelance) {
 
-           // $freelance->user_id = auth()->id();
+            $freelance->user_id = auth()->id();
             $freelance->identifiant = 'FR' . date('YmdHms');
             $freelance->solde = 0;
         });
@@ -144,8 +144,8 @@ class Freelance extends Model
                     });
             });
         })
-        ->when(!empty($filters['level']) && is_array($filters['level']), function ($query) use ($filters) {
-            $query->whereIn('level', $filters['freelance_niveau']);
+        ->when(!empty($filters['level']) , function ($query) use ($filters) {
+            $query->where('level',$filters['level']);
         })
             // ... Autres conditions de filtre ...
 

@@ -19,13 +19,13 @@
 
 
                             <button @click="navigate('prev')"
-                                class="w-10 h-10 p-0 rounded-full btn2 prev-btn hover:bg-slate-300/20 focus:bg-slate-300/20 dark:active:bg-slate-300/25 active:bg-slate-100/25 disabled:pointer-events-none disabled:select-none disabled:opacity-60 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                class="w-10 h-10 p-0 rounded-full btn prev-btn hover:bg-slate-300/20 focus:bg-slate-300/20 dark:active:bg-slate-300/25 active:bg-slate-100/25 disabled:pointer-events-none disabled:select-none disabled:opacity-60 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
                                 </svg>
                             </button>
                             <button @click="navigate('next')"
-                                class="w-10 h-10 p-0 rounded-full btn2 next-btn hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 disabled:pointer-events-none disabled:select-none disabled:opacity-60 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                class="w-10 h-10 p-0 rounded-full btn next-btn hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 disabled:pointer-events-none disabled:select-none disabled:opacity-60 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
                                 </svg>
@@ -40,8 +40,9 @@
                     :modules="[Navigation, Pagination, Scrollbar, EffectCube, A11y]"
 
                     :spaceBetween="30"
-                    :slides-per-view="3"
+
                     :space-between="25"
+                    :breakpoints="{ 300: { slidesPerView: 1 }, 900: { slidesPerView: 3, } }"
                     @swiper="onSwiperInitialized"
                     >
                     <swiper-slide v-for="category in props.categories" class="m-2">
@@ -64,7 +65,7 @@
          </div>
 
          <div class="py-8 mx-6">
-                    <div class="flex px-4 items-center justify-between">
+                    <div class="flex items-center justify-between px-4">
                         <p class="text-xl font-medium text-slate-700 dark:text-navy-100">
                             Les Services populaire
                         </p>
@@ -91,7 +92,7 @@
                             :modules="[Navigation, Pagination, Scrollbar, EffectCube, A11y]"
 
                             :spaceBetween="30"
-                            :slides-per-view="4"
+                            :breakpoints="{ 600: { slidesPerView: 1 }, 768: { slidesPerView: 2, }, 992: { slidesPerView: 4, } }"
                             :space-between="25"
                             @swiper="onSwiperInitializedService"
                             >
@@ -109,7 +110,7 @@
                 </div>
 
            <div class="py-8 mx-6">
-                <div class="flex px-4 items-center justify-between">
+                <div class="flex items-center justify-between px-4">
                     <p class="text-xl font-medium text-slate-700 dark:text-navy-100">
                         Les Freelance populaire
                     </p>
@@ -136,7 +137,7 @@
                         :modules="[Navigation, Pagination, Scrollbar, EffectCube, A11y]"
 
                         :spaceBetween="30"
-                        :slides-per-view="4"
+                        :breakpoints="{ 500: { slidesPerView: 1 }, 600: { slidesPerView: 2 }, 768: { slidesPerView: 2, }, 992: { slidesPerView: 4, } }"
                         :space-between="25"
                         @swiper="onSwiperInitializedFreelance"
                         >
@@ -153,7 +154,7 @@
                 </div>
             </div>
 
-             <div class="flex flex-col p-2 mx-4 mt-4 bg-white dark:bg-gray-800 rounded-lg md:mx-6 justify-beetwen">
+             <div class="flex flex-col p-2 mx-4 mt-4 bg-white rounded-lg dark:bg-gray-800 md:mx-6 justify-beetwen">
 
                 <div class="mb-4">
                     <h1 class="text-xl font-bold text-gray-800 dark:text-gray-300">Services que vous pourriez aimer</h1>
@@ -183,7 +184,7 @@
             </div>
 
             <div
-                class="flex flex-col items-center justify-center p-6 mx-6 mt-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg min-h-64 lg:flex-row lg:justify-start">
+                class="flex flex-col items-center justify-center p-6 mx-6 mt-4 bg-white rounded-lg shadow-lg dark:bg-gray-800 min-h-64 lg:flex-row lg:justify-start">
                 <img src="/images/hero/team.svg" alt="Illustration de projet"
                     class="hidden w-1/2 h-64 mb-4 rounded-md lg:mr-6 md:block lg:mb-0">
                 <div class="text-center lg:text-left">
@@ -213,7 +214,7 @@
 
 <script setup>
 import WebLayout from '@/Layouts/WebLayout.vue';
-import { useStore } from '@/store'; // Assurez-vous d'ajuster le chemin d'importation
+
 import { Link } from '@inertiajs/vue3';
 import { onMounted,ref } from 'vue';
 import FreelanceCard from '@/Components/FreelanceCard.vue';
@@ -234,9 +235,6 @@ const props = defineProps({
     servicesBest : Array,
 });
 
-
-const store = useStore();
-const change = store.isNotHome;
 
 
 const swiperInstance = ref(null);
@@ -271,7 +269,7 @@ const navigateService = (direction) => {
         if (direction === 'prev') {
             swiperInstanceServices.value.slidePrev();
         } else if (direction === 'next') {
-            swiperInstanceFreelances.value.slideNext();
+            swiperInstanceServices.value.slideNext();
         }
     }
 };
@@ -290,10 +288,6 @@ const navigate = (direction) => {
 
 
 
-onMounted(() => {
-    // Change la valeur de isNotHome dans le store
-    store.updateIsNotHomeTrue();
-});
 
 
 defineOptions({
