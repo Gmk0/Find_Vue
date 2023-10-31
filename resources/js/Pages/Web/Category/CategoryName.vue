@@ -332,9 +332,9 @@
 
 <script setup>
 import WebLayout from '@/Layouts/WebLayout.vue';
-import { Head, Link, useForm, router } from '@inertiajs/vue3';
+import {  Link, router } from '@inertiajs/vue3';
 import { useStore } from '@/store/store'; // Assurez-vous d'ajuster le chemin d'importation
-import { onMounted, ref, watch } from 'vue';
+import {  ref, watch } from 'vue';
 import { Collapse } from 'vue-collapsed'
 import pickBy from 'lodash/pickBy';
 import throttle from 'lodash/throttle';
@@ -344,7 +344,7 @@ import ServiceCard from '@/Components/ServiceCard.vue';
 
 
 import Dropdown from 'primevue/dropdown';
-import Slider from 'primevue/slider';
+//import Slider from 'primevue/slider';
 
 
 

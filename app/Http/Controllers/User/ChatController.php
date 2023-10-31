@@ -14,14 +14,14 @@ class ChatController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(string $id = null): Response
+    public function __invoke(string $id = null)
     {
         //
 
          return Inertia::render('User/Chat/ChatComponent',
             [
                 'chat' => fn () => $id ? Conversation::findOrFail($id) : null,
-                'messages' => Message::latest()->where('user_id', Auth::id())->get()
+                'messages' => Message::latest()->where('sender_id', Auth::id())->get()
             ]
 
          );

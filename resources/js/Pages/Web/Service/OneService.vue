@@ -1,7 +1,7 @@
 <script setup>
 import WebLayout from '@/Layouts/WebLayout.vue';
 // Assurez-vous d'ajuster le chemin d'importation
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 
 import Galleria from 'primevue/galleria';
 
@@ -30,6 +30,12 @@ const props = defineProps({
 
 const like = ref(false);
 const level = ref('basic');
+
+const price=ref(props.service.basic_price);
+
+const changePrice =(Newprice)=>{
+    price.value= Newprice
+};
 
 const images = ref([]);
 
@@ -78,9 +84,7 @@ defineOptions({
          <div class="hidden px-2">
               All/Service
         </div>
-        <div class="px-8">
-            <button class="px-4 py-2 text-gray-800 transition-all border rounded-lg hover:bg-amber-500 hover:text-white border-amber-500" onclick="history.back()">Retour</button>
-        </div>
+
 
         <div class="container relative px-4 py-4 mx-auto">
 
@@ -158,21 +162,21 @@ defineOptions({
                                     class="flex items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                     <li class="w-full sm:border-r dark:border-gray-600" @click="level = 'Basic'"
                                         :class="level === 'Basic' ? 'border-b-4 border-amber-600' : ''">
-                                        <button
+                                        <button @click="changePrice(props.service.basic_price)"
                                             class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 focus:outline-none">
                                             Basic
                                         </button>
                                     </li>
                                     <li class="w-full sm:border-r dark:border-gray-600" @click="level = 'Premium'"
                                         :class="level === 'Premium' ? 'border-b-4 border-amber-600' : ''">
-                                        <button
+                                        <button  @click="changePrice(props.service.premium_price)"
                                             class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 focus:outline-none">
                                             Premium
                                         </button>
                                     </li>
                                     <li class="w-full dark:border-gray-600" @click="level = 'Extra'"
                                         :class="level === 'Extra' ? 'border-b-4 border-amber-600' : ''">
-                                        <button
+                                        <button  @click="changePrice(props.service.extra_price)"
                                             class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 focus:outline-none">
                                             Extra
                                         </button>
@@ -183,7 +187,7 @@ defineOptions({
 
                             <div class="flex justify-between gap-2 px-4 ">
                                 <p class="py-2 text-lg text-gray-800">{{ level }} </p>
-                                <p class="text-lg font-bold text-gray-800">500 $</p>
+                                <p class="text-lg font-bold text-amber-600">{{price}} $</p>
                             </div>
 
                             <div>
@@ -261,10 +265,9 @@ defineOptions({
                                                 d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                         </svg>
 
-                                        <span wire:loading.remove wire:target='add_cart'>Ajouter
+                                        <span>Ajouter
                                             au Panier</span>
-                                        <span wire:loading wire:target='add_cart'>Ajout...
-                                        </span>
+
                                     </button>
                                 </div>
 

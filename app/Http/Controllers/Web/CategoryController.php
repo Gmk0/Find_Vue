@@ -23,6 +23,7 @@ class CategoryController extends Controller
         //$category= Category::query();
         return Inertia::render('Web/Category/index',[
             'categories' => Category::all(),
+            'categoriesAll'=>Category::with('subCategories')->get()
             ]);
     }
 

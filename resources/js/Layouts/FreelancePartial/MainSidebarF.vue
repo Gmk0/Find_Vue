@@ -2,7 +2,7 @@
 
 import Popper from "vue3-popper";
 
-import { ref, onBeforeUnmount, onUnmounted } from 'vue';
+import { ref } from 'vue';
 
 const isShowPopper = ref(false);
 const popperRef = ref(null);

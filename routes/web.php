@@ -4,6 +4,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Freelance\FreelanceAuth;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\User\ChatController;
+use App\Http\Controllers\User\CommandeController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Web\CategoryController;
 use App\Http\Controllers\Web\CheckoutController;
@@ -95,8 +96,13 @@ Route::middleware([
         Route::controller(UserController::class)->group(function(){
             Route::get('/dashboard','dashboard')->name('user.dashboard');
             Route::get('/mission', 'missionsList')->name('user.missions');
-            Route::get('/commandes', 'commandesList')->name('user.commandes');
+           // Route::get('/commandes', 'commandesList')->name('user.commandes');
             Route::get('/transactions', 'transactionsList')->name('user.transactions');
+        });
+
+        Route::controller(CommandeController::class)->group(function(){
+            Route::get('/commandes/{order_numero}', 'commandesOne')->name('user.commandes.one');
+            Route::get('/commandes', 'commandesList')->name('user.commandes');
         });
 
         Route::get('/chat/{id?}' , ChatController::class)->name('user.chat');
@@ -104,6 +110,9 @@ Route::middleware([
     });
 
     Route::get('/panier',[CheckoutController::class, 'checkout'])->name('panier');
+
+    Route::post('/checkoutMaxi',[CheckoutController::class, 'checkoutMaxi'])->name('checkoutMaxi');
+
 
     Route::controller(RegistrationController::class)->group(function(){
         Route::get('/registration/freelance', 'Registration')->name('freelancer.register')->middleware('freelance_exist');

@@ -39,7 +39,7 @@ resize();
 
 
         <!-- Page Wrapper -->
-        <div id="root" class="flex min-h-100vh grow bg-slate-50 dark:bg-navy-900">
+        <div id="root" class="flex min-h-100vh grow bg-slate-50 dark:bg-gray-950">
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Main Sidebar -->

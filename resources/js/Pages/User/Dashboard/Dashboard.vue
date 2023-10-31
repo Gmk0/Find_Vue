@@ -2,18 +2,24 @@
 
 
 <template>
-    <div>
-          <div  class="p-2">
+
+
             <div
-                class="flex flex-col min-h-screen gap-6 mx-auto bg-gray-100 md:p-6 md:max-w-7xl md:container px-auto dark:bg-gray-900">
+                class="flex flex-col min-h-screen gap-6 mx-auto bg-gray-100 md:p-6 md:max-w-7xl md:container px-auto dark:bg-inherit">
+
+                <div class="flex flex-col">
+
+                    <h1 class="text-2xl font-bold">DASHBOARD</h1>
+
+                </div>
 
                 <div  class="grid grid-cols-2 gap-4 px-auto lg:grid-cols-4">
                     <a href=""
-                        class="px-4 py-6 bg-white rounded-lg shadow-xl cursor-pointer lg:px-6 lg:py-6">
+                        class="px-4 py-6 bg-white rounded-lg shadow-xl cursor-pointer dark:bg-gray-900 lg:px-6 lg:py-6">
                         <div class="flex items-center justify-between">
                             <span class="text-sm font-bold text-indigo-600">Total Depense</span>
                             <span
-                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default md:flex hover:bg-gray-500 dark:text-gray-900 hover:text-gray-200">Today</span>
+                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default dark:bg-gray-500 md:flex hover:bg-gray-500 dark:text-gray-900 hover:text-gray-200">Today</span>
                         </div>
                         <div class="flex items-center justify-between mt-6">
                             <div>
@@ -43,11 +49,11 @@
                             </div>
                         </div>
                     </a>
-                    <a href="" class="px-6 py-6 bg-white rounded-lg shadow-xl cursor-pointer">
+                    <a href="" class="px-6 py-6 bg-white rounded-lg shadow-xl cursor-pointer dark:bg-gray-900">
                         <div class="flex items-center justify-between">
                             <span class="text-sm font-bold text-green-600">Commande</span>
                             <span
-                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default md:hidden dark:text-gray-900 hover:bg-gray-500 hover:text-gray-200">7
+                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default dark:bg-gray-600 md:hidden dark:text-gray-900 hover:bg-gray-500 hover:text-gray-200">7
                                 days</span>
                         </div>
                         <div class="flex items-center justify-between mt-6">
@@ -97,12 +103,13 @@
                             </div>
                         </div>
                     </a>
+
                     <a href=""
-                        class="px-6 py-6 bg-white rounded-lg shadow-xl cursor-pointer">
+                        class="px-6 py-6 bg-white rounded-lg shadow-xl cursor-pointer dark:bg-gray-900">
                         <div class="flex items-center justify-between">
                             <span class="text-sm font-bold text-blue-600">Transaction</span>
                             <span
-                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default md:flex dark:text-gray-900 hover:bg-gray-500 hover:text-gray-200">7
+                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default dark:bg-gray-600 md:flex dark:text-gray-900 hover:bg-gray-500 hover:text-gray-200">7
                                 days</span>
                         </div>
                         <div class="flex items-center justify-between mt-6">
@@ -129,11 +136,11 @@
                         </div>
                     </a>
                     <a href=""
-                        class="px-6 py-6 bg-white rounded-lg shadow-xl cursor-pointer">
+                        class="px-6 py-6 bg-white rounded-lg shadow-xl cursor-pointer dark:bg-gray-900">
                         <div class="flex items-center justify-between">
                             <span class="text-sm font-bold text-gray-800">Mission en attente</span>
                             <span
-                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default md:flex dark:text-gray-900 hover:bg-gray-500 hover:text-gray-200">30
+                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default dark:bg-gray-00 6md:flex dark:text-gray-900 hover:bg-gray-500 hover:text-gray-200">30
                                 days</span>
                         </div>
                         <div class="flex items-center justify-between mt-6">
@@ -168,9 +175,9 @@
 
             </div>
 
-        </div>
 
-    </div>
+
+
 </template>
 
 <script setup>

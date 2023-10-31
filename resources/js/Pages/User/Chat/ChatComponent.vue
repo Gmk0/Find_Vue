@@ -5,6 +5,9 @@
 import ChatLayout from '@/Layouts/ChatLayout.vue';
 import MainSidebarUser from '@/Layouts/UserPartial/MainSidebarUser.vue';
 
+import ChatComponentUser from '@/Components/ChatComponentUser.vue';
+
+import BodyMessage from '@/Components/BodyMessage.vue';
 
 defineOptions({
     layout: ChatLayout,
@@ -16,8 +19,8 @@ defineOptions({
 
 
 <template>
-    <div>
-    <div class="flex overflow-hidden min-h-100vh grow bg-slate-50 dark:bg-navy-900" x-cloak>
+
+    <div class="flex overflow-hidden min-h-100vh grow dark:bg-navy-900">
 
 
         <div class="overflow-hidden">
@@ -28,18 +31,21 @@ defineOptions({
                 <!-- Sidebar Panel -->
 
 
+                <ChatComponentUser />
+
 
 
             </div>
         </div>
 
+        <BodyMessage />
 
 
 
 
     </div>
 
-    </div>
+
 </template>
 
 

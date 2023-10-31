@@ -3,8 +3,9 @@
 <script setup>
 
 import WebLayout from '@/Layouts/WebLayout.vue';
-import { ref, computed, watch } from "vue";
+import { ref, computed } from "vue";
 import { cartStore } from '@/store/store';
+import { router } from '@inertiajs/vue3';
 
 
 const usecartStore = cartStore();
@@ -33,13 +34,17 @@ const isOther = ref(false);
 const checkoutMaxi = async () => {
 
 
+        router.post(route('checkoutMaxi'), {
+            form: form.value,
+            items: items.value,
+            total: totalPrice.value
+        },
+        {
+            onFinish: () => usecartStore.clearCart(),
+        }
+        );
 
-    if (items.value) {
-        const response = await usecartStore.checkoutMaxi(form.value);
 
-        window.location.href = response
-
-    }
 }
 
 
@@ -306,8 +311,12 @@ const checkoutMaxi = async () => {
 
                                                 <form @submit.prevent="checkoutMaxi">
 
-                                                    <TextInput v-model="form.name" />
-                                                    <TextInput v-model="form.numero" />
+                                                  <div class="grid grid-cols-1 gap-4 px-4 mb-4">
+                                                    <InputText required v-model="form.name" placeholder="Nom"   class="w-full rounded-md"  />
+                                                         <InputText v-model="form.numero" placeholder="Telephone"  required class="w-full rounded-md" />
+
+                                                  </div>
+
 
 
 

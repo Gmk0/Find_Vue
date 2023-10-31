@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Order as ResourcesOrder;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -18,7 +19,10 @@ class UserController extends Controller
     {
 
         $commandes= auth()->user()->orders;
-        return Inertia::render('User/Commande/CommandeUser',['commandes'=>$commandes]);
+        //dd($commandes);
+
+        return Inertia::render('User/Commande/CommandeUser',
+        ['commandes'=>ResourcesOrder::collection($commandes)]);
     }
     public function transactionsList()
     {

@@ -32,7 +32,7 @@ resize();
 </script>
 
 <template>
-    <div class="overflow-hidden is-header-blur has-min-sidebar" :class="{ 'is-sidebar-open': layoutStore.SidebarExpanded }" >
+    <div class="overflow-hidden  is-header-blur has-min-sidebar" :class="{ 'is-sidebar-open': layoutStore.SidebarExpanded }" >
 
 
 

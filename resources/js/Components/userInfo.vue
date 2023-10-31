@@ -30,13 +30,9 @@
                                     Dashboard
                                 </DropdownLink>
 
-
-
-
-
-                            <DropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
-                                API Tokens
-                            </DropdownLink>
+                                <DropdownLink @click="ToggleDark()" as="button">
+                                        Dark
+                                </DropdownLink>
 
                             <div class="border-t border-gray-200" />
 
@@ -53,7 +49,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { router, Link } from '@inertiajs/vue3';
 import { useCategoryStore, useStore } from '@/store/store';
 import Dropdown from '@/Components/Dropdown.vue';
@@ -63,9 +59,9 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 
 import { useDark ,useToggle } from '@vueuse/core';
 
-import { usePrimeVue } from 'primevue/config';
+//import { usePrimeVue } from 'primevue/config';
 
-const PrimeVue = usePrimeVue();
+//const PrimeVue = usePrimeVue();
 
 
 
@@ -97,7 +93,7 @@ const toggleTheme = (current) => {
     if (current === 'lara-light-blue') nextTheme = 'lara-dark-blue';
     else if (current === 'lara-dark-blue') nextTheme = 'lara-light-blue';
 
-    PrimeVue.changeTheme(current, nextTheme, 'light', () => { });
+    //   PrimeVue.changeTheme(current, nextTheme, 'light', () => { });
 
     console.log(current ,nextTheme);
 

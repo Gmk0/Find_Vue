@@ -368,9 +368,9 @@
                             <div class="space-y-4 divide-y divide-gray-100 dark:divide-gray-800">
                                 <div class="flex gap-4 mt-4 md:items-center">
                                     <div class="flex w-12 h-12 gap-4 rounded-full dark:bg-teal-900/20">
-                                        <ion-icon class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"
+                                        <i class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"
                                             name="checkbox-outline">
-                                        </ion-icon>
+                                        </i>
                                     </div>
                                     <div class="w-5/6">
                                         <h4 class="text-lg font-semibold text-gray-700 dark:text-indigo-300">Des services de
@@ -384,9 +384,9 @@
                                 </div>
                                 <div class="flex gap-4 pt-2 md:items-center">
                                     <div class="flex w-12 h-12 gap-4 rounded-full dark:bg-teal-900/20">
-                                        <ion-icon class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"
+                                        <i class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"
                                             name="document-text-outline">
-                                        </ion-icon>
+                                        </i>
                                     </div>
                                     <div class="w-5/6">
                                         <h4 class="text-lg font-semibold text-gray-700 dark:text-teal-300">Des services
@@ -398,8 +398,8 @@
                                 </div>
                                 <div class="flex gap-4 mt-4 md:items-center">
                                     <div class="flex w-12 h-12 gap-4 rounded-full dark:bg-teal-900/20">
-                                        <ion-icon class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"
-                                            name="cash-outline"></ion-icon>
+                                        <i class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"
+                                            name="cash-outline"></i>
                                     </div>
                                     <div class="w-5/6">
                                         <h4 class="text-lg font-semibold text-gray-700 dark:text-indigo-300">Des Paiement
@@ -412,8 +412,8 @@
                                 </div>
                                 <div class="flex gap-4 pt-2 md:items-center">
                                     <div class="flex w-12 h-12 gap-4 rounded-full dark:bg-teal-900/20">
-                                        <ion-icon class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"
-                                            name="call-outline"></ion-icon>
+                                        <i class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"
+                                            name="call-outline"></i>
                                     </div>
                                     <div class="w-5/6">
                                         <h4 class="text-lg font-semibold text-gray-700 dark:text-teal-300">Une Assistance 24h/24
@@ -599,9 +599,9 @@
                         class="grid gap-4 mb-4 sm:grid-cols-2 md:grid-cols-3 xl:gap-8">
                         <div
                             class="flex flex-col items-center w-full px-8 py-8 duration-200 bg-white border shadow-lg cursor-pointer dark:bg-gray-800 group rounded-xl border-amber-500/10 shadow-amber-300/10 hover:bg-amber-600">
-                            <ion-icon name="people-outline"
+                            <i name="people-outline"
                                 class="text-[55px] text-amber-600 duration-200  group-hover:text-white">
-                            </ion-icon>
+                            </i>
                             <h4
                                 class="mt-3 mb-1 text-[20px] font-semibold text-slate-600 dark:text-white duration-200 group-hover:text-white">
                                 +200 Freelance</h4>
@@ -610,9 +610,9 @@
 
                         <div
                             class="flex flex-col items-center px-5 py-8 duration-200 bg-white border shadow-lg cursor-pointer group rounded-xl dark:bg-gray-800 border-amber-500/10 shadow-amber-300/10 hover:bg-amber-600">
-                            <ion-icon name="bag-check-outline"
+                            <i name="bag-check-outline"
                                 class="text-[55px] text-amber-600 duration-200 group-hover:text-white">
-                            </ion-icon>
+                            </i>
                             <h4
                                 class="mt-3 mb-1 text-[20px]  font-semibold dark:text-white text-slate-600 duration-200 group-hover:text-white">
                                 500
@@ -622,9 +622,9 @@
                         </div>
                         <div
                             class="flex flex-col items-center px-5 py-8 duration-200 bg-white border shadow-lg cursor-pointer dark:bg-gray-800 group rounded-xl border-amber-500/10 shadow-amber-300/10 hover:bg-amber-600">
-                            <ion-icon name="albums-outline"
+                            <i name="albums-outline"
                                 class="text-[55px] text-amber-600 duration-200 group-hover:text-white">
-                            </ion-icon>
+                            </i>
                             <h4
                                 class="mt-3 mb-1 text-[20px]  font-semibold text-slate-600 duration-200 group-hover:text-white dark:text-white">
                                 +10

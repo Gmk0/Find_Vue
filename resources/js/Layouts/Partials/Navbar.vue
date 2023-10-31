@@ -178,7 +178,22 @@
             <!--Mobile Logo-->
             <div class="flex items-center justify-end col-span-3 gap-2 lg:col-span-2 ">
                  <div v-if="$page.props.auth.user" class="flex items-center gap-4 ">
-                                 <CartComponent />
+
+                     <div v-if="!isSSR">
+
+                             <CartComponent />
+
+
+
+
+                     </div>
+
+
+
+
+
+
+
                         <div  class="hidden site-cart">
                             <button @click="isSearchBoxOpen = !isSearchBoxOpen" type="button" class="search-trigger">
 
@@ -210,11 +225,15 @@
                 </div>
 
 
-                <div v-if="!$page.props.auth.user" class="flex items-center gap-6" >
-                    <Link :href="route('login')" class="hidden px-4 text-base text-white lg:flex " to="/login">
-                                    connexion
 
-                    </Link>
+                <div v-if="!$page.props.auth.user" class="flex items-center gap-6 ml-2" >
+
+
+                    <Link :href="route('login')" class="relative items-center justify-center hidden w-full h-12 px-2 mx-auto text-base text-white bg-transparent rounded-full lg:flex group hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
+
+                                <span>Connexion</span>
+
+                            </Link>
 
                         <Link :href="route('register')"  class="relative items-center justify-center hidden w-full h-12 px-8 mx-auto rounded-full lg:flex bg-skin-fill group dark:bg-skin-fill hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
 
@@ -524,14 +543,21 @@
 
 <script setup>
 
-import {ref, watch,computed } from 'vue';
+import {ref, watch,computed, onMounted } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import { useDark, useToggle } from '@vueuse/core';
-import { usePrimeVue } from 'primevue/config';
+//import { usePrimeVue } from 'primevue/config';
 import userInfo from '@/Components/userInfo.vue';
 import { Collapse } from 'vue-collapsed';
+import CartComponent from '@/Components/CartComponent.vue';
 
-const PrimeVue = usePrimeVue();
+import { useSubcategoriesStore, useCategoryStore } from '@/store/store';
+
+//import pkg from 'primevue/config/config.esm.js';
+//const { usePrimeVue } = pkg;
+
+
+//const PrimeVue = usePrimeVue();
 const page = usePage();
 
 const isDark = useDark();
@@ -544,7 +570,13 @@ const ToggleDark = () => {
         toggleTheme("lara-dark-blue")
     }
 };
-console.log(isDark.value);
+
+
+const categoriesStore = useCategoryStore();
+const subcategoriesStore = useSubcategoriesStore();
+
+const categories = computed(() => categoriesStore.categoriesGet.categories);
+
 
 
 const toggleTheme = (current) => {
@@ -552,12 +584,17 @@ const toggleTheme = (current) => {
     let linkElement = 'light';
     if (current === 'lara-light-blue') nextTheme = 'lara-dark-blue';
     else if (current === 'lara-dark-blue') nextTheme = 'lara-light-blue';
-    PrimeVue.changeTheme(current, nextTheme, 'light', () => { });
+
+   // PrimeVue.changeTheme(current, nextTheme, 'light', () => { });
 }
 
 
 
+const isSSR = ref(true);
 
+onMounted(() => {
+    isSSR.value = false; // Changer la valeur à false côté client
+});
 
 
 
@@ -602,9 +639,6 @@ const toggleAccordion = (key) => {
 
 
 
-defineProps({
-    categories: Array,
-});
 
 
 
@@ -616,6 +650,9 @@ defineProps({
 
 
 function handleScroll() {
+
+    if( typeof window !== "undefined"){
+
     if (window.innerWidth > 1199) {
         if (window.scrollY > 145) {
             isSticky.value = true;
@@ -625,10 +662,14 @@ function handleScroll() {
             // Ajoutez d'autres modifications nécessaires ici
         }
     }
+    }
 }
 
-// Attachez l'événement de défilement au composant
-window.addEventListener('scroll', handleScroll);
+if(typeof window !== "undefined"){
+
+    window.addEventListener('scroll', handleScroll);
+}
+
 
 </script>
 

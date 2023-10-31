@@ -86,7 +86,7 @@
 </template>
 
 <script setup>
-import { reactive, toRefs, ref } from 'vue';
+import { ref } from 'vue';
 
 import axios from 'axios';
 import { Link } from '@inertiajs/vue3';

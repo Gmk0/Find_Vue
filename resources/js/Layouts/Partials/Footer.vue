@@ -236,15 +236,22 @@
 
 <script setup>
 
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import axios from 'axios';
 
-import { Collapse } from 'vue-collapsed'
+import { Collapse } from 'vue-collapsed';
 
-defineProps({
-    categories: Array,
-});
+
+import { useSubcategoriesStore, useCategoryStore } from '@/store/store';
+
+
+const categoriesStore = useCategoryStore();
+const subcategoriesStore = useSubcategoriesStore();
+
+const categories = computed(() => categoriesStore.categoriesGet.categories);
+
+
 
 const isOpen = ref(false);
 

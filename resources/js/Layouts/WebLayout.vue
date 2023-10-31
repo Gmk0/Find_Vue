@@ -4,7 +4,7 @@
         <Head :title="title" />
 
         <div class="pageWrapper">
-            <Navbar :categories="categories" />
+            <Navbar/>
 
             <div id="">
 
@@ -17,7 +17,7 @@
             </div>
 
 
-            <Footer :categories="categories" />
+            <Footer/>
         </div>
 
 
@@ -34,10 +34,12 @@ import { onMounted, ref, computed } from 'vue';
 
 import { useDark } from '@vueuse/core';
 
-import { useSubcategoriesStore, useCategoryStore, useStore } from '@/store/store';
-import axios from 'axios';
+import { useSubcategoriesStore, useCategoryStore } from '@/store/store';
 
-const isDark = useDark();
+
+const categoriesStore = useCategoryStore();
+const subcategoriesStore = useSubcategoriesStore();
+
 
 
 
@@ -45,25 +47,18 @@ defineProps({
     title: String,
 });
 
-
-const categories = computed(()=> categoriesStore.categoriesGet.categories);
-
-const categoriesStore = useCategoryStore();
-const subcategoriesStore = useSubcategoriesStore();
-console.log(categories.value);
-
-
-onMounted( () => {
-         subcategoriesStore.fetchSubCategories();
+onMounted(() => {
+    subcategoriesStore.fetchSubCategories();
     categoriesStore.fetchCategories();
-    });
+});
 
 
-    const levelSelector = ref([
-    { name: 'Debutant', id: 'Debutant' },
-    { name: 'intermediare', id: 'intermediare' },
-    { name: 'Expert', id: 'Expert' },
-])
+//console.log(categories.value);
+
+
+
+
+
 
 
 

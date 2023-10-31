@@ -1,8 +1,8 @@
 <script setup>
 import WebLayout from '@/Layouts/WebLayout.vue';
-import { Head, Link, useForm, router } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import { useStore } from '@/store/store'; // Assurez-vous d'ajuster le chemin d'importation
-import { onMounted, ref, watch } from 'vue';
+import {  ref, watch } from 'vue';
 import { Collapse } from 'vue-collapsed'
 import pickBy from 'lodash/pickBy';
 import throttle from 'lodash/throttle';
@@ -13,8 +13,10 @@ import ServiceCard from '@/Components/ServiceCard.vue';
 
 import Dropdown from 'primevue/dropdown';
 import Slider from 'primevue/slider';
-import InputText from 'primevue/inputtext';
+//import InputText from 'primevue/inputtext';
 
+
+const showAbout =ref(false);
 
 const props = defineProps({
     services: Object,
@@ -81,6 +83,14 @@ const trieElement = ref([
 ])
 
 
+const toogleAbout =()=>{
+
+    showAbout.value=!showAbout.value;
+
+    console.log(showAbout.value);
+
+}
+
 
 
 watch(form, throttle(() => {
@@ -113,22 +123,61 @@ defineOptions({
      <div class="relative w-full min-h-screen py-16 pb-12 ">
 
             <div>
-                <div class="relative h-16 lg:h-24 dark:bg-gray-600 bg-skin-fill">
-                        <img class="hidden object-cover w-full h-full opacity-70" src="" alt="Women"
-                            title="" />
-                        <div class="absolute inset-0 flex items-center justify-center">
+                <div class="relative flex items-center justify-between h-16 px-8 lg:h-24 dark:bg-gray-600 bg-skin-fill">
+
+                        <div class="flex items-center justify-center ">
                             <h1 class="text-lg font-bold text-white lg:text-4xl">{{ props.subcategory.name }}</h1>
+                        </div>
+                        <div class="flex">
+                            <Button class="px-4 py-1.5 bg-white font-semibold  text-dark">Soumettre un projet</Button>
+
                         </div>
                 </div>
 
-                <div class="relative mt-4 ">
+                <div class="px-4 mt-4">
+                      <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center">
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                            <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+                            </svg>
+                            Home
+                        </a>
+                        </li>
 
+                        <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                            </svg>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Flowbite</span>
+                        </div>
+                        </li>
+                    </ol>
+                    </nav>
+                </div>
+                <div class="flex items-center justify-center mt-4 ">
+                    <button type="button"  @click="toogleAbout()" class="block px-4 py-2 text-black lg:hidden bg-amber-600">Apropos de React</button>
+                </div>
+                <div  :class="showAbout?'block ':'lg:block hidden'" class="px-8 py-3 mb-4 ">
+                    <p>React est une bibliothèque JavaScript très populaire pour la création d'interfaces utilisateur interactives et dynamiques. Voici une description concise que vous pourriez utiliser pour expliquer à un client pourquoi utiliser React :
+
+                    "React est une bibliothèque JavaScript puissante utilisée pour construire des interfaces web modernes et réactives. Grâce à sa conception modulaire, React permet de développer des applications web performantes et évolutives. Ses composants réutilisables offrent une approche structurée pour construire des interfaces conviviales et évolutives. En utilisant React, nous pouvons créer des applications web plus rapides, plus interactives et offrir une meilleure expérience utilisateur, tout en garantissant une maintenance simplifiée. Son écosystème actif et sa flexibilité font de React un choix judicieux pour répondre aux besoins de votre projet et offrir des produits web de qualité supérieure."
+
+                    Adaptez cette description en fonction des besoins spécifiques de votre client et des avantages que React apporte à son projet particulier.
+</p>
+
+                </div>
+                <hr  class="hidden lg:block"/>
+
+                <div class="relative mt-4 ">
                       <div class="sticky top-0 z-30 grid h-auto grid-cols-12 px-4 py-2 bg-white dark:bg-gray-800 lg:z-0 lg:bg-transparent lg:relative">
                             <div class="lg:col-span-3"></div>
 
                            <div class="grid col-span-12 gap-4 lg:col-span-9 lg:grid-cols-12 lg:gap-2 ">
-                                <div class="px-4 lg:col-span-9">
-                                    <TextInput v-model="form.search" class="!rounded-full w-full   !shadow-md" placeholder="recherche"
+                                <div class="px-4 lg:col-span-12">
+                                    <TextInput v-model="form.search" class="py-3 w-full   !shadow-md" placeholder="recherche"
                                         icon='search' />
                                 </div>
                                 <div class="flex flex-row justify-between gap-2 px-4 lg:col-span-3">
@@ -139,12 +188,13 @@ defineOptions({
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="flex gap-2 lg:hidden ">
-                                        <div>
-                                              <Dropdown v-model="form.orderBy" optionValue="code" :options="trieElement" showClear optionLabel="name" placeholder="Trier par" size="small" class="w-full md:w-14rem" />
+                                     <div class="block m-2 lg:hidden">
 
-                                        </div>
+                                      <Dropdown v-model="form.orderBy" optionValue="code" :options="trieElement" showClear optionLabel="name" placeholder="Trier par" size="small" class="w-full !border-gray-500 border !h-[10/12] md:w-14rem" />
+
+
                                     </div>
+
 
 
                                 </div>
@@ -161,7 +211,7 @@ defineOptions({
                                 <div :class="showFiltre ? 'fixed inset-0 z-[150]  top-0  bottom-0  dark:bg-gray-800 bg-white  p-4 transition-all duration-200 w-full' : 'hidden w-full mt-0   z-20'"
                                     class="overflow-x-hidden overflow-y-auto rounded-md lg:h-auto lg:block">
                                     <div class="flex flex-col p-2">
-                                        <h1 class="mb-2 text-lg font-bold text-gray-800">Sous category</h1>
+
 
                                         <div class="flex flex-wrap gap-2 lg:grid lg:grid-cols-1">
 
@@ -215,7 +265,7 @@ defineOptions({
 
                                             <Collapse :when="showCategoryFilter">
 
-                                                 <Dropdown v-model="form.level" optionValue="code" :options="cities" showClear optionLabel="name" placeholder="Choisir un niveau" class="w-full md:w-14rem" />
+                                                 <Dropdown v-model="form.level" optionValue="code" :options="cities" showClear optionLabel="name" placeholder="Choisir un niveau" class="w-full !border-gray-500 border md:w-14rem" />
                                             </Collapse>
 
                                             <div
@@ -238,7 +288,7 @@ defineOptions({
 
                                                     <div class="m-2">
 
-                                                         <Dropdown v-model="form.deliveryTime" :options="deliveryTime" showClear optionLabel="name" optionValue="code" placeholder="Choisir un le temps" class="w-full md:w-14rem" />
+                                                         <Dropdown v-model="form.deliveryTime" :options="deliveryTime" showClear optionLabel="name" optionValue="code" placeholder="Choisir un le temps" class="w-full !border-gray-500 border md:w-14rem" />
 
 
                                                     </div>
@@ -326,7 +376,7 @@ defineOptions({
 
                                     <div class=" lg:block">
 
-                                            <Dropdown v-model="form.orderBy" optionValue="code" :options="trieElement" showClear optionLabel="name" placeholder="Trier par" size="small" class="w-full md:w-14rem" />
+                                            <Dropdown v-model="form.orderBy" optionValue="code" :options="trieElement" showClear optionLabel="name" placeholder="Trier par" size="small" class="w-full border md:w-14rem" />
 
                                     </div>
                                     <div class=" lg:block">
@@ -336,7 +386,7 @@ defineOptions({
 
                                 </div>
 
-                                <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                                <div class="grid gap-4 bg-white md:grid-cols-2 lg:grid-cols-3">
 
                                     <div v-for="service in props.services.data">
                                            <ServiceCard :service="service" :key="service.id"/>
@@ -371,7 +421,7 @@ defineOptions({
                             </div>
 
                     </div>
-                    <div class="grid px-4 pt-16 lg:grid-cols-12 ">
+                    <div class="grid px-4 pt-16 border-t lg:grid-cols-12 ">
                             <div class="hidden lg:col-span-3 lg:block">
 
                             </div>

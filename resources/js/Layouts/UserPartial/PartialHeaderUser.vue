@@ -1,6 +1,6 @@
 <script setup>
 
-
+import userInfo from "@/Components/userInfo.vue"
 import { useLayoutStore } from '@/store/store';
 
 const layoutStore = useLayoutStore();
@@ -15,7 +15,7 @@ const layoutStore = useLayoutStore();
 
 
 
-        <div class="relative flex w-full bg-white header-container dark:bg-navy-750 print:hidden">
+        <div class="relative flex w-full bg-white header-container dark:bg-gray-900 print:hidden">
             <!-- Header Items -->
             <div class="flex items-center justify-between w-full">
                 <!-- Left: Sidebar Toggle Button -->
@@ -78,6 +78,8 @@ const layoutStore = useLayoutStore();
                     -->
 
                     <NotificationComponent />
+
+                      <userInfo />
 
                     <button
                         class="w-8 h-8 p-0 rounded-full btn1 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">

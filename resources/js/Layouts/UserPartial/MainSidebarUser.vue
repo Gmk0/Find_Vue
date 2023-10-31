@@ -2,7 +2,7 @@
 
 import Popper from "vue3-popper";
 
-import { ref, onBeforeUnmount, onUnmounted } from 'vue';
+import { ref } from 'vue';
 
 const isShowPopper = ref(false);
 const popperRef = ref(null);
@@ -19,9 +19,6 @@ const togglePopper = () => {
 
 
 
-onUnmounted(() => {
-
-});
 
 </script>
 
@@ -30,7 +27,7 @@ onUnmounted(() => {
 
         <div class="main-sidebar ">
         <div
-            class="flex flex-col items-center w-full h-full bg-white border-r border-slate-150 dark:border-navy-700 dark:bg-navy-800">
+            class="flex flex-col items-center w-full h-full bg-white border-r border-slate-150 dark:border-navy-700 dark:bg-gray-900">
             <!-- Application Logo -->
             <div class="flex pt-4">
                 <Link :href="route('home')">

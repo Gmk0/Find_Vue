@@ -1,1 +1,0 @@
-import{_ as t}from"./UserLayout-dd47d869.js";import{e as a,o}from"./app-fdc68bd6.js";import"./PartialHeaderUser.vue_vue_type_style_index_0_lang-829c099f.js";const p=Object.assign({layout:t},{__name:"TransactionUser",props:["transactions"],setup(r){return(s,e)=>(o(),a("div"))}});export{p as default};

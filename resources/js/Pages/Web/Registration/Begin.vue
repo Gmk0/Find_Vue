@@ -95,9 +95,9 @@
 
 <script setup>
 import WebLayout from '@/Layouts/WebLayout.vue';
-import { router, Link } from '@inertiajs/vue3';
+import {  Link } from '@inertiajs/vue3';
 // Assurez-vous d'ajuster le chemin d'importation
-import { onMounted } from 'vue';
+//import { onMounted } from 'vue';
 
 
 

@@ -1,5 +1,6 @@
 import './bootstrap';
 import '../css/app.css';
+import '../css/nav.css';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 
@@ -11,7 +12,7 @@ window.jQuery = $;
 
 
 
-import { createApp, h } from 'vue';
+import { createSSRApp, h } from 'vue'
 import { createInertiaApp, Link } from '@inertiajs/vue3';
 import { createPinia } from 'pinia';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
@@ -24,6 +25,7 @@ import PrimeVue from 'primevue/config';
 import Pagination from '@/Components/Pagination.vue';
 import ToastService from 'primevue/toastservice';
 import CartComponent from '@/components/CartComponent.vue';
+import { Collapse } from 'vue-collapsed';
 
 import Toast from 'primevue/toast';
 
@@ -36,6 +38,7 @@ import MultiSelect from 'primevue/multiselect';
 
 import Skeleton from 'primevue/skeleton';
 import InputText from 'primevue/InputText';
+import Sidebar from 'primevue/sidebar';
 
 
 
@@ -49,18 +52,15 @@ pinia.use(piniaPluginPersistedstate)
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
+    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue',{eager:true})),
     setup({ el, App, props, plugin }) {
-        const app = createApp({ render: () => h(App, props) })
+        const app = createSSRApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(ZiggyVue)
             .use(pinia)
             .use(VueSweetalert2)
             .use(PrimeVue)
             .use(ToastService)
-
-
-           // .use(PrimeVue, { unstyled: true, pt: Tailwind })
-            .use(ZiggyVue)
             .component('AppLayout', AppLayout)
             .component('pagination',Pagination)
             .component('CartComponent', CartComponent)
@@ -71,6 +71,8 @@ createInertiaApp({
             .component('Dropdown', Dropdown)
             .component('InputText', InputText)
             .component('Toast', Toast)
+            .component('Sidebar', Sidebar)
+            .component('Collapse', Collapse)
 
              // Enregistrez votre composant de layout
 

@@ -6,7 +6,7 @@
 
         <title inertia>{{ config('app.name', 'FIND') }}</title>
 
-        <link  rel="stylesheet" href="/css/important.css">
+
                 <link  rel="stylesheet" href="/css/new.css">
         <link  rel="stylesheet" href="/css/lara-dark-blue/theme.css">
         <link id="light" rel="stylesheet" href="/css/lara-light-blue/theme.css">
@@ -29,7 +29,7 @@
 
         @routes
 
-        @vite(['resources/css/app.css'])
+
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
     </head>
