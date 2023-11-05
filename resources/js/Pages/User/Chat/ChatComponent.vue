@@ -15,14 +15,18 @@ defineOptions({
 });
 
 
+defineProps({
+    conversations:Array,
+    messages:Array,
+    chat:Object,
+    user:Object,
+})
+
 </script>
 
 
 <template>
-
     <div class="flex overflow-hidden min-h-100vh grow dark:bg-navy-900">
-
-
         <div class="overflow-hidden">
             <div class="sidebar print:hidden">
                 <!-- Main Sidebar -->
@@ -31,14 +35,17 @@ defineOptions({
                 <!-- Sidebar Panel -->
 
 
-                <ChatComponentUser />
+
+
+                <ChatComponentUser :Conversations="conversations" />
+
 
 
 
             </div>
         </div>
 
-        <BodyMessage />
+        <BodyMessage :messages="messages" :chatId="chat?.id" :user="user"/>
 
 
 

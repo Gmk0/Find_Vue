@@ -29,37 +29,58 @@ const form = ref({
     level: props.filters.level,
     localisation: props.filters.localisation,
     disponible : props.filters.disponibilite,
-    sub_category : props.filters.sub_category
+    sub_category : props.filters.sub_category,
+    experience_annee :props.filters.experience_annee,
+    orderBy: props.filters.orderBy
+
 
 });
 
+
+const clearFiltre=()=>{
+    form.value={};
+}
 const search = ref("");
+const showFilters= ref(false);
 
 
 
 
 
 const niveauFiltre = ref([
-    { name: 'Nouveau 1', code: '1' },
-    { name: 'Nouveau 2', code: '2' },
-    { name: 'Nouveau 3', code: '3' },
-    { name: 'Nouveau 4', code: '4' },
+    { name: 'Niveau 1', code: '1' },
+    { name: 'Niveau 2', code: '2' },
+    { name: 'Niveau 3', code: '3' },
+    { name: 'Professionnel', code: '4' },
 
 ]);
 
 
+const tauxFiltres= ref([
+    {name: 'de 10-100 $', id: '10-100'},
+    { name: 'de 100-200 $', id: '100-200' },
+    { name: 'plus de 200 $', id: '200-10000' },
+]);
+
+
+const experienceAnnee = ref([
+    { name: '0 a 2 ans', id: '0-2 ans' },
+    { name: '2 a 5 ans', id: '2-5 ans' },
+    { name: '+ 7 ans', id: '+ 7 ans' },
+]);
+
 const trieElement = ref([
     {
-        name: 'Plus recent', code: 'created_at-asc'
+        name: 'Plus Ancien', code: 'created_at-asc'
     },
     {
-        name: 'Plus ancient', code: 'created_at-desc'
+        name: 'Plus recent', code: 'created_at-desc'
     },
     {
-        name: 'Prix descendant', code: 'basic_price-desc'
+        name: 'Prix descendant', code: 'taux_journalier-desc'
     },
     {
-        name: 'Prix ascendant', code: 'basic_price-asc'
+        name: 'Prix ascendant', code: 'taux_journalier-asc'
     },
     {
         name: 'populaire', code: 'populaire-asc'
@@ -109,6 +130,8 @@ watch(form, () => {
 
 
 
+
+
 watch(form, throttle(() => {
 
     fetchSubcategories();
@@ -142,25 +165,27 @@ defineOptions({
                     <h1 class="text-4xl font-bold text-white">Trouver un freelance</h1>
                 </div>
             </div>
-            <div  class="sticky top-0 z-30 grid h-auto grid-cols-12 py-2 bg-white lg:z-0 lg:bg-transparent lg:relative ">
+            <div  class="sticky top-0 z-30 grid h-auto grid-cols-12 px-4 py-2 bg-white dark:bg-gray-800 lg:z-0 lg:bg-transparent lg:relative ">
                 <div class="hidden lg:col-span-3 lg:flex">
 
                 </div>
 
 
-                <div class="relative grid col-span-12 gap-4 py-4 lg:grid-cols-12 lg:col-span-9 lg:gap-2 ">
+                <div class="relative grid col-span-12 gap-4 py-4 lg:px-6 lg:grid-cols-12 lg:col-span-9 lg:gap-2 ">
                     <div class="px-4 lg:col-span-9">
 
-                        <TextInput v-model="form.search" class="!rounded-full w-full !shadow-sm" placeholder="recherche"
-                             />
+                        <TextInput v-model="form.search" class="py-3 w-full   !shadow-md" placeholder="recherche"
+                                            icon='search' />
                     </div>
                     <div class="sticky top-0 flex flex-row justify-between gap-2 px-4 lg:col-span-3">
 
                         <div class="block lg:hidden">
 
-                            <SecondaryButton  label="filtre">
 
-                            </SecondaryButton>
+                            <Button icon="pi pi-filter-fill" @click="showFilters = !showFilters"
+                            rounded
+                            outlined
+                            aria-label="Filter" />
                         </div>
 
 
@@ -169,17 +194,19 @@ defineOptions({
                             <div>
 
                             </div>
-                            <div class="z-40">
-                                <select placeholder="Trier par" class=" z-30 !rounded-xl !shadow-md"
-                                    >
+                            <div class="">
 
-                                    <option value="">Trier par</option>
-                                    <option value="level-asc">Niveau ascendant</option>
-                                    <option  value="level-desc">Niveau Descendant</option>
-                                    <option  value="populaire-desc">Populaire</option>
-                                    <option  value="nouveau-desc">Nouveau</option>
 
-                                </select>
+                                    <div class="block">
+
+                                          <Dropdown v-model="form.orderBy" optionValue="code"
+                                          :options="trieElement" showClear
+                                            optionLabel="name"
+                                           placeholder="Trier par" size="small"
+                                          class="" />
+
+
+                                    </div>
 
                             </div>
 
@@ -254,7 +281,7 @@ defineOptions({
 
                                         <div class="m-2">
                                               <Dropdown v-model="form.sub_category" :options="subcategories" optionValue="id" optionLabel="name" placeholder="Votre sous categories" showClear
-                                                         class="w-full border border-gray-300 md:w-12rem"/>
+                                                         class="w-full"/>
 
                                         </div>
 
@@ -282,8 +309,13 @@ defineOptions({
                                     <Collapse :when="experience">
 
                                      <div class="m-2">
-                                                  <Dropdown v-model="form.sub_category" :options="subcategories" optionValue="id" optionLabel="name" placeholder="Votre sous categories" showClear
-                                                             class="w-full border border-gray-300 md:w-12rem"/>
+                                                  <Dropdown v-model="form.experience_annee"
+                                                  :options="experienceAnnee"
+                                                  optionValue="id"
+                                                  optionLabel="name"
+                                                  placeholder="Annee experience"
+                                                  showClear
+                                                    class=""/>
 
                                             </div>
 
@@ -310,12 +342,22 @@ defineOptions({
                                                 d="M14.293 15.293a1 1 0 01-1.414 0L10 12.414l-2.293 2.293a1 1 0 01-1.414-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 010 1.414z" />
                                         </svg>
                                     </button>
-                                    <Collapse :when="showPriceFilter" class="mt-2">
+                                    <Collapse :when="showPriceFilter">
 
 
+                                        <div class="m-2">
+                                            <Dropdown v-model="form.price"
+                                            :options="tauxFiltres"
+                                             optionValue="id"
+                                              optionLabel="name"
+                                              placeholder="Le taux journalier"
+                                               showClear
+                                               class="" />
+
+                                        </div>
 
 
-
+                                                                 />
 
 
                                     </Collapse>
@@ -341,10 +383,19 @@ defineOptions({
                                     <Collapse :when="disponibilteFilter" class="">
 
                                     <div class="m-2">
-                                    <Dropdown v-model="form.disponible" :options="niveauFiltre" optionValue="id" optionLabel="name" placeholder="Disponibilite" showClear
-                                                class="w-full border border-gray-300 md:w-12rem"/>
+
+                                        <div class="flex card justify-content-center">
+                                            <div class="flex flex-wrap gap-3">
+                                                <div class="flex align-items-center">
+                                                    <Checkbox v-model="form.disponible" value="En ligne" />
+                                                    <label for="ingredient1" class="ml-2 dark:text-white">En ligne </label>
+                                                </div>
+
 
                                             </div>
+                                        </div>
+
+                                        </div>
                                     </Collapse>
                                 </div>
 
@@ -383,7 +434,7 @@ defineOptions({
 
 
 
-                                <div class="relative py-3 mt-4 mb-4 border-t border-gray-400 ">
+                                <div class="relative hidden py-3 mt-4 mb-4 border-t border-gray-400 ">
                                     <button @click="localisationFilter = !localisationFilter"
                                         class="flex items-center justify-between w-full mb-2 font-bold text-gray-700 focus:outline-none">
                                         <span class="text-base dark:text-gray-100"> Localisation</span>
@@ -401,13 +452,29 @@ defineOptions({
                                     <Collapse :when="localisationFilter">
                                         <div class="m-2">
 
+                                             <Dropdown v-model="form.level" :options="niveauFiltre"
+                                             optionValue="code"
+                                             optionLabel="name"
+                                             placeholder=""
+                                             showClear
+                                                      />
+
                                         </div>
 
 
                                     </Collapse>
                                 </div>
 
+                                    <div class="hidden lg:flex"
+                                    v-if="form">
 
+
+                                    <Button size="small"
+                                    outlined
+                                    label="Effacer le filtre"
+                                     @click="clearFiltre()" />
+
+                                    </div>
 
                             </div>
                          </nav>
@@ -415,14 +482,15 @@ defineOptions({
 
 
 
-                            <div class="flex w-full gap-4 md:hidden ">
+                            <div class="flex w-full gap-4 px-4 md:hidden ">
 
 
-                                 <button  @click="showFilters=!showFilters">appliquer</button>
+                                 <Button label="appliquer" severity="success"  @click="showFilters=!showFilters" />
 
-                                <button @click="showFilters=!showFilters" >Fermer</button>-
+                                <Button label="Fermer" @click="showFilters=!showFilters" />
 
                             </div>
+
 
 
 
@@ -474,7 +542,7 @@ defineOptions({
 
 
 
-                        <h1 v-if="props.freelances.data.length === 0" class="text-lg text-gray-800 md:text-2xl">Pas de Resultat</h1>
+                        <h1 v-if="props.freelances.data.length === 0" class="text-lg text-gray-800 dark:text-gray-100 md:text-2xl">Pas de Resultat</h1>
 
 
 

@@ -129,7 +129,7 @@ defineOptions({
                             <h1 class="text-lg font-bold text-white lg:text-4xl">{{ props.subcategory.name }}</h1>
                         </div>
                         <div class="flex">
-                            <Button class="px-4 py-1.5 bg-white font-semibold  text-dark">Soumettre un projet</Button>
+                            <Link :href="route('createProject')" class="px-4 py-2 font-semibold bg-white text-dark">Soumettre un projet</Link>
 
                         </div>
                 </div>
@@ -142,7 +142,7 @@ defineOptions({
                             <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
                             </svg>
-                            Home
+                            Acceuil
                         </a>
                         </li>
 
@@ -151,22 +151,28 @@ defineOptions({
                             <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                             </svg>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Flowbite</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Categories</span>
                         </div>
                         </li>
+                         <li aria-current="page">
+                            <div class="flex items-center">
+                                <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                </svg>
+                                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">{{ props.subcategory.name }}</span>
+                            </div>
+                            </li>
                     </ol>
                     </nav>
                 </div>
                 <div class="flex items-center justify-center mt-4 ">
                     <button type="button"  @click="toogleAbout()" class="block px-4 py-2 text-black lg:hidden bg-amber-600">Apropos de React</button>
                 </div>
-                <div  :class="showAbout?'block ':'lg:block hidden'" class="px-8 py-3 mb-4 ">
-                    <p>React est une bibliothèque JavaScript très populaire pour la création d'interfaces utilisateur interactives et dynamiques. Voici une description concise que vous pourriez utiliser pour expliquer à un client pourquoi utiliser React :
+                <div  :class="showAbout?'block ':'lg:block hidden'" class="px-8 py-2 mb-2 ">
+                    <div class="prose" v-html="props.subcategory.description">
 
-                    "React est une bibliothèque JavaScript puissante utilisée pour construire des interfaces web modernes et réactives. Grâce à sa conception modulaire, React permet de développer des applications web performantes et évolutives. Ses composants réutilisables offrent une approche structurée pour construire des interfaces conviviales et évolutives. En utilisant React, nous pouvons créer des applications web plus rapides, plus interactives et offrir une meilleure expérience utilisateur, tout en garantissant une maintenance simplifiée. Son écosystème actif et sa flexibilité font de React un choix judicieux pour répondre aux besoins de votre projet et offrir des produits web de qualité supérieure."
 
-                    Adaptez cette description en fonction des besoins spécifiques de votre client et des avantages que React apporte à son projet particulier.
-</p>
+                    </div>
 
                 </div>
                 <hr  class="hidden lg:block"/>
@@ -190,7 +196,7 @@ defineOptions({
                                     </div>
                                      <div class="block m-2 lg:hidden">
 
-                                      <Dropdown v-model="form.orderBy" optionValue="code" :options="trieElement" showClear optionLabel="name" placeholder="Trier par" size="small" class="w-full !border-gray-500 border !h-[10/12] md:w-14rem" />
+                                      <Dropdown  v-model="form.orderBy" optionValue="code" :options="trieElement" showClear optionLabel="name" placeholder="Trier par" size="small" class="w-full !border-gray-500 border !h-[10/12] md:w-14rem" />
 
 
                                     </div>
@@ -226,10 +232,7 @@ defineOptions({
                                            <div class="w-full space-y-1 dark:text-gray-100">
 
 
-                                                <div class="flex flex-col gap-2 p-2">
 
-                                                   <Slider v-model="form.price" />
-                                                </div>
 
                                                 <div aria-hidden="true" class="flex justify-between px-1">
                                                     <div class="flex justify-between gap-4 p-2 border">
@@ -265,7 +268,7 @@ defineOptions({
 
                                             <Collapse :when="showCategoryFilter">
 
-                                                 <Dropdown v-model="form.level" optionValue="code" :options="cities" showClear optionLabel="name" placeholder="Choisir un niveau" class="w-full !border-gray-500 border md:w-14rem" />
+                                                 <Dropdown   unstyled v-model="form.level" optionValue="code" :options="cities" showClear optionLabel="name" placeholder="Choisir un niveau" class="w-full !border-gray-500 border md:w-14rem" />
                                             </Collapse>
 
                                             <div
@@ -386,7 +389,7 @@ defineOptions({
 
                                 </div>
 
-                                <div class="grid gap-4 bg-white md:grid-cols-2 lg:grid-cols-3">
+                                <div class="grid gap-4 bg-white dark:bg-gray-800 md:grid-cols-2 lg:grid-cols-3">
 
                                     <div v-for="service in props.services.data">
                                            <ServiceCard :service="service" :key="service.id"/>

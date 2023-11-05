@@ -1,18 +1,30 @@
 <script setup>
 
+import { Link, useForm, router } from '@inertiajs/vue3';
+
+import { useLayoutStore } from '@/store/store';
+
+const layoutStore = useLayoutStore();
+
 
 defineProps({
-    Conversation : Array,
+    Conversations : Array,
 })
+
+const selectConversation=(id)=>{
+
+
+  router.get(route('user.chat', id))
+
+}
 
 
 </script>
 
 <template>
-    <div>
-
-        <div class="pt-8 sidebar-panel">
-            <div class="flex h-full grow flex-col bg-white pl-[var(--main-sidebar-width)] dark:bg-navy-750">
+    <div class="">
+        <div class="sidebar-panel">
+            <div class="flex h-full pt-6 grow flex-col bg-white pl-[var(--main-sidebar-width)] dark:bg-navy-750">
                 <!-- Sidebar Panel Header -->
                 <div class="flex items-center justify-between w-full pl-4 pr-1 h-18">
                     <div class="flex items-center">
@@ -31,7 +43,7 @@ defineProps({
                         </p>
                     </div>
 
-                    <button @click="$store.global.isSidebarExpanded = false"
+                    <button @click="layoutStore.toogleRight()"
                         class="p-0 rounded-full btn2 h-7 w-7 text-primary hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-accent-light/80 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 xl:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -45,7 +57,7 @@ defineProps({
                 <div class="flex h-[calc(100%-4.5rem)] grow flex-col">
                     <div>
                         <div class="flex items-center justify-between px-4">
-                            <span class="text-xs+ font-medium uppercase">Freelance</span>
+                            <span class="text-xs+ font-medium uppercase"></span>
                             <div class="-mr-1.5 flex">
                                 <button
                                     class="hidden w-6 h-6 p-0 rounded-full btn2 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
@@ -59,7 +71,7 @@ defineProps({
 
                     </div>
 
-                    <div class="flex px-4 mt-4">
+                    <div class="flex px-4 pt-4">
                         <label class="relative mr-1.5 flex">
                             <input wire:model="query"
                                 class="form-input peer h-8 w-full rounded-lg bg-slate-150 px-3 py-2 pl-9 text-xs+ ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
@@ -86,72 +98,62 @@ defineProps({
 
                     <div class="flex flex-col mt-3 overflow-y-auto is-scrollbar-hidden grow">
 
-                        <!--
-                        @forelse ($conversations as $conversation)
-                        <div wire:click="$dispatch('changeChatuSER',{data : {{$conversation}}})"
+
+
+                        <div  v-if="Conversations.data !=null">
+
+                        <div v-for="freelance in Conversations.data"
                             class="flex cursor-pointer items-center space-x-2.5 px-4 py-2.5 font-inter hover:bg-slate-150 dark:hover:bg-navy-600">
                             <div class="w-10 h-10 avatar">
 
-                                @if (!empty($conversation->freelance->user->profile_photo_path))
-
-
-                                <img class="rounded-full"
-                                    src="{{Storage::disk('local')->url($conversation->freelance->user->profile_photo_path) }}"
-                                    alt="avatar" />
-                                @else
-                                <img class="rounded-full" src="{{$conversation->freelance?->user->profile_photo_url}}"
-                                    alt="avatar" />
-
-                                @endif
-
-
-                                @php
-                                $online=$conversation->freelance->user->is_online?'bg-green-600':'bg-gray-500';
-                                @endphp
-
-
-
+                                <Photo :user="freelance.freelanceUser" />
                                 <div
-                                    class="absolute right-0 w-3 h-3 {{$online}} border-2 border-white rounded-full dark:border-navy-700">
+                                    class="absolute right-0 w-3 h-3 border-2 border-white rounded-full dark:border-navy-700">
                                 </div>
 
 
 
                             </div>
-                            <div class="flex flex-col flex-1">
+
+                            <div class="flex flex-col flex-1" @click="selectConversation(freelance.id)">
                                 <div class="flex items-baseline justify-between space-x-1.5">
                                     <p class="text-xs+ font-medium text-slate-700 line-clamp-1 dark:text-navy-100">
-                                        {{ $conversation -> freelance ? -> user -> name }}
+                                        {{ freelance.freelanceUser.name }}
                                     </p>
-                                    <span class="text-tiny+ text-slate-400 dark:text-navy-300">{{
-                                        $conversation -> messages -> last() ? -> created_at -> shortAbsoluteDiffForHumans()
-                                                                            }}</span>
+                                    <span class="text-tiny+ text-slate-400 dark:text-navy-300">2032</span>
                                 </div>
+
+
                                 <div class="flex items-center justify-between mt-1 space-x-1">
                                     <p class="text-xs+ text-slate-400 line-clamp-1 dark:text-navy-300">
-                                        {{ $conversation -> messages -> last() ? -> body }}
+                                        {{ freelance.message?.body }}
                                     </p>
 
-                                    @if(count($conversation->messages?->where('is_read',0)->where('receiver_id',auth()->user()->id))
-                                    !=0)
-                                    <div
+
+
+
+                                    <div v-if="freelance.messagesNonLue !=0"
                                         class="flex h-4.5 min-w-[1.125rem] items-center justify-center rounded-full bg-slate-200 px-1.5 text-tiny+ font-medium leading-none text-slate-800 dark:bg-navy-450 dark:text-white">
-                                        {{ count($conversation -> messages ? -> where('is_read', 0) -> where('receiver_id', auth() -> user() -> id)) }}
+                                       {{ freelance.messagesNonLue }}
                                     </div>
-                                    @endif
+
+
                                 </div>
+
                             </div>
+
                         </div>
-                        @empty
-                        <div class="flex items-center gap-1 px-2.5 mt-6 text-sm">
+                        </div>
+
+                        <div v-else class="flex items-center gap-1 px-2.5 mt-6 text-sm">
                             <span>pas de freelance trouver
                                 Rechercher <a href="{{url('/find-freelance')}}" wire:navigate
                                     class="text-amber-600">ici</a></span>
 
                         </div>
 
-                        @endforelse
-                        -->
+
+
 
 
                     </div>
@@ -184,8 +186,8 @@ defineProps({
         </div>
 
 
-        <div  class="pt-8 sidebar-panel-min">
-            <div class="flex flex-col h-full bg-white dark:bg-navy-750">
+        <div  class="sidebar-panel-min">
+            <div class="flex flex-col h-full pt-6 bg-white dark:bg-navy-750">
                 <div class="flex items-center justify-center h-18 shrink-0">
                     <div class="flex w-10 h-10 avatar">
                         <div
@@ -213,7 +215,7 @@ defineProps({
                                 </a>
                             </li>
                             <li>
-                                <a href="#" @click="$store.global.isSidebarExpanded = !$store.global.isSidebarExpanded"
+                                <a href="#" @click="layoutStore.toogleRight()"
                                     class="w-6 h-6 p-0 btn2 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
@@ -226,31 +228,19 @@ defineProps({
                         <div class="h-px mx-4 my-4 shrink-0 bg-slate-200 dark:bg-navy-500"></div>
                         <div class="flex flex-col">
 
-                            <!--
-                            @forelse ($conversations as $conversation)
 
-                            <div wire:click="$dispatch('changeChatuSER',{data : {{$conversation}}})"
+                            <div v-for="freelance in Conversations.data" class="px-2">
+
+                            <button @click="selectConversation(freelance.id)"
                                 class="flex cursor-pointer items-center justify-center py-2.5 hover:bg-slate-150 dark:hover:bg-navy-600">
-                                <div class="w-10 h-10 avatar" x-tooltip='"{{$conversation->freelance->user->name}}"'>
+                                <div class="w-10 h-10 avatar" v-tooltip.right="freelance.freelanceUser.name">
 
-                                    @if (!empty($conversation->freelance->user->profile_photo_path))
+                                      <Photo :user="freelance.freelanceUser" />
 
-
-                                    <img class="rounded-full"
-                                        src="{{Storage::disk('local')->url($conversation->freelance->user->profile_photo_path) }}"
-                                        alt="avatar" />
-                                    @else
-                                    <img class="rounded-full" src="{{$conversation->freelance?->user->profile_photo_url}}"
-                                        alt="avatar" />
-
-                                    @endif
                                 </div>
+                            </button>
+
                             </div>
-
-                            @empty
-
-                            @endforelse
-                            -->
 
 
                         </div>

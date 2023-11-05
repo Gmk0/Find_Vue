@@ -4,10 +4,10 @@
         <div class="max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
             <div class="lg:text-center">
                 <h2 class="text-base font-semibold tracking-wide uppercase text-amber-600">À Propos de FIND</h2>
-                <p class="mt-2 text-xl font-extrabold leading-8 tracking-tight text-gray-800 sm:text-4xl">
+                <p class="mt-2 text-xl font-extrabold leading-8 tracking-tight dark:text-gray-100 text-gray-800 sm:text-4xl">
                     Trouvez le meilleur talent pour votre projet
                 </p>
-                <p class="max-w-2xl mt-4 text-xl text-gray-500 lg:mx-auto">
+                <p class="max-w-2xl mt-4 text-xl text-gray-500 dark:text-gray-200 lg:mx-auto">
                     FIND est une plateforme qui met en relation des freelances qualifiés avec des clients à la recherche
                     de
                     compétences spécifiques pour leurs projets. Que vous ayez besoin d'un développeur, d'un designer,
@@ -17,7 +17,7 @@
                     bien votre projet.
                 </p>
             </div>
-            <div class="mt-10">
+            <div class="mt-10 hidden">
                 <h3 class="text-lg font-medium leading-6 text-gray-800">Notre Équipe</h3>
                 <div class="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-2 lg:grid-cols-4">
                     <div class="overflow-hidden bg-white rounded-lg shadow">

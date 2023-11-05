@@ -5,7 +5,7 @@
 import WebLayout from '@/Layouts/WebLayout.vue';
 import { ref, computed } from "vue";
 import { cartStore } from '@/store/store';
-import { router } from '@inertiajs/vue3';
+import { router,Head } from '@inertiajs/vue3';
 
 
 const usecartStore = cartStore();
@@ -40,7 +40,7 @@ const checkoutMaxi = async () => {
             total: totalPrice.value
         },
         {
-            onFinish: () => usecartStore.clearCart(),
+
         }
         );
 
@@ -50,8 +50,9 @@ const checkoutMaxi = async () => {
 
 </script>
 <template>
-    <WebLayout>
+
         <div>
+
             <div class="min-h-screen py-5 pt-16 custom overflow-y-auto-scrollbar bg-gray-50 min-w-screen dark:bg-gray-900">
 
                 <div class="px-6 md:px-12">
@@ -65,10 +66,7 @@ const checkoutMaxi = async () => {
 
                     </div>
                     <div>
-
-
-
-
+                        <Error />
 
                     </div>
 
@@ -250,9 +248,10 @@ const checkoutMaxi = async () => {
                                         class="w-full p-4 mb-4 font-semibold bg-white border border-gray-200 rounded-md dark:bg-gray-900">
                                         <div class='flex flex-col gap-4'>
 
-                                            <TextInput />
-                                            <TextInput />
-                                            <TextInput />
+                                            <InputText placeholder="Addresse" />
+                                            <InputText placeholder="commune" />
+                                            <InputText  placeholder="ville"/>
+                                            <InputText  placeholder="Pays"/>
 
 
                                         </div>
@@ -263,7 +262,7 @@ const checkoutMaxi = async () => {
 
                                     <div
                                         class="w-full mx-auto mb-6 text-gray-800 bg-white border border-gray-200 rounded-lg top-8 dark:bg-gray-900">
-                                        <div class="w-full p-3 border-b border-gray-200 ">
+                                        <div class="hidden w-full p-3 border-b border-gray-200 ">
                                             <div class="mb-5">
                                                 <label for="type1" class="flex items-center cursor-pointer">
                                                     <input type="checkbox" class="w-5 h-5 text-indigo-500 form-radio"
@@ -312,8 +311,8 @@ const checkoutMaxi = async () => {
                                                 <form @submit.prevent="checkoutMaxi">
 
                                                   <div class="grid grid-cols-1 gap-4 px-4 mb-4">
-                                                    <InputText required v-model="form.name" placeholder="Nom"   class="w-full rounded-md"  />
-                                                         <InputText v-model="form.numero" placeholder="Telephone"  required class="w-full rounded-md" />
+                                                    <InputText required v-model="form.name" placeholder="Nom"   class="rounded-md"  />
+                                                         <InputText v-model="form.numero" placeholder="Telephone"  required class="rounded-md" />
 
                                                   </div>
 
@@ -392,7 +391,7 @@ const checkoutMaxi = async () => {
             </div>
 
         </div>
-    </WebLayout>
+
 </template>
 
 <style scoped>

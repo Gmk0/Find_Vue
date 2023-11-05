@@ -24,7 +24,9 @@ export const useCategoryStore = defineStore('category', {
     },
     getters: {
         categoriesGet: (state) => state.categories
-    }
+    },
+
+persist:true,
 });
 
 
@@ -46,6 +48,7 @@ export const useStore = defineStore({
             return this.isNotHome;
         },
     },
+
 });
 
 

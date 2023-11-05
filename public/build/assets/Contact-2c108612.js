@@ -1,0 +1,1 @@
+import{_ as t}from"./WebLayout-c0b48671.js";import{e,o}from"./app-6bac4c78.js";import"./userInfo-8ba814d7.js";const m=Object.assign({layout:t},{__name:"Contact",setup(a){return(r,c)=>(o(),e("div"))}});export{m as default};

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ServiceResourceData;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -184,31 +185,19 @@ class CategoryController extends Controller
     {
 
         $service = Service::where('service_numero', $service_numero)
-        ->with([
-            'freelance' => function ($query) {
-                $query->select('id', 'nom', 'prenom','level');
-                    // Remplacez 'autre_champ' par d'autres champs que vous souhaitez récupérer
-            }
-        ])
             ->first();
 
         if($service == null){
             return redirect()->back();
         }
 
-        $otherService=Service::where('id','!=' ,$service->id)->where('category_id', 'like', '%' .$service->category_id . '%')->take(6)->get();
-
-        $serviceData = [
-
-            'freelance' => $service->freelance,
-            'user' => $service->freelance->data,
-        ];
+        $otherService=Service::where('id','!=' ,$service->id)->where('category_id', $service->category_id)->take(6)->get();
 
 
         return Inertia::render('Web/Service/OneService',
         [
-            'service'=>$service,
-            'otherService' => $otherService,
+            'service'=>ServiceResourceData::make($service),
+            'otherService' => ServiceResourceData::collection($otherService),
 
         ]);
     }

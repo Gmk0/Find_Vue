@@ -3,6 +3,7 @@
 import Popper from "vue3-popper";
 
 import { ref } from 'vue';
+import { Link } from "@inertiajs/vue3";
 
 const isShowPopper = ref(false);
 const popperRef = ref(null);
@@ -36,11 +37,15 @@ const togglePopper = () => {
                 </Link >
             </div>
 
+
+
             <!-- Main Sections Links -->
             <div class="flex flex-col pt-6 space-y-4 overflow-y-auto is-scrollbar-hidden grow">
                 <!-- Dashobards -->
-                <Link :href="route('home')"
-                    class="flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 {{ request()->routeIs('freelance.dashboard') ? 'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90' : 'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25' }}"
+                <Link :href="route('user.dashboard')"
+                    v-tooltip.right="'Dashboard'"
+                    :class="$page.component.startsWith('User/Dashboard') ? 'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90':'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25'"
+                    class="flex items-center justify-center transition-colors duration-200 rounded-lg outline-none h-11 w-11"
                  >
                     <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path fill="currentColor" fill-opacity=".3"
@@ -55,8 +60,9 @@ const togglePopper = () => {
 
                 <!-- Apps -->
                  <Link :href="route('user.commandes')"
-                    class="flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 {{ request()->routeIs('freelance.commande.list') ?'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90' : 'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25' }}"
-                    x-tooltip.placement.right="'Commande'">
+                   :class="$page.component.startsWith('User/Commande') ? 'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90' : 'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25'"
+                    class="flex items-center justify-center transition-colors duration-200 rounded-lg outline-none h-11 w-11 "
+                    v-tooltip.right="'Commande'">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -69,8 +75,9 @@ const togglePopper = () => {
 
                 <!-- Forms -->
                 <a href=""
-                    class="flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 {{ request()->routeIs('freelance.PaiementInfo') ?'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90' : 'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25' }}"
-                    x-tooltip.placement.right="'Paiment'">
+                  :class="$page.component.startsWith('User/Paiement') ? 'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90' : 'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25'"
+                    class="flex items-center justify-center transition-colors duration-200 rounded-lg outline-none h-11 w-11 "
+                     v-tooltip.right="'Paiment'">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -80,8 +87,9 @@ const togglePopper = () => {
 
                 <!-- Components -->
                  <Link :href="route('user.missions')"
-                    class="flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 {{ request()->routeIs('freelance.projet.list') ? 'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90' : 'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25' }}"
-                    x-tooltip.placement.right="'Mission'">
+                   :class="$page.component.startsWith('User/Mission') ? 'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90' : 'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25'"
+                    class="flex items-center justify-center transition-colors duration-200 rounded-lg outline-none h-11 w-11 "
+                   v-tooltip.right="'Mission'">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
@@ -90,8 +98,9 @@ const togglePopper = () => {
 
                 <!-- Elements -->
                 <Link :href="route('user.transactions')"
-                    class="flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 {{ request()->routeIs('freelance.transaction.list')? 'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90' : 'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25' }}"
-                    x-tooltip.placement.right="'Transaction'">
+                  :class="$page.component.startsWith('User/Transaction') ? 'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90' : 'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25'"
+                    class="flex items-center justify-center transition-colors duration-200 rounded-lg outline-none h-11 w-11"
+                    v-tooltip.right="'Transaction'">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -99,9 +108,9 @@ const togglePopper = () => {
                     </svg>
                </Link>
                 <Link :href="route('user.chat')"
-                    class="flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 {{ request()->routeIs('freelance.messages')? 'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90' : 'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25' }}"
-                    x-tooltip.placement.right="'Message'">
-
+                  :class="$page.component.startsWith('User/Chat') ? 'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90' : 'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25'"
+                    class="flex items-center justify-center transition-colors duration-200 rounded-lg outline-none h-11 w-11"
+                    v-tooltip.right="'Message'">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -113,15 +122,7 @@ const togglePopper = () => {
             <!-- Bottom Links -->
             <div class="flex flex-col items-center py-3 space-y-3">
                 <!-- Settings -->
-                <a href=""
-                    class="flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 {{ request()->routeIs('freelance.projet.list') ? 'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90' : 'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25' }}">
-                    <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-opacity="0.3" fill="currentColor"
-                            d="M2 12.947v-1.771c0-1.047.85-1.913 1.899-1.913 1.81 0 2.549-1.288 1.64-2.868a1.919 1.919 0 0 1 .699-2.607l1.729-.996c.79-.474 1.81-.192 2.279.603l.11.192c.9 1.58 2.379 1.58 3.288 0l.11-.192c.47-.795 1.49-1.077 2.279-.603l1.73.996a1.92 1.92 0 0 1 .699 2.607c-.91 1.58-.17 2.868 1.639 2.868 1.04 0 1.899.856 1.899 1.912v1.772c0 1.047-.85 1.912-1.9 1.912-1.808 0-2.548 1.288-1.638 2.869.52.915.21 2.083-.7 2.606l-1.729.997c-.79.473-1.81.191-2.279-.604l-.11-.191c-.9-1.58-2.379-1.58-3.288 0l-.11.19c-.47.796-1.49 1.078-2.279.605l-1.73-.997a1.919 1.919 0 0 1-.699-2.606c.91-1.58.17-2.869-1.639-2.869A1.911 1.911 0 0 1 2 12.947Z" />
-                        <path fill="currentColor"
-                            d="M11.995 15.332c1.794 0 3.248-1.464 3.248-3.27 0-1.807-1.454-3.272-3.248-3.272-1.794 0-3.248 1.465-3.248 3.271 0 1.807 1.454 3.271 3.248 3.271Z" />
-                    </svg>
-                </a>
+
 
 
                 <div
@@ -140,12 +141,12 @@ const togglePopper = () => {
                                     <div class="flex items-center px-4 py-5 space-x-4 rounded-t-lg bg-slate-100 dark:bg-navy-800">
                                                 <div class="avatar h-14 w-14">
                                                     <img class="object-cover rounded-full"
-                                                        src="" alt="">
+                                                        :src="'/storage/' + $page.props.auth.user.profile_photo_path" alt="">
                                                 </div>
                                                 <div>
                                                     <a href="#"
                                                         class="text-base font-medium text-slate-700 hover:text-amber-600 focus:text-amber-600 dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light">
-
+                                                        {{ $page.props.auth.user.name }}
                                                     </a>
                                                     <p class="text-xs text-slate-400 dark:text-navy-300">
 
@@ -153,7 +154,7 @@ const togglePopper = () => {
                                                 </div>
                                             </div>
                                             <div class="flex flex-col pt-2 pb-5">
-                                                <a href="{{route('freelance.profile')}}"
+                                                <Link :href="route('user.profile')"
                                                     class="flex items-center px-4 py-2 space-x-3 tracking-wide transition-all outline-none group hover:bg-slate-100 focus:bg-slate-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                                                     <div class="flex items-center justify-center w-8 h-8 text-white rounded-lg bg-warning">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none"
@@ -172,8 +173,8 @@ const togglePopper = () => {
                                                             Paramètre de votre profil
                                                         </div>
                                                     </div>
-                                                </a>
-                                                <a href="{{route('freelance.messages')}}"
+                                                </Link>
+                                                <Link :href="route('user.chat')"
                                                     class="flex items-center px-4 py-2 space-x-3 tracking-wide transition-all outline-none group hover:bg-slate-100 focus:bg-slate-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                                                     <div class="flex items-center justify-center w-8 h-8 text-white rounded-lg bg-info">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none"
@@ -192,7 +193,7 @@ const togglePopper = () => {
                                                             Vos messages
                                                         </div>
                                                     </div>
-                                                </a>
+                                                </Link>
 
                                                 <a href="#"
                                                     class="flex items-center px-4 py-2 space-x-3 tracking-wide transition-all outline-none group hover:bg-slate-100 focus:bg-slate-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
@@ -259,8 +260,13 @@ const togglePopper = () => {
                         </template>
                           <button  class="w-12 h-12 avatar">
 
-                            <img class="object-cover rounded-full"
-                                src="" alt="">
+                            <img v-if="$page.props.auth.user.profile_photo_path !=null" class="object-cover rounded-full"
+                                 :src="'/storage/' + $page.props.auth.user.profile_photo_path"
+                                 :alt="$page.props.auth.user.name">
+
+                            <img v-else class="object-cover rounded-full"
+                                     :src="$page.props.auth.user.profile_photo_url"
+                                     :alt="$page.props.auth.user.name">
 
                             <span
                                 class="absolute right-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-success dark:border-navy-700"></span>
@@ -287,4 +293,18 @@ const togglePopper = () => {
 
 <style scoped>
 
+
+.active{
+
+     --tw-text-opacity: 1;
+    color: rgb(217 119 6 / var(--tw-text-opacity));
+}
+
+.active:hover {
+    background-color: rgb(217 119 6 / 0.2);
+}
+
+.active:focus {
+    background-color: rgb(217 119 6 / 0.2);
+}
 </style>

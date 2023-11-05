@@ -12,7 +12,8 @@ window.jQuery = $;
 
 
 
-import { createSSRApp, h } from 'vue'
+//import { createSSRApp, h } from 'vue'
+import { createApp, h } from 'vue'
 import { createInertiaApp, Link } from '@inertiajs/vue3';
 import { createPinia } from 'pinia';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
@@ -36,13 +37,37 @@ import NotificationComponent from '@/components/NotificationComponent.vue';
 
 import MultiSelect from 'primevue/multiselect';
 
+import Checkbox from '@/components/Checkbox.vue';
+
 import Skeleton from 'primevue/skeleton';
 import InputText from 'primevue/InputText';
 import Sidebar from 'primevue/sidebar';
 
-
-
 import Dropdown from 'primevue/dropdown';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+
+import Calendar from 'primevue/calendar';
+
+import ServiceCard from './Components/ServiceCard.vue';
+
+import ButtonMt from '@/Components/ButtonMT.vue';
+import Tailwind from 'primevue/passthrough/tailwind';
+import Dialog from 'primevue/dialog';
+import Button from 'primevue/button';
+import InputError from '@/Components/InputError.vue';
+import Textarea from 'primevue/textarea';
+import Photo from '@/Components/Photo.vue';
+
+import RadioButton from 'primevue/radiobutton';
+import Tooltip from 'primevue/tooltip';
+
+import Error from '@/Components/Error.vue';
+import Tag from 'primevue/tag';
+import FileUpload from 'primevue/fileupload';
+
+
+
 
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -52,15 +77,16 @@ pinia.use(piniaPluginPersistedstate)
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue',{eager:true})),
+    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
-        const app = createSSRApp({ render: () => h(App, props) })
+        const app = createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
             .use(pinia)
             .use(VueSweetalert2)
-            .use(PrimeVue)
+            .use(PrimeVue, { unstyled: true, pt: Tailwind })
             .use(ToastService)
+            .directive('Tooltip', Tooltip)
             .component('AppLayout', AppLayout)
             .component('pagination',Pagination)
             .component('CartComponent', CartComponent)
@@ -73,7 +99,21 @@ createInertiaApp({
             .component('Toast', Toast)
             .component('Sidebar', Sidebar)
             .component('Collapse', Collapse)
-
+            .component('DataTable', DataTable)
+            .component('Column', Column)
+            .component('Calendar', Calendar)
+            .component('ButtonMt', ButtonMt)
+            .component('Dialog', Dialog)
+            .component('Button', Button)
+            .component('Textarea', Textarea)
+            .component('InputError', InputError)
+            .component('Photo', Photo)
+            .component('RadioButton', RadioButton)
+            .component('Checkbox', Checkbox)
+            .component('Error', Error)
+            .component('Tag',Tag)
+            .component('FileUpload', FileUpload)
+            .component('ServiceCard', ServiceCard)
              // Enregistrez votre composant de layout
 
         const vm = app.mount(el);

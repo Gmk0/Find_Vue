@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Favorite;
 use Illuminate\Http\Request;
 
 
@@ -29,6 +30,7 @@ class ServiceController extends Controller
         return Inertia::render('Web/Service/ServiceAll',
         ['categories'=>Category::all(),
         'servicesBest'=>$servicesBest->with('freelance')
+                        ->take(10)
                         ->get()
                         ->map(function($service){
                             return [
@@ -65,5 +67,23 @@ class ServiceController extends Controller
                         ];
                     })]
         );
+    }
+
+    public function likeService(Request $request)
+    {
+
+
+        $favorite = Favorite::where('user_id', auth()->id())
+            ->where('service_id', $request->service)
+            ->first();
+
+        if ($favorite) {
+            $favorite->delete();
+        } else {
+            Favorite::create([
+                'user_id' => auth()->id(),
+                'service_id' => $request->service,
+            ]);
+        }
     }
 }

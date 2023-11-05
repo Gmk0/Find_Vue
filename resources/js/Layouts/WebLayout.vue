@@ -1,7 +1,7 @@
 <template>
     <div class="overflow-x-hidden bg-white dark:bg-gray-800">
 
-        <Head :title="title" />
+        <Head :title="titlePage" />
 
         <div class="pageWrapper">
             <Navbar/>
@@ -9,9 +9,9 @@
             <div id="">
 
 
-                    <main  class="min-h-screen">
-                        <slot />
-                    </main>
+            <main  class="relative min-h-screen overflow-auto ">
+                <slot />
+            </main>
 
 
             </div>
@@ -26,7 +26,7 @@
 
 <script setup>
 
-import { Head } from '@inertiajs/vue3';
+import { Head,usePage } from '@inertiajs/vue3';
 import Navbar from '@/Layouts/Partials/Navbar.vue';
 import Footer from '@/Layouts/Partials/Footer.vue';
 import { onMounted, ref, computed } from 'vue';
@@ -40,7 +40,16 @@ import { useSubcategoriesStore, useCategoryStore } from '@/store/store';
 const categoriesStore = useCategoryStore();
 const subcategoriesStore = useSubcategoriesStore();
 
-
+const page = usePage();
+const titlePage=computed(()=> {
+    const urlPath=page.url.split('/');
+    if(urlPath.length <=1 || urlPath[1] === '')
+    {
+        return 'Acceuil';
+    }else{
+        return urlPath[1];
+    }
+})
 
 
 defineProps({

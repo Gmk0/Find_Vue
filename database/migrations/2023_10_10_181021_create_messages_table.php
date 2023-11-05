@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignUuid('conversation_id')->constrained();
             $table->text('body')->nullable();
             $table->string('file')->nullable();
-            $table->enum('is_read', ["0", "1"])->default('0');
+            $table->boolean('is_read')->default(0);
             $table->string('type')->nullable();
             $table->foreignId('service_id')->nullable()->constrained();
             $table->foreignId('order_id')->nullable()->constrained();

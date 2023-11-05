@@ -2,29 +2,43 @@
 
 
 <template>
-    <div class="flex flex-col min-h-screen gap-6 mx-auto md:p-6 lg:max-w-7xl md:container px-auto bg-inherit">
+    <div class="flex flex-col min-h-screen gap-6 px-4 lg:mx-auto md:p-6 lg:max-w-7xl md:container px-auto bg-inherit">
 
         <div class="flex flex-col">
             <div>
-                <nav class="py-2">
-                    <ul class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-100">
-                        <li>
-                            <Link :href="route('home')" class="">Commande</Link>
-
+                <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center">
+                        <Link :href="route('user.dashboard')" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                            <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+                            </svg>
+                            Dashboard
+                        </Link>
                         </li>
-                        <li>
-                            <span class="mx-2 text-base">></span>
+                        <li aria-current="page">
+                            <Link :href="route('user.commandes')" class="flex items-center">
+                                <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                </svg>
+                                <span class="ml-1 text-sm font-medium text-gray-700 md:ml-2 dark:text-gray-400">Commande</span>
+                            </Link>
                         </li>
 
-                        <li class="text-gray-700 dark:text-gray-200">
-                            {{ commande.data.order_numero }}
 
+                        <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                            </svg>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">{{ order.order_numero }}</span>
+                        </div>
                         </li>
-                    </ul>
+                    </ol>
                 </nav>
             </div>
 
-            <h1 class="text-3xl font-bold text-black dark:text-white">Commandes</h1>
+            <h1 class="mt-4 text-3xl font-bold text-black dark:text-white">Commandes</h1>
 
         </div>
 
@@ -34,7 +48,7 @@
 
 
         <div class="">
-            <div class="overflow-hidden bg-white rounded-lg shadow-md">
+            <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
                         <!-- Informations sur la commande -->
                         <div class="grid grid-cols-1 px-6 py-4 lg:grid-cols-2">
                             <p class="mb-4 font-sans text-lg text-gray-800 dark:text-gray-300">Commande
@@ -106,7 +120,7 @@
                         <p class="mb-2 text-lg text-gray-800">Avancement</p>
                         <div class="flex items-center">
                             <div class="flex-1">
-                                <ProgressBar :value="order.progress"></ProgressBar>
+                                <ProgressBar :value="order.progress" class="dark:!bg-gray-700"></ProgressBar>
                             </div>
                             <p class="ml-2 text-sm text-gray-600 dark:text-gray-300">{{ order.progress }}%</p>
                         </div>
@@ -171,6 +185,7 @@
                         <p class="mb-2 text-lg text-gray-800">Options supplémentaires</p>
                         <div class="grid grid-cols-2 gap-2 lg:grid-cols-5 md:grid-cols-4 lg:flex-row">
 
+
                             <div v-if="order.transaction ==null">
                                     <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Contact</button>
 
@@ -193,7 +208,7 @@
                             </div>
 
                             <div class="">
-                                  <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Annuler</button>
+                                  <Button size="small" raised severity="danger" label="Annuler" />
                             </div>
 
                         </div>
@@ -333,6 +348,8 @@
 
 
         </div>
+
+
 
     </div>
 </template>

@@ -16,6 +16,9 @@ import InputNumber from 'primevue/inputnumber';
 import axios from 'axios';
 
 
+;
+
+
 const props =   defineProps({
     user: Object,
 });
@@ -64,6 +67,8 @@ const updatePhotoPreview = () => {
             console.log('La requête a échoué avec des erreurs :', errors);
             // Ajoutez ici le code que vous souhaitez exécuter en cas d'échec
         },
+        preserveScroll: true,
+
 
     });
 
@@ -348,6 +353,13 @@ function getWorldLanguages() {
 }
 
 
+const comptesSelector = ref([
+    { name: 'twitter', code: '/images/logo/X.webp' },
+    { name: 'Facebook', code: '/images/logo/X.webp' },
+    { name: 'Tiktok', code: '/images/logo/tiktok.png' },
+
+]);
+
 onMounted(() => {
 
     getWorldLanguages();
@@ -413,6 +425,51 @@ const register =()=>{
     });
 }
 
+
+const loadingVerif = ref(false);
+
+const code = useForm({
+    code:'',
+});
+
+const validerMail=()=>{
+
+
+    loadingVerif.value = true;
+
+    code.post(route('verificationCode'),{
+        preserveScroll: true,
+        onSuccess: () =>{
+              verifier.value = false;
+              loadingVerif.value = false;
+        },
+        onError: (errors) =>{
+            loadingVerif.value = false;
+
+            console.log(errors);
+        }
+    })
+}
+
+const verifier = ref(false);
+
+const loadingVerifEmail = ref(false);
+
+const verification = () => {
+
+    loadingVerifEmail.value = true;
+    router.post(route('verificationMail'), {},
+        {
+
+            onSuccess: () => {
+                verifier.value = true;
+                loadingVerifEmail.value = falses;
+            },
+            preserveState: true,
+            preserveScroll: true,
+        });
+};
+
 const postData = async () => {
     try {
         const response = await axios.post(route('register.freelance'), data);
@@ -457,6 +514,17 @@ const levelSelector = ref([
     { name: 'Expert', id: 'Expert' },
 ])
 
+
+
+const d = new Date();
+let year = d.getFullYear();
+const anneeSelected =ref([]);
+
+for (let index = 1999; index < year ; index++) {
+     anneeSelected.value.push(index);
+}
+
+console.log(anneeSelected.value);
 </script>
 
 <template>
@@ -598,11 +666,15 @@ const levelSelector = ref([
                                 <div
                                     class="px-4 py-5 bg-white rounded-lg shadow dark:bg-gray-800 dark:border dark:border-gray-200 sm:p-6 ">
                                     <div class="gap-6 md:grid md:grid-cols-1 md:mb-2">
-                                        <div class="gap-6 md:grid ">
-                                             <div class="flex card justify-content-center">
-                                                <Dropdown v-model="selectedCategoryId" :options="categories" optionValue="id" optionLabel="name" placeholder="Votre categorie" showClear  class="w-full border border-gray-300 md:w-12rem" />
-                                            </div>
+                                        <div class="w-full">
 
+                                                <Dropdown
+                                                v-model="selectedCategoryId"
+                                                :options="categories"
+                                                optionValue="id" optionLabel="name"
+                                                placeholder="Votre categorie"
+                                                showClear
+                                                class="!w-full" />
 
                                         </div>
 
@@ -610,13 +682,26 @@ const levelSelector = ref([
 
 
                                                 <div class="flex justify-content-center">
-                                                       <MultiSelect v-model="selectedSubcategoryId" :options="subcategories"  optionLabel="name" optionValue="id" class="w-full border border-gray-300 md:w-10rem" placeholder="Selectionner sous categorie"
+                                                       <MultiSelect
+                                                        v-model="selectedSubcategoryId"
+                                                        :options="subcategories"
+                                                        optionLabel="name"
+                                                        optionValue="id"
+                                                        class="w-full md:w-full"
+                                                         placeholder="Selectionner sous categorie"
                                                         :maxSelectedLabels="3"  />
 
                                                 </div>
 
                                                 <div class="flex justify-content-center">
-                                                        <Dropdown v-model="freelanceElement.experience" :options="experienceAnnee" showClear  optionValue="id" optionLabel="name" placeholder="Experience" class="w-full !border !border-gray-300 md:w-10rem" />
+                                                        <Dropdown
+                                                        v-model="freelanceElement.experience"
+                                                        :options="experienceAnnee"
+                                                        showClear
+                                                        optionValue="id"
+                                                        optionLabel="name"
+                                                        placeholder="Experience"
+                                                        class="!w-full" />
                                                  </div>
 
 
@@ -658,8 +743,8 @@ const levelSelector = ref([
                                     class="px-4 py-5 bg-white rounded-lg shadow dark:bg-gray-800 dark:border dark:border-gray-200 sm:p-6 ">
                                     <div class="">
                                         <div>
-                                            <p class="mb-2 text-lg font-bold">Commpetences :</p>
-                                           <ul class="mb-4 text-gray-700">
+                                            <p class="mb-2 text-lg font-bold dark:text-gray-300">Commpetences :</p>
+                                           <ul class="mb-4 text-gray-700 dark:text-gray-200">
                                                 <li v-for="(exp, index) in experience" :key="index" class="flex gap-2 px-2">
                                                     <span>{{ exp.title }} - {{ exp.level }}</span>
 
@@ -675,24 +760,28 @@ const levelSelector = ref([
 
                                         <div class="grid gap-2 mb-4 lg:grid-cols-3">
 
-                                                <InputText
-                                                size="large"
-                                                 class="block w-full border border-gray-300 rounded-lg dark:!text-white dark:focus:!ring-amber-500 dark:!bg-gray-900 "
-                                                 v-model="selectedExperiment.title"
+                                            <div >
+                                                    <InputText
+                                                     class="w-full"
+                                                     placeholder="competences"
+                                                     v-model="selectedExperiment.title"
 
-                                                />
+                                                    />
+
+                                            </div>
 
 
-
-
+                                            <div>
                                                 <Dropdown
-                                                v-model="selectedExperiment.level"
-                                                :options="levelSelector"
+                                                    v-model="selectedExperiment.level"
+                                                    :options="levelSelector"
+                                                     size="small"
+                                                    optionValue="id" optionLabel="name"
+                                                     placeholder="Experience"
+                                                    class="w-full" />
 
-                                                 size="small"
-                                                optionValue="id" optionLabel="name"
-                                                 placeholder="Experience"
-                                                class="w-full border border-gray-300 md:w-8rem" />
+                                            </div>
+
 
 
 
@@ -733,16 +822,20 @@ const levelSelector = ref([
                         <div class="mt-5 md:mt-0 md:col-span-2">
                             <div>
                                 <div
-                                    class="px-4 py-5 bg-white rounded-lg shadow dark:bg-gray-800 dark:border dark:border-gray-200 sm:p-6">
+                                    class="grid px-4 py-5 bg-white rounded-lg shadow lg:grid-cols-2 dark:bg-gray-800 dark:border dark:border-gray-200 sm:p-6">
 
 
+                                    <div class="w-full lg:col-span-1 ">
 
-                                           <InputNumber v-model="freelanceElement.taux"
-                                           placeholder="Taux"
-                                           class="block w-full border border-gray-300 rounded-lg "
-                                           inputId="locale-us"
-                                           locale="en-US"
-                                           :minFractionDigits="2" />
+                                         <InputText class="w-full"
+                                         placeholder="Taux"
+                                         type="numeric"
+                                        v-model="freelanceElement.taux"
+
+                                                        />
+
+
+                                    </div>
 
 
 
@@ -778,17 +871,18 @@ const levelSelector = ref([
                                     <div class="grid gap-2 lg:grid-cols-3">
 
 
-                                            <TextInput
-                                            class="block w-full"
+
+                                            <InputText
+                                            class="w-full"
                                             placeholder="Adresse"
-                                             v-model="localisation.addresse" />
+                                            v-model="localisation.addresse"/>
+                                            <InputText
+                                            class="w-full"
+                                            placeholder="ville"
+                                            v-model="localisation.ville"/>
 
-                                             <TextInput
-                                            class="block w-full"
-                                             placeholder="ville"
-                                             v-model="localisation.ville" />
 
-                                           <TextInput
+                                           <InputText
                                            placeholder="Commune"
                                             class="block w-full"
                                            v-model="localisation.commune" />
@@ -858,13 +952,13 @@ const levelSelector = ref([
 
 
 
-                                            <TextInput class="block w-full"
+                                            <InputText
                                             placeholder="Nom"
-                                                v-model="freelanceElement.nom"
+                                             v-model="freelanceElement.nom"
                                             />
 
 
-                                            <TextInput class="block w-full"
+                                            <InputText class="block w-full"
                                                 placeholder="Prenom"
                                                     v-model="freelanceElement.prenom"
                                                 />
@@ -929,7 +1023,7 @@ const levelSelector = ref([
                                     </div>
 
                             <SecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewPhoto">
-                                Select A New Photo
+                                Ajouter une Photo
                             </SecondaryButton>
 
 
@@ -969,19 +1063,23 @@ const levelSelector = ref([
                                     <div>
 
 
-                                     <textarea
+                                     <Textarea
                                      v-model="freelanceElement.description"
                                      id="message"
-                                     rows="4"
+                                     class="!w-full"
+                                     rows="5"
+                                     cols="30"
+                                    placeholder="Description" />
 
-                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-amber-500 focus:border-amber-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500" placeholder="Description">
-                                    </textarea>
                                     <div class="flex justify-between">
+
                                         <span>{{error.description}}</span>
                                         <span> {{  freelanceElement.description.length}} /6000</span>
 
 
                                     </div>
+                                    <span class="text-gray-800 dark:text-gray-200">La
+                                            description doit contenir au moins 150 caractères</span>
                                     </div>
 
                                 </div>
@@ -1032,7 +1130,7 @@ const levelSelector = ref([
 
 
                                             <div class="grid gap-2 mb-4 lg:grid-cols-3">
-                                                <div>
+                                                <div class="w-full">
                                                       <Dropdown
                                                         v-model="selectedLangue.langue"
                                                         :options="languagesArray"
@@ -1043,18 +1141,17 @@ const levelSelector = ref([
                                                         optionValue="name"
                                                         optionLabel="name"
                                                          placeholder="Niveau"
-                                                        class="w-full border border-gray-300 md:w-8rem" />
+                                                        class="w-full " />
 
 
                                                 </div>
 
-                                                <div>
+                                                <div class="w-full">
 
                                                 <Dropdown
                                                     v-model="selectedLangue.level"
                                                     :options="levelSelector"
 
-                                                     size="small"
                                                     optionValue="id" optionLabel="name"
                                                      placeholder="Niveau"
                                                     class="w-full border border-gray-300 md:w-8rem" />
@@ -1173,14 +1270,14 @@ const levelSelector = ref([
 
                                         <div class="grid gap-4 mt-4 lg:grid-cols-3 md:mb-2">
                                             <div>
-                                                 <TextInput
+                                                 <InputText
                                                  placeholder="Diplomer en"
                                                  class="block w-full"
                                                  v-model="selectedEducation.diplome"/>
 
                                             </div>
                                             <div>
-                                                <TextInput
+                                                <InputText
                                                 placeholder="Etablissement"
                                                 class="block w-full"
                                                 v-model="selectedEducation.universite"/>
@@ -1191,10 +1288,12 @@ const levelSelector = ref([
                                             <div class="flex gap-2">
 
                                                 <div>
-                                                        <TextInput
-                                                        placeholder="annee"
-                                                         class="block w-full"
-                                                           v-model="selectedEducation.annee"/>
+                                                    <Dropdown
+                                                    placeholder="annee"
+                                                    class="!w-[8rem]"
+                                                    :options="anneeSelected"
+                                                    v-model="selectedEducation.annee" />
+
                                                 </div>
 
 
@@ -1253,7 +1352,7 @@ const levelSelector = ref([
                                                     <div
                                                         class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
                                                         <table class="min-w-full divide-y divide-gray-200">
-                                                            <thead class="bg-gray-50 dark:bg-gray-800">
+                                                            <thead class="bg-gray-50 dark:bg-gray-900">
                                                                 <tr>
                                                                     <th scope="col"
                                                                         class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-200">
@@ -1315,14 +1414,14 @@ const levelSelector = ref([
 
                                         <div class="grid gap-4 mt-4 lg:grid-cols-3 md:mb-2">
                                             <div>
-                                                <TextInput
+                                                <InputText
                                                 class="block w-full"
                                                 placeholder="Certifier en"
                                                 v-model="selectedCertificat.certifier"/>
 
                                             </div>
                                             <div>
-                                                 <TextInput
+                                                 <InputText
                                                 class="block w-full"
                                                 placeholder="Delivrer par"
                                                 v-model="selectedCertificat.delivrer"/>
@@ -1334,9 +1433,12 @@ const levelSelector = ref([
 
                                                 <div class="flex gap-2">
                                                      <div>
-                                                          <TextInput
-                                                          class="block w-full"
-                                                          v-model="selectedCertificat.annee"/>
+                                                         <Dropdown
+                                                        placeholder="annee"
+                                                        class="!w-[8rem]"
+                                                        :options="anneeSelected"
+                                                        v-model="selectedCertificat.annee" />
+
                                                      </div>
 
                                                          <button @click="addCertification" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
@@ -1364,7 +1466,7 @@ const levelSelector = ref([
                     </div>
                     <SectionBorder />
 
-                    Personnal website>
+
 
                     <div class='mb-4 md:grid md:mb-0 md:grid-cols-3 md:gap-6'>
                         <div class="flex justify-between md:col-span-1">
@@ -1395,7 +1497,8 @@ const levelSelector = ref([
 
 
 
-                                        <TextInput />
+                                        <InputText
+                                        v-model="freelanceElement.portfolio" />
 
                                     </div>
 
@@ -1448,21 +1551,21 @@ const levelSelector = ref([
                                 </h3>
 
                                 <p class="mt-1 text-sm text-gray-600">
-                                    ""
+                                    Connecter vos comptes Professionnelle
                                 </p>
                             </div>
 
 
                         </div>
-                        <div class="mt-5 md:mt-0 md:col-span-2">
-                            <div class="grid grid-cols-2 gap-4">
+                        <div class="mt-5 mb-4 md:mt-0 md:col-span-2">
+                            <div class="grid grid-cols-2 gap-4 px-4">
                                 <label for="google">Google</label>
 
 
 
 
 
-                                <button type="button" outlined>
+                                <button type="button">
                                     connecter
                                 </button>
 
@@ -1491,7 +1594,7 @@ const levelSelector = ref([
                                 </h3>
 
                                 <p class="mt-1 text-sm text-gray-600">
-                                    ""
+                                    Rajouter de lien vers vos autres comptes Professionnelle
                                 </p>
                             </div>
 
@@ -1499,7 +1602,7 @@ const levelSelector = ref([
                         </div>
 
 
-                        <div class="mt-5 md:mt-0 md:col-span-2">
+                        <div class="mt-8 md:mt-0 md:col-span-2">
                             <div>
                                 <div
                                     class="px-4 py-5 bg-white dark:bg-gray-800 dark:border dark:border-gray-200 rounded-lg  sm:p-6 shadow {{ isset($actions) ? 'sm:rounded-tl-md sm:rounded-tr-md' : 'sm:rounded-md' }}">
@@ -1512,7 +1615,7 @@ const levelSelector = ref([
 
                                                 <li v-for="(copt , index) in comptes" class="items-center gap-2 ">
                                                     <span class="flex flex-wrap mr-1">
-                                                        {{ copt.compte}} {{ copt.lien }}
+                                                        {{ copt.compte}} - {{ copt.lien }}
                                                     </span>
 
                                                     <button @click="removeElement(index, 'compte')" class="btn btn-sm btn-circle btn-outline">
@@ -1530,16 +1633,28 @@ const levelSelector = ref([
 
                                         <div class="grid gap-2 mb-4 lg:grid-cols-3">
                                                 <div>
-                                                    <TextInput
-                                                     class="block w-full"
-                                                     v-model="selectedComptes.compte"
 
-                                                    />
+
+                                                     <Dropdown v-model="selectedComptes.compte" :options="comptesSelector"
+                                                     optionLabel="name"
+                                                     optionValue="name"
+                                                     placeholder="Selectionner un compte"
+                                                     class="w-full md:w-14rem">
+
+                                                           <template #option="slotProps">
+                                                            <div class="flex gap-4 align-items-center">
+                                                                <img :alt="slotProps.option.label"
+                                                                 :src="slotProps.option.code" style="width: 20px" />
+                                                                <div>{{ slotProps.option.name }}</div>
+                                                            </div>
+                                                        </template>
+
+                                                    </Dropdown>
 
                                                 </div>
 
                                                 <div>
-                                                     <TextInput
+                                                     <InputText
                                                         class="block w-full"
                                                         v-model="selectedComptes.lien"
                                                          />
@@ -1598,32 +1713,47 @@ const levelSelector = ref([
                                 </h3>
 
                                 <p class="mt-1 text-sm text-gray-600">
-                                    ""
+
                                 </p>
                             </div>
 
 
                         </div>
-                        <div  class="mt-5 md:mt-0 md:col-span-2">
+                        <div  class="px-4 mt-5 md:mt-0 md:col-span-2">
 
                             <div class="grid gap-4 mb-4 md:grid-cols-2">
 
-
-                                <div>
-                                    <TextInput
+                                    <InputText
+                                    class="w-full"
                                     v-model="freelanceElement.email"
                                     disabled
                                      />
 
+
+
+
+
+
+                                <div v-if="$page.props.auth.user.email_verified_at !=null" class="flex gap-4 italic text-gray-600">
+                                     <span>Email verifier</span>
+                                     <span><i class="pi pi-check"></i></span>
+
                                 </div>
+                                <div v-else class="flex justify-between">
+
+                                    <span>Email non verifier</span>
+                                    <div>
+                                        <Button
+                                        severity="success"
+                                        raised
 
 
+                                         @click="verification()"
+                                        :loading="loadingVerifEmail"
 
-                                <div>
-                                    <button>Add</button>
+                                       />
+                                    </div>
                                 </div>
-
-                                <div class="italic text-gray-600">Email verifier</div>
 
 
 
@@ -1650,7 +1780,7 @@ const levelSelector = ref([
                                 </h3>
 
                                 <p class="mt-1 text-sm text-gray-600">
-                                    ""
+
                                 </p>
                             </div>
 
@@ -1661,7 +1791,7 @@ const levelSelector = ref([
 
 
 
-                            <div class="grid gap-4 md:grid-cols-2">
+                            <div class="grid gap-4 px-4 md:grid-cols-2">
 
 
                                 <TextInput
@@ -1669,13 +1799,27 @@ const levelSelector = ref([
                                 disabled
 
                                 />
+                                     <div v-if="$page.props.auth.user.phone_verified_at != null" class="flex gap-4 italic text-gray-600">
+                                         <span>telephone verifier</span>
+                                         <span><i class="pi pi-check"></i></span>
 
+                                    </div>
+                                              <div v-else class="flex justify-between dark:text-gray-100">
 
+                                        <span>verifier Telephone</span>
+                                        <div class="hidden">
+                                            <Button
+                                            severity="success"
+                                            raised
+                                            size="small"
+                                            label="verifier"
 
-                                <div>
+                                             @click="verification()"
+                                            :loading="loadingVerifEmail"
 
-                                    <p class="hidden text-sm italic text-red-600">fonctionalites no disponible</p>
-                                </div>
+                                           />
+                                        </div>
+                                    </div>
 
 
                             </div>
@@ -1729,6 +1873,46 @@ const levelSelector = ref([
 
 
     </div>
+
+
+
+  <Dialog v-model:visible="verifier" header="VERIFICATION"
+        :style="{ width: '50rem' }"
+        :position="'center'"
+        :modal="true"
+        :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+
+        <div>
+        <div class="px-4 pt-8">
+            <input type="text"
+            v-model="code.code" placeholder="Entrez votre texte ici" class="w-full px-3 py-2 text-gray-700 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+             <InputError class="mt-2" :message="code.errors.code" />
+        </div>
+
+        <div class="flex gap-2 mt-4 ">
+             <Button label="Fermer"
+              size="small"
+             icon="pi pi-times"></Button>
+
+              <Button
+              label="Verifier"
+              icon="pi pi-check"
+               size="small"
+               raised
+
+              severity="success"
+              :loading="loadingVerif"
+              @click="validerMail"
+              />
+        </div>
+
+        </div>
+
+        <Template #footer>
+            <Button label="Fermer" icon="pi pi-times"></Button>
+        </Template>
+
+    </Dialog>
 
 
 </template>

@@ -118,7 +118,7 @@ class Freelance extends Model
 
         static::creating(function ($freelance) {
 
-            $freelance->user_id = auth()->id();
+           // $freelance->user_id = auth()->id();
             $freelance->identifiant = 'FR' . date('YmdHms');
             $freelance->solde = 0;
         });
@@ -147,14 +147,26 @@ class Freelance extends Model
         ->when(!empty($filters['level']) , function ($query) use ($filters) {
             $query->where('level',$filters['level']);
         })
+        ->when(!empty($filters['price']), function ($query) use ($filters) {
+
+           list($min,$max) =explode('-', $filters['price']);
+
+
+            $query->whereBetween('taux_journalier', [$min,$max]);
+        })
             // ... Autres conditions de filtre ...
 
         ->when($filters['disponible'] ?? null, function ($query) use ($filters) {
                 $query->whereHas('user', function ($q) use ($filters) {
                     $q->where('is_online', $filters['disponible']);
                 });
-        })
-           ;
+        })->when($filters['experience_annee'] ?? null, function ($query) use ($filters) {
+
+            $query->where('experience','Like','%'. $filters['experience_annee'] .'%');
+        })->when($filters['experience_annee'] ?? null, function ($query) use ($filters) {
+
+            $query->where('experience', 'Like', '%' . $filters['experience_annee'] . '%');
+        });
     }
 
     public static function getFilteredFreelances(Request $request, $perPage = 10)
@@ -180,6 +192,23 @@ class Freelance extends Model
             });
     }
 
+
+    public function countCommandeEncours()
+    {
+        $commandeEncours
+            = FeedbackService::whereHas('order.service', function ($query) {
+                $query->where('freelance_id', $this->id);
+            })->where('etat', '!=', 'Livré')->count();
+
+        return $commandeEncours;
+    }
+
+    public function countCommandeFinis()
+    {
+       return $commandeE= FeedbackService::whereHas('order.service', function ($query) {
+                $query->where('freelance_id', $this->id);
+            })->where('etat', 'Livré')->count();
+    }
 
 
 

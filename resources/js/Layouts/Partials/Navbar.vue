@@ -37,12 +37,13 @@
                         <li class="lvl1 parent megamenu">
 
 
-                            <Link :href="route('home')">
+                            <Link :href="route('home')" class="boder-b-2 border-amber-600">
 
                                  <span class="dark:!text-white"
                                             :class="{ 'text-white ': !isSticky && !isNotHome, 'lg:hidden dark:!text-white': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">Accueil</span>
 
-                                            <span  class="dark:!text-white"  :class="{ 'hidden dark:!text-white': !isNotHome }">Accueil</span>
+                                <span  class="dark:!text-white"  :class="{ 'hidden dark:!text-white': !isNotHome }">Accueil</span>
+
 
 
 
@@ -94,14 +95,12 @@
 
 
 
-                                <ul class="dropdown">
+                                <ul class="dropdown dark:!bg-gray-800">
                                         <li>
                                              <Link :href="route('register.begin')">Devenir Freelance</Link>
 
                                         </li>
                                         <li> <Link :href="route('find_freelance')">Trouver un freelance</Link></li>
-
-
                                 </ul>
                     </li>
                     <li class="lvl1 parent dropdown">
@@ -127,18 +126,18 @@
 
                         </li>
                     <li class="lvl1 parent dropdown">
-                                       <Link  :href="route('home')">
-                                                <span class="dark:!text-white"  :class="{ 'lg:text-white': !isSticky && !isNotHome, 'lg:hidden': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">Services</span>
+                        <Link  :href="route('home')">
+                                <span class="dark:!text-white"  :class="{ 'lg:text-white': !isSticky && !isNotHome, 'lg:hidden': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">A propos</span>
 
-                                                <span class="dark:!text-white"  :class="{ 'hidden': !isNotHome }">Services</span>
+                                <span class="dark:!text-white"  :class="{ 'hidden': !isNotHome }">A propos</span>
 
-                                        </Link>
+                        </Link>
                         <ul class="dropdown">
                              <li>
                                 <Link :href="route('contact')">Contact</Link>
                             </li>
                             <li>
-                                <Link :href="route('contact')">Contact</Link>
+                                <Link :href="route('feedBack')">Feed back</Link>
                             </li>
                             <li>
                                     <Link :href="route('about')">A propos de nous</Link>
@@ -179,14 +178,14 @@
             <div class="flex items-center justify-end col-span-3 gap-2 lg:col-span-2 ">
                  <div v-if="$page.props.auth.user" class="flex items-center gap-4 ">
 
-                     <div v-if="!isSSR">
+
 
                              <CartComponent />
 
 
 
 
-                     </div>
+
 
 
 
@@ -280,7 +279,7 @@
 
 
                                 <img v-if="$page.props.auth.user.profile_photo_path != null" class="w-12 h-12 rounded-full"
-                                        :src="$page.props.auth.user.profile_photo_path"
+                                        :src="'/storage/'+$page.props.auth.user.profile_photo_path"
                                    alt="">
 
                                 <img v-else class="w-16 h-16 rounded-full"
@@ -382,7 +381,7 @@
                                                         {{ category.name }}
                                                      </Link>
 
-                                                     <div v-for="subcategory in category.sub_categories" class="px-8">
+                                                     <div v-for="subcategory in category.subcategories" class="px-8">
                                                         <Link :href="route('SubcategoryName', [category.name, subcategory.name])" class="flex flex-row items-center px-3 py-2 text-base font-medium text-gray-800 rounded-md dark:text-white hover:text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:text-gray-900 focus:bg-gray-200" :to="{ name: 'sub.name', params: { name: category.name, sub: subcategory.name } }">
                                                             {{ subcategory.name }}
                                                         </Link>
@@ -476,11 +475,22 @@
 
                                 </div>
                             </div>
-                            <!--
+
                         <div class="container mt-4 border-t border-gray-800 dark:border-gray-50 ">
                             <div class="pt-2 pb-3">
-                                <Link href="" @click="navOpen = false"
-                                    class="flex flex-row items-center px-3 py-2 text-base font-medium text-gray-800 rounded-md hover:text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:text-gray-900 focus:bg-gray-200"
+                                  <Link :href="route('user.dashboard')" @click="navOpen = false"
+                                        class="flex flex-row items-center px-3 py-2 text-base font-medium text-gray-800 rounded-md dark:text-gray-100 hover:text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:text-gray-900 focus:bg-gray-200"
+                                        role="menuitem">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                           >
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                        <span class="ml-2">Dashboard</span>
+                                    </Link>
+                                <Link :href="route('user.profile')" @click="navOpen = false"
+                                    class="flex flex-row items-center px-3 py-2 text-base font-medium text-gray-800 rounded-md dark:text-gray-100 hover:text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:text-gray-900 focus:bg-gray-200"
                                     role="menuitem">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -490,7 +500,20 @@
                                     </svg>
                                     <span class="ml-2">profile</span>
                                 </Link>
+                                  <Link :href="route('user.chat')" @click="navOpen = false"
+                                        class="flex flex-row items-center px-4 py-2 font-medium text-gray-800 dark:text-gray-200 text-md focus:text-gray-900 hover:text-gray-900 focus:outline-none dark:hover:bg-gray-600"
+                                        role="menuitem">
 
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                           >
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                        <span class="ml-2">Conversation</span>
+                                </Link>
+
+                                <!--
                                 @if(Auth::user()->freelance()->exists())
                                 <a href="{{route('freelance.dashboard')}}" @click="navOpen = false"
                                     class="flex flex-row items-center px-4 py-2 font-medium text-gray-800 text-md focus:text-gray-900 hover:text-gray-900 focus:outline-none hover:bg-gray-100 focus:bg-gray-100"
@@ -500,12 +523,7 @@
                                 </a>
                                 @endif
 
-                                <a href="{{url('/user/messages')}}" @click="navOpen = false"
-                                    class="flex flex-row items-center px-4 py-2 font-medium text-gray-800 text-md focus:text-gray-900 hover:text-gray-900 focus:outline-none hover:bg-gray-100 focus:bg-gray-100"
-                                    role="menuitem">
-                                    <ion-icon name="chatbox-outline" class="w-6 h-6"></ion-icon>
-                                    <span class="ml-2">{{ __('Conversation') }}</span>
-                                </a>
+
 
 
                                 <form method="POST" action="{{ url('/logout') }}" x-data>
@@ -524,9 +542,10 @@
                                         {{ __('messages.logOut') }}
                                     </x-dropdown-link>
                                 </form>
+                                -->
                             </div>
                         </div>
-                        -->
+
 
                         </div>
                     </div>

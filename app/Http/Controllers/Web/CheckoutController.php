@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TransactionResourceData;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -24,13 +25,23 @@ class CheckoutController extends Controller
     public function checkoutMaxi(Request $request)
     {
 
+
         try{
 
             DB::beginTransaction();
             $form =$request->form;
+
             $total =$request->total;
-             $items =$request->items;
-             $datas=[];
+            $items =$request->items;
+            $datas=[];
+            $payment = new Transaction();
+            $payment->user_id = auth()->id();
+            $payment->amount = $total;
+            $payment->payment_method = ['last4' => "Bon", 'brand' => "maxicash"];
+            $payment->payment_token = $this->references();
+            $payment->type = "paiement";
+            $payment->save();
+
             foreach ($items as $key => $value) {
 
                 $data = [
@@ -40,31 +51,32 @@ class CheckoutController extends Controller
                     'quantity' => $value['quantity'],
                     'type' => 'service',
                     'status' => 'pending',
+                    'transaction_id' =>  $payment->id
                 ];
                 $datas[] =Order::create($data);
             }
 
 
 
-
-
-            $payment = new Transaction();
-            $payment->user_id = auth()->id();
-            $payment->amount = $total;
-            $payment->payment_method = ['last4' => "Bon", 'brand' => "maxicash"];
-            $payment->payment_token = $this->references();
-            $payment->type = "paiement";
-            $payment->save();
-
-            foreach ($datas as $order) {
-                $orderToUpdate = Order::findOrFail($order->id);
-                $orderToUpdate->status = "completed";
-                $orderToUpdate->transaction_id = $payment->id;
-                $orderToUpdate->update();
-                // $orderToUpdate->notifyUser();
-            }
-
             DB::commit();
+
+
+            $succesUrl
+            =route('checkoutStatusMaxiService'); ;
+            $faileurUrl =
+            route('checkoutStatusMaxiService');
+
+            $cancelurl =
+            route('checkoutStatusMaxiService');;
+            $checkout = new Paiement();
+
+
+
+            $url = $checkout->checkoutmaxi($total * 100, $form['numero'], $payment->payment_token, $succesUrl, $cancelurl, $faileurUrl);
+
+               // dd($url);
+
+            return Inertia::location($url);
 
 
         }catch(\Exception $e){
@@ -75,6 +87,76 @@ class CheckoutController extends Controller
         }
 
 
+    }
+
+    public function paiment_maxi(Request $request)
+    {
+
+
+        $reference = $request->reference;
+        $methode = $request->method;
+        $status = $request->status;
+
+        $transaction = Transaction::where('payment_token', $reference)->first();
+
+        if($transaction==null)
+        {
+
+        }
+
+        if($status=='failed')
+        {
+            $transaction->status = 'failed';
+            $transaction->save();
+
+            $oders= $transaction->orders;
+
+            foreach($oders as $order)
+            {
+                $order->status='failed';
+                $order->save();
+            }
+
+            return redirect()->route('panier')->with('error','une erreur s\'est produite');
+
+        }else if($status == 'success'){
+
+            $transaction->status = 'completed';
+            $transaction->save();
+
+            $oders = $transaction->orders;
+
+            foreach ($oders as $order) {
+                $order->status = 'completed';
+                $order->save();
+            }
+
+            return redirect()->route('paiementStatus',['transaction_numero' => $transaction->transaction_numero]);
+        }else{
+            $transaction->status = 'failed';
+            $transaction->save();
+
+            $oders = $transaction->orders;
+
+            foreach ($oders as $order) {
+                $order->status = 'failed';
+                $order->save();
+            }
+
+            return redirect()->route('panier')->with('error', 'une erreur s\'est produite');
+        }
+
+
+
+    }
+
+    public function paiementStatus($transaction_numero)
+    {
+
+       // dd($transaction_numero);
+
+       $transaction = Transaction::where('transaction_numero', $transaction_numero)->first();
+        return Inertia::render('Web/Checkout/Status',['transaction'=>TransactionResourceData::make($transaction)]);
     }
 
     function references()

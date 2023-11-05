@@ -5,6 +5,8 @@ import { onMounted, ref, computed } from 'vue';
 
 import Galleria from 'primevue/galleria';
 
+
+
 import Image from 'primevue/image';
 
 
@@ -19,7 +21,17 @@ import 'swiper/css/autoplay';
 
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
+import { useToast } from 'primevue/usetoast';
+import axios from 'axios';
 
+
+
+const toast = useToast();
+
+
+import { cartStore } from '@/store/store';
+
+const usecartStore = cartStore();
 
 
 
@@ -28,26 +40,69 @@ const props = defineProps({
     otherService : Array,
 });
 
-const like = ref(false);
+const like = ref(props.service.data.likeUser);
 const level = ref('basic');
 
-const price=ref(props.service.basic_price);
+
+const service=computed(()=> props.service.data )
+
+const price=ref(props.service.data.basic_price);
+
 
 const changePrice =(Newprice)=>{
     price.value= Newprice
 };
 
+
+const toogleFavorite = async () => {
+
+    like.value = !like.value;
+
+    try {
+        const response = await axios.post(route('like.service'), {
+            like: like.value,
+            service: props.service.data.id
+        });
+
+    } catch (e) {
+
+        console.log(e);
+    }
+}
+
 const images = ref([]);
 
-for (let i = 0; i < props.service.files.length; i++) {
+for (let i = 0; i < props.service.data.files.length; i++) {
     images.value.push({
-        itemImageSrc: '/storage/' + props.service.files[i],
-        thumbnailImageSrc: '/storage/' + props.service.files[i],
+        itemImageSrc: '/storage/' + props.service.data.files[i],
+        thumbnailImageSrc: '/storage/' + props.service.data.files[i],
         alt: `Description for Image ${i + 1}`,
         title: `Title ${i + 1}`
     });
 }
 
+
+const add_cart=()=>{
+
+
+}
+const url = '/storage/';
+
+const addToCart = () => {
+    const item =
+    {
+        id: props.service.data.id,
+        name: props.service.data.title,
+        price: price.value,
+        level: level.value,
+        image: url + props.service.data.files[0]
+    }; // Exemple d'article
+
+    usecartStore.addItem(item);
+    toast.add({ severity: 'info', summary: 'Message', detail: 'Service Ajouter au panier', group: 'br', life: 1000 });
+
+
+};
 
 
 
@@ -84,19 +139,51 @@ defineOptions({
          <div class="hidden px-2">
               All/Service
         </div>
+         <div class="px-4 mt-4">
+                              <nav class="flex" aria-label="Breadcrumb">
+                            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                                <li class="inline-flex items-center">
+                                <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                                    <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+                                    </svg>
+                                    Acceuil
+                                </a>
+                                </li>
 
+                                <li aria-current="page">
+                                <Link :href="route('categories')" class="flex items-center">
+                                    <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Services</span>
+                                </Link>
+                                </li>
+                                 <li aria-current="page">
+                                    <div class="flex items-center">
+                                        <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                        </svg>
+                                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">{{ service.service_numero }}</span>
+                                    </div>
+                                    </li>
+                            </ol>
+                            </nav>
+                        </div>
+
+         <Toast position="bottom-right" group="br" />
 
         <div class="container relative px-4 py-4 mx-auto">
 
-            <div class="relative flex flex-col md:flex-row md:space-x-4">
-                <div id="card" class="relative flex-col mx-2 mb-4 md:flex md:order-2 md:mb-0 md:w-1/3">
-                    <div class="flex sticky top-[8rem] flex-col gap-2 px-2 pt-2 card-sticky ">
+            <div class="relative flex flex-col gap-4 lg:flex-row lg:space-x-4">
+                <div id="card" class="relative flex-col mx-2 mb-6 lg:flex lg:order-2 lg:mb-0 lg:w-1/3">
+                    <div class="flex lg:sticky lg:top-[8rem] flex-col gap-2 p-4 card-sticky ">
 
-                        <div class="sticky p-2 bg-white rounded-md shadow-lg dark:bg-gray-800">
+                        <div class="p-2 bg-white rounded-md shadow-lg lg:sticky dark:bg-gray-800">
 
-                        <div class=" sm:col-span-8 lg:col-span-7">
+                        <div class="mt-2 sm:col-span-8 lg:col-span-7">
 
-                                <h2 class="flex text-2xl font-bold text-gray-800 truncate lg:hidden dark:text-gray-300 sm:pr-12">
+                                <h2 class="flex text-lg font-bold text-gray-800 truncate lg:hidden dark:text-gray-300 sm:pr-12">
                                 {{ service.title }}
                                 </h2>
                             <section aria-labelledby="information-heading" class="mt-1 ">
@@ -118,16 +205,16 @@ defineOptions({
 
                                     <p class="sr-only">3 out of 5 stars</p>
                                     <a href="#"
-                                        class="ml-3 text-sm font-medium text-amber-600 hover:text-indigo-500">34
+                                        class="ml-3 text-sm font-medium text-amber-600 hover:text-indigo-500">{{ service.orderCount }}
                                         reviews</a>
                                 </div>
                                 <div class="flex justify-between mt-3">
                                     <div class="flex items-center">
-                                        <button class="flex gap-1 mr-2"
+                                        <button @click="toogleFavorite()" class="flex gap-1 mr-2"
                                             >
 
 
-                                            <span x-cloak v-show="!like" class="">
+                                            <span  v-show="!like" class="">
                                                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -135,7 +222,7 @@ defineOptions({
                                                 </svg>
 
                                             </span>
-                                            <span x-cloak v-show="like">
+                                            <span v-show="like">
                                                 <svg class="w-5 h-5 text-red-500" xmlns="http://www.w3.org/2000/svg"
                                                     fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -157,26 +244,26 @@ defineOptions({
 
 
 
-                            <div v-if="props.service.premium_price && props.service.extra_price " class="mt-4 mb-3">
+                            <div v-if="service.premium_price && service.extra_price " class="mt-4 mb-3">
                                 <ul
                                     class="flex items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                     <li class="w-full sm:border-r dark:border-gray-600" @click="level = 'Basic'"
                                         :class="level === 'Basic' ? 'border-b-4 border-amber-600' : ''">
-                                        <button @click="changePrice(props.service.basic_price)"
+                                        <button @click="changePrice(service.basic_price)"
                                             class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 focus:outline-none">
                                             Basic
                                         </button>
                                     </li>
                                     <li class="w-full sm:border-r dark:border-gray-600" @click="level = 'Premium'"
                                         :class="level === 'Premium' ? 'border-b-4 border-amber-600' : ''">
-                                        <button  @click="changePrice(props.service.premium_price)"
+                                        <button  @click="changePrice(service.premium_price)"
                                             class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 focus:outline-none">
                                             Premium
                                         </button>
                                     </li>
                                     <li class="w-full dark:border-gray-600" @click="level = 'Extra'"
                                         :class="level === 'Extra' ? 'border-b-4 border-amber-600' : ''">
-                                        <button  @click="changePrice(props.service.extra_price)"
+                                        <button  @click="changePrice(service.extra_price)"
                                             class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 focus:outline-none">
                                             Extra
                                         </button>
@@ -211,18 +298,18 @@ defineOptions({
                             <div>
                                 <div class="flex justify-between mt-4">
                                     <p class="flex gap-2 font-medium text-gray-700 dark:text-gray-100">
-                                        icon
+                                       <span><i class="pi pi-clock"></i></span>
 
                                         <span v-if="level==='basic'">
-                                            {{ props.service.basic_delivery_time }}
+                                            {{ service.basic_delivery_time }}
                                         </span>
 
                                         <span v-else-if="level ==='Premium'" >
 
-                                                {{ props.service.premium_delivery_time }}
+                                                {{ service.premium_delivery_time }}
                                         </span>
                                         <span v-else >
-                                                {{ props.service.extra_delivery_time }}
+                                                {{ service.extra_delivery_time }}
 
                                         </span>
 
@@ -234,18 +321,18 @@ defineOptions({
 
                                     <p class="flex gap-2 font-medium text-gray-700 dark:text-gray-100">
 
-                                        clock
+                                        <span><i class="pi pi-replay"></i></span>
 
                                         <span v-if="level === 'basic'">
-                                                {{ props.service.basic_revision }}
+                                                {{ service.basic_revision }}
                                             </span>
 
                                             <span v-else-if="level === 'Premium'" >
 
-                                                    {{ props.service.premium_revision }}
+                                                    {{ service.premium_revision }}
                                             </span>
                                             <span v-else >
-                                                    {{ props.service.extra_revision }}
+                                                    {{ service.extra_revision }}
 
                                             </span>
 
@@ -257,7 +344,7 @@ defineOptions({
                                 </div>
 
                                 <div class="flex">
-                                    <button wire:click="add_cart()" type="button" id=""
+                                    <button @click="addToCart()" type="button" id=""
                                         class="flex items-center justify-center w-full gap-1 px-8 py-3 mt-4 text-base font-medium text-white bg-indigo-600 border border-transparent hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -295,30 +382,34 @@ defineOptions({
 
                             <div>
                                 <p class="mb-4 text-lg font-bold text-gray-700 md:text-xl dark:text-gray-200">
-                                    {{props.service.title}}
+                                    {{service.title}}
                                 </p>
                             </div>
 
                                 <div class="flex gap-4 mt-2">
 
                                     <div class="flex flex-col gap-3 my-auto">
-                                        <a class="text-base font-medium text-gray-500 underline">{{ props.service.freelance.nom }}</a>
+                                        <a class="hidden text-base font-medium text-gray-500">{{ service.freelance.nom }}</a>
                                         <div class="flex flex-row gap-2">
 
-                                            <span class="text-base font-medium">Niveau {{ props.service.freelance.level }}
-
-                                                (3)
+                                            <span class="hidden text-base font-medium">Niveau {{ service.freelance.level }}
 
                                             </span>
 
-                                            <span class="text-base font-medium">3 commande en cours</span>
+                                            <span  v-if="service.commandeEncours !=0" class="text-base font-medium">
+                                                <span class="text-green-600">
+                                                 {{ service.commandeEncours }}</span>  commande en cours
+
+
+
+                                            </span>
 
                                         </div>
 
                                     </div>
                                 </div>
-                                    <div class="">
-                                        <!--
+                                    <div class="mt-4">
+
                                             <div class="w-10/12 rounded-lg">
                                                 <Swiper
                                                 :modules="[Navigation, Autoplay, Pagination, Scrollbar, EffectFade, A11y]"
@@ -326,18 +417,18 @@ defineOptions({
                                                 :slides-per-view="1"
                                                 navigation
                                                 >
-                                                <swiper-slide v-for="(image, index) in props.service.files">
+                                                <swiper-slide v-for="(image, index) in props.service.data.files">
 
                                                     <img class="object-fill rounded-md h-10/12 swiper-lazy"
                                                         :src = "'/storage/' + image"
-                                                        alt="bro" />
+                                                        :alt="image" />
                                                 </swiper-slide>
 
                                             </Swiper>
 
                                         </div>
-                                        -->
 
+                                        <!--
                                         <div class="card">
                                             <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="5" containerStyle="max-width: 640px">
                                                 <template #item="slotProps">
@@ -348,13 +439,14 @@ defineOptions({
                                                 </template>
                                             </Galleria>
                                         </div>
+                                        -->
 
                                     </div>
 
 
                                     <div class="hidden">
                                             <p class="mt-4 text-lg font-bold text-gray-800 md:text-2xl dark:text-gray-200">
-                                        {{ props.service.title }}</p>
+                                        {{ service.title }}</p>
 
                                     </div>
 
@@ -364,11 +456,11 @@ defineOptions({
 
 
                                                 <div  class="py-5 min-h-64">
-                                                    <div class="mb-4 text-base text-gray-800 md:text-base dark:text-gray-200">
+                                                    <div class="mb-4 prose text-gray-800 md:text-base dark:text-gray-200">
 
 
 
-                                                        <div v-html="props.service.description"></div>
+                                                        <div v-html="service.description"></div>
 
                                                     </div>
 
@@ -380,7 +472,7 @@ defineOptions({
                                                                 <div class="px-2 mt-2">
                                                                     <ul class="px-4 list-disc dark:text-gray-50">
 
-                                                                        <li v-for="(value, index ) in props.service.basic_support">{{ value }}</li>
+                                                                        <li v-for="(value, index ) in service.basic_support">{{ value }}</li>
 
 
                                                                     </ul>
@@ -399,12 +491,12 @@ defineOptions({
                                                         <div>
                                                             <p class="font-bold text-gray-500 dark:text-gray-200">Prix :</p>
                                                             <p class="px-2 mt-2 text-gray-700 dark:text-gray-300">à partir de
-                                                                <span class="text-lg text-green-700">{{ props.service.price }}</span>
+                                                                <span class="text-lg text-green-700">{{ service.price }}</span>
                                                             </p>
                                                         </div>
                                                         <div>
                                                             <p class="font-bold text-gray-500 dark:text-gray-200">Délai :</p>
-                                                            <p class="text-gray-700 dark:text-gray-300">{{ props.service.basic_delivery_time }} jours
+                                                            <p class="text-gray-700 dark:text-gray-300">{{ service.basic_delivery_time }} jours
                                                             </p>
                                                         </div>
                                                     </div>
@@ -419,7 +511,7 @@ defineOptions({
                                                             <p class="font-bold text-gray-500 dark:text-gray-200">Besoin pour ce service :</p>
 
 
-                                                            <div v-html="props.service.need_service"></div>
+                                                            <div class="prose" v-html="service.need_service"></div>
                                                             </div>
                                                     </div>
 
@@ -430,7 +522,7 @@ defineOptions({
                                             <TabPanel header="Example">
 
 
-                                            <div v-if="props.service.example != null" class="grid grid-cols-1 gap-4 ">
+                                            <div v-if="service.example != null" class="grid grid-cols-1 gap-4 ">
 
 
                                                 <div class="p-4 bg-white rounded-md shadow dark:bg-gray-800">
@@ -441,7 +533,7 @@ defineOptions({
                                                     :slides-per-view="1"
                                                     navigation
                                                     >
-                                                    <swiper-slide v-for="(image, index) in props.service.example.image">
+                                                    <swiper-slide v-for="(image, index) in service.example.image">
 
                                                         <img class="object-fill rounded-md h-10/12 swiper-lazy"
                                                             :src = "'/storage/' + image"
@@ -451,7 +543,7 @@ defineOptions({
                                                 </Swiper>
                                                     </div>
                                                     <div class="p-4 mt-2 font-sans text-gray-700 dark:text-gray-200">
-                                                        <div v-html="props.service.example.description"></div>
+                                                        <div v-html="service.example.description"></div>
                                                     </div>
                                                 </div>
 
@@ -501,16 +593,25 @@ defineOptions({
                                 </p>
                                 <div class="flex items-center gap-4 mb-8">
 
+                                    <template v-if="service.user !=null">
 
+                                   <Photo :user="service.user" />
+                                   </template>
 
 
 
                                     <div>
-                                        <p class="font-bold text-gray-800 dark:text-gray-300">
-                                            {{ props.service.freelance.nom }}</p>
+                                        <Link :href="route('profileFreelance', service.freelance.identifiant)" class="font-bold text-gray-800 dark:text-gray-300">
+                                            {{ service.freelance.nom }}</Link>
                                         <p class="block text-gray-700 truncate dark:text-gray-300">
-                                            {{ props.service.freelance.nom }}</p>
+                                            {{ service.category.name }}</p>
                                     </div>
+
+                                </div>
+
+
+                                <div class="text-base text-gray-700 dark:text-gray-100">
+                                        {{ service.freelance.description }}
                                 </div>
                             </div>
 
@@ -533,10 +634,14 @@ defineOptions({
             </div>
 
 
+
+
             <div class="grid gap-4 px-4 py-4 mx-auto md:grid-cols-4">
 
-                <div v-for="service in props.otherService">
-                                <ServiceCard :service="service" :key="service.id"/>
+                <div v-for="service in props.otherService.data">
+
+
+                    <ServiceCard :service="service" :key="service.id"/>
 
                 </div>
 

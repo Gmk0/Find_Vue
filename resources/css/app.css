@@ -7,12 +7,14 @@
 
 
 
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
 
+@layer primevue;
 
 @layer base {
     :root {

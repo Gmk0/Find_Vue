@@ -133,6 +133,25 @@ class Service extends Model
         // Calculer la moyenne des feedbacks
 
     }
+    public function countElementEncours()
+    {
+        // Récupérer les commandes liées à ce service
+        $orders = $this->orders;
+
+        // Récupérer les feedbacks associés à ces commandes
+        $feedbacks = FeedbackService::whereIn('order_id', $orders->pluck('id'))->exists();
+
+        if ($feedbacks) {
+             $feedback2 = FeedbackService::whereIn('order_id', $orders->pluck('id'))
+        ->where('etat','!=','Livré')->count();
+            return $feedback2;
+
+        } else {
+            return 0;
+        }
+        // Calculer la moyenne des feedbacks
+
+    }
 
 
     public function orderCount()

@@ -5,16 +5,40 @@
 import Image from 'primevue/image';
 
 import { computed , onMounted, reactive, watch, ref } from 'vue';
-import { Link } from '@inertiajs/vue3';
+import { Link,router } from '@inertiajs/vue3';
 import axios from 'axios';
 
 
 
 
 
+const contacter=()=>{
+
+    router.post(route('user.createChat'),{
+    freelance_id:  props.freelance.id,
+    })
 
 
-const toogleFavorite=()=>{
+}
+
+
+const toogleFavorite= async ()=>{
+
+    like.value= !like.value;
+
+    try{
+        const response = await axios.post(route('like.freelance'), {
+            like: like.value,
+            freelance: props.freelance.id
+        });
+
+
+    }catch(e){
+
+        console.log(e);
+    }
+
+
 
 }
 
@@ -25,9 +49,6 @@ const props = defineProps({
     freelance:Object,
 })
 
-
-
-//const allSubCategories = computed(() => subcategoriesStore.getSubCategories);
 
 
 
@@ -49,7 +70,7 @@ const like = ref(props.freelance.like);
 
 
 
-                       <Image v-if="props.freelance.user.profile_photo_path != null"   class="object-cover w-full h-48"  :src="'/storage/' + props.freelance.user.profile_photo_path" :alt="props.freelance.user.name" width="250" preview />
+                       <img v-if="props.freelance.user.profile_photo_path != null"   class="object-cover w-full h-full"  :src="'/storage/' + props.freelance.user.profile_photo_path" :alt="props.freelance.user.name" />
 
 
 
@@ -90,7 +111,7 @@ const like = ref(props.freelance.like);
             </div>
             <div class="p-3">
                 <div class="flex items-center justify-between mb-2">
-                    <h5 class="block font-sans text-base antialiased leading-snug tracking-normal text-gray-800">
+                    <h5 class="block font-sans text-base antialiased leading-snug tracking-normal text-gray-800 dark:text-white">
                     {{ props.freelance.user.name }}
                     </h5>
                     <p
@@ -111,8 +132,9 @@ const like = ref(props.freelance.like);
                 </p>
                 <div class="inline-flex flex-wrap items-center h-20 gap-3 mt-2 group">
 
-                    <span v-for="(sub , index) in props.freelance.sub_categorie" class="items-center py-1 cursor-default px-2 rounded-md text-[10px] lg:text-[10px] font-medium border border-secondary-200 shadow-sm bg-secondary-100 text-secondary-700 dark:bg-secondary-700 dark:text-secondary-400 dark:border-none">
-                            {{sub.name }}
+                    <span v-for="(sub , index) in props.freelance.sub_categorie"
+                    class="items-center cursor-pointer py-1  px-2 rounded-md text-[10px] lg:text-[10px] font-medium border border-secondary-200 shadow-sm bg-secondary-100 text-secondary-700 dark:bg-secondary-700 dark:text-secondary-400 dark:border-none">
+                           <span v-tooltip.top="sub.name"> {{ sub.name }}</span>
                     </span>
 
 
@@ -144,7 +166,7 @@ const like = ref(props.freelance.like);
 
             </div>
             <div class="flex flex-row justify-between gap-2 p-3 pt-auto">
-                <button type="button"
+                <button type="button" @click="contacter()"
                     class="block w-full select-none rounded-lg bg-amber-600 py-2 px-2 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                      data-ripple-light="true">
                     Contacter

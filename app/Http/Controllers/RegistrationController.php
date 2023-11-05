@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Freelance;
+use App\Notifications\VerificationMailPhone;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
 class RegistrationController extends Controller
 {
@@ -35,22 +37,62 @@ class RegistrationController extends Controller
         );
     }
 
+    public function sendEmail(Request $request)
+    {
+
+        $user= auth()->user();
+
+        $code = rand(100000, 999999);
+
+        DB::table('email_phone_verification')->insert([
+            'email' => auth()->user()->email,
+            'code' => $code,
+            'created_at' => now(),
+        ]);
+
+        $user->notify(New VerificationMailPhone($code));
+
+       // $user->notifications()
+
+        /// Mail::to($this->userAuth['email'])->send(new EmailVerification($code));
+
+        //  $this->show = true;
+    }
+
+    public function verifyCode(Request $request)
+    {
+        $request->validate([
+            'code' => 'required|digits:6',
+        ]);
+
+        $email= auth()->user()->email;
+
+        $verification = DB::table('email_phone_verification')
+        ->where('email', $email)
+        ->where('code', $request->code)
+        ->where('created_at', '>=', now()->subMinutes(10))
+        ->first();
+
+        if ($verification) {
+            // Mettez à jour votre base de données ou effectuez d'autres opérations si la validation réussit.
+            DB::table('users')->where('email', $email)->update(['email_verified_at' => now()]);
+            DB::table('email_phone_verification')->where('email', $email)->delete();
+
+            // Réinitialiser les champs de formulaire pour permettre à l'utilisateur de soumettre un autre code.
+           // $this->reset(['code']);
+
+        }
+    }
+
     public function register(Request $request)
     {
 
             $data = $request->all();
 
+
             //dd($data);
             Freelance::create($data);
-
-
             return redirect(route('freelance.dashboard'));
-
-
-
-
-
-
         //return response()->json(['data' => $data]);
     }
 

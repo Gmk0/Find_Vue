@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FreelanceResourceData;
+use App\Http\Resources\ServiceResourceData;
+use App\Models\Favorite;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Freelance;
@@ -18,16 +21,25 @@ class FreelanceController extends Controller
        // $this->subCategories = SubCategory::whereIn('id', $this->freelance->sub_categorie)->get();
 
         $freelances = Freelance::query();
+        $data= RequestFacade::only('orderBy');
+        $orderBy = $data? $data['orderBy'] : null;
+
+        if($orderBy!=null){
+            list($value, $order) = explode('-', $orderBy);
+        }
+
+
+
 
         return Inertia::render('Web/Freelance/FindFreelance',[
             'filters'
-            => RequestFacade::all('search', 'category', 'sub_category', 'price', 'level', 'disponible'),
+            => RequestFacade::all('search', 'orderBy', 'category', 'sub_category', 'price', 'level', 'disponible', 'experience_annee'),
 
             'freelances'=> $freelances
                 ->with('category')
                 ->with('user')
-                ->orderBy('created_at', 'asc')
-                ->filter(RequestFacade::only('search', 'category', 'sub_category', 'price', 'level', 'disponible'))
+                ->orderBy($value?? 'created_at', $order??'asc')
+                ->filter(RequestFacade::only('search', 'category', 'sub_category', 'price', 'level', 'disponible', 'experience_annee'))
                 ->paginate(10)
                 ->withQueryString()
                 ->through(fn ($freelance) => [
@@ -52,13 +64,37 @@ class FreelanceController extends Controller
 
         $freelance = Freelance::where('identifiant', $portefolio)->first();
 
+        $services=$freelance->services;
         if($freelance !=null)
         {
-             return Inertia::render('Web/Freelance/Portefolio');
+             return Inertia::render('Web/Freelance/Portefolio',
+             ['freelance'=>FreelanceResourceData::make($freelance),
+              'services'=>ServiceResourceData::collection($services)
+             ]);
 
         }else{
             return redirect()->back();
         }
+
+    }
+
+    public function Like(Request $request)
+    {
+        //dd($request->all());
+
+        $favorite = Favorite::where('user_id', auth()->id())
+            ->where('freelance_id', $request->freelance)
+            ->first();
+
+        if ($favorite) {
+            $favorite->delete();
+        } else {
+            Favorite::create([
+                'user_id' => auth()->id(),
+                'freelance_id' => $request->freelance,
+            ]);
+        }
+
 
     }
 

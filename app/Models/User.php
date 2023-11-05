@@ -15,6 +15,8 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
 
+use Illuminate\Notifications\Notification;
+
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -128,4 +130,20 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function missions()
+    {
+        return $this->hasMany(Mission::class);
+    }
+
+
+
+    public function routeNotificationForVonage(Notification $notification): string
+    {
+        return $this->phone;
+    }
 }

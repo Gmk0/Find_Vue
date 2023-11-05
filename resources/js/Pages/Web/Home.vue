@@ -197,14 +197,14 @@
 
                         <div class="grid grid-cols-1 gap-2 mx-auto md:mx-0 md:grid-cols-2">
 
-                            <a href="find-freelance"
+                            <Link :href="route('find_freelance')"
                                 class="w-10/12 rounded-md mx-auto text-center bg-amber-600 px-8 py-2.5 font-semibold text-white shadow-md shadow-amber-500/20 hover:bg-amber-700 duration-200 sm:w-auto">Trouver
-                                un freelance</a>
+                                un freelance</Link>
 
-                            <a href="registration"
+                            <Link :href="route('register.begin')"
                                 class="mt-4 md:mt-0 mx-auto text-center box-border w-10/12   rounded-md border border-amber-500/20 px-8 py-2.5 font-semibold text-amber-600 shadow-md shadow-amber-500/10 hover:bg-gray-100 duration-200   ">Dévenir
 
-                                freelance</a>
+                                freelance</Link>
 
                         </div>
 
@@ -582,6 +582,51 @@
                 </div>
             </div>
 
+
+        </div>
+
+          <div id="getStarted" class="bg-gray-900 lg:min-h-screen">
+            <div class="py-16 ">
+                <div class="container px-6 m-auto space-y-8 text-gray-500 md:px-12 lg:px-20">
+                    <div
+                        class="justify-center gap-6 p-3 mx-auto text-center rounded-lg md:flex md:text-left lg:items-center lg:gap-16">
+                        <div data-aos="fade-up" data-aos-duration="500" class="mb-6 space-y-6 md:mb-0 md:w-6/12 lg:w-6/12">
+                            <h1 class="text-3xl font-bold text-white md:text-4xl dark:text-white">Vous êtes un freelance à la
+                                recherche
+                                de
+                                nouvelles opportunités ?
+                            </h1>
+                            <p class="font-serif text-md text-gray-50 dark:text-gray-300">
+                                FIND permet aux freelances de proposer leurs compétences aux entreprises et autres personnes
+                                intéressées
+                                par
+                                les offres
+                                disponibles sur le site. En outre, la plateforme met en œuvre des tactiques de marketing pour
+                                augmenter le
+                                nombre
+                                d'achats de services.
+                            </p>
+                            <div class="flex flex-wrap gap-6">
+                                <Link  :href="route('register.begin')"
+                                    class="relative flex items-center justify-center w-[6/12] h-12 px-8 mx-auto duration-300 bg-white rounded-full before:absolute before:inset-0 before:transition hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
+                                    <span class="relative text-base font-semibold text-amber-600">Rejoignez
+                                                                            Nous</span>
+                                </Link>
+
+                            </div>
+                        </div>
+                        <div data-aos="fade-up" data-aos-duration="800"
+                            class="grid grid-cols-5 grid-rows-4 gap-4 md:w-5/12 lg:w-6/12">
+
+                            <div class="col-span-5 row-span-4">
+                                <img src="/images/services/work2.png"
+                                    class="object-cover object-top w-full h-full mb-3 md:mb-0 rounded-xl" width="640"
+                                    height="427" alt="work" loading="lazy" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
           <div id="presentation" class="bg-gray-100 dark:bg-gray-950 lg:min-h-screen ">

@@ -74,7 +74,7 @@ const addToCart = () => {
          <Toast position="bottom-right" group="br" />
 
         <div
-             class="md:h-[23rem] h-52  overflow-hidden bg-white rounded-xl shadow-md dark:text-gray-200 dark:bg-gray-900 ">
+             class="md:h-[24rem] h-52  overflow-hidden bg-white rounded-xl shadow-md dark:text-gray-200 dark:bg-gray-900 ">
 
             <div class="relative flex flex-row lg:flex-col">
 
@@ -192,7 +192,7 @@ const addToCart = () => {
                 <button class="hidden"></button>
             </div>
 
-            <div class="flex items-center gap-2">
+            <div class="flex pt-auto items-center gap-2">
                 <div class="text-gray-600">
                     a partir de
                 </div>

@@ -27,10 +27,10 @@ class SubCategoryResource extends Resource
                     ->relationship('category', 'name')
                     ->required(),
                 Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('illustration')
-                    ->maxLength(255),
+                    ->required(),
+                Forms\Components\RichEditor::make('description')
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('illustration'),
             ]);
     }
 
@@ -58,8 +58,8 @@ class SubCategoryResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -67,11 +67,21 @@ class SubCategoryResource extends Resource
                 ]),
             ]);
     }
-    
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageSubCategories::route('/'),
+            'index' => Pages\ListSubCategories::route('/'),
+            'create' => Pages\CreateSubCategory::route('/create'),
+            'view' => Pages\ViewSubCategory::route('/{record}'),
+            'edit' => Pages\EditSubCategory::route('/{record}/edit'),
         ];
-    }    
+    }
 }

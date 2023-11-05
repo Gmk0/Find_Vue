@@ -52,6 +52,6 @@ class Paiement
         $url = 'https://api-testbed.maxicashapp.com/PayEntry?data=' . urlencode(json_encode($requestData));
 
         //
-        return redirect($url);
+        return $url;
     }
 }
