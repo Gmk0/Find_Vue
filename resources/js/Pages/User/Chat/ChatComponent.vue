@@ -9,18 +9,37 @@ import ChatComponentUser from '@/Components/ChatComponentUser.vue';
 
 import BodyMessage from '@/Components/BodyMessage.vue';
 
+import { Link, useForm, router,usePage } from '@inertiajs/vue3';
+
+const page = usePage();
+
 defineOptions({
     layout: ChatLayout,
 
 });
 
 
-defineProps({
+
+const props=defineProps({
     conversations:Array,
     messages:Array,
     chat:Object,
     user:Object,
 })
+
+
+window.Echo.private(`chat.${page.props.auth.user.id}`)
+    .listen('MessageSent', (e) => {
+
+        props.messages.push(e.message);
+       // props.conversations.data.push(e.conversation);
+
+
+        //props.conversations.push(e.conversations);
+        //  console.log(e.conversation);
+        // Traitez les données reçues lors de l'événement
+    });
+
 
 </script>
 
@@ -37,7 +56,7 @@ defineProps({
 
 
 
-                <ChatComponentUser :Conversations="conversations" />
+                <ChatComponentUser :Conversations="props.conversations" />
 
 
 
@@ -45,7 +64,7 @@ defineProps({
             </div>
         </div>
 
-        <BodyMessage :messages="messages" :chatId="chat?.id" :user="user"/>
+        <BodyMessage :messages="props.messages" :chatId="props.chat?.id" :user="props.user"/>
 
 
 

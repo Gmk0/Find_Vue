@@ -45,16 +45,20 @@ const closeModal = () => {
 <template>
     <ActionSection>
         <template #title>
-            Browser Sessions
+            <h1 class="dark:text-gray-50">Sessions du navigateur</h1>
+
         </template>
 
         <template #description>
-            Manage and log out your active sessions on other browsers and devices.
+            <p class="dark:text-gray-50">
+                  Gérer et vous déconnecter de vos sessions actives sur d'autres navigateurs et appareils.
+            </p>
+
         </template>
 
         <template #content>
-            <div class="max-w-xl text-sm text-gray-600">
-                If necessary, you may log out of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.
+            <div class="max-w-xl text-sm text-gray-600 dark:text-gray-100">
+            Si nécessaire, vous pouvez vous déconnecter de toutes les autres sessions de navigation sur l'ensemble de vos appareils. Certaines de vos sessions récentes sont répertoriées ci-dessous ; cependant, cette liste peut ne pas être exhaustive. Si vous pensez que votre compte a été compromis, vous devriez également mettre à jour votre mot de passe.
             </div>
 
             <!-- Other Browser Sessions -->
@@ -79,7 +83,7 @@ const closeModal = () => {
                             <div class="text-xs text-gray-500">
                                 {{ session.ip_address }},
 
-                                <span v-if="session.is_current_device" class="text-green-500 font-semibold">This device</span>
+                                <span v-if="session.is_current_device" class="font-semibold text-green-500">Cet appareil</span>
                                 <span v-else>Last active {{ session.last_active }}</span>
                             </div>
                         </div>
@@ -89,29 +93,29 @@ const closeModal = () => {
 
             <div class="flex items-center mt-5">
                 <PrimaryButton @click="confirmLogout">
-                    Log Out Other Browser Sessions
+                   Déconnexion des autres sessions de navigateur
                 </PrimaryButton>
 
                 <ActionMessage :on="form.recentlySuccessful" class="ml-3">
-                    Done.
+                    Fait.
                 </ActionMessage>
             </div>
 
             <!-- Log Out Other Devices Confirmation Modal -->
             <DialogModal :show="confirmingLogout" @close="closeModal">
                 <template #title>
-                    Log Out Other Browser Sessions
+                  Déconnexion des autres sessions de navigation
                 </template>
 
                 <template #content>
-                    Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.
+                  Veuillez entrer votre mot de passe pour confirmer que vous souhaitez vous déconnecter de vos autres sessions de navigation sur l'ensemble de vos appareils.
 
                     <div class="mt-4">
                         <TextInput
                             ref="passwordInput"
                             v-model="form.password"
                             type="password"
-                            class="mt-1 block w-3/4"
+                            class="block w-3/4 mt-1"
                             placeholder="Password"
                             autocomplete="current-password"
                             @keyup.enter="logoutOtherBrowserSessions"
@@ -132,7 +136,7 @@ const closeModal = () => {
                         :disabled="form.processing"
                         @click="logoutOtherBrowserSessions"
                     >
-                        Log Out Other Browser Sessions
+                       Déconnecter les autres sessions du navigateur
                     </PrimaryButton>
                 </template>
             </DialogModal>

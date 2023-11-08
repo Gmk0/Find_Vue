@@ -3,173 +3,204 @@
 
 <template>
     <div>
-        <div class="p-2">
-            <div
-                class="flex flex-col min-h-screen gap-6 mx-auto bg-gray-100 md:p-6 md:max-w-7xl md:container px-auto dark:bg-gray-900">
 
-                <div class="grid grid-cols-2 gap-4 px-auto lg:grid-cols-4">
-                    <a href="" class="px-4 py-6 bg-white rounded-lg shadow-xl cursor-pointer lg:px-6 lg:py-6">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold text-indigo-600">Total Depense</span>
-                            <span
-                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default md:flex hover:bg-gray-500 dark:text-gray-900 hover:text-gray-200">Today</span>
-                        </div>
-                        <div class="flex items-center justify-between mt-6">
-                            <div>
-                                <svg class="w-8 h-8 p-1 text-indigo-600 bg-indigo-400 border border-indigo-600 rounded-full md:w-12 md:h-12 2xl:w-16 2xl:h-16 2xl:p-3 bg-opacity-20"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="flex flex-col">
-                                <div class="flex items-end">
-                                    <span class="text-xl font-bold text-gray-800 2xl:text-3xl">250</span>
-                                    <div class="flex items-center hidden mb-1 ml-2">
+        <div class="grid grid-cols-12 gap-4 mt-4 sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6">
 
-                                        <svg class="w-12 h-12 p-1 text-green-600 bg-green-400 border border-green-600 rounded-full 2xl:w-16 2xl:h-16 2xl:p-3 bg-opacity-20"
-                                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                        </svg>
-                                        <span class="font-bold text-sm text-gray-500 ml-0.5">2</span>
+        <div class="col-span-12 dark:bg-gray-900 card lg:col-span-8">
+            <div class="flex flex-col justify-between px-4 mt-3 sm:flex-row sm:items-center sm:px-5">
+                <div class="flex items-center justify-between flex-1 space-x-2 sm:flex-initial">
+                    <h2 class="text-sm+ font-medium tracking-wide text-slate-700 dark:text-navy-100">
+                        Aperçu de la commande
+                    </h2>
+                    <!--
+                    <div x-data="usePopper({ placement: 'bottom-start', offset: 4 })"
+                        @click.outside="if (isShowPopper) isShowPopper = false" class="inline-flex">
+                        <button x-ref="popperRef" @click="isShowPopper = !isShowPopper"
+                            class="w-8 h-8 p-0 rounded-full btn2 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                            </svg>
+                        </button>
 
+                        <div x-cloak x-ref="popperRoot" class="popper-root" :class="isShowPopper && 'show'">
+                            <div
+                                class="popper-box rounded-md border border-slate-150 bg-white py-1.5 font-inter dark:border-navy-500 dark:bg-navy-600">
+                                <ul>
+                                    <li>
+                                        <a href="#"
+                                            class="flex items-center h-8 px-3 pr-8 font-medium tracking-wide transition-all outline-none hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">Revenu</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="flex items-center h-8 px-3 pr-8 font-medium tracking-wide transition-all outline-none hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                                            Commande</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="flex items-center h-8 px-3 pr-8 font-medium tracking-wide transition-all outline-none hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                                            Mission</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="flex items-center h-8 px-3 pr-8 font-medium tracking-wide transition-all outline-none hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                                            Chart</a>
+                                    </li>
+                                </ul>
+                                <div class="h-px my-1 bg-slate-150 dark:bg-navy-500"></div>
 
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                    </a>
-                    <a href="" class="px-6 py-6 bg-white rounded-lg shadow-xl cursor-pointer">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold text-green-600">Commande</span>
-                            <span
-                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default md:hidden dark:text-gray-900 hover:bg-gray-500 hover:text-gray-200">7
-                                days</span>
-                        </div>
-                        <div class="flex items-center justify-between mt-6">
-                            <div>
-                                <svg class="w-8 h-8 p-1 text-green-600 bg-green-400 border border-green-600 rounded-full md:w-12 md:h-12 2xl:w-16 2xl:h-16 2xl:p-3 bg-opacity-20"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                </svg>
-                            </div>
-                            <div class="flex flex-col">
-                                <div class="flex items-end">
-                                    <span class="text-2xl font-bold text-gray-800 2xl:text-4xl">36</span>
-                                    <div class="flex items-center mb-1 ml-2">
-                                        <!--
-                                    @if ($orderEvolution > 0)
-                                    <svg class="w-12 h-12 p-1 text-green-600 bg-green-400 border border-green-600 rounded-full 2xl:w-16 2xl:h-16 2xl:p-3 bg-opacity-20"
-                                        fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                    </svg>
-                                    <span class="font-bold text-sm text-gray-500 ml-0.5">{{ $orderEvolution }}</span>
-                                    @elseif ($orderEvolution < 0) <svg class="w-5 h-5 text-red-600" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6">
-                                        </path>
-                                        </svg>
-                                        <span class="font-bold text-sm text-gray-500 ml-0.5">{{ $orderEvolution }}</span>
-                                        @else
-                                        <svg class="hidden w-5 h-5 text-gray-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17.6 3.6a9 9 0 1 1-12.8 0 9 9 0 0 1 12.8 0z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z">
-                                            </path>
-                                        </svg>
-                                        <span
-                                            class="font-bold text-sm hidden text-gray-500 ml-0.5">{{ $orderEvolution }}</span>
-                                        @endif
-                                        -->
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="" class="px-6 py-6 bg-white rounded-lg shadow-xl cursor-pointer">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold text-blue-600">Transaction</span>
-                            <span
-                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default md:flex dark:text-gray-900 hover:bg-gray-500 hover:text-gray-200">7
-                                days</span>
-                        </div>
-                        <div class="flex items-center justify-between mt-6">
-                            <div>
-                                <svg class="w-8 h-8 p-1 text-blue-600 bg-blue-400 border border-blue-600 rounded-full md:w-12 md:h-12 2xl:w-16 2xl:h-16 2xl:p-3 bg-opacity-20"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
-                            </div>
-                            <div class="flex-col ">
-                                <div class="flex items-end ">
-                                    <span class="text-2xl font-bold text-gray-800 2xl:text-4xl">24</span>
-                                    <div class="items-center hidden mb-1 ml-2 ">
-                                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                                        </svg>
-                                        <span class="font-bold text-sm text-gray-500 ml-0.5">7%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="" class="px-6 py-6 bg-white rounded-lg shadow-xl cursor-pointer">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold text-gray-800">Mission en attente</span>
-                            <span
-                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default md:flex dark:text-gray-900 hover:bg-gray-500 hover:text-gray-200">30
-                                days</span>
-                        </div>
-                        <div class="flex items-center justify-between mt-6">
-                            <div>
-                                <svg class="w-8 h-8 p-1 text-yellow-600 bg-yellow-400 border border-yellow-600 rounded-full md:w-12 md:h-12 2xl:w-16 2xl:h-16 2xl:p-3 bg-opacity-20"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="flex flex-col">
-                                <div class="flex items-end">
-                                    <span class="text-2xl font-bold text-gray-800 2xl:text-4xl">Test</span>
-                                    <div class="flex items-center hidden mb-1 ml-2">
-                                        <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path>
-                                        </svg>
-                                        <span class="font-bold text-sm text-gray-500 ml-0.5">-1%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+                    </div>
+                    -->
                 </div>
+
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 px-4 py-4 mt-4 sm:mt-5 sm:grid-cols-4 sm:gap-5 sm:px-5 lg:mt-6">
+                <div class="p-4 rounded-lg bg-slate-100 dark:bg-navy-600">
+                    <div class="flex justify-between space-x-1">
+                        <p class="text-xl font-semibold text-slate-700 dark:text-navy-100">
+                        {{ totalPercue }}
+                        </p>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-primary dark:text-accent" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <p class="mt-1 text-xs+">Revenu</p>
+                </div>
+                <div class="p-4 rounded-lg bg-slate-100 dark:bg-navy-600">
+                    <div class="flex justify-between">
+                        <p class="text-xl font-semibold text-slate-700 dark:text-navy-100">
+                              {{ commandeTotal }}
+                        </p>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-success" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                        </svg>
+                    </div>
+                    <p class="mt-1 text-xs+">Total</p>
+                </div>
+                <div class="p-4 rounded-lg bg-slate-100 dark:bg-navy-600">
+                    <div class="flex justify-between">
+                        <p class="text-xl font-semibold text-slate-700 dark:text-navy-100">
+                           {{ commandeEnAttente }}
+                        </p>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-warning" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <p class="mt-1 text-xs+">En attente</p>
+                </div>
+                <div class="p-4 rounded-lg bg-slate-100 dark:bg-navy-600">
+                    <div class="flex justify-between">
+                        <p class="text-xl font-semibold text-slate-700 dark:text-navy-100">
+                          {{ commandeLivre }}
+                        </p>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-info" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                        </svg>
+                    </div>
+                    <p class="mt-1 text-xs+">Livré</p>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="grid grid-cols-2 col-span-12 gap-4 sm:grid-cols-4 sm:gap-5 lg:col-span-4 lg:grid-cols-2 lg:gap-6">
+            <div class="col-span-2 px-4 pb-5 dark:bg-navy-800 card sm:px-5">
+                <div class="flex items-center justify-between py-3">
+                    <h2 class="font-medium tracking-wide text-slate-700 dark:text-navy-100">
+                        Revenus
+                    </h2>
+
+                </div>
+                <div class="flex space-x-5 grow">
+                    <div class="flex flex-col w-1/2">
+                        <div class="grow">
+                            <p class="text-2xl font-semibold text-slate-700 dark:text-navy-100">
+                               {{ solde }}
+                            </p>
+                            <a href="#"
+                                class="border-b border-dotted border-current pb-0.5 text-tiny font-medium uppercase text-primary outline-none transition-colors duration-300 hover:text-primary/70 focus:text-primary/70 dark:text-accent-light dark:hover:text-accent-light/70 dark:focus:text-accent-light/70">
+
+                            </a>
+                        </div>
+                        <p class="hidden mt-2 text-xs leading-normal line-clamp-3">
+                            You have spent about 25% of your annual budget.
+                        </p>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-span-12 lg:min-h-48">
+            <div class="flex flex-col gap-2">
+
+
+
+                 <div class="mt-4">
+                        <div>
+                        <H1 class="mb-4 text-lg text-gray-700 dark:text-gray-200">Dernier commande</H1>
+                        </div>
+                    <div>
+                        <div class="card">
+                            <DataTable stripedRows   paginator :rows="10" :rowsPerPageOptions="[10, 20, 50, 100]" :value="commandes.data" tableStyle="min-width: 50rem"
+                            >
+
+                                <template #empty> Pas de Commande disponible. </template>
+                                <template #loading>  Chargement de commandes ... </template>
+
+                                <Column sortable  field="order_numero" header="order_numero"></Column>
+                                <Column field="service.title" header="TITLE"></Column>
+                                <Column field="total_amount" header="Montant">
+                                <template #body="slotProps">
+                                    {{ formatCurrency(slotProps.data.total_amount) }} $
+                                </template>
+                                </Column>
+                                <Column  header="status">
+                                    <template #body="slotProps">
+                                    <Tag :value="slotProps.data.status" :severity="getSeverity(slotProps.data)"/>
+
+                                    </template>
+
+
+                                </Column>
+                                <Column :exportable="false" style="min-width:4rem">
+                                    <template #body="slotProps">
+                                        <Link :href="route('user.commandes.one', [slotProps.data.order_numero])">
+                                            <span><i class="pi pi-pencil"></i></span>
+                                        </Link>
+
+
+                                    </template>
+                                    </Column>
+
+                            </DataTable>
+                        </div>
+                    </div>
+                </div>
+
 
 
 
             </div>
 
         </div>
+    </div>
 
     </div>
 </template>
@@ -179,11 +210,45 @@
 import FreelanceLayout from '@/Layouts/FreelanceLayout.vue';
 
 
+
+defineProps({
+    totalPercue: String,
+    commandeTotal: String,
+    commandeLivre: String,
+    commandeEnAttente: String,
+    commandes: Array,
+    solde : String,
+
+})
+
+
 defineOptions({
     layout: FreelanceLayout,
 
 });
 
+const formatCurrency = (value) => {
+    return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+}
+
+
+const getSeverity = (commande) => {
+    switch (commande.status) {
+        case 'pending':
+            return 'warning';
+            break;
+        case 'completed':
+            return 'success';
+            break;
+
+        case 'failed':
+            return 'danger';
+            break;
+        default:
+            return null;
+
+    }
+}
 
 </script>
 

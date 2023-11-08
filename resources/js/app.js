@@ -66,6 +66,22 @@ import Error from '@/Components/Error.vue';
 import Tag from 'primevue/tag';
 import FileUpload from 'primevue/fileupload';
 
+import Fieldset from 'primevue/fieldset';
+import InputLabel from '@/Components/InputLabel.vue';
+
+import InputNumber from 'primevue/inputnumber';
+
+import Chips from 'primevue/chips';
+
+import InputSwitch from 'primevue/inputswitch';
+
+import Editor from 'primevue/editor';
+
+import Panel from 'primevue/panel';
+
+import ProgressBar from 'primevue/progressbar';
+
+
 
 
 
@@ -114,6 +130,15 @@ createInertiaApp({
             .component('Tag',Tag)
             .component('FileUpload', FileUpload)
             .component('ServiceCard', ServiceCard)
+            .component('Fieldset', Fieldset)
+            .component('InputLabel', InputLabel)
+            .component('InputNumber', InputNumber)
+            .component('Chips', Chips)
+            .component('InputSwitch', InputSwitch)
+            .component('Editor', Editor)
+            .component('Panel', Panel)
+            .component('ProgressBar', ProgressBar)
+           // .component('Show', Show)
              // Enregistrez votre composant de layout
 
         const vm = app.mount(el);

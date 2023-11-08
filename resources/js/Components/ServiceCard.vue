@@ -177,8 +177,9 @@ const addToCart = () => {
         </div>
         <div class="mt-2">
             <div class="flex items-center gap-1">
+                <Photo :user="props.service.user" :taille="10" />
 
-                  <Avatar :image="'/storage/'+ props.service.user.profile_photo_path" class="mr-2"  shape="circle" />
+
                 <a href="" class="flex">
 
                     <span class="text-xs md:flex">{{ props.service.user.name }}</span>
@@ -192,7 +193,7 @@ const addToCart = () => {
                 <button class="hidden"></button>
             </div>
 
-            <div class="flex pt-auto items-center gap-2">
+            <div class="flex items-center gap-2 pt-auto">
                 <div class="text-gray-600">
                     a partir de
                 </div>

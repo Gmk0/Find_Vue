@@ -146,6 +146,10 @@ class Order extends Model
         return $this->hasOne(FeedbackService::class, 'order_id');
     }
 
+    public function rapports():HasMany
+    {
+        return $this->hasMany(Rapport::class);
+    }
     public function isReadyForPayment(): bool
     {
         return is_null($this->is_paid)

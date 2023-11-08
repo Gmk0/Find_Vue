@@ -40,47 +40,51 @@ const updatePassword = () => {
 <template>
     <FormSection @submitted="updatePassword">
         <template #title>
-            Update Password
+            <p class="dark:text-gray-50">
+                 Modifier le Mot de passe
+            </p>
+
         </template>
 
         <template #description>
-            Ensure your account is using a long, random password to stay secure.
+            <p class="dark:text-gray-50">Assurez-vous que votre compte utilise un mot de passe long et aléatoire pour rester en sécurité.</p>
+
         </template>
 
         <template #form>
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="current_password" value="Current Password" />
+                <InputLabel for="current_password" value="mot de passe actuel" />
                 <TextInput
                     id="current_password"
                     ref="currentPasswordInput"
                     v-model="form.current_password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="block w-full mt-1"
                     autocomplete="current-password"
                 />
                 <InputError :message="form.errors.current_password" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="password" value="New Password" />
+                <InputLabel for="password" value="Nouveau mot de passe" />
                 <TextInput
                     id="password"
                     ref="passwordInput"
                     v-model="form.password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="block w-full mt-1"
                     autocomplete="new-password"
                 />
                 <InputError :message="form.errors.password" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+                <InputLabel for="password_confirmation" value="Confirmer le mot de passe" />
                 <TextInput
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="block w-full mt-1"
                     autocomplete="new-password"
                 />
                 <InputError :message="form.errors.password_confirmation" class="mt-2" />

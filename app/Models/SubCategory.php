@@ -44,8 +44,11 @@ class SubCategory extends Model
         // Filter services based on the subcategory attribute
         $relatedServices = $allServices->filter(function ($service) {
             // Assuming subcategory is already an array
+
             $subCategoryIds = $service->sub_category;
-            return in_array($this->id, $subCategoryIds);
+            if ($subCategoryIds != null) {
+                return in_array($this->id, $subCategoryIds);
+            }
         });
 
         return $relatedServices;
@@ -61,8 +64,14 @@ class SubCategory extends Model
         // Filter services based on the subcategory attribute
         $relatedServices = $allServices->filter(function ($service) {
             // Assuming subcategory is already an array
-            $subCategoryIds = $service->sub_category;
-            return in_array($this->id, $subCategoryIds);
+
+              $subCategoryIds = $service->sub_category;
+            if ($subCategoryIds != null) {
+                return in_array($this->id, $subCategoryIds);
+            }
+
+
+           // return in_array($this->id, $subCategoryIds);
         });
 
         return $relatedServices;

@@ -108,6 +108,23 @@ class UserController extends Controller
         }
     }
 
+    public function signalement()
+    {
+
+        return Inertia::render('User/Other/Signaler');
+
+    }
+    public function aide()
+    {
+
+        return Inertia::render('User/Other/Aide');
+    }
+    public function feedback()
+    {
+
+        return Inertia::render('User/Other/SendFeedback');
+    }
+
 
 
 

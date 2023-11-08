@@ -36,12 +36,17 @@
 
         </div>
 
+
+
+
         <div>
 
 
 
                <div  class="grid grid-cols-1 gap-4 mx-auto lg:grid-cols-2 xl:grid-cols-2">
-                <div v-for="mission in missions" class="mb-4 card lg:flex-row">
+                <div v-for="mission in missions"
+                :class="{'border border-green-500' : mission.is_paid =!null}"
+                class="mb-4 card lg:flex-row">
                     <img class="object-cover object-center w-full h-48 bg-center bg-cover rounded-t-lg shrink-0 lg:h-auto lg:w-48 lg:rounded-t-none lg:rounded-l-lg"
                         src="/images/illustrations/missionF.svg" alt="image" />
                     <div class="flex flex-col w-full px-4 py-3 grow sm:px-5">
@@ -49,8 +54,10 @@
                             <a class="text-xs+ text-info" href="#">
                                 {{ mission.category.name }}</a>
                             <div class="-mr-1.5 flex space-x-1">
+
+
                                 <button
-                                    class="p-0 rounded-full btn2 h-7 w-7 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                    class="hidden p-0 rounded-full btn2 h-7 w-7 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -58,7 +65,8 @@
                                     </svg>
                                 </button>
 
-                                <div class="p-2">
+                                <div class="p-2 text-lg text-amber-600">
+                                     {{ mission.budget }} $
 
                                 </div>
                             </div>
@@ -129,11 +137,15 @@
                                    label="Evolution" />
 
                             </div>
+
+
                             <div v-else-if="mission.status == 'pending'" class="flex gap-4 mt-4">
+
+                                <Link :href="route('user.missions.candidature', mission.mission_numero)">
                                  <Button size="small"
                                        outlined severity="success"
-                                       label="Proposition" badge="8" />
-
+                                       label="Proposition" :badge="mission.nombreResponses? mission.nombreResponses:0" />
+                                </Link>
                                        <Link :href="route('user.missionEdit', mission.mission_numero)">
                                          <Button  size="small"
                                            outlined severity="info"
@@ -148,6 +160,28 @@
                 </div>
             </div>
         </div>
+
+        <div v-if="missions.length  === 0 " class="flex flex-col items-center justify-center col-span-2 text-xl font-semibold">
+                <div class="flex flex-col gap-4 p-6 mx-12 text-gray-800 rounded-md dark:text-white dark:bg-gray-800 bg-gray-50">
+                    <p>Si vous avez besoin d'un service particulier, n'hésitez pas à
+                        soumettre
+                        votre projet et
+                        notre communauté de freelances
+                        talentueux sera ravie de vous aider</p>
+                    <div class="mx-auto md:w-1/4">
+
+
+                        <Link :href="route('createProject')" class="block w-full select-none rounded-lg bg-amber-600 py-2 px-2 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+
+                                      Soumettre
+                        </Link>
+
+                    </div>
+
+
+                </div>
+
+    </div>
 
 
     </div>
@@ -165,10 +199,10 @@ const props= defineProps({
 })
 
 
-const showMore =ref(false);
+
 const missions=computed(()=>props.missions.data);
 
-
+const showMore = ref(false);
 const truncateText = (text, length) => {
     return text.length > length ? text.slice(0, length) + '...' : text;
 }

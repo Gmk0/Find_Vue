@@ -22,6 +22,7 @@ class TransactionResourceData extends JsonResource
             'status'=>$this->status,
             'description'=>$this->description,
             'type'=>$this->type,
+            'mission'=>$this->mission??null,
             'orders'=>$this->orders? Order::collection($this->orders):null,
 
             ];

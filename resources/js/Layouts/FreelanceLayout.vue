@@ -40,7 +40,7 @@ resize();
 
 
         <!-- Page Wrapper -->
-        <div id="root" class="flex min-h-100vh grow bg-slate-50 dark:bg-navy-900">
+        <div id="root" class="flex min-h-100vh grow bg-slate-50 dark:bg-gray-950">
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Main Sidebar -->
@@ -55,12 +55,13 @@ resize();
             <!-- App Header -->
             <PartialHeaderF />
 
-            <!-- Mobile Searchbar -->
+            <!-- Mobile Searchbar
 
 
 
 
             <OtherPanelF />
+            -->
 
             <div class="main-content pt-4 w-full px-[var(--margin-x)] pb-8">
               <slot></slot>

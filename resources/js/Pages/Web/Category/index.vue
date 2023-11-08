@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <div class="min-h-screen px-4 py-20 bg-gray-100 dark:bg-inherit md:px-8">
+        <div class="min-h-screen px-4 py-20 bg-gray-100 dark:bg-gray-900 md:px-8">
 
             <div class="mx-2 mb-4">
             <nav class="flex" aria-label="Breadcrumb">
@@ -34,7 +34,7 @@
 
                 <div>
 
-                <form class="my-4">
+                <form class="hidden my-4">
                     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -42,7 +42,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                             </svg>
                         </div>
-                        <input type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Recherche..." required>
+                        <input type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Recherche..." required>
                         <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-amber-600 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800">Recherche</button>
                     </div>
                 </form>
@@ -60,11 +60,11 @@
 
 
                 <Link v-for="category in categories" :href="route('categoryName', category.name)"
-                    class="flex flex-row items-center gap-2 px-2 py-4 duration-200 border shadow-lg cursor-pointer group rounded-xl border-amber-500/10 shadow-amber-300/10 hover:bg-amber-600">
+                    class="flex flex-row items-center gap-2 px-2 py-4 duration-200 border shadow-lg cursor-pointer group rounded-xl border-amber-500/10 shadow-amber-300/10 hover:bg-amber-600 dark:bg-gray-800">
                 <img src="/storage/illustration/business.svg" class="w-20 h-20 rounded-md" alt="">
                     <div class="flex flex-col gap-2">
                          <h4
-                        class="mt-3 mb-1 md:text-[20px] text-[16px]   font-semibold text-slate-600 duration-200 group-hover:text-white">
+                        class="mt-3 mb-1 md:text-[20px] text-[16px]  dark:text-white  font-semibold text-slate-600 duration-200 group-hover:text-white">
                         {{ category.name }}</h4>
 
                         <div>
@@ -83,7 +83,7 @@
 
         </div>
 
-        <div class="min-h-screen pt-8 bg-white dark:bg-gray-800 md:px-8">
+        <div class="min-h-screen px-4 pt-8 bg-white dark:bg-gray-800 md:px-8">
 
             <div class="flex justify-start">
                 <h1 class="text-2xl font-semibold text-black dark:text-white">

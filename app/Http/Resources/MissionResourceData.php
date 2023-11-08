@@ -29,6 +29,8 @@ class MissionResourceData extends JsonResource
             'transaction'=>$this->transaction??null,
             'is_paid'=>$this->is_paid,
             'status'=>$this->status,
+            'MissionResponses'=>$this->missionResponses,
+            'nombreResponses'=>$this->whenCounted('missionResponses'),
             'created_at'=>$this->created_at->format('d/m/Y'),
             'user' => $this->user->only('name', 'email', 'profile_photo_url', 'profile_photo_path'),
         ];

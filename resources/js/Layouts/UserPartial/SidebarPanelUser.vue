@@ -43,39 +43,72 @@ const scrollToAndExpand=(routeName, key)=> {
 };
 
 const sidebarMenu = {
-    title: 'Applications',
+    title: 'Racourci',
     items: [
         {
             service: {
                 title: 'Service',
                 submenu: [
                     {
-                            title: 'Ajouter un service',
-                            route_name: 'freelance.service.create',
+                            title: 'Trouver un service',
+                            route_name: 'categories',
 
                     },
-                    {
 
-                            title: 'Liste service',
-                            route_name: 'freelance.service.list',
-
-                    },
                 ],
             },
              freelance: {
                 title: 'freelance',
                 submenu: [
                     {
-                        title: 'Ajouter un service',
-                        route_name: 'freelance.service.create',
+                        title: 'Trouver un freelance',
+                        route_name: 'find_freelance',
 
                     },
                     {
 
-                        title: 'Liste service',
-                        route_name: 'freelance.service.list',
+                        title: 'Devenire freelance',
+                        route_name: 'find_freelance',
 
                     },
+                ],
+            },
+            parametres: {
+                title: 'Profile',
+                submenu: [
+                    {
+                        title: 'Modifier le profile',
+                        route_name: 'profile.show',
+
+                    },
+                    {
+
+                        title: 'Afillier un membre',
+                        route_name: 'profile.show',
+
+                    },
+                ],
+            },
+
+             Aide: {
+                title: 'Aide',
+                submenu: [
+                    {
+                        title: 'Envoyer un feedback',
+                        route_name: 'user.feedback',
+
+                    },
+                     {
+                        title: 'Signaler un comportement',
+                        route_name: 'user.signalement',
+
+                    },
+                     {
+                        title: 'Contact',
+                        route_name: 'user.aide',
+
+                    },
+
                 ],
             },
         },
@@ -92,89 +125,90 @@ const sidebarMenu = {
 
 <template>
     <div class="sidebar-panel">
-        <div class="flex h-full grow flex-col bg-white pl-[var(--main-sidebar-width)] dark:bg-gray-900">
-            <!-- Sidebar Panel Header -->
-            <div class="flex items-center justify-between w-full h-16 pl-4 pr-1">
-                <p class="text-base tracking-wider text-slate-800 dark:text-navy-100">
-                    {{ sidebarMenu.title }}
+            <div class="flex h-full grow flex-col bg-white pl-[var(--main-sidebar-width)] dark:bg-gray-900">
+                <!-- Sidebar Panel Header -->
+                <div class="flex items-center justify-between w-full h-16 pl-4 pr-1">
+                    <p class="text-base tracking-wider text-slate-800 dark:text-navy-100">
+                        {{ sidebarMenu.title }}
 
 
-                </p>
-                <button @click="toogleRightExpande()"
-                    class="p-0 text-blue-600 rounded-full h-7 w-7 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-accent-light/80 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 xl:hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-            </div>
+                    </p>
+                    <button @click="toogleRightExpande()"
+                        class="p-0 text-blue-600 rounded-full h-7 w-7 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-accent-light/80 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 xl:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                </div>
 
 
-            <div class="h-[calc(100%-4.5rem)] overflow-x-hidden pb-6">
-                <template v-for="(menuItems, key) in sidebarMenu.items">
-                    <div v-if="key > 0" class="h-px mx-4 my-3 bg-slate-200 dark:bg-navy-500"></div>
-                    <ul class="flex flex-col flex-1 px-4 font-inter">
+                <div class="h-[calc(100%-4.5rem)] overflow-x-hidden pb-6">
+                    <template v-for="(menuItems, key) in sidebarMenu.items">
+                        <div v-if="key > 0" class="h-px mx-4 my-3 bg-slate-200 dark:bg-navy-500"></div>
+                        <ul class="flex flex-col flex-1 px-4 font-inter">
 
 
-                        <template v-for="(menu, keyMenu) in menuItems" :key="keyMenu">
-                            <template v-if="menu.submenu">
+                            <template v-for="(menu, keyMenu) in menuItems" :key="keyMenu">
+                                <template v-if="menu.submenu">
 
 
 
 
 
-                                <li  @click="toggleAccordion(keyMenu)">
-                                    <a
-                                    :class="{ 'text-slate-800 font-semibold dark:text-navy-50': expandedItems.includes(keyMenu),
-                                     'text-slate-600 dark:text-navy-200': !expandedItems.includes(keyMenu) }"
-                                        class="flex items-center justify-between py-2 text-xs+ tracking-wide  outline-none transition-[color,padding-left] duration-300 ease-in-out hover:text-slate-800  dark:hover:text-navy-50">
-                                        <span>{{ menu.title }}</span>
+                                    <li>
+                                        <a  @click="toggleAccordion(keyMenu)" :class="{
+                                            'text-slate-800 font-semibold dark:text-navy-50': expandedItems.includes(keyMenu),
+                                            'text-slate-600 dark:text-navy-200': !expandedItems.includes(keyMenu)
+                                        }"
+                                            class="flex items-center justify-between py-2 text-xs+ tracking-wide  outline-none transition-[color,padding-left] duration-300 ease-in-out hover:text-slate-800  dark:hover:text-navy-50">
+                                            <span>{{ menu.title }}</span>
 
-                                        <svg :class="{ 'rotate-90': expandedItems.includes(keyMenu) }"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="w-4 h-4 transition-transform ease-in-out text-slate-400" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </a>
+                                            <svg :class="{ 'rotate-90': expandedItems.includes(keyMenu) }"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="w-4 h-4 transition-transform ease-in-out text-slate-400" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
 
-                                    <ul v-if="expandedItems.includes(keyMenu)">
-                                        <template v-for="(submenu, keySubMenu) in menu.submenu">
-                                            <li  @click="scrollToAndExpand(submenu.route_name, keyMenu)">
-                                                <a :href="submenu.route_name"
-                                                    class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4"
-                                                    :class="{ 'text-primary dark:text-accent-light font-medium': submenu.route_name === pageName, 'text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50': submenu.route_name !== pageName }">
-                                                    <div class="flex items-center space-x-2">
-                                                        <div
-                                                            class="h-1.5 w-1.5 rounded-full border border-current opacity-40">
+                                        <ul v-if="expandedItems.includes(keyMenu)">
+                                            <template v-for="(submenu, keySubMenu) in menu.submenu">
+                                                <li @click="scrollToAndExpand(submenu.route_name, keyMenu)">
+                                                    <Link :href="route(submenu.route_name)"
+                                                        class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4"
+                                                        :class="{ 'text-blue-600 dark:text-accent-light font-medium': submenu.route_name === pageName, 'text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50': submenu.route_name !== pageName }">
+                                                        <div class="flex items-center space-x-2">
+                                                            <div
+                                                                class="h-1.5 w-1.5 rounded-full border border-current opacity-40">
+                                                            </div>
+                                                            <span>{{ submenu.title }}</span>
                                                         </div>
-                                                        <span>{{ submenu.title }}</span>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </template>
-                                    </ul>
+                                                    </Link>
+                                                </li>
+                                            </template>
+                                        </ul>
 
-                                </li>
+                                    </li>
 
+                                </template>
+
+                                <template v-else>
+                                    <li :key="keyMenu">
+                                        <a :href="menu.route_name"
+                                            class="flex text-xs+ py-2 tracking-wide outline-none transition-colors duration-300 ease-in-out"
+                                            :class="{ 'text-primary dark:text-accent-light font-medium': menu.route_name === pageName, 'text-slate-600  hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50': menu.route_name !== pageName }">
+                                            {{ menu.title }}
+                                        </a>
+                                    </li>
+                                </template>
                             </template>
 
-                            <template v-else>
-                                <li :key="keyMenu">
-                                    <a :href="menu.route_name"
-                                        class="flex text-xs+ py-2 tracking-wide outline-none transition-colors duration-300 ease-in-out"
-                                        :class="{ 'text-primary dark:text-accent-light font-medium': menu.route_name === pageName, 'text-slate-600  hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50': menu.route_name !== pageName }">
-                                        {{ menu.title }}
-                                    </a>
-                                </li>
-                            </template>
-                        </template>
+                        </ul>
+                    </template>
+                </div>
 
-                    </ul>
-                </template>
             </div>
-
         </div>
-    </div>
 </template>

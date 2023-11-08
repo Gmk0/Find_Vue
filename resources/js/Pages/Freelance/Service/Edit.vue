@@ -2,182 +2,401 @@
 
 
 <template>
-    <div>
-        <div class="p-2">
-            <div
-                class="flex flex-col min-h-screen gap-6 mx-auto bg-gray-100 md:p-6 md:max-w-7xl md:container px-auto dark:bg-gray-900">
+   <div class="flex flex-col min-h-screen gap-6 px-4 lg:mx-auto md:p-6 md:max-w-7xl md:container px-auto bg-inherit">
 
-                <div class="grid grid-cols-2 gap-4 px-auto lg:grid-cols-4">
-                    <a href="" class="px-4 py-6 bg-white rounded-lg shadow-xl cursor-pointer lg:px-6 lg:py-6">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold text-indigo-600">Total Depense</span>
-                            <span
-                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default md:flex hover:bg-gray-500 dark:text-gray-900 hover:text-gray-200">Today</span>
-                        </div>
-                        <div class="flex items-center justify-between mt-6">
-                            <div>
-                                <svg class="w-8 h-8 p-1 text-indigo-600 bg-indigo-400 border border-indigo-600 rounded-full md:w-12 md:h-12 2xl:w-16 2xl:h-16 2xl:p-3 bg-opacity-20"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="flex flex-col">
-                                <div class="flex items-end">
-                                    <span class="text-xl font-bold text-gray-800 2xl:text-3xl">250</span>
-                                    <div class="flex items-center hidden mb-1 ml-2">
-
-                                        <svg class="w-12 h-12 p-1 text-green-600 bg-green-400 border border-green-600 rounded-full 2xl:w-16 2xl:h-16 2xl:p-3 bg-opacity-20"
-                                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                        </svg>
-                                        <span class="font-bold text-sm text-gray-500 ml-0.5">2</span>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="" class="px-6 py-6 bg-white rounded-lg shadow-xl cursor-pointer">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold text-green-600">Commande</span>
-                            <span
-                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default md:hidden dark:text-gray-900 hover:bg-gray-500 hover:text-gray-200">7
-                                days</span>
-                        </div>
-                        <div class="flex items-center justify-between mt-6">
-                            <div>
-                                <svg class="w-8 h-8 p-1 text-green-600 bg-green-400 border border-green-600 rounded-full md:w-12 md:h-12 2xl:w-16 2xl:h-16 2xl:p-3 bg-opacity-20"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                </svg>
-                            </div>
-                            <div class="flex flex-col">
-                                <div class="flex items-end">
-                                    <span class="text-2xl font-bold text-gray-800 2xl:text-4xl">36</span>
-                                    <div class="flex items-center mb-1 ml-2">
-                                        <!--
-                                    @if ($orderEvolution > 0)
-                                    <svg class="w-12 h-12 p-1 text-green-600 bg-green-400 border border-green-600 rounded-full 2xl:w-16 2xl:h-16 2xl:p-3 bg-opacity-20"
-                                        fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                <Toast position="bottom-right" group="br" />
+                <div class="flex flex-col">
+                    <div>
+                        <nav class="flex" aria-label="Breadcrumb">
+                            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                                <li class="inline-flex items-center">
+                                    <Link :href="route('freelance.dashboard')"
+                                        class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                                    <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
                                     </svg>
-                                    <span class="font-bold text-sm text-gray-500 ml-0.5">{{ $orderEvolution }}</span>
-                                    @elseif ($orderEvolution < 0) <svg class="w-5 h-5 text-red-600" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6">
-                                        </path>
-                                        </svg>
-                                        <span class="font-bold text-sm text-gray-500 ml-0.5">{{ $orderEvolution }}</span>
-                                        @else
-                                        <svg class="hidden w-5 h-5 text-gray-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17.6 3.6a9 9 0 1 1-12.8 0 9 9 0 0 1 12.8 0z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z">
-                                            </path>
-                                        </svg>
-                                        <span
-                                            class="font-bold text-sm hidden text-gray-500 ml-0.5">{{ $orderEvolution }}</span>
-                                        @endif
-                                        -->
+                                    Dashboard
+                                    </Link>
+                                </li>
+                                 <li aria-current="page">
+                                            <Link :href="route('freelance.services')" class="flex items-center">
+                                                <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="m1 9 4-4-4-4" />
+                                                </svg>
+                                                <span
+                                                    class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Services</span>
+                                            </Link>
+                                    </li>
+                                 <li aria-current="page">
+                                        <div class="flex items-center">
+                                            <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" d="m1 9 4-4-4-4" />
+                                            </svg>
+                                            <span
+                                                class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">  {{ props.service.data.service_numero }}</span>
+                                        </div>
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <h1 class="mt-4 text-3xl font-bold text-black dark:text-white">Modifier</h1>
+                </div>
 
+                <div>
+                       <Panel header="Service information" toggleable class="mt-8">
+
+                       <form @submit.prevent="edition()" class="grid grid-cols-1 gap-4 p-4 border rounded-md dark:border-gray-300 min-h-72 ">
+
+
+                            <div class="grid grid-cols-2 gap-2">
+                                  <div class="w-full col-span-1 mb-4">
+                                   <InputLabel for="titre" value="titre" />
+
+                                   <InputText required v-model="form.title" class="w-full" id="titre" />
+
+                                </div>
+                                <div class="col-span-1 mb-4">
+                                        <InputLabel for="titre" value="Tags de recherche" />
+                                      <Chips v-model="form.tag" placeholder="Tags pour facileter la recherche" class="w-full" id="tag" />
+                                </div>
+
+                            </div>
+
+                                <div class="grid grid-cols-2 gap-2">
+
+                                    <div class="mt-4 W-full">
+                                    <Dropdown v-model="category"
+                                    optionValue="id"
+                                    required
+                                    :options="categories"
+                                    showClear
+                                    optionLabel="name"
+                                    placeholder="Categories"
+                                    class="!w-full" />
+
+                                    <InputError class="mt-2" :message="form.errors.category_id" />
                                     </div>
+
+                                    <div class="mt-4 W-full">
+                                            <MultiSelect v-model="form.sub_category"
+                                            optionValue="id"
+                                            :options="subcategories"
+                                            showClear optionLabel="name"
+                                            placeholder="Sous categorie"
+                                            class="!w-full" />
+
+                                            <InputError class="mt-2" :message="form.errors.sub_category" />
+                                    </div>
+                                </div>
+
+                            <div class="grid grid-cols-2 gap-2">
+
+                                    <div class="w-full col-span-1 mb-4">
+                                        <InputLabel for="titre" value="Prix" />
+                                        <InputNumber showButtons v-model="form.basic_price" placeholder="Prix du service" class="w-full" inputId="Prix" />
+
+                                        <InputError class="mt-2" :message="form.errors.basic_price" />
+                                        </div>
+                                    <div class="w-full col-span-1 mb-4">
+                                    <InputLabel for="revision" value="Revision" />
+                                    <InputNumber showButtons v-model="form.basic_revision" class="w-full" placeholder="nombre de revision pour ce prix" id="titre" />
+                                       <InputError class="mt-2" :message="form.errors.basic_revision" />
+                                    </div>
+                             </div>
+                                <div class="grid grid-cols-2 gap-2 mt-4">
+
+                                        <div class="w-full col-span-2 mb-4">
+                                            <InputLabel for="description" value="Description" />
+                                                <Editor required
+                                                :formats="null"
+                                                 v-model="form.description"
+                                                 class="mt-2"
+                                                 placeholder="une Description pour ce service"
+                                                 editorStyle="height: 250px"
+                                                   />
+
+                                            <InputError class="mt-2" :message="form.errors.description" />
+                                            </div>
+                                        <div class="w-full col-span-2 mb-4">
+                                        <InputLabel for="titre" value="Besoin" />
+
+
+                                                    <Editor required
+                                                     v-model="form.need_service"
+                                                     class="mt-2"
+                                                     ceholder="vous besoin de quoi pour la realisation de ce service"
+                                                     editorStyle="height: 250px"
+                                                       />
+                                                       <InputError class="mt-2" :message="form.errors.need_service" />
+
+                                        </div>
+                                     </div>
+
+
+                                 <div class="grid grid-cols-2 gap-2">
+
+                                        <div class="w-full col-span-1 mb-4">
+                                            <InputLabel for="support" value="support" />
+                                            <Chips required v-model="form.basic_support" placeholder="Le support du service" class="w-full mt-2" id="support" />
+
+                                              <InputError class="mt-2" :message="form.errors.basic_support" />
+                                        </div>
+                                        <div class="w-full col-span-1 mb-4">
+                                        <InputLabel for="titre" value="titre" />
+                                        <InputText v-model="form.video_url" placeholder="lien d'une video du  service" class="w-full mt-2" id="titre" />
+                                        </div>
+                                 </div>
+                                  <div class="grid grid-cols-2 gap-2">
+
+                                            <div class="w-full col-span-1 mb-4">
+                                                <InputLabel for="temps" value="Temps" />
+                                                <InputNumber required v-model="form.basic_delivery_time" showButtons placeholder="Temps de livraison" class="w-full mt-2" id="titre" />
+
+                                            </div>
+                                            <div class="w-full col-span-1 mb-4">
+                                            <InputLabel for="titre" value="titre" />
+
+                                             <Dropdown required v-model="form.delivery_time_unit"
+                                                optionValue="id"
+                                                :options="unitTime"
+                                             showClear optionLabel="name"
+                                             placeholder="Unite de temps en heures ou jours"
+                                             class="!w-full mt-2" />
+
+                                        </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+
+                                <div class="w-full col-span-1 mb-4">
+                                    <InputLabel for="titre" value="Publier" />
+                                    <InputSwitch class="mt-2" required v-model="form.is_publish" id="titre" />
+                                    </div>
+
+                                </div>
+
+
+                                <div>
+                                    <Button type="submit" label="Soumettre" />
+                                </div>
+
+
+                      </form>
+                      </Panel>
+
+
+
+
+
+                    <Panel header="Image" toggleable class="mt-8">
+
+                        <div>
+                              <div class="flex flex-wrap mt-4 space-x-2">
+                                <div v-for="(file, index) in files">
+                                   <div class="relative group">
+                                    <img :src="'/storage/' + file" alt="Product Name"
+                                        class="w-16 h-full border rounded-md cursor-pointer lg:w-24 2xl:w-24 hover:opacity-80">
+                                    <div class="absolute top-0 right-0 mt-2 mr-2">
+                                        <!-- Bouton pour supprimer le fichier -->
+                                        <Button @click="remove(index)" size="small" outlined icon="pi pi-trash" />
+                                    </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
-                    </a>
-                    <a href="" class="px-6 py-6 bg-white rounded-lg shadow-xl cursor-pointer">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold text-blue-600">Transaction</span>
-                            <span
-                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default md:flex dark:text-gray-900 hover:bg-gray-500 hover:text-gray-200">7
-                                days</span>
+                       <div class="grid grid-cols-2 gap-2 mt-4">
+                        <div class="w-full col-span-2 mb-4">
+                            <InputLabel for="titre" class="mb-4" value="Image" />
+                            <FileUpload
+                                :showCancelButton="false"
+                            :auto="true"
+                            class=""
+                            :fileLimit="3"
+                            @select="onSelect"
+                            @upload="onAdvancedUpload($event)"
+
+                            :multiple="true"
+                            accept="image/*"
+                            :maxFileSize="1000000">
+                                <template #empty>
+                                    <p>Drag and drop files to here to upload.</p>
+                                </template>
+                            </FileUpload>
+
+
+
                         </div>
-                        <div class="flex items-center justify-between mt-6">
-                            <div>
-                                <svg class="w-8 h-8 p-1 text-blue-600 bg-blue-400 border border-blue-600 rounded-full md:w-12 md:h-12 2xl:w-16 2xl:h-16 2xl:p-3 bg-opacity-20"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
-                            </div>
-                            <div class="flex-col ">
-                                <div class="flex items-end ">
-                                    <span class="text-2xl font-bold text-gray-800 2xl:text-4xl">24</span>
-                                    <div class="items-center hidden mb-1 ml-2 ">
-                                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                                        </svg>
-                                        <span class="font-bold text-sm text-gray-500 ml-0.5">7%</span>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                    </a>
-                    <a href="" class="px-6 py-6 bg-white rounded-lg shadow-xl cursor-pointer">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold text-gray-800">Mission en attente</span>
-                            <span
-                                class="hidden px-2 py-1 text-xs text-gray-500 transition duration-200 bg-gray-200 rounded-lg cursor-default md:flex dark:text-gray-900 hover:bg-gray-500 hover:text-gray-200">30
-                                days</span>
+
+                        <div>
+                            <Button @click="addImage()" label="Changer" />
                         </div>
-                        <div class="flex items-center justify-between mt-6">
-                            <div>
-                                <svg class="w-8 h-8 p-1 text-yellow-600 bg-yellow-400 border border-yellow-600 rounded-full md:w-12 md:h-12 2xl:w-16 2xl:h-16 2xl:p-3 bg-opacity-20"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="flex flex-col">
-                                <div class="flex items-end">
-                                    <span class="text-2xl font-bold text-gray-800 2xl:text-4xl">Test</span>
-                                    <div class="flex items-center hidden mb-1 ml-2">
-                                        <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path>
-                                        </svg>
-                                        <span class="font-bold text-sm text-gray-500 ml-0.5">-1%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+                    </Panel>
+
+
+
+
+
+
+
+
+
                 </div>
 
 
-
             </div>
-
-        </div>
-
-    </div>
 </template>
 
 <script setup>
 
 import FreelanceLayout from '@/Layouts/FreelanceLayout.vue';
 
+
+
+import { Link, useForm, router  } from '@inertiajs/vue3';
+
+import { computed, ref, watch } from 'vue';
+
+import { useToast } from "primevue/usetoast";
+
+
+const toast = useToast();
+
+
+
+import { useSubcategoriesStore, useCategoryStore } from '@/store/store';
+
+
+const props = defineProps({
+    service: Object
+});
+
+const categoriesStore = useCategoryStore();
+
+const category = ref(props.service.data.category_id);
+
+//console.log(props.service.data.sub_category);
+
+const files = computed(()=>props.service.data.files);
+
+const form = useForm({
+    title: props.service.data.title,
+    tag: props.service.data.tag,
+    basic_price: parseInt(props.service.data.basic_price),
+    basic_revision: props.service.data.basic_revision,
+    need_service: props.service.data.need_service,
+    sub_category: props.service.data.sub_category?.map(value => parseInt(value)),
+    description: props.service.data.description,
+    category_id: props.service.data.category_id,
+    sub_categorie: props.service.data.sub_category,
+    video_url: props.service.data.video_url,
+    basic_support: props.service.data.basic_support,
+    basic_delivery_time: props.service.data.basic_delivery_time,
+    delivery_time_unit: props.service.data.delivery_time_unit,
+    is_publish: props.service.data.is_publish,
+    service_id: props.service.data.id,
+
+})
+
+
+const unitTime = ref([
+    { name: 'jour(s)', id: 'jour(s)' },
+    { name: 'heure(s)', id: 'heure(s)' },
+]);
+
+
+
+
+
+const edition = () => {
+
+    form.post(route('freelance.services.edition.save'), {
+        onSuccess: () =>{
+             toast.add({ severity: 'info', summary: 'Message', detail: 'Modification reuissie', group: 'br', life: 1000 });
+        },
+        onError: (error) => {
+           toast.add({ severity: 'error', summary: 'Message', detail: error.message, group: 'br', life: 3000 });
+        }
+    });
+
+}
+
+
+
+
+
+const categories = computed(() => categoriesStore.categoriesGet.categories);
+
+const subcategories = computed(() => categoriesStore.subCategoriesGet);
+
+const fetchSubcategories = async () => {
+    categoriesStore.fetchSubCategoriesByCategoryid(category.value)
+};
+
+watch(category, () => {
+
+    form.category_id = category.value;
+    fetchSubcategories();
+});
+
+
+const filesSend =useForm({
+    files:null,
+    service_id : props.service.data.id,
+});
+
+const clearAll = () => {
+
+}
+
+const addImage=()=>{
+
+    if(filesSend.files != null)
+    {
+        filesSend.post(route('addImageService'),{
+
+            onFinish:()=> clearAll(),
+            preserveScroll:true,
+        })
+    }else{
+         toast.add({ severity: 'error', summary: 'Message', detail: 'veuillez choisir une photo', group: 'br', life: 1000 });
+       // alert('');
+    };
+
+}
+
+const onSelectExample = (event) => {
+    form.example = event.files;
+
+}
+
+const onSelect = (event) => {
+    filesSend.files = event.files;
+}
+
+const remove =(index)=>{
+
+    router.post(route('removeFileService'), {
+        file_index: index,
+        service_id: props.service.data.id
+    }, {
+        preserveScroll: true,
+        onSuccess: () => {
+            toast.add({ severity: 'info', summary: 'Message', detail: 'Photo supprimer', group: 'br', life: 1000 });
+        },
+        onError: (error)=>{
+           // alert(error.message);
+
+             toast.add({ severity: 'error', summary: 'Message', detail: error.message, group: 'br', life: 1000 });
+        }
+
+    });
+}
 
 defineOptions({
     layout: FreelanceLayout,

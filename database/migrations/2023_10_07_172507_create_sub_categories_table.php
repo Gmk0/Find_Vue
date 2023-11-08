@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->foreignId('category_id')->constrained();
             $table->string('illustration')->nullable();
+              $table->boolean('afficher')->default(true);
             $table->timestamps();
         });
 

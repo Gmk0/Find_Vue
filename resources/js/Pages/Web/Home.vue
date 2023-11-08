@@ -215,19 +215,13 @@
 
                         </div>
                         <div class="grid grid-cols-2 gap-6 mx-6 mt-6 md:mx-0 px-auto md:gap-2 md:grid-cols-3 ">
-                            <img src="/images/brand/brand (1).png" alt="brand"
-                                class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
+
                             <img src="/images/brand/influeworld.png" alt="brand"
                                 class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
-                            <img src="/images/brand/influnet2.jpg" alt="brand"
-                                class="w-32 h-16 px-5 py-3 bg-white border rounded-lg shadow-md cursor-pointer duration border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
-                            <img src="/images/brand/udemy.PNG" alt="brand"
-                                class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
-                            <img src="/images/brand/microsoft.svg" alt="brand"
-                                class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
-                            <img src="/images/brand/airbnb.svg" alt="brand"
-                                class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer bg-gray-50 md:h-none border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
-                        </div>
+
+
+
+                             </div>
                     </div>
 
                     <div class="hidden px-4 lg:block lg:w-1/12"></div>

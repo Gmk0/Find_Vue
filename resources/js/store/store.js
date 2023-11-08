@@ -11,6 +11,7 @@ export const useCategoryStore = defineStore('category', {
     state: () => ({
         categories: [],
         subCategoriesbyId: [],
+        subCategoriesby: [],
     }),
     actions: {
         async fetchCategories() {
@@ -20,10 +21,21 @@ export const useCategoryStore = defineStore('category', {
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
+        },
+
+        async fetchSubCategoriesByCategoryid(categoryid) {
+            try {
+                const response = await axios.get(`/api/subcategories/${categoryid}`);
+                this.subCategoriesby = response.data.subcategories;
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+
         }
     },
     getters: {
-        categoriesGet: (state) => state.categories
+        categoriesGet: (state) => state.categories,
+        subCategoriesGet: (state) => state.subCategoriesby
     },
 
 persist:true,
@@ -195,18 +207,26 @@ export const useLayoutStore = defineStore('userLayout', {
         isSearchbarActive: false,
         isSidebarExpanded: false,
         isRightSidebarExpanded: false,
+        isRightSidebarPanel: false,
     }),
     getters: {
         SidebarExpanded: (state) => state.isRightSidebarExpanded,
+        RightSidebarExpanded: (state) => state.isRightSidebarPanel,
     },
 
     actions: {
         toogleRight() {
             this.isRightSidebarExpanded = !this.isRightSidebarExpanded
         },
+        tooglePanel() {
+            this.isRightSidebarPanel = !this.isRightSidebarPanel
+        },
         ToogleFalse() {
             this.isRightSidebarExpanded = false
 
+        },
+        tooglePanelFalse(){
+            this.isRightSidebarPanel = false;
         },
         ToogleTrue() {
             this.isRightSidebarExpanded = true
@@ -215,6 +235,58 @@ export const useLayoutStore = defineStore('userLayout', {
     }
 
 
+})
+
+export const useSidebarPanelUser = defineStore('useSidebarPanelUser',{
+
+    state: () => ({
+        lastMessage: [],
+        lastCommande: false,
+        statusElement:[],
+    }),
+    getters: {
+        lastMessageUser: (state) => state.lastMessage,
+        lastCommandeUser: (state) => state.statusElement,
+
+    },
+    actions :{
+        async fetchLastMessage(id) {
+            try {
+                const response = await axios.get(`/api/fetchLastUserMessage/${id}`);
+                if (response.status === 200) {
+                    if (response.data.messages.length > 0) {
+                        this.lastMessage = response.data;
+                    } else {
+
+                        console.log('Aucun message trouvé.');
+                    }
+                } else if (response.status === 203) {
+
+                    console.log('Aucun message n\'est renvoyé.');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des messages :', error);
+            }
+        },
+        async fetchLastCommande(id) {
+            try {
+                const response = await axios.get(`/api/fetchLastCommande/${id}`);
+                if (response.status === 200) {
+
+                    this.statusElement = response.data.status;
+
+
+
+                } else if (response.status === 203) {
+
+                    console.log('Aucun element n\'est renvoyé.');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des element :', error);
+            }
+        }
+
+    }
 })
 
 

@@ -214,7 +214,7 @@ class Service extends Model
         parent::boot();
 
         static::creating(function ($service) {
-           // $service->service_numero = 'SV' . date('YmdHms');
+            $service->service_numero = 'SV' . date('YmdHms');
             //$service->freelance_id = auth()->user()->freelance->id;
         });
     }

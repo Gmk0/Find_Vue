@@ -1,15 +1,16 @@
 <script setup>
 
-import { Link, useForm, router } from '@inertiajs/vue3';
+import { Link, useForm, router,usePage } from '@inertiajs/vue3';
 
 import { useLayoutStore } from '@/store/store';
 
 const layoutStore = useLayoutStore();
 
-
-defineProps({
+const page=usePage();
+const props =defineProps({
     Conversations : Array,
 })
+
 
 const selectConversation=(id)=>{
 
@@ -18,13 +19,32 @@ const selectConversation=(id)=>{
 
 }
 
+window.Echo.private(`chat.${page.props.auth.user.id}`)
+    .listen('MessageSent', (e) => {
+
+       // props.Conversations.data.push(e.conversation)
+
+      const index = props.Conversations.data.findIndex(conv => conv.id === e.conversation.id);
+
+        // Si l'élément existe déjà dans le tableau
+        if (index !== -1) {
+            // Remplacez l'élément à cet index par le nouvel élément
+            props.Conversations.data.splice(index, 1, e.conversation);
+        } else {
+            // S'il n'existe pas, vous pouvez choisir de ne rien faire ou d'ajouter l'élément
+            // props.conversations.data.push(e.conversation);
+        }
+        //router.get(route('user.chat', e.conversation.id))
+
+    });
+
 
 </script>
 
 <template>
     <div class="">
         <div class="sidebar-panel">
-            <div class="flex h-full pt-6 grow flex-col bg-white pl-[var(--main-sidebar-width)] dark:bg-navy-750">
+            <div class="flex h-full pt-6 grow flex-col bg-white pl-[var(--main-sidebar-width)] dark:bg-gray-900">
                 <!-- Sidebar Panel Header -->
                 <div class="flex items-center justify-between w-full pl-4 pr-1 h-18">
                     <div class="flex items-center">
@@ -100,9 +120,9 @@ const selectConversation=(id)=>{
 
 
 
-                        <div  v-if="Conversations.data !=null">
+                        <div  v-if="props.Conversations.data !=null">
 
-                        <div v-for="freelance in Conversations.data"
+                        <div v-for="freelance in props.Conversations.data"
                             class="flex cursor-pointer items-center space-x-2.5 px-4 py-2.5 font-inter hover:bg-slate-150 dark:hover:bg-navy-600">
                             <div class="w-10 h-10 avatar">
 
@@ -187,7 +207,7 @@ const selectConversation=(id)=>{
 
 
         <div  class="sidebar-panel-min">
-            <div class="flex flex-col h-full pt-6 bg-white dark:bg-navy-750">
+            <div class="flex flex-col h-full pt-6 bg-white dark:bg-gray-900">
                 <div class="flex items-center justify-center h-18 shrink-0">
                     <div class="flex w-10 h-10 avatar">
                         <div
@@ -229,7 +249,7 @@ const selectConversation=(id)=>{
                         <div class="flex flex-col">
 
 
-                            <div v-for="freelance in Conversations.data" class="px-2">
+                            <div v-for="freelance in props.Conversations.data" class="px-2">
 
                             <button @click="selectConversation(freelance.id)"
                                 class="flex cursor-pointer items-center justify-center py-2.5 hover:bg-slate-150 dark:hover:bg-navy-600">

@@ -8,6 +8,8 @@ import SidebarPanelUser from '@/Layouts/UserPartial/SidebarPanelUser.vue';
 import PartialHeaderUser from '@/Layouts/UserPartial/PartialHeaderUser.vue';
 import OtherPanelUser from '@/Layouts/UserPartial/OtherPanelUser.vue';
 
+import Footer from '@/Components/Footer.vue';
+
 const categoryStore = useCategoryStore();
 const layoutStore = useLayoutStore();
 //const userStore = useAuthStore();
@@ -69,7 +71,10 @@ resize();
             <div class="main-content pt-4 w-full px-[var(--margin-x)] pb-8">
                 <slot></slot>
 
+                  <Footer />
+
             </div>
+
 
 
 

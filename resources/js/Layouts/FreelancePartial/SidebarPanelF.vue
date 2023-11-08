@@ -1,10 +1,28 @@
 <script setup>
 
 import { useLayoutStore } from '@/store/store';
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
+
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 
 
-const pageName = ref('');
+const page = usePage();
+const pageName =computed(()=>{
+    const url= page.url.replace('/','').replace(/\//g, '.');
+
+    return url;
+});
+
+
+
+const getPage= page =>{
+
+    const ulr =page.split('.');
+
+
+
+}
+console.log(pageName.value);
 const expandedItems = ref([]);
 
 
@@ -30,7 +48,8 @@ const toggleAccordion = (key) => {
 
     if (expandedItems.value.includes(key)) {
         expandedItems.value = expandedItems.value.filter((item) => item !== key);
-        console.log(expandedItems.value)
+        //console.log(expandedItems.value)
+
     } else {
         expandedItems.value.push(key);
     }
@@ -46,37 +65,109 @@ const sidebarMenu = {
     items: [
         {
             service: {
-                title: 'Service',
+                title: 'services',
                 submenu: [
                     {
                         title: 'Ajouter un service',
-                        route_name: 'freelance.service.create',
+                        route_name: 'freelance.services.creation',
 
                     },
                     {
 
                         title: 'Liste service',
-                        route_name: 'freelance.service.list',
+                        route_name: 'freelance.services',
 
                     },
                 ],
             },
-            freelance: {
-                title: 'freelance',
+             commandes: {
+                title: 'commandes',
                 submenu: [
                     {
-                        title: 'Ajouter un service',
-                        route_name: 'freelance.service.create',
+                        title: 'vos commandes',
+                        route_name: 'freelance.commandes',
+
+                    },
+
+                ],
+            },
+            mission: {
+                title: 'Missions',
+                submenu: [
+                    {
+                        title: 'voir  les missions',
+                        route_name: 'freelance.missions',
+
+                    },
+                     {
+                        title: 'missions postuler',
+                        route_name: 'freelance.missions.postuler',
 
                     },
                     {
-
-                        title: 'Liste service',
-                        route_name: 'freelance.service.list',
+                        title: 'missions en cours',
+                        route_name: 'freelance.missions.accepter',
 
                     },
+
                 ],
             },
+            transaction: {
+                title: 'transaction',
+                submenu: [
+                    {
+                        title: 'vos transactions',
+                        route_name: 'freelance.transactions',
+
+                    },
+
+                ],
+            },
+            Paiment: {
+                title: 'Paiments',
+                submenu: [
+                    {
+                        title: 'Paiments',
+                        route_name: 'freelance.paiements',
+
+                    },
+
+                      {
+                        title: 'Retrait',
+                        route_name: 'freelance.paiements.retrait',
+
+                    },
+                     {
+                        title: 'Releves',
+                        route_name: 'freelance.paiements.releves',
+
+                    },
+
+                ],
+            },
+            realisation: {
+                title: 'realisations',
+                submenu: [
+                    {
+                        title: 'vos realisations',
+                        route_name: 'freelance.realisations',
+
+                    },
+
+                ],
+            },
+             profile: {
+                title: 'profile',
+                submenu: [
+                    {
+                        title: 'Profile freelance',
+                        route_name: 'freelance.profile',
+
+                    },
+
+                ],
+            },
+
         },
 
         // ... Autres éléments du menu
@@ -91,7 +182,7 @@ const sidebarMenu = {
 
 <template>
     <div class="sidebar-panel">
-        <div class="flex h-full grow flex-col bg-white pl-[var(--main-sidebar-width)] dark:bg-navy-750">
+        <div class="flex h-full grow flex-col bg-white pl-[var(--main-sidebar-width)] dark:bg-gray-900">
             <!-- Sidebar Panel Header -->
             <div class="flex items-center justify-between w-full h-16 pl-4 pr-1">
                 <p class="text-base tracking-wider text-slate-800 dark:text-navy-100">
@@ -122,8 +213,8 @@ const sidebarMenu = {
 
 
 
-                                <li @click="toggleAccordion(keyMenu)">
-                                    <a :class="{
+                                <li>
+                                    <a  @click="toggleAccordion(keyMenu)" :class="{
                                         'text-slate-800 font-semibold dark:text-navy-50': expandedItems.includes(keyMenu),
                                         'text-slate-600 dark:text-navy-200': !expandedItems.includes(keyMenu)
                                     }"
@@ -142,16 +233,16 @@ const sidebarMenu = {
                                     <ul v-if="expandedItems.includes(keyMenu)">
                                         <template v-for="(submenu, keySubMenu) in menu.submenu">
                                             <li @click="scrollToAndExpand(submenu.route_name, keyMenu)">
-                                                <a :href="submenu.route_name"
+                                                <Link :href="route(submenu.route_name)"
                                                     class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4"
-                                                    :class="{ 'text-primary dark:text-accent-light font-medium': submenu.route_name === pageName, 'text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50': submenu.route_name !== pageName }">
+                                                    :class="{ 'text-blue-600 dark:text-accent-light font-medium': submenu.route_name  === pageName, 'text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50': submenu.route_name  !== pageName }">
                                                     <div class="flex items-center space-x-2">
                                                         <div
                                                             class="h-1.5 w-1.5 rounded-full border border-current opacity-40">
                                                         </div>
                                                         <span>{{ submenu.title }}</span>
                                                     </div>
-                                                </a>
+                                                </Link>
                                             </li>
                                         </template>
                                     </ul>

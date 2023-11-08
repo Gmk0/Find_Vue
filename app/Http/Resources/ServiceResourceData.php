@@ -42,6 +42,7 @@ class ServiceResourceData extends JsonResource
             'video_url' => $this->video_url,
             'like' => $this->like,
             'is_publish' => $this->is_publish,
+            'category_id' => $this->category_id,
             //'sub_categorie' => $this->subcategories(),
             'likeUser' => $this->isFavorite(),
             'orderCount' => $this->orderCount(),

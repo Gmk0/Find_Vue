@@ -19,17 +19,19 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Categories';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('description')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('illustration')
-                    ->maxLength(255),
+                    ->required(),
+                Forms\Components\MarkdownEditor::make('description'),
+            Forms\Components\FileUpload::make('illustration')
+            ->preserveFilenames()
+
+            ->directory('illustration'),
             ]);
     }
 
@@ -56,8 +58,8 @@ class CategoryResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -65,11 +67,21 @@ class CategoryResource extends Resource
                 ]),
             ]);
     }
-    
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageCategories::route('/'),
+            'index' => Pages\ListCategories::route('/'),
+            'create' => Pages\CreateCategory::route('/create'),
+            'view' => Pages\ViewCategory::route('/{record}'),
+            'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
-    }    
+    }
 }

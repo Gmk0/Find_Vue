@@ -37,7 +37,7 @@
 
             </div>
 
-            <h1 class="text-3xl mt-4 font-bold text-black dark:text-white">Profile</h1>
+            <h1 class="mt-4 text-3xl font-bold text-black dark:text-white">Profile</h1>
 
         </div>
 
@@ -172,6 +172,7 @@
                         <SectionBorder />
                     </div>
 
+                     {{ sessions }}
 
 
             </div>
@@ -201,6 +202,7 @@ import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm.vue'
 import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm.vue';
 
 
+
 //import ColumnGroup from 'primevue/columngroup';   // optional
 //import Row from 'primevue/row';
 //import Paginator from 'primevue/paginator';
@@ -208,6 +210,8 @@ import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfile
 
 const activeTab = ref('');
 
+
+defineProps(['sessions'])
 
 defineOptions({
     layout: UserLayout,

@@ -5,7 +5,7 @@
 
 
         <img v-if="user.profile_photo_path !=null"
-        :class="`w-${taille} h-${taille}  object-cover rounded-full`"
+        :class="`w-${taille} h-full  object-cover rounded-full`"
             :src="'/storage/' + user.profile_photo_path" alt="">
 
         <img v-else

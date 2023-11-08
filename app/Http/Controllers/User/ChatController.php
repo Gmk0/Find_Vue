@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Events\MessageSent;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ConversationResourceData;
 use App\Models\Conversation;
@@ -10,6 +11,9 @@ use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Http\Response;
+
 
 class ChatController extends Controller
 {
@@ -20,18 +24,66 @@ class ChatController extends Controller
     {
         //
 
-        $conversation= Conversation::where('user_id', auth()->id())
+        $conversations= Conversation::where('user_id', auth()->id())
             ->orderBy('last_time_message', 'DESC')->get();
+
+            if($id !=null)
+            {
+            $conversation = Conversation::findOrFail($id);
+
+            if ($conversation != null) {
+                foreach ($conversation->messages as $message) {
+                    $message->where('receiver_id', auth()->id())->update(['is_read' => true]);
+                }
+            }
+
+
+            }
+
+
+
+
 
          return Inertia::render('User/Chat/ChatComponent',
             [
-                'conversations' => ConversationResourceData::collection($conversation),
+                'conversations' => ConversationResourceData::collection($conversations),
                 'chat' => fn () => $id ? Conversation::findOrFail($id) : null,
-                'messages' => Message::where('conversation_id', $id)->where('sender_id', Auth::id())->orderBy('created_at','asc')->get(),
+                'messages' => Message::where('conversation_id', $id)->orderBy('created_at','asc')->get(),
                 'user'=> fn () => $id ? Conversation::findOrFail($id)->freelance->user : null
             ]
 
          );
+    }
+
+    public function freelanceChat(string $id = null)
+    {
+
+        $conversations = Conversation::where('freelance_id', auth()->user()->freelance->id)
+            ->orderBy('last_time_message', 'DESC')->get();
+
+        $conversation = Conversation::findOrFail($id);
+
+        if($conversation !=null)
+        {
+            foreach($conversation->messages as $message)
+            {
+                $message->where('receiver_id',auth()->id())->update(['is_read' => true]);
+            }
+
+        }
+           // dd($conversation);
+
+        return Inertia::render(
+            'Freelance/Chat/ChatComponent',
+            [
+                'conversations' => ConversationResourceData::collection($conversations),
+                'chat' => fn () => $id ? Conversation::findOrFail($id) : null,
+                'messages' => Message::where('conversation_id', $id)->orderBy('created_at', 'asc')->get(),
+                'user' => fn () => $id ? Conversation::findOrFail($id)->user : null
+            ]
+
+        );
+
     }
 
     public function createChat(Request $request)
@@ -101,6 +153,9 @@ class ChatController extends Controller
 
 
 
+            $this->dispatchMessageSent(auth()->user(), $createdMessage,$conversation, $request->user);
+
+
         }catch(\Exception $e){
 
             dd($e->getMessage());
@@ -112,6 +167,13 @@ class ChatController extends Controller
         // Autres actions après l'enregistrement du message avec les fichiers
 
         // Redirection ou réponse après le traitement
+    }
+
+    public function dispatchMessageSent($user, $message, $conversation, $receiverInstance)
+    {
+        broadcast(new MessageSent($user, $message, $conversation, $receiverInstance));
+
+
     }
 
 }

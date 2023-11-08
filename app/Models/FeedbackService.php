@@ -35,7 +35,7 @@ class FeedbackService extends Model
         'id' => 'integer',
         'order_id' => 'integer',
         'mission_id' => 'integer',
-        'delai_livraison_estimee' => 'datetime',
+        'delai_livraison_estimee' => 'date:d-m-Y',
         'is_publish' => 'boolean'
 
     ];

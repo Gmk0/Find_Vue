@@ -74,7 +74,7 @@
                                         <Link :href="route('categoryName', category.name)" class="site-nav dark:!text-white lvl-1">{{ category.name }}</Link>
                                         <ul class="subLinks">
                                             <li v-for="(subcategory,index) in category.subcategories" class="lvl-2 dark:!text-white" >
-                                                <Link v-if="index <5" :href="route('SubcategoryName', [category.name, subcategory.name])"  class="site-nav dark:!text-gray-50 lvl-2">{{ subcategory.name}}</Link>
+                                                <Link v-if="index <4" :href="route('SubcategoryName', [category.name, subcategory.name])"  class="site-nav dark:!text-gray-50 lvl-2">{{ subcategory.name}}</Link>
                                             </li>
 
                                         </ul>

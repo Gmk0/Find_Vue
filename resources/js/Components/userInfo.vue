@@ -2,7 +2,7 @@
     <div>
          <Dropdown align="right" width="48">
                     <template #trigger>
-                        <button  class="flex text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
+                        <button  class="flex text-sm transition border-2 border-transparent rounded-full dark:bg-gray-800 focus:outline-none focus:border-gray-300">
 
                             <div v-if="$page.props.auth.user.profile_photo_path != null">
                                    <img class="object-cover w-8 h-8 rounded-full" :src="'/storage/'+ $page.props.auth.user.profile_photo_path" :alt="$page.props.auth.user.name">
@@ -19,7 +19,7 @@
 
                         <template #content>
                             <!-- Account Management -->
-                            <div class="block px-4 py-2 text-xs text-gray-400">
+                            <div class="block px-4 py-2 text-xs text-gray-400 dark:text-gray-50">
                                 Manage Account
                             </div>
 
@@ -27,11 +27,23 @@
                                 Profile
                             </DropdownLink>
                                <DropdownLink :href="route('user.dashboard')">
-                                    Dashboard
+                                    Tableau utilisateur
                                 </DropdownLink>
+                                   <DropdownLink :href="route('user.missions')">
+                                        Mes Mission
+                                    </DropdownLink>
+
+                                     <DropdownLink :href="route('user.chat')">
+                                                favoris
+                                        </DropdownLink>
+
+                                     <DropdownLink :href="route('user.chat')">
+                                            Conversation
+                                    </DropdownLink>
+
 
                                 <DropdownLink @click="ToggleDark()" as="button">
-                                        Dark
+                                        Dark mode
                                 </DropdownLink>
 
                             <div class="border-t border-gray-200" />
@@ -75,40 +87,17 @@ const ToggleDark =()=>{
 
         dark();
 
-    if(isDark.value){
 
-
-        toggleTheme("lara-light-blue")
-    }else{
-         toggleTheme("lara-dark-blue")
-    }
 } ;
 
 
-const toggleTheme = (current) => {
-
-    let nextTheme = 'lara-light-blue';
-    let linkElement ='light';
-
-    if (current === 'lara-light-blue') nextTheme = 'lara-dark-blue';
-    else if (current === 'lara-dark-blue') nextTheme = 'lara-light-blue';
-
-    //   PrimeVue.changeTheme(current, nextTheme, 'light', () => { });
-
-    console.log(current ,nextTheme);
 
 
-}
+const logout = () => {
+    router.post(route('logout'));
+};
 
-onMounted(() => {
-   if (isDark.value) {
 
-
-        toggleTheme("lara-light-blue")
-    } else {
-        toggleTheme("lara-dark-blue")
-    }
-});
 
 </script>
 

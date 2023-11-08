@@ -15,8 +15,14 @@ class Order extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id'=>$this->id,
             'order_numero'=>$this->order_numero,
-            'user'=>$this->user?->only('name','email'),
+            'user'=>$this->user?->only(
+                'name',
+                'email',
+                'profile_photo_url',
+                'profile_photo_path'
+            ),
             'service'=>$this-> service?->only('service_numero', 'title','level'),
             'total_amount'=>$this->total_amount,
             'quantity'=> $this->quantity,
@@ -25,8 +31,9 @@ class Order extends JsonResource
             'is_paid' => $this->is_paid,
             'status' => $this->status,
             'feedback'=>$this->feedback,
-            'freelance'=>$this->service?->freelance->only('nom','prenom','identifiant'),
-            'freelance_user'=>$this->service->freelance->user->only('name','email',
+            'rapports'=>$this->rapports,
+            'freelance'=>$this->service?->freelance->only('id','nom','prenom','identifiant'),
+            'freelance_user'=>$this->service->freelance->user->only('id','name','email',
                 'profile_photo_url',
                 'profile_photo_path'),
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),

@@ -68,6 +68,11 @@ class Transaction extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function mission()
+    {
+        return $this->hasOne(Mission::class);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

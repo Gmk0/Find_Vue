@@ -1,8 +1,15 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Freelance\CommandeFreelance;
 use App\Http\Controllers\Freelance\FreelanceAuth;
+use App\Http\Controllers\Freelance\MissionFreelance;
+use App\Http\Controllers\Freelance\ProfileFreelance;
+use App\Http\Controllers\Freelance\ServiceFreelance;
+use App\Http\Controllers\Freelance\TransactionFreelance;
+use App\Http\Controllers\ProfileController as ControllersProfileController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\User\ApiUserController;
 use App\Http\Controllers\User\ChatController;
 use App\Http\Controllers\User\CommandeController;
 use App\Http\Controllers\User\MissionController as UserMissionController;
@@ -114,15 +121,36 @@ Route::middleware([
            // Route::get('/commandes', 'commandesList')->name('user.commandes');
             Route::get('/transactions', 'transactionsList')->name('user.transactions');
             Route::get('/transactions/{transaction_numero}', 'transactionsListOne')->name('user.transactions.one');
+
+            Route::get('/signalement', 'signalement')->name('user.signalement');
+            Route::get('/feedback', 'feedback')->name('user.feedback');
+            Route::get('/aide', 'aide')->name('user.aide');
+
         });
 
 
         Route::controller(UserMissionController::class)->group(function(){
 
             Route::get('/mission', 'missionsList')->name('user.missions');
+
+            Route::get('/mission/candidature/{mission_numero}', 'candidature')->name('user.missions.candidature');
+
+            Route::get('/mission/gestion/{mission_numero}/{mission_response}', 'missionGestion')->name('user.missions.missionGestion');
+            Route::get('/mission/gestion/{mission_numero}/{mission_response}/paiement', 'missionPaiement')->name('user.missions.missionPaiement');
+
+            Route::get('/mission-paiement-status', 'checkoutStatusMaxiMission')->name('checkoutStatusMaxiMission');
+
+            Route::get('/mission-paiement-status/{transaction_numero}', 'statusPaiement')->name('statusPaiementMission');
+
+            Route::post('/mission-paiement', 'missionPaiementMaxi')->name('user.missions.missionPaiementMaxi');
+
             Route::get('/mission/edit/{mission_numero}', 'missionEdit')->name('user.missionEdit');
             Route::post('/mission/edit', 'missionEditSave')->name('missionEdit');
             Route::post('/mission/removeFile', 'removeFileMission')->name('removeFileMission');
+            Route::post('/mission-accepter', 'accepterMission')->name('accepterMission');
+            Route::post('/mission-refuser', 'refuserMission')->name('refuserMission');
+
+            Route::post('/mission-contacterUser', 'contacterUser')->name('user.missions.contacterUser');
         });
 
 
@@ -135,6 +163,12 @@ Route::middleware([
         Route::controller(CommandeController::class)->group(function(){
             Route::get('/commandes/{order_numero}', 'commandesOne')->name('user.commandes.one');
             Route::get('/commandes', 'commandesList')->name('user.commandes');
+            Route::post('/commandes-feedbakc', 'sendFeeback')->name('user.commandes.sendFeeback');
+            Route::post('/commandes-feedbak', 'debloquerPaiement')->name('user.paiements.debloquerPaiement');
+            Route::post('/commandes-contacterUser', 'contacterUser')->name('user.paiements.contacterUser');
+
+
+
         });
 
         Route::get('/chat/{id?}', ChatController::class)->name('user.chat');
@@ -169,9 +203,76 @@ Route::middleware([
     Route::prefix('freelance')->group(function(){
 
         Route::controller(FreelanceAuth::class)->group(function(){
-
             Route::get('/dashboard', 'dashboard')->name('freelance.dashboard');
         });
+
+        Route::controller(ServiceFreelance::class)->group(function(){
+
+            Route::get('/services', 'show')->name('freelance.services');
+            Route::get('/services/creation', 'create')->name('freelance.services.creation');
+            Route::post('/services/creation', 'createTion')->name('freelance.services.post');
+            Route::get('/services/edition/{service_numero}', 'edit')->name('freelance.services.edition');
+            Route::get('/services/ajout/{service_numero}', 'AddLevel')->name('freelance.services.level');
+
+            Route::post('/services/publisher','publishService')->name('freelance.services.publisher');
+            Route::post('/services/removeFiles', 'removeFileService')->name('removeFileService');
+            Route::post('/services/addFiles', 'addFiles')->name('addImageService');
+
+            Route::post('/services/edition', 'editService')->name('freelance.services.edition.save');
+
+
+        });
+
+        Route::controller(CommandeFreelance::class)->group(function(){
+
+            Route::get('/commandes', 'show')->name('freelance.commandes');
+            Route::get('/commandes/gestion/{order_numero}', 'commmandeGestion')->name('freelance.commandes.one');
+
+            Route::post('/commande-gestion','commandeGestion')->name('commande.feedback');
+            Route::post('/commande-rapport', 'commandeRapport')->name('commande.rapport');
+
+
+        });
+
+        Route::controller(TransactionFreelance::class)->group(function () {
+
+            Route::get('/transactions', 'show')->name('freelance.transactions');
+
+
+            Route::get('/paiements', 'showTransaction')->name('freelance.paiements');
+            Route::get('/paiements/retrait', 'RetraitArgent')->name('freelance.paiements.retrait');
+            Route::get('/paiements/releves', 'showTransactionReleves')->name('freelance.paiements.releves');
+
+        });
+
+        Route::controller(MissionFreelance::class)->group(function () {
+            Route::get('/missions', 'show')->name('freelance.missions');
+
+            Route::get('/missions/accepter', 'show')->name('freelance.missions.accepter');
+
+            Route::get('/missions/postuler/{mission_numero}', 'postuler')->name('freelance.missions.postuler');
+
+            Route::post('/missions-postuler', 'postulerSend')->name('freelance.missions.postulerSend');
+        });
+
+        Route::controller(ChatController::class)->group(function () {
+
+            Route::get('/chat/{id?}','freelanceChat')->name('freelance.chat');
+
+        });
+
+        Route::controller(ProfileFreelance::class)->group(function () {
+
+            Route::get('/profile','show')->name('freelance.profile');
+
+            Route::get('/realisations', 'realisations')->name('freelance.realisations');
+
+        });
+
+
+
+
+
 
     });
 });
@@ -189,5 +290,13 @@ Route::controller(ApiController::class)->group(function(){
     Route::get('/api/subcategoriesAll', 'subcategoriesAll')->name('subcategoriesAll');
     Route::get('/api/fetchAll', 'getCategories')->name('fetchAllCategory');
     Route::get('/api/subcategories/{categoryId}', 'getByCategoryId')->name('fetchAllSubCategory');
+
 });
 
+
+Route::controller(ApiUserController::class)->group(function(){
+
+    Route::get('/api/fetchLastUserMessage/{id}', 'fetchLastUserMessage')->name('fetchAllSubCategory');
+    Route::get('/api/fetchLastCommande/{id}', 'fetchLastCommande')->name('fetchLastCommande');
+
+});

@@ -1,10 +1,10 @@
 
 
 <script setup>
-import {ref,computed, onMounted } from 'vue';
+import {ref,computed, onMounted, nextTick } from 'vue';
 
 
-import { Link, useForm, router } from '@inertiajs/vue3';
+import { Link, useForm, router, usePage } from '@inertiajs/vue3';
 
 
 import { useLayoutStore } from '@/store/store';
@@ -12,6 +12,8 @@ import { useLayoutStore } from '@/store/store';
 const layoutStore = useLayoutStore();
 const isShowChatInfo = ref(true);
 const activeTab = ref('tabImages');
+
+const page = usePage();
 
 const user= computed(()=> props.user);
 
@@ -35,7 +37,10 @@ const sendMessage=()=>{
 
     form.post(route('chat.Send'),{
         preserveScroll: true,
+        onSuccess:()=> bottomScroll(),
     })
+
+    bottomScroll()
 
     cancelFile();
 
@@ -57,6 +62,8 @@ const groupedMessages =computed(() => {
     });
     return grouped;
 });
+
+
 
 
 
@@ -90,6 +97,20 @@ onMounted(()=>{
 })
 
 
+
+window.Echo.private(`chat.${page.props.auth.user.id}`)
+    .listen('MessageSent', (e) => {
+
+
+       // topScroll();
+         bottomScroll();
+
+        // props.messages.push(e.message);
+       // console.log(e.message);
+        // Traitez les données reçues lors de l'événement
+});
+
+
 const topScroll = () => {
     const container = scrollContainer.value;
     const scrollHeight = container.scrollHeight;
@@ -108,6 +129,17 @@ const topScroll = () => {
 
     window.requestAnimationFrame(scrollStep);
 };
+
+
+
+const bottomScroll = () => {
+    const container = scrollContainer.value;
+
+    // Faites défiler vers le bas en réglant scrollTop sur la hauteur de défilement
+
+        container.scrollTop = container.scrollHeight;
+};
+
 
 const handleScroll = () => {
     const container = scrollContainer.value;
@@ -296,7 +328,9 @@ const getHourFromDate = created_at => {
                                 class="flex  space-x-2.5 sm:space-x-5">
                             <div :class="message.receiver_id == props.user.id ?'hidden':'flex'"
                             class="avatar">
-                                <img class="rounded-full" :src="user?.avatar_url" alt="avatar" />
+                            <Photo :user="user" />
+
+
                             </div>
 
                             <div class="flex flex-col items-start space-y-3.5">

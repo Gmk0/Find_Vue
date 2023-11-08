@@ -18,6 +18,11 @@ const togglePopper = () => {
 
 };
 
+const logout = () => {
+    router.post(route('logout'));
+};
+
+
 
 
 
@@ -76,7 +81,7 @@ const togglePopper = () => {
                 <!-- Forms -->
                 <a href=""
                   :class="$page.component.startsWith('User/Paiement') ? 'text-amber-600 hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:bg-navy-600 bg-amber-600/10 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90' : 'hover:bg-amber-600/20 focus:bg-amber-600/20 active:bg-amber-600/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25'"
-                    class="flex items-center justify-center transition-colors duration-200 rounded-lg outline-none h-11 w-11 "
+                    class="items-center justify-center hidden transition-colors duration-200 rounded-lg outline-none h-11 w-11"
                      v-tooltip.right="'Paiment'">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
@@ -154,7 +159,7 @@ const togglePopper = () => {
                                                 </div>
                                             </div>
                                             <div class="flex flex-col pt-2 pb-5">
-                                                <Link :href="route('user.profile')"
+                                                <Link :href="route('profile.show')"
                                                     class="flex items-center px-4 py-2 space-x-3 tracking-wide transition-all outline-none group hover:bg-slate-100 focus:bg-slate-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                                                     <div class="flex items-center justify-center w-8 h-8 text-white rounded-lg bg-warning">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none"
@@ -195,7 +200,7 @@ const togglePopper = () => {
                                                     </div>
                                                 </Link>
 
-                                                <a href="#"
+                                                <Link :href="route('profile.show')"
                                                     class="flex items-center px-4 py-2 space-x-3 tracking-wide transition-all outline-none group hover:bg-slate-100 focus:bg-slate-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                                                     <div class="flex items-center justify-center w-8 h-8 text-white rounded-lg bg-error">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none"
@@ -214,8 +219,8 @@ const togglePopper = () => {
                                                             Votre activité et événements
                                                         </div>
                                                     </div>
-                                                </a>
-                                                <a href="{{route('freelance.profile')}}"
+                                                </Link>
+                                                <Link :href="route('profile.show')"
                                                     class="flex items-center px-4 py-2 space-x-3 tracking-wide transition-all outline-none group hover:bg-slate-100 focus:bg-slate-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                                                     <div class="flex items-center justify-center w-8 h-8 text-white rounded-lg bg-success">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none"
@@ -236,9 +241,9 @@ const togglePopper = () => {
                                                             Paramètres de l'application Web
                                                         </div>
                                                     </div>
-                                                </a>
+                                                </Link>
                                                 <div class="px-4 mt-3">
-                                                    <form method="POST" action="{{ route('logout')}}">
+                                                    <form @submit.prevent="logout">
 
                                                         <button type="submit"
                                                             class="w-full space-x-2 text-white btn h-9 bg-amber-600 hover:bg-amber-600-focus focus:bg-amber-600-focus active:bg-amber-600-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">

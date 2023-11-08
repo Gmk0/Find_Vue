@@ -47,11 +47,11 @@ class Mission extends Model
         'sub_category' => 'array',
         'files' => AsArrayObject::class,
         'budget' => 'decimal:2',
-        'begin_mission' => 'date',
-        'end_mission' => 'date',
+        'begin_mission' => 'date:d-M-Y',
+        'end_mission' =>'date:d-M-Y',
         'transaction_id' => 'integer',
         'masquer' => 'boolean',
-
+        'created_at' =>'date:d-M-Y',
         'is_paid' => 'datetime',
         'user_id' => 'string',
 
@@ -110,7 +110,10 @@ class Mission extends Model
     }
 
 
+    public function scopeFilter($query, array $filters)
+    {
 
+    }
 
 
 

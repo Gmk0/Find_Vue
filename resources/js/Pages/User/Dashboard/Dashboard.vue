@@ -33,7 +33,7 @@
                             </div>
                             <div class="flex flex-col">
                                 <div class="flex items-end">
-                                    <span class="text-xl font-bold text-gray-800 2xl:text-3xl">{{ depense }}</span>
+                                    <span class="text-xl font-bold text-gray-800 dark:text-gray-100 2xl:text-3xl">{{ depense }}</span>
                                     <div class="flex items-center hidden mb-1 ml-2">
 
                                         <svg class="w-12 h-12 p-1 text-green-600 bg-green-400 border border-green-600 rounded-full 2xl:w-16 2xl:h-16 2xl:p-3 bg-opacity-20"
@@ -67,7 +67,7 @@
                             </div>
                             <div class="flex flex-col">
                                 <div class="flex items-end">
-                                    <span class="text-2xl font-bold text-gray-800 2xl:text-4xl">{{ commandeTotal }}</span>
+                                    <span class="text-2xl font-bold text-gray-800 dark:text-gray-100 2xl:text-4xl">{{ commandeTotal }}</span>
                                     <div class="flex items-center mb-1 ml-2">
 
                                     </div>
@@ -94,7 +94,7 @@
                             </div>
                             <div class="flex-col ">
                                 <div class="flex items-end ">
-                                    <span class="text-2xl font-bold text-gray-800 2xl:text-4xl">{{ transactionTotal }}</span>
+                                    <span class="text-2xl font-bold text-gray-800 dark:text-gray-100 2xl:text-4xl">{{ transactionTotal }}</span>
                                     <div class="items-center hidden mb-1 ml-2 ">
                                         <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -128,7 +128,7 @@
                             </div>
                             <div class="flex flex-col">
                                 <div class="flex items-end">
-                                    <span class="text-2xl font-bold text-gray-800 2xl:text-4xl">{{ missionAttente }}</span>
+                                    <span class="text-2xl font-bold text-gray-800 dark:text-gray-100 2xl:text-4xl">{{ missionAttente }}</span>
                                     <div class="flex items-center hidden mb-1 ml-2">
                                         <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -147,9 +147,9 @@
                 <div>
 
             <div class="mt-4">
-                <div>
-                <H1 class="text-lg text-gray-700 dark:text-gray-200">Dernier commande</H1>
-                </div>
+                    <div>
+                    <H1 class="text-lg text-gray-700 dark:text-gray-200">Dernier commande</H1>
+                    </div>
                 <div>
                     <div class="card">
                         <DataTable stripedRows   paginator :rows="10" :rowsPerPageOptions="[10, 20, 50,100]" :value="commandes.data" tableStyle="min-width: 50rem"
@@ -211,9 +211,6 @@ defineProps({
     transactionTotal :String,
     missionAttente:String,
     commandes :Array
-
-
-
 })
 
 defineOptions({
