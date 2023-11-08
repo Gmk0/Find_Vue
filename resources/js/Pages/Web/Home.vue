@@ -216,12 +216,17 @@
                         </div>
                         <div class="grid grid-cols-2 gap-6 mx-6 mt-6 md:mx-0 px-auto md:gap-2 md:grid-cols-3 ">
 
-                            <img src="/images/brand/influeworld.png" alt="brand"
+                            <img src="/images/brand/influeworld.png" alt="influeworld"
                                 class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
 
+                              <img src="/images/brand/makutano.png" alt="makutano"
+                                    class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
 
+                                <img src="/images/brand/silikin.png" alt="silikin"
+                                    class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
 
-                             </div>
+                        </div>
+
                     </div>
 
                     <div class="hidden px-4 lg:block lg:w-1/12"></div>
