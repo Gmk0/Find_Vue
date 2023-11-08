@@ -1,1 +1,0 @@
-import{_ as e}from"./WebLayout-c0b48671.js";import{e as t,o as a}from"./app-6bac4c78.js";import"./userInfo-8ba814d7.js";const n=Object.assign({layout:e},{__name:"Faq",setup(o){return(r,s)=>(a(),t("div"))}});export{n as default};
