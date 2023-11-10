@@ -1,20 +1,20 @@
 <template>
-    <div class="overflow-x-hidden bg-white dark:bg-gray-800">
+    <div class="bg-white dark:bg-gray-800">
 
         <Head :title="titlePage" />
 
         <div class="pageWrapper">
             <Navbar/>
 
-            <div id="">
 
 
-            <main  class="relative min-h-screen overflow-auto ">
+
+            <main  class="min-h-screen">
                 <slot />
             </main>
 
 
-            </div>
+
 
 
             <Footer/>
@@ -29,10 +29,10 @@
 import { Head,usePage } from '@inertiajs/vue3';
 import Navbar from '@/Layouts/Partials/Navbar.vue';
 import Footer from '@/Layouts/Partials/Footer.vue';
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, computed } from 'vue';
 
 
-import { useDark } from '@vueuse/core';
+
 
 import { useSubcategoriesStore, useCategoryStore } from '@/store/store';
 
@@ -73,14 +73,4 @@ onMounted(() => {
 
 </script>
 
-<style>
-.page-enter-active,
-.page-leave-active {
-    transition: opacity 0.3s;
-}
 
-.page-enter,
-.page-leave-active {
-    opacity: 0;
-}
-</style>

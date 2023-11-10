@@ -3,7 +3,7 @@
     <div class="relative w-full min-h-screen py-16 pb-12 ">
 
         <div>
-            <div class="relative h-24 bg-skin-fill dark:bg-gray-600">
+            <div class="relative lg:h-24 h-12 bg-skin-fill dark:bg-gray-600">
                     <img class="hidden object-cover w-full h-full opacity-70" src="" alt="image"
                         title="" />
                     <div class="absolute inset-0 flex items-center justify-center">

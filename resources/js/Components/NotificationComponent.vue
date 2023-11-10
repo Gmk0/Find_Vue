@@ -14,7 +14,7 @@
 
                     <sub>
                         <span class="bg-red-600 text-gray-100 px-1.5 py-0.5 rounded-full -ml-1 animate-pulse">
-                            4
+                            {{ notifications.length }}
                         </span>
                     </sub>
                 </button>
@@ -31,7 +31,7 @@
                                         </h3>
                                         <div
                                             class="badge h-5 rounded-full bg-primary/10 px-1.5 text-primary dark:bg-accent-light/15 dark:text-accent-light">
-                                            34
+                                            {{ notifications.length }}
                                         </div>
                                     </div>
 
@@ -102,44 +102,47 @@
                                 </div>
                             </div>
 
-                            <div class="flex flex-col overflow-hidden ">
+                            <div class="flex flex-col overflow-hidden">
+                                <transition
+                                enter-class="transition-all duration-300 easy-in-out"
+                                enter-active-class="opacity-0 [transform:translate3d(1rem,0,0)]"
+                                enter-to-class="opacity-100 [transform:translate3d(0,0,0)]"
+                                >
                                 <div v-show="activeTab === 'tabAll'"
-                                    x-transition:enter="transition-all duration-300 easy-in-out"
-                                    x-transition:enter-start="opacity-0 [transform:translate3d(1rem,0,0)]"
-                                    x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]"
                                     class="px-4 py-4 space-y-4 overflow-y-auto is-scrollbar-hidden">
 
-                                    <!--
-                                @forelse ($notification as $notification)
-                                <div class="flex items-center space-x-3">
+
+
+                                <div v-if="notifications.length > 0 ">
+                                <div v-for="notification in notifications" class="flex mb-4 items-center space-x-3">
                                     <div
                                         class="flex items-center justify-center w-10 h-10 rounded-lg shrink-0 bg-amber-600/10 dark:bg-amber-600/15">
-                                        <i class="{{ $notification->data['icon']}} text-amber-600 dark:text--amber-600"></i>
+                                        <i :class="{'text-amber-600 dark:text--amber-600': notification.data.icon }"></i>
 
                                     </div>
 
-                                    <a href="#" class="flex flex-col items-start"
-                                        wire:click="markRead('{{$notification->id}}')">
-                                        @if (isset($notification->data['title']))
-                                        <p class="font-medium text-slate-600 dark:text-navy-100">
-                                            {{ $notification -> data['title'] }}
+                                    <a href="#" @click="newLink(notification.id , notification.data?.url)" class="flex flex-col items-start">
+
+                                        <p v-if="!notification.data.title" class="font-medium text-slate-600 dark:text-navy-100">
+                                            {{ notification.data.title }}
                                         </p>
-                                        @else
-                                        <p class="font-medium text-slate-600 dark:text-navy-100">
+
+                                        <p v-else class="font-medium text-slate-600 dark:text-navy-100">
                                             Notifications
                                         </p>
 
-                                        @endif
+
 
                                         <div class="mt-1 text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
-                                            {!! $notification->data['message'] !!}
+                                            {{ notification.data.message }}
                                         </div>
                                     </a>
                                 </div>
-                                @empty
+                                </div>
 
-                                <div class="pb-8 mt-8 text-center">
-                                    <img class="mx-auto w-36" src="{{ asset('images/illustrations/empty.svg') }}" alt="image" />
+
+                                <div v-else class="pb-8 mt-8 text-center">
+                                    <img class="mx-auto w-36" src="/images/illustrations/empty.svg" alt="image" />
                                     <div class="mt-5">
                                         <p class="text-base font-semibold text-slate-700 dark:text-navy-100">
                                             Pas de notificacion
@@ -147,11 +150,12 @@
 
                                     </div>
                                 </div>
-                                @endforelse
-                                -->
+
+
 
 
                                 </div>
+                                </transition>
                                 <div v-show="activeTab === 'tabAlerts'"
                                     x-transition:enter="transition-all duration-300 easy-in-out"
                                     x-transition:enter-start="opacity-0 [transform:translate3d(1rem,0,0)]"
@@ -278,12 +282,32 @@
 
 <script setup>
 
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import Popper from "vue3-popper";
+import { router } from '@inertiajs/vue3';
+
+import { useLayoutStore, useCategoryStore, useNotification } from '@/store/store';
+const useNotify = useNotification();
+
+
+const newLink =async(id,url)=>{
 
 
 
-const activeTab = ref('')
+    router.get(url);
+
+
+
+    useNotify.removeNotification(id);
+}
+
+
+const notifications =computed(()=> useNotify.lastNotificationGet)
+
+
+console.log(useNotify.lastNotificationGet);
+
+const activeTab = ref('tabAll')
 
 </script>
 

@@ -19,6 +19,11 @@ const user= computed(()=> props.user);
 
 const visible = ref(false);
 
+let lastIndex = ref(0); // Dernier index des messages affichés
+const pageSize = 5; // Nombre d'éléments à afficher à la fois
+const scrollContainer = ref(null);
+const visibleMessages = ref([]);
+
 
 const props= defineProps({
     messages:Array,
@@ -35,12 +40,35 @@ const form = useForm({
 
 const sendMessage=()=>{
 
+    let date= new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    let formattedDate = `${year}-${month}-${day}`;
+
+     const temporaryMessage = {
+        id: null,
+        body: form.message,
+        //created_at: formattedDate,
+        sender_id: page.props.auth.user.id,
+        receiver_id: props.user?.id,
+        temporary : true,
+    };
+
+    props.messages.push(temporaryMessage);
+
+    bottomScroll2();
+
+
+
+
     form.post(route('chat.Send'),{
         preserveScroll: true,
         onSuccess:()=> bottomScroll(),
     })
 
-    bottomScroll()
+
 
     cancelFile();
 
@@ -50,18 +78,63 @@ const sendMessage=()=>{
 
 }
 
+const bottomScroll2 = () => {
+
+     setTimeout(() => {
+        // Réinitialisation du défilement à la position de la hauteur du contenu
+        scrollContainer.value.scrollTop = scrollContainer.value.scrollHeight;
+    }, 0);
+};
+
 const groupedMessages =computed(() => {
     if (!props.messages) return null;
     const grouped = {};
     props.messages.forEach(message => {
-        const date = formatMessageDate(message.created_at); // Assuming timestamp is the property containing the date
-        if (!grouped[date]) {
-            grouped[date] = [];
-        }
-        grouped[date].push(message);
+          const date = message.created_at ? formatMessageDate(message.created_at) : null; // Assuming timestamp is the property containing the date
+
+            if (!grouped[date]) {
+                grouped[date] = [];
+            }
+            grouped[date].push(message);
+
     });
     return grouped;
 });
+
+const groupedMessages2 = computed(() => {
+    if (!props.messages) return null;
+    const grouped = {};
+
+    let currentDate = null;
+
+    props.messages.forEach((message, index) => {
+        if (message.created_at) {
+            const date = formatMessageDate(message.created_at);
+
+            if (!grouped[date]) {
+                grouped[date] = [];
+            }
+            grouped[date].push(message);
+
+            currentDate = date; // Mettre à jour la date courante pour la comparaison ultérieure
+        } else {
+            // Si le message précédent est daté ultérieurement et c'est un message temporaire, utiliser la date actuelle
+            if (currentDate && index > 0) {
+                const previousDate = formatMessageDate(props.messages[index - 1].created_at);
+                if (currentDate < previousDate) {
+                    const date = formatMessageDate(new Date()); // Date actuelle
+                    if (!grouped[date]) {
+                        grouped[date] = [];
+                    }
+                    grouped[date].push(message);
+                }
+            }
+        }
+    });
+
+    return grouped;
+});
+
 
 
 
@@ -84,10 +157,7 @@ const formatMessageDate = timestamp => {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 };
 
-let lastIndex = ref(0); // Dernier index des messages affichés
-const pageSize = 5; // Nombre d'éléments à afficher à la fois
-const scrollContainer = ref(null);
-const visibleMessages = ref([]);
+
 
 
 
@@ -307,14 +377,17 @@ const getHourFromDate = created_at => {
                 class="grow overflow-y-auto scrollbar-sm px-[calc(var(--margin-x)-.5rem)] py-5 transition-all duration-[.25s]"
                   ref="scrollContainer"
                 @scroll="handleScroll">
+                 <transition
+                        enter-class="transition-all duration-500 easy-in-out"
+                          enter-active-class="transition-all duration-500 easy-in-out"
+                          enter-to-class="opacity-100 [transform:translate3d(0,0,0)]"
+                        >
                 <div v-if="groupedMessages"
+                    class="space-y-5">
 
-                    x-transition:enter="transition-all duration-500 easy-in-out"
-                    x-transition:enter-start="opacity-0 [transform:translate3d(0,1rem,0)]"
-                    x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" class="space-y-5">
 
                     <template v-for="(messages, date) in groupedMessages" :key="date">
-                    <div class="flex items-center mx-4 space-x-3">
+                    <div v-if="date !== 'null'" class="flex items-center mx-4 space-x-3">
                         <div class="flex-1 h-px bg-slate-200 dark:bg-navy-500"></div>
                         <p>{{ date }}</p>
                         <div class="flex-1 h-px bg-slate-200 dark:bg-navy-500"></div>
@@ -336,11 +409,15 @@ const getHourFromDate = created_at => {
                             <div class="flex flex-col items-start space-y-3.5">
                                 <div
                                 :class="message.receiver_id == props.user.id ? 'ml-4 md:ml-10 ':'mr-4 sm:mr-10'"
-                                class="max-w-lg ">
+                                class="max-w-lg">
                                     <div v-if="message.body !=null"
                                         :class="message.receiver_id == props.user.id?'rounded-br-none dark:text-white bg-info/10 text-slate-700 dark:bg-accent':' bg-white text-slate-700 dark:text-navy-100 dark:bg-navy-700 rounded-tl-none '"
                                         class="p-3 shadow-sm rounded-2xl">
                                         {{ message.body }}
+
+                                        <span class="" v-if="message.temporary !=null">
+                                            <i class="w-1 pi pi-clock"></i>
+                                        </span>
                                     </div>
 
 
@@ -375,11 +452,12 @@ const getHourFromDate = created_at => {
 
                                  </template>
                                 </div>
-                                    <p :class="message.receiver_id == props.user.id ?' text-left':'text-right'"
+                                    <p v-if="getHourFromDate(message.created_at) !=='NaN:NaN'" :class="message.receiver_id == props.user.id ?' text-left':'text-right'"
                                     class="mt-2 ml-auto text-xs text-right text-slate-400 dark:text-navy-300" >
                                          {{ getHourFromDate(message.created_at) }}
                                     </p>
                                 </div>
+
                             </div>
 
 
@@ -390,7 +468,9 @@ const getHourFromDate = created_at => {
 
                     </div>
                     </template>
+
                 </div>
+                 </transition>
             </div>
 
             <div
@@ -431,12 +511,22 @@ const getHourFromDate = created_at => {
             </div>
 
 
-            <template v-if="isShowChatInfo">
-                  <Transition name="parent">
 
-                    <div class="fixed sidebar-user right-0 top-0 z-[101] h-full w-full sm:w-80">
-                        <div class="flex flex-col w-full h-full transition-transform duration-200 bg-white border-l border-slate-150 dark:border-navy-600 dark:bg-navy-750">
-                                <div class="flex h-[60px] items-center justify-between p-4">
+
+
+                    <div v-if="isShowChatInfo" class="fixed sidebar-user right-0 top-0 z-[101] h-full w-full sm:w-80">
+
+                         <transition
+                        enter-class="ease-out transform-gpu "
+                        enter-to-class="duration-500 translate-x-0"
+                        enter-active-class="translate-x-full"
+                        leave-class="ease-in transform-gpu"
+                        leave-to-class="translate-x-0"
+                        leave-active-class="-translate-x-full">
+                        <div v-if="isShowChatInfo" class="flex flex-col w-full h-full transition-transform duration-200 bg-white border-l border-slate-150 dark:border-navy-600 dark:bg-navy-750">
+
+
+                            <div class="flex h-[60px] items-center justify-between p-4">
                                     <h3 class="text-base font-medium text-slate-700 dark:text-navy-100">
                                         Chat Info
                                     </h3>
@@ -608,12 +698,12 @@ const getHourFromDate = created_at => {
 
                         </div>
 
+                     </transition>
+
                     </div>
 
 
 
-                 </Transition>
-            </template>
 
             <Dialog v-model:visible="visible"
             position="'bottom'"

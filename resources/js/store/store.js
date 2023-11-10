@@ -290,6 +290,58 @@ export const useSidebarPanelUser = defineStore('useSidebarPanelUser',{
 })
 
 
+export const useNotification = defineStore('useNotification',{
+
+
+    state: () => ({
+        lastNotification: [],
+        lastCommande: false,
+        statusElement: [],
+    }),
+    getters: {
+        lastNotificationGet: (state) => state.lastNotification,
+       // lastCommandeUser: (state) => state.statusElement,
+
+    },
+    actions:{
+
+        async fetchLastNotification() {
+            try {
+                const response = await axios.get(`/api/fetchLastNotification`);
+                if (response.status === 200) {
+                    this.lastNotification = response.data.notifications;
+
+
+                } else if (response.status === 203) {
+
+                    console.log('Aucun element n\'est renvoyé.');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des element :', error);
+            }
+        },
+        async removeNotification(id){
+
+            try {
+                const response = await axios.get(`/api/removeNotification/${id}`);
+                if (response.status === 200) {
+
+                    this.fetchLastNotification();
+
+
+                } else if (response.status === 203) {
+
+                    console.log('Aucun element n\'est renvoyé.');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des element :', error);
+            }
+        }
+    }
+
+});
+
+
 
 
 

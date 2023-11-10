@@ -69,9 +69,9 @@ const truncateText =(text, length)=> {
 
 
 
-            <aside class="relative w-full overflow-auto bg-white shadow-md dark:bg-gray-800 lg:w-4/12">
+            <aside class="w-full pb-4 mb-4 overflow-auto bg-white shadow-md dark:bg-gray-800 lg:w-4/12">
 
-                <div   class="sticky ">
+                <div class="sticky top-0 ">
 
                     <div  class="px-6 overflow-y-auto scrollbar-sm ">
                         <div class="flex items-center justify-center ">

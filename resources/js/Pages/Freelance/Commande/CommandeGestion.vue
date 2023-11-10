@@ -365,7 +365,7 @@
             preserveScroll: true,
             preserveState : true,
             onSuccess:()=>{
-                 toast.add({ severity: 'error', summary: 'Message', detail:'Feedback enviyer avec success', group: 'br', life: 3000 });
+                 toast.add({ severity: 'success', summary: 'Message', detail:'Feedback enviyer avec success', group: 'br', life: 3000 });
 
             },
             onError:(error)=>{

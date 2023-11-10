@@ -81,6 +81,10 @@ import Panel from 'primevue/panel';
 
 import ProgressBar from 'primevue/progressbar';
 
+import FsLightbox from "fslightbox-vue/v3";
+import FooterGuest from '@/Layouts/Partials/FooterGuest.vue';
+import CardGuest from '@/Components/CardGuest.vue';
+import NavGuest from '@/Layouts/Partials/NavGuest.vue';
 
 
 
@@ -138,6 +142,10 @@ createInertiaApp({
             .component('Editor', Editor)
             .component('Panel', Panel)
             .component('ProgressBar', ProgressBar)
+            .component('FsLightbox', FsLightbox)
+            .component('FooterGuest', FooterGuest)
+            .component('CardGuest', CardGuest)
+            .component('NavGuest', NavGuest)
            // .component('Show', Show)
              // Enregistrez votre composant de layout
 
@@ -148,6 +156,8 @@ createInertiaApp({
         return vm;
     },
     progress: {
-        color: '#4B5563',
+        color: '#FFA500',
+        showSpinner: true,
+
     },
 });

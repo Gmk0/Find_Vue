@@ -10,6 +10,7 @@ use App\Http\Controllers\Freelance\TransactionFreelance;
 use App\Http\Controllers\ProfileController as ControllersProfileController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\User\ApiUserController;
+use App\Http\Controllers\User\AuthSocialLite;
 use App\Http\Controllers\User\ChatController;
 use App\Http\Controllers\User\CommandeController;
 use App\Http\Controllers\User\MissionController as UserMissionController;
@@ -291,6 +292,8 @@ Route::controller(ApiController::class)->group(function(){
     Route::get('/api/fetchAll', 'getCategories')->name('fetchAllCategory');
     Route::get('/api/subcategories/{categoryId}', 'getByCategoryId')->name('fetchAllSubCategory');
 
+    Route::post('/api/search', 'search')->name('searchElement');
+
 });
 
 
@@ -299,4 +302,27 @@ Route::controller(ApiUserController::class)->group(function(){
     Route::get('/api/fetchLastUserMessage/{id}', 'fetchLastUserMessage')->name('fetchAllSubCategory');
     Route::get('/api/fetchLastCommande/{id}', 'fetchLastCommande')->name('fetchLastCommande');
 
+    Route::get('/api/fetchLastNotification', 'fetchLastNotification')->name('fetchLastNotification');
+    Route::get('/api/removeNotification/{id}', 'removeNotification')->name('removeNotification');
+
+
+
+});
+
+
+Route::controller(AuthSocialLite::class)->group(function () {
+    Route::get('auth/facebook', 'redirectToFacebook')->name('auth.facebook');
+    Route::get('auth/facebook/callback', 'handleFacebookCallback');
+    Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
+    Route::get('auth/google/callback', 'handleGoogleCallback');
+});
+
+
+
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+});
+
+Route::get('/view-cache', function () {
+    Artisan::call('view:cache');
 });

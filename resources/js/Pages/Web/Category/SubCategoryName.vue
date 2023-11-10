@@ -129,7 +129,10 @@ defineOptions({
                             <h1 class="text-lg font-bold text-white lg:text-4xl">{{ props.subcategory.name }}</h1>
                         </div>
                         <div class="flex">
-                            <Link :href="route('createProject')" class="px-4 py-2 font-semibold bg-white text-dark">Soumettre un projet</Link>
+                            <Link :href="route('createProject')">
+                                <Button label="Soumettre un projet"  outlined severity="success" size="small"/>
+
+                            </Link>
 
                         </div>
                 </div>
@@ -165,8 +168,8 @@ defineOptions({
                     </ol>
                     </nav>
                 </div>
-                <div class="flex items-center justify-center mt-4 ">
-                    <button type="button"  @click="toogleAbout()" class="block px-4 py-2 text-black lg:hidden bg-amber-600">Apropos de React</button>
+                <div v-if="props.subcategory.description !=null" class="flex items-center lg:hidden justify-center mt-4 ">
+                    <Button label="aprops" size="small" outlined   @click="toogleAbout()" />
                 </div>
                 <div  :class="showAbout?'block ':'lg:block hidden'" class="px-8 py-2 mb-2 ">
                     <div class="prose" v-html="props.subcategory.description">

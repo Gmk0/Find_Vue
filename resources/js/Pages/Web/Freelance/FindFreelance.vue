@@ -162,14 +162,13 @@ defineOptions({
             <div class="relative h-20 bg-green-500 dark:bg-gray-600 ">
 
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <h1 class="text-4xl font-bold text-white">Trouver un freelance</h1>
+                    <h1 class="text-xl font-bold text-white lg:text-4xl">Trouver un freelance</h1>
                 </div>
             </div>
             <div  class="sticky top-0 z-30 grid h-auto grid-cols-12 px-4 py-2 bg-white dark:bg-gray-800 lg:z-0 lg:bg-transparent lg:relative ">
                 <div class="hidden lg:col-span-3 lg:flex">
 
                 </div>
-
 
                 <div class="relative grid col-span-12 gap-4 py-4 lg:px-6 lg:grid-cols-12 lg:col-span-9 lg:gap-2 ">
                     <div class="px-4 lg:col-span-9">

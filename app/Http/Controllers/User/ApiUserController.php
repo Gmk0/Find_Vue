@@ -4,7 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Message;
+use App\Models\Notification;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ApiUserController extends Controller
@@ -53,6 +55,34 @@ class ApiUserController extends Controller
 
 
         // Aucun message trouvé, retourner un code de réussite 203 (No Content)
+
+    }
+
+    public function fetchLastNotification()
+    {
+        $notifications = auth()->user()->unreadNotifications()->latest()->get();
+
+        return response()->json(['notifications' => $notifications], 200);
+
+    }
+
+    public function removeNotification($id)
+    {
+        try{
+            $notification = Notification::find($id);
+
+            $notification->read_at = now();
+
+            $notification->update();
+
+            return response()->json(['success' => true], 200);
+
+
+        }catch(\Exception $e){
+
+            return response()->json(['success' => false], 500);
+        }
+
 
     }
 

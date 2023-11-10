@@ -1,6 +1,6 @@
 <script setup>
 
-import { useLayoutStore, useCategoryStore } from '@/store/store';
+import { useLayoutStore, useCategoryStore, useNotification } from '@/store/store';
 
 import { onMounted } from 'vue';
 import MainSidebarUser from '@/Layouts/UserPartial/MainSidebarUser.vue';
@@ -10,14 +10,20 @@ import OtherPanelUser from '@/Layouts/UserPartial/OtherPanelUser.vue';
 
 import Footer from '@/Components/Footer.vue';
 
+
 const categoryStore = useCategoryStore();
 const layoutStore = useLayoutStore();
+const notification = useNotification();
 //const userStore = useAuthStore();
 
 
 onMounted(()=>{
 
     categoryStore.fetchCategories();
+
+    notification.fetchLastNotification();
+
+
 });
 
 
@@ -96,6 +102,3 @@ resize();
 
 
 
-<style >
-
-</style>

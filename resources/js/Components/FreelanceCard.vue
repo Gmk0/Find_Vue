@@ -11,6 +11,8 @@ import axios from 'axios';
 
 
 
+const toggler = ref(false);
+
 
 const contacter=()=>{
 
@@ -68,18 +70,27 @@ const like = ref(props.freelance.like);
 
 
 
+                <template  v-if="props.freelance.user.profile_photo_path != null">
+
+                      <FsLightbox
+        		:toggler="toggler"
+        		:sources="['/storage/' + props.freelance.user.profile_photo_path]" />
 
 
-                       <img v-if="props.freelance.user.profile_photo_path != null"   class="object-cover w-full h-full"  :src="'/storage/' + props.freelance.user.profile_photo_path" :alt="props.freelance.user.name" />
+                </template>
 
 
-
-
+                <img v-if="props.freelance.user.profile_photo_path != null"   class="object-cover w-full h-full"  :src="'/storage/' + props.freelance.user.profile_photo_path" :alt="props.freelance.user.name" />
                 <img v-else class="object-cover w-full h-48" :src="props.freelance.user.profile_photo_url" alt="">
 
+                <div v-if="props.freelance.user.profile_photo_path !=null"
 
+                class="flex items-center opacity-0 hover:opacity-100">
+                    <button @click="toggler=!toggler" class="absolute top-1/2 left-1/2">
+                        <i class="w-6 pi pi-eye"></i>
+                    </button>
 
-
+                </div>
                 <div v-if="$page.props.auth.user"  class="flex items-center">
                     <button class="absolute top-2 right-2"
                         @click="toogleFavorite()">

@@ -5,6 +5,8 @@ namespace App\Models;
 //use App\Events\ProgressOrderEvent;
 //use App\Notifications\MissionProgress;
 //use App\Notifications\OrderProgress;
+
+use App\Notifications\OrderProgress;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -49,7 +51,7 @@ class FeedbackService extends Model
 
                 if ($user) {
 
-                  //  $user->notify(new OrderProgress($this));
+                    $user->notify(new OrderProgress($this));
 
 
                     // broadcast(new ProgressOrderEvent($this));

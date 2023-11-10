@@ -61,8 +61,11 @@ class CommandeFreelance extends Controller
             $feedback->etat = $request->etat;
             $feedback->delai_livraison_estimee = $request->delai;
             $feedback->update();
+            $feedback->notifyUser();
 
         }catch(\Exception $e){
+
+
 
 
 
