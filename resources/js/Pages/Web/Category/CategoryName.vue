@@ -3,7 +3,7 @@
     <div class="relative w-full min-h-screen py-16 pb-12 ">
 
         <div>
-            <div class="relative lg:h-24 h-12 bg-skin-fill dark:bg-gray-600">
+            <div class="relative h-12 lg:h-24 bg-skin-fill dark:bg-gray-600">
                     <img class="hidden object-cover w-full h-full opacity-70" src="" alt="image"
                         title="" />
                     <div class="absolute inset-0 flex items-center justify-center">
@@ -90,10 +90,10 @@
                                         <div v-for="subcategory in subcategories">
                                             <button @click="setCategory(subcategory.name)"
 
-                                                :class="{'border-2 border-amber-500 bg-amber-100 text-amber-700 translate-x-4': form.sub_categorie == subcategory.name, 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200': form.sub_categorie !=subcategory.name}"
+                                                :class="{'border-2 border-amber-500 dark:bg-gray-600 bg-amber-100 text-amber-700 translate-x-4': form.sub_categorie == subcategory.name, 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200': form.sub_categorie !=subcategory.name}"
 
 
-                                                class="flex gap-2 p-2 transition-all transform rounded-lg shadow-sm bg-gray-50 hover:translate-x-4">
+                                                class="flex gap-2 p-2 transition-all transform rounded-lg shadow-sm bg-gray-50 dark: hover:translate-x-4">
                                                 <img src=""
                                                     class="object-fill w-8 p-1 rounded-md" alt="">
                                                 <span class="text-gray-700 dark:text-gray-50">{{ subcategory.name }}</span>
@@ -323,14 +323,14 @@
                                     <Link :href="route('categoryName',category.name)"
                                         class="flex gap-2 p-2 transition-all transform bg-gray-200 rounded-lg shadow-sm dark:bg-gray-700 hover:scale-95 active:bg-amber-400 focus:bg-amber-400 focus:text-gray-50 ">
 
-                                            <img :src="'/storage/' + category.illustration" class="object-fill w-8 p-1 rounded-md" alt="">
+                                            <img v-if="category.illustration !=null" :src="'/storage/' + category.illustration" class="object-fill w-8 p-1 rounded-md" alt="">
 
 
                                         <span class="">{{category.name }}</span>
 
 
                                         <div
-                                            class="absolute inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">
+                                            class="absolute inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-gray-400 p-2 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">
                                             {{ category.servcies_counts }}</div>
                                     </Link>
                                 </div>

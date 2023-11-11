@@ -10,10 +10,21 @@ import { router,Head } from '@inertiajs/vue3';
 
 const usecartStore = cartStore();
 
+const props =defineProps(
+    {
+         userSetting: Object,
+    }
+);
+
 
 const form = ref({
     name: '',
     numero: '',
+    adresse: props.userSetting?.addresse_facturation?.adresse,
+    commune: props.userSetting?.addresse_facturation?.commune,
+    ville: props.userSetting?.addresse_facturation?.ville,
+    pays: props.userSetting?.addresse_facturation?.pays,
+
 })
 
 
@@ -242,16 +253,16 @@ const checkoutMaxi = async () => {
 
                                 </div>
 
-                                <div class="px-3 md:w-5/12">
+                                <form @submit.prevent="checkoutMaxi" class="px-3 md:w-5/12">
 
                                     <div
                                         class="w-full p-4 mb-4 font-semibold bg-white border border-gray-200 rounded-md dark:bg-gray-900">
                                         <div class='flex flex-col gap-4'>
 
-                                            <InputText placeholder="Addresse" />
-                                            <InputText placeholder="commune" />
-                                            <InputText  placeholder="ville"/>
-                                            <InputText  placeholder="Pays"/>
+                                            <InputText required v-model="form.adresse" placeholder="Addresse" />
+                                            <InputText required v-model="form.commune" placeholder="commune" />
+                                            <InputText required v-model="form.ville"  placeholder="ville"/>
+                                            <InputText required v-model="form.pays" placeholder="Pays"/>
 
 
                                         </div>
@@ -308,7 +319,7 @@ const checkoutMaxi = async () => {
                                             </div>
                                             <div v-if="isOther">
 
-                                                <form @submit.prevent="checkoutMaxi">
+                                                <div >
 
                                                   <div class="grid grid-cols-1 gap-4 px-4 mb-4">
                                                     <InputText required v-model="form.name" placeholder="Nom"   class="rounded-md"  />
@@ -331,7 +342,7 @@ const checkoutMaxi = async () => {
                                                         </button>
 
                                                     </div>
-                                                </form>
+                                                </div>
 
                                             </div>
                                         </div>
@@ -339,7 +350,7 @@ const checkoutMaxi = async () => {
                                     </div>
 
 
-                                </div>
+                                </form>
 
 
 

@@ -18,7 +18,8 @@ class CheckoutController extends Controller
 
     public function checkout()
     {
-        return Inertia::render('Web/Checkout/Checkout');
+        $userSetting =auth()->user()->userSetting;
+        return Inertia::render('Web/Checkout/Checkout',['userSetting' => $userSetting]);
     }
 
 
@@ -29,8 +30,19 @@ class CheckoutController extends Controller
         try{
 
             DB::beginTransaction();
-            $form =$request->form;
 
+            $userSeeting = auth()->user()->userSetting;
+
+            $localisation = [
+                'adresse' => $request->adresse,
+                'commune' => $request->commune,
+                'ville' => $request->ville,
+                'pays' => $request->pays,
+            ];
+            $userSeeting->addresse_facturation = $localisation;
+            $userSeeting->save();
+
+            $form =$request->form;
             $total =$request->total;
             $items =$request->items;
             $datas=[];

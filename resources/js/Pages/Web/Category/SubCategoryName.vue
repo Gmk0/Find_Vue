@@ -130,7 +130,7 @@ defineOptions({
                         </div>
                         <div class="flex">
                             <Link :href="route('createProject')">
-                                <Button label="Soumettre un projet"  outlined severity="success" size="small"/>
+                                <Button label="Soumettre un projet"  raised severity="info" size="small"/>
 
                             </Link>
 
@@ -141,8 +141,8 @@ defineOptions({
                       <nav class="flex" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
                         <li class="inline-flex items-center">
-                        <a href="#" onclick="history.back()" class="inline-flex px-4 items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <a href="#" onclick="history.back()" class="inline-flex items-center px-4 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
                         </svg>
                         <span class="mr-2">
@@ -171,7 +171,7 @@ defineOptions({
                     </ol>
                     </nav>
                 </div>
-                <div v-if="props.subcategory.description !=null" class="flex items-center lg:hidden justify-center mt-4 ">
+                <div v-if="props.subcategory.description !=null" class="flex items-center justify-center mt-4 lg:hidden ">
                     <Button label="aprops" size="small" outlined   @click="toogleAbout()" />
                 </div>
                 <div  :class="showAbout?'block ':'lg:block hidden'" class="px-8 py-2 mb-2 ">
@@ -445,7 +445,7 @@ defineOptions({
                                         <Link :href="route('SubcategoryName', [props.category.name, subcategory.name])"
                                             class="flex gap-2 p-2 transition-all transform bg-gray-200 rounded-lg shadow-sm dark:bg-gray-700 hover:scale-95 active:bg-amber-400 focus:bg-amber-400 focus:text-gray-50 ">
 
-                                                <img :src="'/storage/' + subcategory.illustration" class="object-fill w-8 p-1 rounded-md" alt="">
+                                                <img v-if="subcategory.illustration != null" :src="'/storage/' + subcategory.illustration" class="object-fill w-8 p-1 rounded-md" alt="">
 
 
                                             <span class="">{{ subcategory.name }}</span>

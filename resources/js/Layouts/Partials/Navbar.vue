@@ -402,7 +402,7 @@
                                     </div>
 
 
-                                    <Link :href="route('Allservices')"
+                                    <Link :href="route('Allservices')" @click="navOpen = false"
                                         class="flex flex-row items-center px-3 py-2 mt-1 text-base font-medium text-gray-800 rounded-md dark:text-gray-50 hover:dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:dark:text-white focus:text-white focus:bg-amber-600">
 
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -411,7 +411,7 @@
 
                                         <span class="ml-2">Services</span>
                                     </Link>
-                                    <Link :href="route('find_freelance')"
+                                    <Link :href="route('find_freelance')" @click="navOpen = false"
                                         class="flex flex-row items-center px-3 py-2 mt-1 text-base font-medium text-gray-800 rounded-md dark:text-gray-50 hover:dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:dark:text-white focus:text-white focus:bg-amber-600">
                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
@@ -420,7 +420,7 @@
                                         <span class="ml-2">Trouver un Freelancer</span>
                                         </Link>
 
-                                   <Link :href="route('createProject')"
+                                   <Link :href="route('createProject')" @click="navOpen = false"
                                         class="flex flex-row items-center px-3 py-2 mt-1 text-base font-medium text-gray-800 rounded-md dark:text-gray-50 hover:dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:dark:text-white focus:text-white focus:bg-amber-600">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                             stroke="currentColor" class="w-6 h-6">
@@ -432,7 +432,7 @@
                                     </Link>
 
 
-                                    <Link :href="route('about')"
+                                    <Link :href="route('about')" @click="navOpen = false"
                                         class="flex flex-row items-center px-3 py-2 mt-1 text-base font-medium text-gray-800 rounded-md dark:text-gray-50 hover:dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:dark:text-white focus:text-white focus:bg-amber-600">
 
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -441,7 +441,7 @@
 
                                         <span class="ml-2">Apropos</span>
                                     </Link>
-                                   <Link :href="route('faq')"
+                                   <Link :href="route('faq')" @click="navOpen = false"
                                         class="flex flex-row items-center px-3 py-2 mt-1 text-base font-medium text-gray-800 rounded-md dark:text-gray-50 hover:dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:dark:text-white focus:text-white focus:bg-amber-600">
                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
@@ -481,12 +481,9 @@
                                   <Link :href="route('user.dashboard')" @click="navOpen = false"
                                         class="flex flex-row items-center px-3 py-2 text-base font-medium text-gray-800 rounded-md dark:text-gray-100 hover:text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:text-gray-900 focus:bg-gray-200"
                                         role="menuitem">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                           >
-                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                            <circle cx="12" cy="7" r="4"></circle>
-                                        </svg>
+                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                                                        </svg>
                                         <span class="ml-2">Dashboard</span>
                                     </Link>
                                 <Link :href="route('user.profile')" @click="navOpen = false"
@@ -504,45 +501,46 @@
                                         class="flex flex-row items-center px-2 py-2 font-medium text-gray-800 dark:text-gray-200 text-md focus:text-gray-900 hover:text-gray-900 focus:outline-none dark:hover:bg-gray-600"
                                         role="menuitem">
 
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                                                    </svg>
+                                        <span class="ml-2">Conversation</span>
+                                </Link>
+                                 <template v-if="$page.props.auth.freelance">
+                                   <Link :href="route('freelance.dashboard')" @click="navOpen = false"
+                                            class="flex flex-row items-center px-2 py-2 font-medium text-gray-800 dark:text-gray-200 text-md focus:text-gray-900 hover:text-gray-900 focus:outline-none dark:hover:bg-gray-600"
+                                            role="menuitem">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                               >
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="12" cy="7" r="4"></circle>
+                                            </svg>
+                                            <span class="ml-2">Dashboard freelance</span>
+                                    </Link>
+
+                                    </template>
+
+
+
+
+                                <form @submit.prevent="logout">
+
+
+                                    <button type="submit"
+                                        class="flex flex-row items-center px-4 py-2 text-red-500 text-md hover:text-red-700 hover:bg-red-100 focus:outline-none focus:text-red-700 focus:bg-red-100">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                            >
-                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                            <circle cx="12" cy="7" r="4"></circle>
-                                        </svg>
-                                        <span class="ml-2">Conversation</span>
-                                </Link>
-
-                                <!--
-                                @if(Auth::user()->freelance()->exists())
-                                <a href="{{route('freelance.dashboard')}}" @click="navOpen = false"
-                                    class="flex flex-row items-center px-4 py-2 font-medium text-gray-800 text-md focus:text-gray-900 hover:text-gray-900 focus:outline-none hover:bg-gray-100 focus:bg-gray-100"
-                                    role="menuitem">
-                                    <ion-icon name="person-outline" class="w-6 h-6"></ion-icon>
-                                    <span class="ml-2">{{ __('Dashboard Freelance') }}</span>
-                                </a>
-                                @endif
-
-
-
-
-                                <form method="POST" action="{{ url('/logout') }}" x-data>
-                                    @csrf
-
-                                    <x-dropdown-link
-                                        class="flex flex-row items-center px-4 py-2 text-red-500 text-md hover:text-red-700 hover:bg-red-100 focus:outline-none focus:text-red-700 focus:bg-red-100"
-                                        href="{{ url('/logout') }}" @click.prevent="$root.submit();">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-log-out">
                                             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                                             <polyline points="16 17 21 12 16 7"></polyline>
                                             <line x1="21" y1="12" x2="9" y2="12"></line>
                                         </svg>
-                                        {{ __('messages.logOut') }}
-                                    </x-dropdown-link>
+                                        Deconnexion
+                                    </button>
                                 </form>
-                                -->
+
                             </div>
                         </div>
 
@@ -563,7 +561,7 @@
 <script setup>
 
 import {ref, watch,computed, onMounted } from 'vue';
-import { Link, usePage } from '@inertiajs/vue3';
+import { Link, usePage, router } from '@inertiajs/vue3';
 import { useDark, useToggle } from '@vueuse/core';
 //import { usePrimeVue } from 'primevue/config';
 import userInfo from '@/Components/userInfo.vue';
@@ -590,6 +588,9 @@ const ToggleDark = () => {
     }
 };
 
+const logout = () => {
+    router.post(route('logout'));
+};
 
 const categoriesStore = useCategoryStore();
 const subcategoriesStore = useSubcategoriesStore();

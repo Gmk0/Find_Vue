@@ -163,8 +163,8 @@ defineOptions({
                                 1
                             </span>
                             <span>
-                                <h3 class="font-medium leading-tight">User info</h3>
-                                <p class="text-sm">Step details here</p>
+                                <h3 class="font-medium leading-tight">Detail Mission</h3>
+
                             </span>
                          </li>
                             <li :class="{ 'flex items-center text-blue-600 dark:text-blue-500 space-x-2.5': step === 2, 'flex items-center text-gray-500 dark:text-gray-400 space-x-2.5': step !== 2 }">
@@ -172,8 +172,8 @@ defineOptions({
                                     2
                                 </span>
                                 <span>
-                                    <h3 class="font-medium leading-tight">Company info</h3>
-                                    <p class="text-sm">Step details here</p>
+                                    <h3 class="font-medium leading-tight">Echance & Budget</h3>
+
                                 </span>
                             </li>
                         </ol>
