@@ -25,7 +25,7 @@ class FreelanceAccess
         $user = Auth::user();
 
         // Vérifiez si l'utilisateur a une relation avec le modèle Freelance
-        if (!$user->freelance()->exists()) {
+        if (!$user->freelanceExit()) {
             return redirect()->route('register.etape.1')->with('error', 'Vous n\'avez pas accès à cette page');
         }
 

@@ -3,7 +3,7 @@
 import Popper from "vue3-popper";
 
 import { ref } from 'vue';
-import { Link } from "@inertiajs/vue3";
+import { Link, router } from "@inertiajs/vue3";
 
 const isShowPopper = ref(false);
 const popperRef = ref(null);

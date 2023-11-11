@@ -101,7 +101,7 @@ const sidebarMenu = {
                     },
                      {
                         title: 'missions postuler',
-                        route_name: 'freelance.missions.postuler',
+                        route_name: 'freelance.missions',
 
                     },
                     {

@@ -7,6 +7,8 @@ import MainSidebarF from '@/Layouts/FreelancePartial/MainSidebarF.vue';
 import SidebarPanelF from '@/Layouts/FreelancePartial/SidebarPanelF.vue';
 import PartialHeaderF from '@/Layouts/FreelancePartial/PartialHeaderF.vue';
 
+import OtherPanel from '@/Layouts/FreelancePartial/OtherPanel.vue';
+
 //import OtherPanelF from '@/Layouts/FreelancePartial/OtherPanelF.vue';
 
 const categoryStore = useCategoryStore();
@@ -55,13 +57,13 @@ resize();
             <!-- App Header -->
             <PartialHeaderF />
 
-            <!-- Mobile Searchbar
 
 
 
 
-            <OtherPanelF />
-            -->
+
+            <OtherPanel />
+
 
             <div class="main-content pt-4 w-full px-[var(--margin-x)] pb-8">
               <slot></slot>

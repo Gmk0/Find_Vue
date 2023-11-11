@@ -24,7 +24,7 @@ class FreelanceExist
         // Récupérez l'utilisateur actuellement authentifié
         $user = Auth::user();
 
-        if ($user->freelance()->exists()) {
+        if ($user->freelanceExit()) {
             return redirect()->to('freelance/dashboard');
         }
         return $next($request);

@@ -113,6 +113,14 @@ class Mission extends Model
     public function scopeFilter($query, array $filters)
     {
 
+        $query->when($filters['category'] ?? null,function($query) use ($filters){
+
+            $query->whereHas('category', function($q) use ($filters){
+                $q->where('id', $filters['category']);
+            });
+        });
+
+
     }
 
 

@@ -154,7 +154,7 @@
 
                                     <div v-if="commande.feedback.commentaires !=null" >
                                         <label class="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" class="sr-only peer"  @change='publier()'>
+                                            <input type="checkbox" v-model="props.commande.data.feedback.is_publish" class="sr-only peer"  @change='publierE()'>
                                             <div
                                                 class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:bcommande-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:bcommande-gray-300 after:bcommande after:rounded-full after:h-5 after:w-5 after:transition-all dark:bcommande-gray-600 peer-checked:bg-blue-600">
                                             </div>
@@ -416,6 +416,17 @@
        { name: '100 %', code: 100 },
 
     ]);
+
+
+    const publier =useForm({
+         order_id : props.commande.data.id,
+    })
+
+    const publierE = () => {
+    publier.post(route('publishCommentaire'), {
+        preserveScroll: true,
+    });
+    }
 
 
 

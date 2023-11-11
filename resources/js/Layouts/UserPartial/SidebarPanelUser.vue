@@ -90,14 +90,11 @@ const sidebarMenu = {
                 ],
             },
 
+            /*
              Aide: {
                 title: 'Aide',
                 submenu: [
-                    {
-                        title: 'Envoyer un feedback',
-                        route_name: 'user.feedback',
 
-                    },
                      {
                         title: 'Signaler un comportement',
                         route_name: 'user.signalement',
@@ -111,6 +108,7 @@ const sidebarMenu = {
 
                 ],
             },
+            */
         },
 
         // ... Autres éléments du menu

@@ -37,7 +37,8 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
-
+            'auth.freelance'=>fn()=>$request->user()
+            ? $request->user()->freelanceExit() : false,
             'flash'=>fn()=>[
                 'error' => fn ()=>$request->session()->get('error')
                 ]

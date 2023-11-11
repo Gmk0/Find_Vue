@@ -201,6 +201,10 @@ Route::middleware([
     });
 
 
+    Route::middleware('freelance')->group(function(){
+
+
+
     Route::prefix('freelance')->group(function(){
 
         Route::controller(FreelanceAuth::class)->group(function(){
@@ -232,12 +236,16 @@ Route::middleware([
             Route::post('/commande-gestion','commandeGestion')->name('commande.feedback');
             Route::post('/commande-rapport', 'commandeRapport')->name('commande.rapport');
 
+            Route::post('/publishCommentaire', 'publishCommentaire')->name('publishCommentaire');
+
 
         });
 
         Route::controller(TransactionFreelance::class)->group(function () {
 
             Route::get('/transactions', 'show')->name('freelance.transactions');
+
+                Route::get('/transactions/{transaction_numero}', 'showTransaction')->name('freelance.transactions.one');
 
 
             Route::get('/paiements', 'showTransaction')->name('freelance.paiements');
@@ -267,6 +275,30 @@ Route::middleware([
             Route::get('/profile','show')->name('freelance.profile');
 
             Route::get('/realisations', 'realisations')->name('freelance.realisations');
+                Route::get('/realisations/ajout', 'realisationsAjout')->name('freelance.realisationsAjout');
+
+            Route::post('/realisations-add', 'addRealisation')->name('addRealisation');
+
+            Route::post('/profile-add', 'addProfilePartOne')->name('addProfilePartOne');
+
+
+            Route::post('/addCertification', 'addCertification')->name('addCertification');
+            Route::post('/addEducation', 'addEducation')->name('addEducation');
+            Route::post('/addComptes', 'addComptes')->name('addComptes');
+            Route::post('/removeElement', 'removeElement')->name('removeElement');
+            Route::post('/editEducation', 'editEducation')->name('editEducation');
+            Route::post('/editCertification', 'editCertification')->name('editCertification');
+            Route::post('/addCompetences', 'addCompetences')->name('addCompetences');
+            Route::post('/editCompetences', 'editCompetences')->name('editCompetences');
+            Route::post('/editComptes', 'editComptes')->name('editComptes');
+            Route::post('/addLangue', 'addLangue')->name('addLangue');
+            Route::post('/editLangue', 'editLangue')->name('editLangue');
+
+
+
+
+
+
 
         });
 
@@ -275,6 +307,7 @@ Route::middleware([
 
 
 
+    });
     });
 });
 

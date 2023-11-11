@@ -18,13 +18,13 @@ class MissionFreelance extends Controller
     public function show()
     {
 
-        $missions=Mission::filter(RequestFacade::only('search', 'budget', 'begin_mission'))
+        $missions=Mission::filter(RequestFacade::only('search', 'budget', 'category', 'begin_mission'))
         ->paginate(10);
 
 
         return Inertia::render('Freelance/Mission/MissionList',
         [
-            'filter'=> RequestFacade::all('search', 'budget', 'begin_mission'),
+            'filter'=> RequestFacade::all('search', 'budget', 'category', 'begin_mission'),
             'missions'=> MissionResourceData::collection($missions)
             ]);
     }
@@ -63,12 +63,24 @@ class MissionFreelance extends Controller
 
         try{
 
+            $responseMission= MissionResponse::where('freelance_id', auth()->user()->freelance->id)
+            ->where('mission_id',$request->mission_id)->first();
+
+            if($responseMission !=null){
+                $responseMission->content=$request->message;
+                  $responseMission->budget=$request->budget;
+                  $responseMission->update();
+
+
+            }else{
+
             $response = MissionResponse::create([
                 'mission_id' => $request->mission_id,
                 'freelance_id' => auth()->user()->freelance->id,
                 'content' => $request->message,
                 'budget' => $request->budget,
             ]);
+        }
 
 
         }catch(\Exception $e){

@@ -294,7 +294,7 @@
                             </div>
 
                             <div v-else>
-                            <Link :href="route('login')"
+                            <Link :href="route('login')" @click="navOpen = false"
                                 class="relative flex items-center justify-center w-full h-12 px-8 mx-auto duration-300 rounded-full dark:border dark:border-white bg-skin-fill before:absolute before:inset-0 before:transition hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
                                 <span class="relative text-base font-semibold text-white">Connexion</span>
                             </Link>

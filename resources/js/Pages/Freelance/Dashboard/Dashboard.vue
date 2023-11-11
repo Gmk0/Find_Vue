@@ -117,7 +117,7 @@
 
         </div>
         <div class="grid grid-cols-2 col-span-12 gap-4 sm:grid-cols-4 sm:gap-5 lg:col-span-4 lg:grid-cols-2 lg:gap-6">
-            <div class="col-span-2 px-4 pb-5 dark:bg-navy-800 card sm:px-5">
+            <div class="col-span-2 px-4 pb-5 bg-gray-200 dark:bg-navy-800 card sm:px-5">
                 <div class="flex items-center justify-between py-3">
                     <h2 class="font-medium tracking-wide text-slate-700 dark:text-navy-100">
                         Revenus

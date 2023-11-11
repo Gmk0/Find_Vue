@@ -61,15 +61,14 @@ class ChatController extends Controller
         $conversations = Conversation::where('freelance_id', auth()->user()->freelance->id)
             ->orderBy('last_time_message', 'DESC')->get();
 
-        $conversation = Conversation::findOrFail($id);
+        if ($id != null) {
+            $conversation = Conversation::findOrFail($id);
 
-        if($conversation !=null)
-        {
-            foreach($conversation->messages as $message)
-            {
-                $message->where('receiver_id',auth()->id())->update(['is_read' => true]);
+            if ($conversation != null) {
+                foreach ($conversation->messages as $message) {
+                    $message->where('receiver_id', auth()->id())->update(['is_read' => true]);
+                }
             }
-
         }
            // dd($conversation);
 

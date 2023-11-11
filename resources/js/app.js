@@ -87,6 +87,10 @@ import CardGuest from '@/Components/CardGuest.vue';
 import NavGuest from '@/Layouts/Partials/NavGuest.vue';
 
 
+import Message from 'primevue/message';
+
+
+
 
 
 
@@ -146,6 +150,7 @@ createInertiaApp({
             .component('FooterGuest', FooterGuest)
             .component('CardGuest', CardGuest)
             .component('NavGuest', NavGuest)
+            .component('Message',Message)
            // .component('Show', Show)
              // Enregistrez votre composant de layout
 

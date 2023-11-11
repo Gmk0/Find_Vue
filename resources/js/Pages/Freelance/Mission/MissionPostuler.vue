@@ -49,6 +49,10 @@
 
         </div>
         <div>
+
+            <div v-if="props.missionResponse !=null">
+            <Message :closable="false" severity="info">Vous avez deja postuler pour cette mission</Message>
+            </div>
               <div class="container py-8 lg:px-2">
 
             <div class="p-6 mb-3 bg-white rounded-lg shadow-md dark:bg-navy-800">
@@ -176,8 +180,12 @@
 
 
 
-                    <div class="flex items-center justify-center">
+                    <div v-if="props.missionResponse == null" class="flex items-center justify-center">
                         <Button type="submit" label="Postuler" severity="info" />
+                    </div>
+                    <div v-else class="flex items-center justify-center">
+                          <Button type="submit" label="Changer" severity="info" />
+
                     </div>
                 </form>
 
@@ -205,13 +213,14 @@ import { Link , useForm } from '@inertiajs/vue3';
 import {ref, computed} from 'vue';
 
 const props =defineProps({
-    mission:Object
+    mission:Object,
+    missionResponse:Object,
 })
 
 const isOpen = ref(false);
 
 const form = useForm({
-    message:'',
+    message:props.missionResponse?.content,
     budget: props.mission.data.budget,
     mission_id:props.mission.data.id,
 })

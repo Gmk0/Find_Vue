@@ -524,7 +524,7 @@ for (let index = 1999; index < year ; index++) {
      anneeSelected.value.push(index);
 }
 
-console.log(anneeSelected.value);
+
 </script>
 
 <template>
@@ -1633,8 +1633,6 @@ console.log(anneeSelected.value);
 
                                         <div class="grid gap-2 mb-4 lg:grid-cols-3">
                                                 <div>
-
-
                                                      <Dropdown v-model="selectedComptes.compte" :options="comptesSelector"
                                                      optionLabel="name"
                                                      optionValue="name"

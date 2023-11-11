@@ -1,6 +1,7 @@
 <script setup>
 
 import Popper from "vue3-popper";
+import { Link, router } from "@inertiajs/vue3";
 
 import { ref } from 'vue';
 
@@ -15,6 +16,11 @@ let popperInstance = null;
 const togglePopper = () => {
     isShowPopper.value = !isShowPopper.value;
 
+};
+
+
+const logout = () => {
+    router.post(route('logout'));
 };
 
 
@@ -165,7 +171,7 @@ const togglePopper = () => {
                                                     </div>
                                                 </div>
                                                 <div class="flex flex-col pt-2 pb-5">
-                                                    <Link :href="route('user.profile')"
+                                                    <Link :href="route('freelance.profile')"
                                                         class="flex items-center px-4 py-2 space-x-3 tracking-wide transition-all outline-none group hover:bg-slate-100 focus:bg-slate-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                                                         <div class="flex items-center justify-center w-8 h-8 text-white rounded-lg bg-warning">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none"
@@ -185,7 +191,7 @@ const togglePopper = () => {
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link :href="route('user.chat')"
+                                                    <Link :href="route('freelance.chat')"
                                                         class="flex items-center px-4 py-2 space-x-3 tracking-wide transition-all outline-none group hover:bg-slate-100 focus:bg-slate-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                                                         <div class="flex items-center justify-center w-8 h-8 text-white rounded-lg bg-info">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none"
@@ -206,7 +212,7 @@ const togglePopper = () => {
                                                         </div>
                                                     </Link>
 
-                                                    <a href="#"
+                                                    <Link :href="route('freelance.profile')"
                                                         class="flex items-center px-4 py-2 space-x-3 tracking-wide transition-all outline-none group hover:bg-slate-100 focus:bg-slate-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                                                         <div class="flex items-center justify-center w-8 h-8 text-white rounded-lg bg-error">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none"
@@ -225,8 +231,8 @@ const togglePopper = () => {
                                                                 Votre activité et événements
                                                             </div>
                                                         </div>
-                                                    </a>
-                                                    <a href="{{route('freelance.profile')}}"
+                                                    </Link>
+                                                    <Link :href="route('freelance.profile')"
                                                         class="flex items-center px-4 py-2 space-x-3 tracking-wide transition-all outline-none group hover:bg-slate-100 focus:bg-slate-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                                                         <div class="flex items-center justify-center w-8 h-8 text-white rounded-lg bg-success">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none"
@@ -247,9 +253,9 @@ const togglePopper = () => {
                                                                 Paramètres de l'application Web
                                                             </div>
                                                         </div>
-                                                    </a>
+                                                    </Link>
                                                     <div class="px-4 mt-3">
-                                                        <form method="POST" action="{{ route('logout')}}">
+                                                        <form @submit.prevent="logout">
 
                                                             <button type="submit"
                                                                 class="w-full space-x-2 text-white btn h-9 bg-amber-600 hover:bg-amber-600-focus focus:bg-amber-600-focus active:bg-amber-600-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">

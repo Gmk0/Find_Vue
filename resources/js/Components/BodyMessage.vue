@@ -13,6 +13,21 @@ const layoutStore = useLayoutStore();
 const isShowChatInfo = ref(true);
 const activeTab = ref('tabImages');
 
+function initWindow() {
+
+    if (typeof window !== "undefined") {
+
+        if (window.innerWidth > 800) {
+              isShowChatInfo.value = true;
+
+        }else{
+
+               isShowChatInfo.value = false;
+        }
+    }
+}
+
+initWindow();
 const page = usePage();
 
 const user= computed(()=> props.user);
@@ -65,7 +80,7 @@ const sendMessage=()=>{
 
     form.post(route('chat.Send'),{
         preserveScroll: true,
-        onSuccess:()=> bottomScroll(),
+        onSuccess:()=> {},
     })
 
 
@@ -415,10 +430,14 @@ const getHourFromDate = created_at => {
                                         class="p-3 shadow-sm rounded-2xl">
                                         {{ message.body }}
 
-                                        <span class="" v-if="message.temporary !=null">
-                                            <i class="w-1 pi pi-clock"></i>
-                                        </span>
+
                                     </div>
+                                    <span class="flex items-center justify-end" v-if="message.temporary != null">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+
+                                    </span>
 
 
 
@@ -454,7 +473,7 @@ const getHourFromDate = created_at => {
                                 </div>
                                     <p v-if="getHourFromDate(message.created_at) !=='NaN:NaN'" :class="message.receiver_id == props.user.id ?' text-left':'text-right'"
                                     class="mt-2 ml-auto text-xs text-right text-slate-400 dark:text-navy-300" >
-                                         {{ getHourFromDate(message.created_at) }}
+                                         {{ getHourFromDate(message.created_at)}}
                                     </p>
                                 </div>
 
@@ -470,7 +489,32 @@ const getHourFromDate = created_at => {
                     </template>
 
                 </div>
+
                  </transition>
+
+                  <div v-if="props.messages.length === 0">
+
+                         <div class="flex flex-col items-center justify-center mt-8">
+                        <div class="flex flex-col items-center mx-4 space-x-3">
+
+                            <p class="text-lg">Pour plus de sécurité et votre protection, effectuez les paiements et les
+                                communications
+                                directement
+                                sur FIND.</p>
+
+
+                            <div class="w-4/12 py-8">
+                                <img src="/images/illustrations/chat-ui.svg" alt="illustation">
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                    </div>
             </div>
 
             <div

@@ -25,7 +25,7 @@
                                         stroke-width="2" d="m1 9 4-4-4-4" />
                                 </svg>
                                 <span
-                                    class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Mission</span>
+                                    class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Realisations</span>
                             </div>
                         </li>
                     </ol>
@@ -34,7 +34,100 @@
 
             </div>
 
-            <h1 class="mt-4 text-3xl font-bold text-black dark:text-white">Mission</h1>
+            <h1 class="mt-4 text-3xl font-bold text-black dark:text-white">Realisations</h1>
+
+        </div>
+
+        <div class="flex flex-col mt-4">
+
+            <div class="mb-4">
+                <Link :href="route('freelance.realisationsAjout')">
+                <Button label="Ajouter"  outlined/>
+
+                </Link>
+            </div>
+
+            <div class="">
+
+                 <div class="card">
+                        <DataTable stripedRows paginator :rows="10" :rowsPerPageOptions="[2, 10, 20, 50]"
+                            :value="realisationsImage" tableStyle="min-width: 50rem">
+
+                            <template #empty> Pas de realisation. </template>
+                            <template #loading> Loading customers data. Please wait. </template>
+
+                            <Column sortable field="id" header="id"></Column>
+                            <Column field="description" header="description"></Column>
+
+                            <Column  header="description">
+
+                                <template  #body="slotProps">
+
+
+                                    <div v-for="image in slotProps.data.media ">
+                                        <img class="w-12" :src="image.preview_url" :alt="image.name" />
+                                    </div>
+                                </template>
+
+                            </Column>
+
+
+
+                            <Column :exportable="false" style="min-width:4rem">
+                                <template #body="slotProps">
+                                    <Link href="test">
+                                    <span><i class="pi pi-pencil"></i></span>
+                                    </Link>
+
+
+                                </template>
+                            </Column>
+
+                        </DataTable>
+                    </div>
+
+
+
+            </div>
+
+
+
+            <div class="grid hidden grid-cols-2 gap-6">
+
+                 <div class="lg:col-span-1 card">
+
+                        <Textarea v-model="form.description" class="w-full" rows="6" />
+
+                    </div>
+
+                 <div class="lg:col-span-1 card">
+                    <Toast />
+                    <FileUpload
+                    :auto="true"
+                    @select="onSelect"
+                    chooseLabel="Choisir"
+                    :showUploadButton="false"
+                    :show-cancel-button="false"
+                    :file-limit="2"
+                    ref="fileUpload"
+
+                    :multiple="true"
+                    accept="image/*"
+                    :maxFileSize="5000000">
+                        <template #empty>
+                            <p>Faites glisser et déposez les fichiers ici pour les télécharger.</p>
+                        </template>
+                    </FileUpload>
+                        </div>
+
+
+
+
+                <div class="flex items-center justify-center col-span-2">
+                        <Button label="Enregistrer" @click="sendFile" />
+                </div>
+
+            </div>
 
         </div>
 
@@ -46,11 +139,54 @@
 
 import FreelanceLayout from '@/Layouts/FreelanceLayout.vue';
 
+import {ref, computed } from 'vue';
+
+import {useForm} from '@inertiajs/vue3';
 
 defineOptions({
     layout: FreelanceLayout,
 
 });
+
+const props=defineProps({
+    realisations:Array,
+})
+
+const realisationsImage=computed(()=>props.realisations.data);
+
+const fileUpload =ref(null);
+
+const form= useForm({
+    image:null,
+    description:null,
+});
+
+const onSelect = (event) => {
+    form.image = event.files;
+};
+
+
+
+const sendFile=()=>{
+
+
+
+    form.post(route("addRealisation"),{
+        onFinish:()=>{
+
+            fileUpload.value.removeUploadedFile();
+            form.reset();
+
+        },
+    })
+
+
+
+
+}
+
+
+
 
 </script>
 

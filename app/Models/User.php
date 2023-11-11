@@ -146,4 +146,19 @@ class User extends Authenticatable
     {
         return $this->phone;
     }
+
+    public function realisations()
+    {
+        return $this->HasMany(Realisation::class);
+    }
+
+    public function freelanceExit() :bool
+    {
+        if($this->freelance !=null)
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

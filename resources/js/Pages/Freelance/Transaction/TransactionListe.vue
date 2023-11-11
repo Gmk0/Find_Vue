@@ -38,6 +38,51 @@
 
         </div>
 
+          <div class="mt-4">
+
+                <div>
+
+                    <div class="card">
+                        <DataTable stripedRows   paginator :rows="10" :rowsPerPageOptions="[2, 10, 20, 50]" :value="transactions.data" tableStyle="min-width: 50rem"
+                         >
+
+                            <template #empty> No customers found. </template>
+                            <template #loading> Loading customers data. Please wait. </template>
+
+                            <Column sortable  field="transaction_numero" header="transaction_numero"></Column>
+
+                            <Column field="amount" header="amount">
+                             <template #body="slotProps">
+                                {{ formatCurrency(slotProps.data.amount) }} $
+                            </template>
+                            </Column>
+
+                            <Column  header="status">
+                                    <template #body="slotProps">
+                                    <Tag :value="slotProps.data.status" :severity="getSeverity(slotProps.data)"/>
+
+                                    </template>
+
+
+                            </Column>
+                             <Column :exportable="false" style="min-width:4rem">
+                                <template #body="slotProps">
+
+                                    <Link :href="route('freelance.transactions.one', [slotProps.data.transaction_numero])">
+                                        <span><i class="pi pi-pencil"></i></span>
+                                    </Link>
+
+
+                                </template>
+                                  </Column>
+
+                        </DataTable>
+                    </div>
+
+                </div>
+            </div>
+
+
     </div>
 </template>
 
@@ -51,6 +96,36 @@ defineOptions({
     layout: FreelanceLayout,
 
 });
+
+defineProps(
+    {
+        transactions: Array
+    });
+
+
+
+const getSeverity = (commande) => {
+    switch (commande.status) {
+        case 'pending':
+            return 'warning';
+            break;
+        case 'completed':
+            return 'success';
+            break;
+
+        case 'failed':
+            return 'danger';
+            break;
+        default:
+            return null;
+
+    }
+}
+
+const formatCurrency = (value) => {
+    return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+}
+
 
 </script>
 

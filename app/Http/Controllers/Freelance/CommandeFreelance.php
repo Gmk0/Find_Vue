@@ -76,6 +76,25 @@ class CommandeFreelance extends Controller
 
     }
 
+    public function publishCommentaire(Request $request)
+    {
+        $request->validate(['order_id' => 'required']);
+
+        try {
+
+            $feedback = FeedbackService::where('order_id', $request->order_id)->first();
+            $feedback->is_publish = !$feedback->is_publish;
+            $feedback->update();
+
+        } catch (\Exception $e) {
+
+            return redirect()->back()->withErrors(['message' => $e->getMessage()]);
+        }
+
+
+    }
+
+
     public function commandeRapport(Request $request)
     {
 

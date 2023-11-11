@@ -8,8 +8,7 @@
 
 
                 <link  rel="stylesheet" href="/css/new.css">
-        <link  rel="stylesheet" href="/css/lara-dark-blue/theme.css">
-        <link id="light" rel="stylesheet" href="/css/lara-light-blue/theme.css">
+
         <link rel="stylesheet" href="/css/plugin.css">
         <link rel="stylesheet" href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css" />
 

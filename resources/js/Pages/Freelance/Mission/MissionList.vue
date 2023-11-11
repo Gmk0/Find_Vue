@@ -40,7 +40,22 @@
 
         <div>
 
-             <div>
+            <div class="grid grid-cols-2 gap-6 mb-4">
+
+                <div class="w-full col-span-1">
+                   <Dropdown
+                    v-model="form.category"
+                    :options="categories"
+                    optionValue="id" optionLabel="name"
+                    placeholder="par categorie"
+                    showClear
+                    class="!w-full" />
+                </div>
+
+
+            </div>
+
+             <div class="mt-4">
 
 
 
@@ -54,7 +69,7 @@
                                     {{ mission.category.name }}</a>
                                 <div class="-mr-1.5 flex space-x-1">
                                     <button
-                                        class="p-0 rounded-full btn2 h-7 w-7 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                        class="hidden p-0 rounded-full btn2 h-7 w-7 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -68,9 +83,9 @@
                                 </div>
                             </div>
                             <div>
-                                <a href="{{route('PropostionProjet',[$projet->mission_numero])}}"
+                                <Link :href="route('freelance.missions.postuler', mission.mission_numero)"
                                     class="text-lg font-medium text-slate-700 hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light">
-                                    {{ mission.title }}</a>
+                                    {{ mission.title }}</Link>
                             </div>
                             <p  class="mt-1 line-clamp-3">
 
@@ -120,8 +135,12 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="flex justify-end gap-4 mt-1">
+                            <div class="flex justify-between gap-4 mt-1">
 
+                                       <div class="flex items-center ">
+                                        <h1 class="text-lg font-bold text-amber-600">{{ mission.budget }} $</h1>
+
+                                    </div>
                                 <div v-if="mission.status == 'completed'">
                                     <Button size="small" outlined severity="success" label="Mission terminer" />
 
@@ -161,11 +180,23 @@
 
 import FreelanceLayout from '@/Layouts/FreelanceLayout.vue';
 
-import {computed,ref } from 'vue';
+import {computed,ref ,watch } from 'vue';
+import pickBy from 'lodash/pickBy';
+import throttle from 'lodash/throttle';
+
+import { router } from '@inertiajs/vue3';
+
+import { useSubcategoriesStore, useCategoryStore } from '@/store/store';
 
 const props = defineProps({
     filter:Object,
     missions:Array,
+});
+
+const form = ref({
+    search: '',
+    category: props.filter.category,
+
 });
 const missions=computed(()=> props.missions.data);
 
@@ -173,6 +204,27 @@ const showMore = ref(false);
 const truncateText = (text, length) => {
     return text.length > length ? text.slice(0, length) + '...' : text;
 }
+
+
+
+
+
+const categoriesStore = useCategoryStore();
+
+
+const categories = computed(() => categoriesStore.categoriesGet.categories);
+
+
+
+watch(form, throttle(() => {
+
+    router.get(route('freelance.missions'),
+        pickBy(form.value),
+        {
+            preserveState: true,
+            preserveScroll: true,
+        })
+}, 1000), { deep: true, })
 
 
 defineOptions({

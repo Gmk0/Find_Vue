@@ -89,7 +89,7 @@ const layoutStore = useLayoutStore();
 
 
 
-                        <button
+                        <button @click="layoutStore.tooglePanel()"
                             class="w-8 h-8 p-0 rounded-full hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5 text-slate-500 dark:text-navy-100"
                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
