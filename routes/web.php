@@ -248,7 +248,7 @@ Route::middleware([
                 Route::get('/transactions/{transaction_numero}', 'showTransaction')->name('freelance.transactions.one');
 
 
-            Route::get('/paiements', 'showTransaction')->name('freelance.paiements');
+            Route::get('/paiements', 'RetraitArgent')->name('freelance.paiements');
             Route::get('/paiements/retrait', 'RetraitArgent')->name('freelance.paiements.retrait');
             Route::get('/paiements/releves', 'showTransactionReleves')->name('freelance.paiements.releves');
 

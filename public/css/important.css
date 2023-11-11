@@ -562,7 +562,7 @@
 
     #siteNav>li>a:hover:hover,
     #siteNav>li>a:hover {
-        color: #339498;
+        color: rgb(244, 142, 9);
     }
 
     #siteNav>li .megamenu {

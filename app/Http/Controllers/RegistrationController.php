@@ -86,13 +86,20 @@ class RegistrationController extends Controller
 
     public function register(Request $request)
     {
+        try{
 
             $data = $request->all();
-
-
-            //dd($data);
             Freelance::create($data);
             return redirect(route('freelance.dashboard'));
+
+        }catch(\Exception $e){
+
+
+            return redirect()->back()->withErrors(['message' => $e->getMessage()]);
+
+        }
+
+
         //return response()->json(['data' => $data]);
     }
 

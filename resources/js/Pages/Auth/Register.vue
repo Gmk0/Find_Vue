@@ -6,6 +6,8 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 
+import { ref } from 'vue';
+
 const form = useForm({
     name: '',
     email: '',
@@ -15,7 +17,34 @@ const form = useForm({
     terms: false,
 });
 
+const tel=ref('');
+
+const onUpdateTel = () => {
+    form.phone='';
+    form.phone = tel.value + form.phone;
+};
+
+
+const onPhoneInput=()=> {
+
+     let numericPhone = '';
+    for (const char of form.phone) {
+        if (/\d/.test(char)) {
+            numericPhone += char;
+        }
+    }
+
+
+    // Limitez la saisie à un maximum de 10 chiffres
+    if (form.phone.length > 10) {
+        form.phone = form.phone.slice(0, 10);
+    }
+
+}
+
 const submit = () => {
+
+
     form.post(route('register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
@@ -152,8 +181,8 @@ const submit = () => {
 
                                     <form @submit.prevent="submit" role="grid grid-cols-1 gap-6">
 
-                                         <div>
-                                            <InputLabel for="name" value="Name" />
+                                         <div class="mb-4">
+                                            <InputLabel for="name" value="Nom d'utilisateur" />
                                             <TextInput
                                                 id="name"
                                                 v-model="form.name"
@@ -165,17 +194,31 @@ const submit = () => {
                                             />
                                             <InputError class="mt-2" :message="form.errors.name" />
                                         </div>
-                                         <div>
-                                                <InputLabel for="phone" value="phone" />
-                                                <TextInput
-                                                    id="phone"
-                                                    v-model="form.phone"
-                                                    type="text"
-                                                    class="block w-full mt-1"
-                                                    required
-                                                    autofocus
-                                                    autocomplete="phone"
-                                                />
+                                         <div class="mt-4">
+                                                <InputLabel for="phone" value="telephone" />
+                                                <div class="flex gap-2">
+                                                    <select v-model="tel" @change="onUpdateTel()" class="border-gray-300 rounded-md shadow-sm dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 focus:border-amber-500 focus:ring-amber-500">
+                                                        <option value="" >code</option>
+                                                        <option value="+243">+ 243</option>
+                                                        <option value="+242">+ 242</option>
+                                                        <option value="+244">+ 244</option>
+                                                    </select>
+                                                     <TextInput
+                                                        id="phone"
+                                                        v-model="form.phone"
+                                                        type="tel"
+                                                        maxlength="14"
+                                                        pattern="\d{9,10}"
+                                                        class="block w-full mt-1"
+                                                        required
+                                                        autofocus
+                                                        autocomplete="phone"
+                                                        @input="onPhoneInput"
+                                                    />
+                                                </div>
+
+
+
                                                 <InputError class="mt-2" :message="form.errors.phone" />
                                             </div>
 
@@ -193,7 +236,7 @@ const submit = () => {
                                         </div>
 
                                         <div class="mt-4">
-                                            <InputLabel for="password" value="Password" />
+                                            <InputLabel for="password" value="Mot de passe" />
                                             <TextInput
                                                 id="password"
                                                 v-model="form.password"
@@ -206,7 +249,7 @@ const submit = () => {
                                         </div>
 
                                         <div class="mt-4">
-                                            <InputLabel for="password_confirmation" value="Confirm Password" />
+                                            <InputLabel for="password_confirmation" value="Confirmer" />
                                             <TextInput
                                                 id="password_confirmation"
                                                 v-model="form.password_confirmation"
@@ -224,7 +267,7 @@ const submit = () => {
                                                     <Checkbox id="terms" v-model:checked="form.terms" name="terms" required />
 
                                                     <div class="ml-2">
-                                                        I agree to the <a target="_blank" :href="route('terms.show')" class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Terms of Service</a> and <a target="_blank" :href="route('policy.show')" class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Privacy Policy</a>
+                                                        j'accepte <a target="_blank" :href="route('terms.show')" class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Conditions d'utilisation</a> et <a target="_blank" :href="route('policy.show')" class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Politique de confidentialité</a>
                                                     </div>
                                                 </div>
                                                 <InputError class="mt-2" :message="form.errors.terms" />

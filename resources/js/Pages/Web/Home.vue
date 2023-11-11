@@ -367,9 +367,8 @@
                             <div class="space-y-4 divide-y divide-gray-100 dark:divide-gray-800">
                                 <div class="flex gap-4 mt-4 md:items-center">
                                     <div class="flex w-12 h-12 gap-4 rounded-full dark:bg-teal-900/20">
-                                        <i class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"
-                                            name="checkbox-outline">
-                                        </i>
+
+                                          <CheckCircleIcon class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"  />
                                     </div>
                                     <div class="w-5/6">
                                         <h4 class="text-lg font-semibold text-gray-700 dark:text-indigo-300">Des services de
@@ -383,9 +382,8 @@
                                 </div>
                                 <div class="flex gap-4 pt-2 md:items-center">
                                     <div class="flex w-12 h-12 gap-4 rounded-full dark:bg-teal-900/20">
-                                        <i class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"
-                                            name="document-text-outline">
-                                        </i>
+
+                                        <DocumentTextIcon class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"  />
                                     </div>
                                     <div class="w-5/6">
                                         <h4 class="text-lg font-semibold text-gray-700 dark:text-teal-300">Des services
@@ -397,8 +395,13 @@
                                 </div>
                                 <div class="flex gap-4 mt-4 md:items-center">
                                     <div class="flex w-12 h-12 gap-4 rounded-full dark:bg-teal-900/20">
-                                        <i class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"
-                                            name="cash-outline"></i>
+
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                                            </svg>
+
+
                                     </div>
                                     <div class="w-5/6">
                                         <h4 class="text-lg font-semibold text-gray-700 dark:text-indigo-300">Des Paiement
@@ -411,8 +414,13 @@
                                 </div>
                                 <div class="flex gap-4 pt-2 md:items-center">
                                     <div class="flex w-12 h-12 gap-4 rounded-full dark:bg-teal-900/20">
-                                        <i class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2"
-                                            name="call-outline"></i>
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="text-[20px] text-amber-600 duration-200 hover:text-dark w-12 h-12 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+    </svg>
+
+
+
                                     </div>
                                     <div class="w-5/6">
                                         <h4 class="text-lg font-semibold text-gray-700 dark:text-teal-300">Une Assistance 24h/24
@@ -464,7 +472,7 @@
 
         </div>
 
-          <div id="confiance" class="bg-white ">
+          <div id="confiance" class="bg-white dark:bg-gray-800 ">
             <div class="px-4 py-4 mx-auto sm:mx-2 md:px-auto">
                 <div class="container text-gray-600 dark:text-gray-300 ">
                     <div class="mb-10 text-center">
@@ -794,6 +802,9 @@ import { onMounted } from 'vue';
 
 import { Collapse } from 'vue-collapsed';
 import {ref} from 'vue';
+
+import {DocumentTextIcon, CheckCircleIcon } from '@heroicons/vue/24/solid'
+
 
 
 import HomeSearch from '@/Components/HomeSearch.vue';

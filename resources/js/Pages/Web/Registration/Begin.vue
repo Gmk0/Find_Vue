@@ -16,7 +16,7 @@
                         <h2 class="hidden text-3xl font-bold text-gray-900 md:text-4xl dark:text-gray-50">
                             FIND
                         </h2>
-                        <p class="my-8 font-serif text-lg text-gray-800 dark:text-gray-50">
+                        <p class="my-8 text-lg text-gray-800 dark:text-gray-50">
                             Nous sommes à la recherche de personnes talentueuses comme vous pour offrir leurs
                             compétences
                             dans l'une ou plusieurs de

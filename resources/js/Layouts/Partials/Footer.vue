@@ -27,8 +27,8 @@
 
 
                                     <li v-for="category in categories">
-                                        <a href=""
-                                            class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-200">{{category.name}}</a>
+                                        <Link :href="route('categoryName', category.name)"
+                                            class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-200">{{category.name}}</Link>
                                     </li>
 
 
@@ -194,9 +194,10 @@
                     <div class="grid grid-cols-2 gap-4">
 
 
-                        <a v-for="category in categories" href=""
-                            class="link link-hover">{{category.name}}</a>
-
+                       <li v-for="category in categories">
+                                            <Link :href="route('categoryName', category.name)"
+                                                class="inline-block py-2 pl-3 pr-5 hover:text-gray-200">{{ category.name }}</Link>
+                                        </li>
 
 
 
@@ -205,15 +206,16 @@
                 </div>
                 <div>
                     <span class="footer-title">Company</span>
-                    <a href=""  class="link link-hover">Apropos de nous </a>
-                    <a href=""  class="link link-hover">Contact</a>
-                    <a href=""  class="link link-hover">FaQ</a>
+                    <Link :href="route('about')"  class="link link-hover hover:text-gray-200">Apropos de nous </Link>
+                    <Link :href="route('contact')"  class="link link-hover hover:text-gray-200">Contact</Link>
+                    <Link :href="route('faq')"  class="link link-hover hover:text-gray-200">FaQ</Link>
 
                 </div>
                 <div>
+
                     <span class="footer-title">Legal</span>
-                    <a href="" class="link link-hover">Terms of use</a>
-                    <a href="" class="link link-hover">Privacy policy</a>
+                    <Link :href="route('terms.show')" class="link link-hover">Conditions d'utilisation</Link>
+                    <Link :href="route('policy.show')" class="link link-hover">Politique de confidentialité</Link>
 
 
                 </div>

@@ -16,7 +16,7 @@ import InputNumber from 'primevue/inputnumber';
 import axios from 'axios';
 
 
-;
+
 
 
 const props =   defineProps({
@@ -355,7 +355,7 @@ function getWorldLanguages() {
 
 const comptesSelector = ref([
     { name: 'twitter', code: '/images/logo/X.webp' },
-    { name: 'Facebook', code: '/images/logo/X.webp' },
+    { name: 'Facebook', code: '/images/logo/facebook.png' },
     { name: 'Tiktok', code: '/images/logo/tiktok.png' },
 
 ]);
@@ -410,6 +410,7 @@ const register =()=>{
         localisation : localisation.value,
         category_id : selectedCategoryId.value,
         level : 1,
+        user_id : props.user.id,
     });
 
      data.post(route('register.freelance'),{
@@ -418,7 +419,9 @@ const register =()=>{
             // Ajoutez ici le code que vous souhaitez exécuter en cas de succès
         },
         onError: (errors) => {
-            console.log('La requête a échoué avec des erreurs :', errors);
+
+            swal(errors.message);
+           // console.log('La requête a échoué avec des erreurs :', errors);
             // Ajoutez ici le code que vous souhaitez exécuter en cas d'échec
         },
 
@@ -681,15 +684,15 @@ for (let index = 1999; index < year ; index++) {
                                         <div v-if="subcategories.length" class="grid gap-4 mt-4 mb-6 lg:grid-cols-2">
 
 
-                                                <div class="flex justify-content-center">
+                                                <div class="block">
                                                        <MultiSelect
                                                         v-model="selectedSubcategoryId"
                                                         :options="subcategories"
                                                         optionLabel="name"
                                                         optionValue="id"
                                                         class="w-full md:w-full"
-                                                         placeholder="Selectionner sous categorie"
-                                                        :maxSelectedLabels="3"  />
+                                                        placeholder="Selectionner sous categorie"
+                                                        :maxSelectedLabels="1"  />
 
                                                 </div>
 
@@ -1523,9 +1526,9 @@ for (let index = 1999; index < year ; index++) {
                                     Comptes Lies
                                 </h3>
 
-                                <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                                <p class="my-4 text-sm text-gray-600 dark:text-gray-300">
                                     Prendre le temps de vérifier et de lier vos comptes peut
-                                                                        améliorer votre
+                                    améliorer votre
                                                                         crédibilité
                                                                         et
                                                                         nous aider à vous offrir plus
@@ -1543,7 +1546,7 @@ for (let index = 1999; index < year ; index++) {
                     </div>
                     <SectionBorder />
 
-                    <div class='mb-4 md:grid md:mb-0 md:grid-cols-3 md:gap-6'>
+                    <div class='mb-8 md:grid md:mb-0 md:grid-cols-3 md:gap-6'>
                         <div class="flex justify-between md:col-span-1">
                             <div class="px-4 sm:px-0">
                                 <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
@@ -1732,12 +1735,12 @@ for (let index = 1999; index < year ; index++) {
 
 
 
-                                <div v-if="$page.props.auth.user.email_verified_at !=null" class="flex gap-4 italic text-gray-600">
-                                     <span>Email verifier</span>
+                                <div v-if="$page.props.auth.user.email_verified_at !=null" class="flex gap-4 text-base italic text-gray-600">
+                                     <span class="">Email verifier</span>
                                      <span><i class="pi pi-check"></i></span>
 
                                 </div>
-                                <div v-else class="flex justify-between">
+                                <div v-else class="flex justify-between text-base italic">
 
                                     <span>Email non verifier</span>
                                     <div>
@@ -1797,7 +1800,7 @@ for (let index = 1999; index < year ; index++) {
                                 disabled
 
                                 />
-                                     <div v-if="$page.props.auth.user.phone_verified_at != null" class="flex gap-4 italic text-gray-600">
+                                     <div v-if="$page.props.auth.user.phone_verified_at != null" class="flex gap-4 text-base italic text-gray-600">
                                          <span>telephone verifier</span>
                                          <span><i class="pi pi-check"></i></span>
 
@@ -1851,7 +1854,7 @@ for (let index = 1999; index < year ; index++) {
                         Continuer
                     </button>
 
-                    <button v-show="step == 5" @click="register()"
+                    <button v-if="$page.props.auth.user.email_verified_at !=null" v-show="step == 5" @click="register()"
                         class="middle none center rounded-lg bg-green-600 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         data-ripple-light="true">
                         S'inscrire
@@ -1874,29 +1877,34 @@ for (let index = 1999; index < year ; index++) {
 
 
 
-  <Dialog v-model:visible="verifier" header="VERIFICATION"
+  <Dialog v-model:visible="verifier" position="bottom" header="VERIFICATION"
         :style="{ width: '50rem' }"
         :position="'center'"
         :modal="true"
         :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
 
         <div>
+            <div>
+               <p class="my-2 text-lg text-gray-600 dark:text-gray-700">Veuillez vérifier vos e-mails, un code de vérification a été envoyé.</p>
+
+            </div>
         <div class="px-4 pt-8">
-            <input type="text"
-            v-model="code.code" placeholder="Entrez votre texte ici" class="w-full px-3 py-2 text-gray-700 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+
+            <InputText class="w-full"
+             v-model="code.code"
+            placeholder="Entrez votre code ici" />
+
+
              <InputError class="mt-2" :message="code.errors.code" />
         </div>
 
         <div class="flex gap-2 mt-4 ">
-             <Button label="Fermer"
-              size="small"
-             icon="pi pi-times"></Button>
+
 
               <Button
               label="Verifier"
               icon="pi pi-check"
-               size="small"
-               raised
+              raised
 
               severity="success"
               :loading="loadingVerif"
@@ -1906,9 +1914,6 @@ for (let index = 1999; index < year ; index++) {
 
         </div>
 
-        <Template #footer>
-            <Button label="Fermer" icon="pi pi-times"></Button>
-        </Template>
 
     </Dialog>
 

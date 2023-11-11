@@ -37,10 +37,20 @@ onMounted(() => {
 
 });
 
+
+
+
 const pageName = ref('');
 const expandedItems = ref([]);
 
 const activeTab = ref('tabHome');
+
+const getHourFromDate = created_at => {
+    const date = new Date(created_at);
+    const hour = date.getHours().toString().padStart(2, '0'); // Obtenez l'heure au format 'hh'
+    const minutes = date.getMinutes().toString().padStart(2, '0'); // Obtenez les minutes au format 'mm'
+    return `${hour}:${minutes}`;
+};
 
 
 const LayoutStore = useLayoutStore();
@@ -195,7 +205,7 @@ const LayoutStore = useLayoutStore();
                                                 <div>
 
                                                     <p class="text-xs font-medium line-clamp-1">
-                                                        {{ message.created_at }}
+                                                        {{ getHourFromDate(message.created_at)}}
                                                     </p>
 
                                                 </div>
@@ -219,7 +229,7 @@ const LayoutStore = useLayoutStore();
                             </h2>
                             <div class="flex flex-col mt-2 space-y-2">
                                 <label class="inline-flex items-center space-x-2">
-                                    <input v-model="isDark" @change="ToggleDark()"
+                                    <input v-model="isDark" @click="ToggleDark()"
                                         class="w-10 h-5 rounded-lg form-switch bg-slate-300 before:rounded-md before:bg-slate-50 checked:bg-slate-500 checked:before:bg-white dark:bg-navy-900 dark:before:bg-navy-300 dark:checked:bg-navy-400 dark:checked:before:bg-white"
                                         type="checkbox" />
                                     <span>Dark Mode</span>
@@ -253,7 +263,7 @@ const LayoutStore = useLayoutStore();
                     </div>
 
 
-                    >
+
 
                     <div v-if="activeTab === 'tabProjects'"
                         class="px-3 pt-1 overflow-y-auto is-scrollbar-hidden overscroll-contain">

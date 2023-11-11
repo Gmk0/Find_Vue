@@ -86,7 +86,7 @@
 
                         </li>
                         <li class="lvl1 parent dropdown">
-                                 <a href="">
+                                 <a href="#">
                                     <span  class="dark:!text-white"  :class="{ 'lg:text-white': !isSticky && !isNotHome, 'lg:text-black lg:hidden': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">Freelance</span>
 
                                     <span class="dark:!text-white"  :class="{ 'hidden': !isNotHome }">Freelance</span>

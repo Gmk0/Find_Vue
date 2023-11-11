@@ -40,7 +40,7 @@
         <div>
            <div class="w-full">
             <TabView>
-                <TabPanel header="Header I">
+                <TabPanel header="Information">
                     <div class="min-h-screen">
 
                         <div class="flex items-center justify-center">
@@ -80,22 +80,22 @@
 
                         </div>
 
-                        <form  @submit.prevent="changePart" class="grid gap-4 p-2 md:grid-cols-2 lg:grid-cols-3">
+                        <form  @submit.prevent="changePart" class="grid-cols-1 gap-4 lg:grid lg:grid-cols-3">
 
 
 
 
-                            <div class="w-full">
+                            <div class="w-full col-span-1 mb-4">
                                 <InputLabel  value="Nom"/>
                                 <InputText required v-model="form.nom" class="w-full" />
-                                  <InputError :message="form.errors.nom"/>
+                                <InputError :message="form.errors.nom"/>
                             </div>
-                             <div class="w-full">
+                             <div class="w-full mb-4">
                                 <InputLabel value="Prenom" />
                                 <InputText required v-model="form.prenom" class="w-full" />
                                   <InputError :message="form.errors.prenom"/>
                             </div>
-                             <div class="">
+                             <div class="mb-4">
                                  <InputLabel  value="Experience"/>
                                     <Dropdown
                                     v-model="form.experience"
@@ -107,10 +107,10 @@
                                     placeholder="Experience"
                                     class="!w-full" />
                                     <InputError :message="form.errors.experience"/>
-                                </div>
+                            </div>
 
-                            <div class="col-span-3">
-                                <div class="grid grid-cols-3 gap-4">
+                            <div class="col-span-3 mb-4">
+                                <div class="grid gap-6 lg:grid-cols-3">
                                     <div>
                                     <InputLabel value="adresse" />
                                         <InputText required v-model="form.localisation.addresse" class="w-full" />
@@ -155,13 +155,13 @@
 
                 <div class="col-span-3 px-4">
 
-                    <div  class="flex flex-col mb-2">
+                    <div  class="flex flex-col mb-6">
                             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                                     <div
                                         class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
                                         <table class="min-w-full divide-y divide-gray-200">
-                                            <thead class="bg-gray-50 dark:bg-gray-900">
+                                            <thead class="bg-gray-50 dark:bg-gray-800">
                                                 <tr>
                                                     <th scope="col"
                                                         class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -181,7 +181,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800">
+                                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-900">
                                                 <tr v-for="(educ, index) in freelance.diplome">
                                                     <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-200 whitespace-nowrap">
                                                         {{ educ['diplome'] }}
@@ -228,14 +228,16 @@
                     </div>
                       <hr />
 
+                      <SectionBorder />
 
-                     <div class="flex flex-col mt-6 mb-2">
+
+                     <div class="flex flex-col mt-6 mb-6">
                                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                                         <div
                                             class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
                                             <table class="min-w-full divide-y divide-gray-200">
-                                                <thead class="bg-gray-50 dark:bg-gray-900">
+                                                <thead class="bg-gray-50 dark:bg-gray-800">
                                                     <tr>
                                                         <th scope="col"
                                                             class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -255,7 +257,7 @@
                                                         </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800">
+                                                <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-900">
                                                     <tr v-for="(certif, index) in freelance.certificat">
                                                         <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-200 whitespace-nowrap">
                                                             {{ certif['certifier'] }}
@@ -300,13 +302,13 @@
                     </div>
                       <hr />
 
-                    <div class="flex flex-col mt-6 mb-2">
+                    <div class="flex flex-col mt-6 mb-6">
                         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                                 <div
                                     class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
                                     <table class="min-w-full divide-y divide-gray-200">
-                                        <thead class="bg-gray-50 dark:bg-gray-900">
+                                        <thead class="bg-gray-50 dark:bg-gray-800">
                                             <tr>
                                                 <th scope="col"
                                                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -323,7 +325,7 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800">
+                                        <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-900">
                                             <tr v-for="(lang, index) in freelance.langue">
                                                 <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-200 whitespace-nowrap">
                                                     {{ lang['langue'] }}
@@ -363,13 +365,13 @@
 
                     <hr />
 
-                     <div class="flex flex-col mt-6 mb-2 ">
+                     <div class="flex flex-col mt-6 mb-6">
                         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                                 <div
                                     class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
                                     <table class="min-w-full divide-y divide-gray-200">
-                                        <thead class="bg-gray-50 dark:bg-gray-900">
+                                        <thead class="bg-gray-50 dark:bg-gray-800">
                                             <tr>
                                                 <th scope="col"
                                                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -386,7 +388,7 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800">
+                                        <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-900">
                                             <tr v-for="(compt, index) in freelance.comptes">
                                                 <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-200 whitespace-nowrap">
                                                     {{ compt['compte'] }}
@@ -426,13 +428,13 @@
 
                       <hr />
 
-                         <div class="flex flex-col mt-6 mb-2 ">
+                         <div class="flex flex-col mt-6 mb-6 ">
                             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                                     <div
                                         class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
                                         <table class="min-w-full divide-y divide-gray-200">
-                                            <thead class="bg-gray-50 dark:bg-gray-900">
+                                            <thead class="bg-gray-50 dark:bg-gray-800">
                                                 <tr>
                                                     <th scope="col"
                                                         class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -449,7 +451,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800">
+                                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-900">
                                                 <tr v-for="(skill, index) in freelance.competences">
                                                     <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-200 whitespace-nowrap">
                                                         {{ skill['skill'] }}
@@ -696,6 +698,7 @@ import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
 
 import SecondaryButton from '@/components/SecondaryButton.vue';
+import SectionBorder from '@/components/SectionBorder.vue';
 
 import {router, useForm} from '@inertiajs/vue3';
 import InputLabel from '@/Components/InputLabel.vue';

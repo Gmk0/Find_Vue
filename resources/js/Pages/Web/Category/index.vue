@@ -56,11 +56,11 @@
             </div>
 
 
-            <div class="grid grid-cols-2 gap-4 mt-8 mb-16 md:gap-6 md:grid-cols-4 xl:gap-8">
+            <div class="grid grid-cols-2 gap-4 mt-8 mb-8 md:gap-6 md:grid-cols-4 xl:gap-8">
 
 
                 <Link v-for="category in categories" :href="route('categoryName', category.name)"
-                    class="flex flex-row items-center gap-2 px-2 py-4 duration-200 border shadow-lg cursor-pointer group rounded-xl border-amber-500/10 shadow-amber-300/10 hover:bg-amber-600 dark:bg-gray-800">
+                    class="flex flex-row items-center gap-2 px-2 py-4 duration-200 bg-white border shadow shadow-lg cursor-pointer group rounded-xl border-amber-500/10 hover:bg-amber-600 dark:bg-gray-800">
                 <img src="/storage/illustration/business.svg" class="w-12 rounded-md lg:w-20 lg:h-20" alt="">
                     <div class="flex flex-col gap-2">
                          <h4
@@ -97,7 +97,7 @@
                 <Link :href="route('categoryName', category.name)" class="text-xl text-black dark:text-gray-100">{{ category.name }}</Link>
                 </div>
                 <hr/>
-                <div class="grid grid-cols-2 gap-4 mt-4 md:grid-cols-3 lg:grid-cols-4">
+                <div class="flex flex-wrap my-4">
 
 
                     <div v-for="sub in category.sub_categories" :key="sub.id" class="mb-4">
