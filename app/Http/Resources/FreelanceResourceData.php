@@ -15,6 +15,7 @@ class FreelanceResourceData extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'nom' =>$this->nom,
             'prenom' => $this->prenom,
             'identifiant' => $this->identifiant,
@@ -28,12 +29,13 @@ class FreelanceResourceData extends JsonResource
             'taux_journalier' =>$this->taux_journalier,
             'comptes' =>$this->comptes,
             'sub_categorie' =>$this->sub_categorie,
+            'subCategorie'=> $this->subcategories(),
             'localisation' =>$this->localisation,
-            'user' =>$this->user->only('name','email','profile_photo_url','profile_photo_path'),
+            'user' =>$this->user->only('id','name','email','profile_photo_url','profile_photo_path'),
             'category' =>$this->category->only('name'),
             'level' =>$this->level,
             'solde' =>$this->solde,
-            'realisations' =>$this->realisations,
+            'realisations'=> $this->user->realisations ? RealisationResource::collection($this->user->realisations) : null,
             'services' =>$this->services,
             'commande_encours'=> $this->countCommandeEncours(),
             'commande_realiser'=> $this->countCommandeFinis(),

@@ -88,12 +88,3 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
 </template>
 
 
-<style>
-.gradient {
-    background: linear-gradient(100deg, #FF9E5E 10%, rgb(69, 67, 67) 100%);
-}
-
-.gradient2 {
-    background: linear-gradient(80deg, #fd8b3f 20%, rgb(47, 46, 46) 100%);
-}
-</style>

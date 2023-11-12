@@ -177,7 +177,7 @@ const addToCart = () => {
         </div>
         <div class="mt-2">
             <div class="flex items-center gap-1">
-                <Photo :user="props.service.user" :taille="10" />
+                <Photo :user="props.service.user" taille="10" />
 
 
                 <a href="" class="flex">

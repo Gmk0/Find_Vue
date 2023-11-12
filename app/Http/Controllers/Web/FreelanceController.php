@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FreelanceResourceData;
+use App\Http\Resources\RealisationResource;
 use App\Http\Resources\ServiceResourceData;
 use App\Models\Favorite;
 use Illuminate\Http\Request;
@@ -65,11 +66,37 @@ class FreelanceController extends Controller
         $freelance = Freelance::where('identifiant', $portefolio)->first();
 
         $services=$freelance->services;
+
+        $realisations= $freelance->user->realisations;
         if($freelance !=null)
         {
+
+
+
+            $realisationsWithMedia = $realisations->map(function ($realisation) {
+                return [
+                    'id' => $realisation->id,
+                    'description' => $realisation->description,
+                    'media' => $realisation->getMedia('realisations')->map(function ($media) {
+                        return [
+                            'url' => $media->getUrl(),
+                            'alt' => $media->name,
+                        ];
+                    }),
+                ];
+            });
+
+
+
+
+
+
+
+
              return Inertia::render('Web/Freelance/Portefolio',
              ['freelance'=>FreelanceResourceData::make($freelance),
-              'services'=>ServiceResourceData::collection($services)
+              'services'=>ServiceResourceData::collection($services),
+              'realisations'=> $realisationsWithMedia,
              ]);
 
         }else{

@@ -17,8 +17,8 @@ class RealisationResource extends JsonResource
         return [
             'id'=>$this->id,
             'description'=>$this->description,
-            "media"=>$this->getMedia("*"),
-            "user"=>$this->user,
+            "media"=>$this->getMedia(),
+           // "user"=>$this->user,
             ];
     }
 }

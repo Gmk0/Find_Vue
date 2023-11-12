@@ -30,6 +30,14 @@ function initWindow() {
 initWindow();
 const page = usePage();
 
+var data = { soundurl: '/sound/bell.mp3' }
+
+const playSound = () => {
+    var audio = new Audio(data.soundurl);
+    audio.play();
+}
+
+
 const user= computed(()=> props.user);
 
 const visible = ref(false);
@@ -75,6 +83,7 @@ const sendMessage=()=>{
 
     bottomScroll2();
 
+    playSound();
 
 
 

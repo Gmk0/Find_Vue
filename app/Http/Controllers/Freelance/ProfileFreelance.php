@@ -19,6 +19,7 @@ class ProfileFreelance extends Controller
     {
 
         $freelance= auth()->user()->freelance;
+
         return Inertia::render('Freelance/Profile/Profile',['freelance'=>$freelance]);
     }
 

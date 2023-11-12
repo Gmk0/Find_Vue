@@ -293,7 +293,7 @@ const submit = () => {
 
 
 </template>
-<style   scoped>
+<style lang="css" scoped>
 @import url('../../../css/tailwind.css');
 @import url('../../../css/app.css');
 

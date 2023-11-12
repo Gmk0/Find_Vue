@@ -27,11 +27,20 @@ const props=defineProps({
     user:Object,
 })
 
+var data = { soundurl: '/sound/bell.mp3' }
+
+const playSound = () => {
+    var audio = new Audio(data.soundurl);
+    audio.play();
+}
+
 
 window.Echo.private(`chat.${page.props.auth.user.id}`)
     .listen('MessageSent', (e) => {
 
         props.messages.push(e.message);
+
+        playSound();
        // props.conversations.data.push(e.conversation);
 
 
