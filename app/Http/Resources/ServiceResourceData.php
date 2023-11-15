@@ -48,7 +48,7 @@ class ServiceResourceData extends JsonResource
             'orderCount' => $this->orderCount(),
             'average' => $this->averageFeedback(),
             'commandeEncours'=>$this->countElementEncours(),
-            'freelance' => $this->freelance ? $this->freelance->only('nom' ,'prenom','identifiant','description', 'level') : null,
+            'freelance' => $this->freelance ? $this->freelance->only('id','nom' ,'prenom','identifiant','description', 'level') : null,
             'user' => $this->freelance->user ?? null,
             'category' => $this->category ? $this->category->only('name', 'id') : null,
             ];

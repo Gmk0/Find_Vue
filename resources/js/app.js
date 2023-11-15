@@ -29,6 +29,7 @@ import CartComponent from '@/components/CartComponent.vue';
 import { Collapse } from 'vue-collapsed';
 
 import Toast from 'primevue/toast';
+import ConfirmationService from 'primevue/confirmationservice';
 
 
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
@@ -110,6 +111,7 @@ createInertiaApp({
             .use(VueSweetalert2)
             .use(PrimeVue, { unstyled: true, pt: Tailwind })
             .use(ToastService)
+            .use(ConfirmationService)
             .directive('Tooltip', Tooltip)
             .component('AppLayout', AppLayout)
             .component('pagination',Pagination)

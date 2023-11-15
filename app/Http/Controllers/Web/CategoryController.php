@@ -191,6 +191,8 @@ class CategoryController extends Controller
             return redirect()->back();
         }
 
+        //$conversation=Conversation::where('')
+
         $otherService=Service::where('id','!=' ,$service->id)->where('category_id', $service->category_id)->take(6)->get();
 
 

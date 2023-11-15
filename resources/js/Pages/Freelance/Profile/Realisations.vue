@@ -1,6 +1,8 @@
 <template>
     <div class="flex flex-col min-h-screen gap-6 px-4 lg:mx-auto md:p-6 md:max-w-7xl md:container px-auto bg-inherit">
 
+        <Toast />
+
         <div class="flex flex-col">
             <div>
                 <nav class="flex" aria-label="Breadcrumb">
@@ -65,7 +67,7 @@
 
 
                                     <div v-for="image in slotProps.data.media ">
-                                        <img class="w-12" :src="image.preview_url" :alt="image.name" />
+                                        <img class="w-12" :src="image.url" :alt="image.alt" />
                                     </div>
                                 </template>
 
@@ -75,9 +77,16 @@
 
                             <Column :exportable="false" style="min-width:4rem">
                                 <template #body="slotProps">
-                                    <Link href="test">
+
+                                    <div class="flex gap-4">
+                                    <Link :href="route('freelance.realisationsEdit', slotProps.data.id)">
                                     <span><i class="pi pi-pencil"></i></span>
                                     </Link>
+
+                                     <a href="#" @click="deleteRealisation(slotProps.data.id)" class="px-2 text-[15px]">
+                                        <span><i class="pi pi-trash  text-red-600"></i></span>
+                                     </a>
+                                     </div>
 
 
                                 </template>
@@ -92,42 +101,8 @@
 
 
 
-            <div class="grid hidden grid-cols-2 gap-6">
-
-                 <div class="lg:col-span-1 card">
-
-                        <Textarea v-model="form.description" class="w-full" rows="6" />
-
-                    </div>
-
-                 <div class="lg:col-span-1 card">
-                    <Toast />
-                    <FileUpload
-                    :auto="true"
-                    @select="onSelect"
-                    chooseLabel="Choisir"
-                    :showUploadButton="false"
-                    :show-cancel-button="false"
-                    :file-limit="2"
-                    ref="fileUpload"
-
-                    :multiple="true"
-                    accept="image/*"
-                    :maxFileSize="5000000">
-                        <template #empty>
-                            <p>Faites glisser et déposez les fichiers ici pour les télécharger.</p>
-                        </template>
-                    </FileUpload>
-                        </div>
 
 
-
-
-                <div class="flex items-center justify-center col-span-2">
-                        <Button label="Enregistrer" @click="sendFile" />
-                </div>
-
-            </div>
 
         </div>
 
@@ -141,7 +116,12 @@ import FreelanceLayout from '@/Layouts/FreelanceLayout.vue';
 
 import {ref, computed } from 'vue';
 
-import {useForm} from '@inertiajs/vue3';
+import {router, useForm} from '@inertiajs/vue3';
+import { useConfirm } from "primevue/useconfirm";
+import { useToast } from "primevue/usetoast";
+
+const confirm = useConfirm();
+const toast = useToast();
 
 defineOptions({
     layout: FreelanceLayout,
@@ -152,7 +132,7 @@ const props=defineProps({
     realisations:Array,
 })
 
-const realisationsImage=computed(()=>props.realisations.data);
+const realisationsImage=computed(()=>props.realisations);
 
 const fileUpload =ref(null);
 
@@ -163,6 +143,39 @@ const form= useForm({
 
 const onSelect = (event) => {
     form.image = event.files;
+};
+
+const modalEffacer=ref(false);
+const deleteRealisation =(id)=>{
+
+
+    router.post(route('removeRealisation'),{
+        id:id,
+    },{
+
+        preserveScroll:true,
+    })
+
+
+
+}
+
+const confirm2 = (id) => {
+    confirm.require({
+        message: 'Do you want to delete this record?',
+        header: 'Delete Confirmation',
+        icon: 'pi pi-info-circle',
+        rejectClass: 'p-button-text p-button-text',
+        acceptClass: 'p-button-danger p-button-text',
+        accept: () => {
+
+            alert();
+           // toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 });
+        },
+        reject: () => {
+            //toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+        }
+    });
 };
 
 

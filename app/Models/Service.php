@@ -66,8 +66,7 @@ class Service extends Model
         'view_count' => 'integer',
         'like' => 'integer',
         'freelance_id' => 'integer',
-        'example'
-        => AsArrayObject::class,
+        'example'=> 'array',
         'category_id' => 'integer',
     ];
 
@@ -215,7 +214,7 @@ class Service extends Model
 
         static::creating(function ($service) {
             $service->service_numero = 'SV' . date('YmdHms');
-            //$service->freelance_id = auth()->user()->freelance->id;
+            $service->freelance_id = auth()->user()->freelance->id;
         });
     }
 }

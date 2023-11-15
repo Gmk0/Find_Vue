@@ -217,17 +217,14 @@ defineOptions({
                                 accept="image/*"
                                 :maxFileSize="1000000">
 
-                                 <template #header="{ chooseCallback }">
+                                <template #header="{ chooseCallback }">
                                 <div class="flex flex-wrap flex-1 gap-2 justify-content-between align-items-center">
                                     <div class="flex gap-2">
                                         <Button @click="chooseCallback()" icon="pi pi-images" rounded outlined></Button>
 
                                     </div>
-
-
-
                                 </div>
-                            </template>
+                                 </template>
                                     <template #empty>
                                         <p>Drag and drop files to here to upload.</p>
                                     </template>

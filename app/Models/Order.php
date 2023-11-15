@@ -116,7 +116,7 @@ class Order extends Model
                 $user = $freelance->user;
 
 
-               // $user->notify(new OrderCreatedNotification($this));
+                $user->notify(new OrderCreatedNotification($this));
             }
         }
     }

@@ -187,7 +187,8 @@ const LayoutStore = useLayoutStore();
                                         <div class="mb-1 line-clamp-2">
                                             <Link :href="route('user.chat', message.conversation_id)"
                                                 class="font-medium text-slate-700 hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light">
-                                            {{ message.body }}</Link>
+                                            <span v-html="message.body"></span>
+                                        </Link>
                                         </div>
                                         <div class="flex items-center justify-between">
                                             <div class="flex flex-col space-x-2">

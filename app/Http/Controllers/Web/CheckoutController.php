@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TransactionResourceData;
+use App\Models\ClientLink;
 use App\Models\Order;
+use App\Models\Proposal;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 use App\Tools\Paiement;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
@@ -127,6 +130,7 @@ class CheckoutController extends Controller
             {
                 $order->status='failed';
                 $order->save();
+
             }
 
             return redirect()->route('panier')->with('error','une erreur s\'est produite');
@@ -140,6 +144,7 @@ class CheckoutController extends Controller
 
             foreach ($oders as $order) {
                 $order->status = 'completed';
+                $order->notifyUser();
                 $order->save();
             }
 
@@ -181,6 +186,182 @@ class CheckoutController extends Controller
         $counter = DB::table('transactions')->count() + 1;
         // Concaténer le compteur à la fin de l'ID unique
         return  $finalId = 'TR' . $uniqueId . $counter;
+    }
+
+    public function LinkCustomPaid($uniqueId)
+    {
+
+        // Recherchez le lien dans la base de données
+
+        $clientLink = ClientLink::where('uniqueId', $uniqueId)->first();
+
+
+        // Vérifiez si le lien correspond à un utilisateur authentifié
+        if ($clientLink && Auth::check() && $clientLink->user_id === Auth::id()) {
+            // Utilisateur authentifié, redirigez vers la page appropriée
+
+            $proposal=Proposal::find($clientLink->proposal_id);
+
+
+            $service=$proposal->service;
+            $userSetting = auth()->user()->userSetting;
+
+
+            return Inertia::render('Web/Checkout/CheckoutCustom',
+            ['userSetting' => $userSetting,
+            'proposal' => $proposal,
+            //'service' => $service,
+
+            ]);
+
+
+            //return view('other.paiement-custom', ['proposal' => $clientLink->proposal]);
+        }
+
+        // Lien invalide ou non autorisé pour cet utilisateur
+        abort(403, 'Accès non autorisé');
+
+    }
+    public function checkoutMaxiCustom(Request $request)
+    {
+
+
+        try {
+
+            $form = $request->form;
+            DB::beginTransaction();
+
+            $userSeeting = auth()->user()->userSetting;
+
+            $localisation = [
+                'adresse' => $form['adresse'],
+                'commune' => $form['commune'],
+                'ville' => $form['ville'],
+                'pays' => $form['pays'],
+
+            ];
+           // dd($userSeeting->addresse_facturation['pays']);
+            $userSeeting->addresse_facturation = $localisation;
+            $userSeeting->update();
+
+
+
+            $form = $request->form;
+            $total = $request->total;
+            $payment = new Transaction();
+            $payment->user_id = auth()->id();
+            $payment->amount = $total;
+            $payment->payment_method = ['last4' => "Bon", 'brand' => "maxicash"];
+            $payment->payment_token = $this->references();
+            $payment->type = "paiement";
+            $payment->save();
+
+            $order=Order::create([
+                'service_id' => $request->service_id,
+                'user_id' => auth()->user()->id,
+                'total_amount' => $request->total,
+                'quantity' => 1,
+                'type' => 'service',
+                'status' => 'pending',
+                'transaction_id' =>  $payment->id,
+                ]);
+
+                $proposal=Proposal::find($request->proposal_id);
+                $proposal->transaction_id=$payment->id;
+                $proposal->save();
+            DB::commit();
+
+
+            $succesUrl
+                = route('checkoutStatusMaxiServiceCustom');;
+            $faileurUrl =
+                route('checkoutStatusMaxiServiceCustom');
+
+            $cancelurl =
+                route('checkoutStatusMaxiServiceCustom');;
+            $checkout = new Paiement();
+            $url = $checkout->checkoutmaxi($total * 100, $form['numero'], $payment->payment_token, $succesUrl, $cancelurl, $faileurUrl);
+
+            // dd($url);
+
+            //dd($url->body());
+
+            return Inertia::location($url);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+
+            return redirect()->back()->withErrors(['message' => $e->getMessage()]);
+        }
+
+
+    }
+
+    public function paimentMaxiCustom(Request $request)
+    {
+
+
+
+        $reference = $request->reference;
+        $methode = $request->method;
+        $status = $request->status;
+
+        $transaction = Transaction::where('payment_token', $reference)->first();
+
+        if ($transaction == null) {
+        }
+
+        if ($status == 'failed') {
+            $transaction->status = 'failed';
+            $transaction->save();
+
+            $oders = $transaction->orders;
+
+
+
+            $link= $transaction->proposal->clientLink->uniqueId;
+
+
+            //$lin=[];
+            foreach ($oders as $order) {
+                $order->status = 'failed';
+                $order->save();
+            }
+
+            return redirect()->route('customLink.paid', ['uniqueId' => $link])->with('error', 'une erreur s\'est produite');
+
+
+        } else if ($status == 'success') {
+
+            $transaction->status = 'completed';
+            $transaction->save();
+
+            $oders = $transaction->orders;
+
+            foreach ($oders as $order) {
+                $order->status = 'completed';
+                $order->notifyUser();
+                $order->save();
+            }
+
+            return redirect()->route('paiementStatus', ['transaction_numero' => $transaction->transaction_numero]);
+        } else {
+            $transaction->status = 'failed';
+            $transaction->save();
+
+            $oders = $transaction->orders;
+
+            foreach ($oders as $order) {
+                $order->status = 'failed';
+                $order->save();
+            }
+
+            return redirect()->route('panier')->with('error', 'une erreur s\'est produite');
+        }
+
+
+
+
     }
 
 }

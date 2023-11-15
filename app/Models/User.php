@@ -15,16 +15,21 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\FilamentUser;
 
 use Illuminate\Notifications\Notification;
+use Filament\Models\Contracts\HasAvatar;
+use Illuminate\Support\Facades\Storage;
+use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable as AuthTwoFactorAuthenticatable;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasAvatar
 {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use AuthTwoFactorAuthenticatable;
 
     public $pushNotificationType = 'users';
 
@@ -43,6 +48,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'phone',
     ];
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->profile_photo_path ? Storage::url($this->profile_photo_path) : null;
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -94,10 +104,7 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
-    public function canAccessFilament(): bool
-    {
-        return str_ends_with($this->email, '@find-freelance.com') && $this->hasVerifiedEmail();
-    }
+
 
 
     public function freelance()
@@ -140,6 +147,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Mission::class);
     }
+
+
 
 
 

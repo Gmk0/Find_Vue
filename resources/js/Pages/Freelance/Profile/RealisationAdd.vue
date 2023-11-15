@@ -5,17 +5,20 @@
             <div>
                 <nav class="flex" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                        <li class="inline-flex items-center">
-                            <a href="#" onclick="history.back()" class="inline-flex items-center px-2 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
-                            </svg>
-                            <span class="">
-                                Dashboard
-                            </span>
+                        <Link :href="$page.props.urlPrev"
+                                    class="inline-flex items-center px-2 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
+                                    </svg>
+                                    <span class="ml-2">
+                                        Retour
 
-                            </a>
-                        </li>
+
+                                    </span>
+
+                        </Link>
                         <li aria-current="page">
                             <div class="flex items-center">
                                 <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true"
@@ -49,9 +52,9 @@
 
 
 
-            <div class="grid grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 mb-6 lg:mb-0 gap-6">
 
-                <div class="lg:col-span-1 card">
+                <div class="lg:col-span-1  card">
 
                     <Textarea v-model="form.description" class="w-full" rows="6" />
 
@@ -59,10 +62,24 @@
 
                 <div class="lg:col-span-1 card">
                     <Toast />
-                    <FileUpload :auto="true" @select="onSelect" chooseLabel="Choisir" :showUploadButton="false"
-                        :show-cancel-button="false" :file-limit="2" ref="fileUpload" :multiple="true" accept="image/*"
+                    <FileUpload :auto="true"
+                    @select="onSelect"
+                    :showUploadButton="false"
+                        :show-cancel-button="false"
+                        :file-limit="2"
+                         ref="fileUpload"
+                        :multiple="true" accept="image/*"
                         :maxFileSize="10000000">
-                        <template #empty>
+
+                         <template #header="{ chooseCallback }">
+                            <div class="flex flex-wrap flex-1 gap-2 justify-content-between align-items-center">
+                                <div class="flex gap-2">
+                                    <Button @click="chooseCallback()" icon="pi pi-images" rounded outlined></Button>
+
+                                </div>
+                            </div>
+                        </template>
+                          <template #empty>
                             <p>Faites glisser et déposez les fichiers ici pour les télécharger.</p>
                         </template>
                     </FileUpload>
@@ -71,7 +88,7 @@
 
 
 
-                <div class="flex items-center justify-center col-span-2">
+                <div class="flex items-center justify-center lg:col-span-2">
                     <Button label="Enregistrer" @click="sendFile" />
                 </div>
 
@@ -97,6 +114,9 @@ defineOptions({
 });
 
 
+
+
+
 const fileUpload = ref(null);
 
 const form = useForm({
@@ -117,9 +137,12 @@ const sendFile = () => {
     form.post(route("addRealisation"), {
         onFinish: () => {
 
-            fileUpload.value.removeUploadedFile();
-            form.reset();
+            fileUpload.value.removeUploadedFiles();
+            form.reset('description','image');
 
+        },
+        onSuccess:()=>{
+              form.reset('description', 'image');
         },
         onError:(error)=>{
             alert(error.message);

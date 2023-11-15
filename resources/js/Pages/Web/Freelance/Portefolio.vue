@@ -699,7 +699,7 @@ realisation.media.forEach((media) => {
 
 
 
-                <section class="p-6 mt-6 bg-gray-100 rounded-md shadow-sm dark:bg-gray-900">
+                <section class="lg:p-6 mt-6 bg-gray-100 rounded-md shadow-sm dark:bg-gray-900">
 
 
                     <div class="max-w-4xl mx-auto mb-4 text-center">
@@ -710,50 +710,50 @@ realisation.media.forEach((media) => {
 
                      <div class="flex items-center justify-between">
 
-                                    <div v-if="props.realisations.length !=0" class="mb-4">
-                                            <button @click="toggler =!toggler"
-                                                class="relative p-2 rounded-full w-16
-                                                    bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 focus:ring focus:outline-none
-                                                    dark:bg-gradient-to-r dark:from-indigo-500 dark:to-blue-500 dark:text-white dark:hover:from-indigo-600 dark:hover:to-blue-600
-                                                    dark:focus:ring dark:focus:outline-none">
-                                            <span class="sr-only">Play</span>
-                                            <svg class="w-6 h-6 m-auto " fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 3l14 9-14 9V3z"></path>
-                                            </svg>
+                            <div v-if="props.realisations.length !=0" class="mb-4">
+                                    <button @click="toggler =!toggler"
+                                        class="relative p-2 rounded-full w-16
+                                            bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 focus:ring focus:outline-none
+                                            dark:bg-gradient-to-r dark:from-indigo-500 dark:to-blue-500 dark:text-white dark:hover:from-indigo-600 dark:hover:to-blue-600
+                                            dark:focus:ring dark:focus:outline-none">
+                                    <span class="sr-only">Play</span>
+                                    <svg class="w-6 h-6 m-auto " fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 3l14 9-14 9V3z"></path>
+                                    </svg>
 
 
-                                        </button>
+                                </button>
 
-                                        <FsLightbox
-                                            :toggler="toggler"
-                                            :sources="images" />
+                                <FsLightbox
+                                    :toggler="toggler"
+                                    :sources="images" />
 
-                                    </div>
-                                            <div class="flex gap-4 p-2">
+                            </div>
+                            <div class="flex gap-4 p-2">
 
-                                                <button @click="navigateRealisation('prev')"
-                                                    class="p-0 rounded-full btn2 btn-outline btn-circle btn-sm prev-btn hover:bg-slate-300/20 focus:bg-slate-300/20 dark:active:bg-slate-300/25 active:bg-slate-100/25 disabled:pointer-events-none disabled:select-none disabled:opacity-60 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
-                                                        stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
-                                                    </svg>
-                                                </button>
-                                                <button @click="navigateRealisation('next')"
-                                                    class="p-0 rounded-full btn2 btn-outline btn-circle btn-sm next-btn hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 disabled:pointer-events-none disabled:select-none disabled:opacity-60 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
-                                                        stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
-                                                    </svg>
-                                                </button>
-                                            </div>
+                                <button @click="navigateRealisation('prev')"
+                                    class="p-0 rounded-full btn2 btn-outline btn-circle btn-sm prev-btn hover:bg-slate-300/20 focus:bg-slate-300/20 dark:active:bg-slate-300/25 active:bg-slate-100/25 disabled:pointer-events-none disabled:select-none disabled:opacity-60 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+                                <button @click="navigateRealisation('next')"
+                                    class="p-0 rounded-full btn2 btn-outline btn-circle btn-sm next-btn hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 disabled:pointer-events-none disabled:select-none disabled:opacity-60 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
-                    <div class="grid grid-cols-1 gap-4">
+                    <div class="">
 
 
                         <div class="p-4 bg-white dark:bg-gray-800 rounded-md shadow">
-                            <div class="flex flex-row gap-2 p-4 mb-4">
+
                                  <Swiper
                                         :modules="[Navigation,Scrollbar, Pagination,A11y]"
 
@@ -779,13 +779,11 @@ realisation.media.forEach((media) => {
                                                 </div>
                                         </swiper-slide>
 
-                                        </Swiper>
+                                 </Swiper>
 
 
-                            </div>
-                            <div class="p-4 mt-2 font-sans text-gray-700 dark:text-gray-200">
 
-                            </div>
+
                         </div>
 
                     </div>

@@ -49,7 +49,7 @@ class Paiement
 
 
         // Construire l'URL de redirection avec les données du formulaire
-        $url = 'https://api-testbed.maxicashapp.com/PayEntry?data=' . urlencode(json_encode($requestData));
+        $url = 'https://api-testbed.maxicashapp.com/PayEntry?data=' . rawurlencode(json_encode($requestData));
 
         //
         return $url;

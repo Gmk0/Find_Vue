@@ -41,7 +41,14 @@ class HandleInertiaRequests extends Middleware
             ? $request->user()->freelanceExit() : false,
             'flash'=>fn()=>[
                 'error' => fn ()=>$request->session()->get('error')
-                ]
+                ],
+            'urlPrev'    => function () {
+                if (url()->previous() !== route('login') && url()->previous() !== '' && url()->previous() !== url()->current()) {
+                    return url()->previous();
+                } else {
+                    return null; // used in javascript to disable back button behavior
+                }
+            },
         ];
     }
 }

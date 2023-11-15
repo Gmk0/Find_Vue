@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('proposals', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('service_id');
-            $table->unsignedBigInteger('freelance_id');
+            $table->foreignId('service_id')->constrained();
+            $table->foreignId('transaction_id')->nullable();
+           // $table->unsignedBigInteger('freelance_id');
             $table->decimal('proposed_price', 10, 2)->nullable();
             $table->enum('status', ['pending', 'rejected', 'changed', 'accepted', 'finished'])->default('pending'); // état de la proposition (pending, rejected, changed, accepted)
             // prix proposé par le freelance
