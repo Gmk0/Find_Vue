@@ -236,7 +236,7 @@ const LayoutStore = useLayoutStore();
                             </h2>
                             <div class="flex flex-col mt-2 space-y-2">
                                 <label class="inline-flex items-center space-x-2">
-                                    <input v-model="isDark" @change="ToggleDark()"
+                                    <input v-model="isDark" @click="ToggleDark()"
                                         class="w-10 h-5 rounded-lg form-switch bg-slate-300 before:rounded-md before:bg-slate-50 checked:bg-slate-500 checked:before:bg-white dark:bg-navy-900 dark:before:bg-navy-300 dark:checked:bg-navy-400 dark:checked:before:bg-white"
                                         type="checkbox" />
                                     <span>Dark Mode</span>
@@ -270,7 +270,7 @@ const LayoutStore = useLayoutStore();
                     </div>
 
 
-                   >
+
 
                     <div v-if="activeTab === 'tabProjects'"
 

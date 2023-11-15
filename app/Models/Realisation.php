@@ -36,6 +36,16 @@ class Realisation extends Model implements HasMedia
             ->nonQueued();
     }
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($realisation) {
+            //$service->service_numero = 'SV' . date('YmdHms');
+            $realisation->user_id = auth()->id();
+        });
+    }
+
 
 
 }

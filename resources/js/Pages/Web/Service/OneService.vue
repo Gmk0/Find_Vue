@@ -24,6 +24,8 @@ import TabPanel from 'primevue/tabpanel';
 import { useToast } from 'primevue/usetoast';
 import axios from 'axios';
 
+import {useForm} from '@inertiajs/vue3';
+
 
 
 const toast = useToast();
@@ -32,6 +34,8 @@ const toast = useToast();
 import { cartStore } from '@/store/store';
 
 const usecartStore = cartStore();
+
+const contactMe = ref(false);
 
 
 
@@ -52,6 +56,55 @@ const price=ref(props.service.data.basic_price);
 const changePrice =(Newprice)=>{
     price.value= Newprice
 };
+
+const contacter=()=>{
+
+
+    message.post(route('contactFreelance'),{
+
+        preserveScroll: true,
+
+        onSuccess:()=>{
+
+             toast.add({ severity: 'info', summary: 'Message', detail: 'Message envoyer', group: 'br', life: 1000 });
+        }
+    })
+}
+
+const sendMessageLoading=ref(false);
+const messageSent= ref(false);
+const chatID=ref('');
+const sendMessage = async () => {
+
+    sendMessageLoading.value = !sendMessageLoading.value;
+
+    try {
+        const response = await axios.post(route('contactFreelance'), {
+            body: message.body,
+            freelance_id: props.service.data.freelance.id,
+            user_id: props.service.data.user.id,
+            service_id: props.service.data.id,
+        });
+
+        chatID.value= response.data.chatId;
+        //console.log(response.data.chatId)
+         sendMessageLoading.value=false;
+         messageSent.value=true;
+
+    } catch (e) {
+
+         sendMessageLoading.value = false;
+        console.log(e);
+    }
+}
+
+const message= useForm({
+    body: '',
+    freelance_id: props.service.data.freelance.id,
+    user_id:props.service.data.user.id,
+    service_id:props.service.data.id
+});
+
 
 
 const toogleFavorite = async () => {
@@ -369,7 +422,7 @@ defineOptions({
 
                         </div>
                             <div class="grid w-full gap-2 p-6 bg-white rounded-lg dark:bg-gray-800">
-                            <button>Contacter</button>
+                            <Button outlined @click="contactMe=! contactMe" size="small"  label="Contacter" />
                         </div>
                     </div>
 
@@ -410,7 +463,7 @@ defineOptions({
                                 </div>
                                     <div class="mt-4">
 
-                                            <div class="w-10/12 rounded-lg">
+                                            <div class="lg:w-10/12 w-full rounded-lg">
                                                 <Swiper
                                                 :modules="[Navigation, Autoplay, Pagination, Scrollbar, EffectFade, A11y]"
                                                 effect="fade"
@@ -419,7 +472,7 @@ defineOptions({
                                                 >
                                                 <swiper-slide v-for="(image, index) in props.service.data.files">
 
-                                                    <img class="object-fill rounded-md h-10/12 swiper-lazy"
+                                                    <img class="object-fill rounded-md h-full lg:h-10/12 swiper-lazy"
                                                         :src = "'/storage/' + image"
                                                         :alt="image" />
                                                 </swiper-slide>
@@ -654,6 +707,202 @@ defineOptions({
             </div>
         </div>
 
+        <div v-if="false" class="fixed bottom-[4rem] top-[8rem] left-[2rem] sm:top-1/2 sm:left-1/2 transform sm:-translate-x-1/2 sm:-translate-y-1/2 md:top-[8rem] md:left-[2rem] md:transform-none z-[85] flex flex-col bg-white dark:bg-gray-900 shadow-lg bg-opacity-20">
+
+            <transition
+              enter-active-class="duration-300 ease-out"
+            enter-from-class="opacity-0"
+                        enter-to-class="opacity-100"
+                        leave-active-class="duration-200 ease-in"
+                        leave-from-class="opacity-100"
+                        leave-to-class="opacity-0"
+            >
+                <div  v-if="contactMe"
+                class="">
+
+
+
+
+
+                    <div class="flex flex-col justify-center flex-grow w-full max-w-3xl p-6 mx-auto bg-white rounded-lg shadow-lg">
+                        <!-- Bouton de fermeture -->
+                        <button @click="contactMe = !contactMe"
+                            class="absolute top-0 right-0 p-2 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                                </path>
+                            </svg>
+                        </button>
+
+                        <!-- En-tête du chat -->
+                        <div class="flex flex-col items-start justify-between mb-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-lg font-semibold">{{ service.user.name }}</span>
+                                <span
+                                    class="rounded-full h-2 w-2">
+                                </span>
+                                <span class="text-xs text-gray-500">En ligne</span>
+                            </div>
+                            <span class="text-xs text-gray-500">Temps de réponse : 2 heures</span>
+                        </div>
+
+                        <!-- Corps du chat -->
+                        <div  class="flex-grow space-y-2">
+
+                            <textarea x-model="message"
+                                class="w-full p-2 rounded-lg focus:ring-0 dark:bg-gray-800 dark:text-gray-100 focus:border-amber-500"
+                                rows="4" placeholder="Votre message..."></textarea>
+
+                            <div class="flex flex-col gap-2">
+
+
+                                <div class="flex flex-col gap-2">
+                                    <div @click="message += ' Quelle est la durée estimée pour la réalisation de ce service ?'"
+                                        class="p-1 transition bg-gray-100 rounded-lg cursor-pointer dark:bg-gray-700 hover:bg-gray-200">
+                                        <p>Quelle est la durée estimée pour la réalisation de ce service ?</p>
+                                    </div>
+                                    <div @click="message += ' Quels sont les détails spécifiques inclus dans ce service ?'"
+                                        class="p-1 transition bg-gray-100 rounded-lg cursor-pointer dark:bg-gray-700 hover:bg-gray-200">
+                                        <p>Quels sont les détails spécifiques inclus dans ce service ?</p>
+                                    </div>
+                                    <div @click="message += ' Pouvez-vous me fournir plus d\'informations sur les tarifs ?'"
+                                        class="p-1 transition bg-gray-100 rounded-lg cursor-pointer dark:bg-gray-700 hover:bg-gray-200">
+                                        <p>Pouvez-vous me fournir plus d'informations sur les tarifs ?</p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <!-- Champ de texte et bouton pour envoyer -->
+                        <div class="flex justify-between mt-4 space-x-2">
+                            <div class="flex gap-3">
+                                <button
+                                    class="flex items-center p-2 rounded-full shrink-0 text-slate-500 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-navy-200 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div>
+                                <Button label="Envoyer" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col justify-center flex-grow w-full max-w-3xl p-6 mx-auto bg-white rounded-lg shadow-lg">
+                        <!-- Bouton de fermeture -->
+                        <button @click="contactMe = !contactMe"
+                            class="absolute top-0 right-0 p-2 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                                </path>
+                            </svg>
+                        </button>
+
+                        <!-- En-tête du chat -->
+
+                    </div>
+                </div>
+
+            </transition>
+
+
+
+
+
+        </div>
+
+
+          <Dialog v-model:visible="contactMe" position="left" modal header="Confirmer Comannde Finis"
+                :style="{ width: '40rem' }" :breakpoints="{ '1199px': '20vw', '575px': '90vw' }">
+
+
+                       <form @submit.prevent="sendMessage" class="flex flex-col justify-center flex-grow">
+
+                            <div class="flex flex-col items-start justify-between mb-4">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-lg font-semibold">{{ service.user.name }}</span>
+                                    <span
+                                        class="rounded-full h-2 w-2">
+                                    </span>
+                                    <template  v-if="service.user.is_online">
+                                    <span class="text-xs text-green-500">
+                                        En ligne
+                                    </span>
+                                    </template>
+                                    <template v-else>
+                                        en ligne {{service.user.last_activity}}
+
+                                    </template>
+                                </div>
+                                <span class="text-xs text-gray-500">Temps de réponse : 2 heures</span>
+                            </div>
+
+                            <!-- Corps du chat -->
+                            <div  class="flex-grow space-y-2">
+
+                                <textarea required v-model="message.body"
+                                    class="w-full p-2 rounded-lg focus:ring-0 dark:bg-gray-800 dark:text-gray-100 focus:border-amber-500"
+                                    rows="4" placeholder="Votre message..."></textarea>
+
+                                <div class="flex flex-col gap-2">
+
+
+                                    <div class="flex flex-col gap-2">
+                                        <div @click="message.body += ' Quelle est la durée estimée pour la réalisation de ce service ?'"
+                                            class="p-1 transition bg-gray-100 rounded-lg cursor-pointer dark:bg-gray-700 hover:bg-gray-200">
+                                            <p>Quelle est la durée estimée pour la réalisation de ce service ?</p>
+                                        </div>
+                                        <div @click="message.body += ' Quels sont les détails spécifiques inclus dans ce service ?'"
+                                            class="p-1 transition bg-gray-100 rounded-lg cursor-pointer dark:bg-gray-700 hover:bg-gray-200">
+                                            <p>Quels sont les détails spécifiques inclus dans ce service ?</p>
+                                        </div>
+                                        <div @click="message.body += ' Pouvez-vous me fournir plus d\'informations sur les tarifs ?'"
+                                            class="p-1 transition bg-gray-100 rounded-lg cursor-pointer dark:bg-gray-700 hover:bg-gray-200">
+                                            <p>Pouvez-vous me fournir plus d'informations sur les tarifs ?</p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <!-- Champ de texte et bouton pour envoyer -->
+                            <div class="flex justify-between mt-4 space-x-2">
+                                <div class="flex gap-3">
+                                    <button
+                                        class="flex items-center p-2 rounded-full shrink-0 text-slate-500 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-navy-200 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor" stroke-width="1.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div v-if="chatID ===''">
+                                    <Button type="submit" :loading="sendMessageLoading" outlined  label="Envoyer" />
+                                </div>
+                                <div v-else>
+                                    <Link :href="route('user.chat', chatID)">
+                                         <Button severity="success" outlined  label="Voir la conversation" />
+
+                                    </Link>
+
+                                </div>
+                            </div>
+                        </form>
+
+
+
+
+            </Dialog>
+
+
+
     </div>
 </template>
 
@@ -663,12 +912,8 @@ defineOptions({
 
 
 
-<style  scoped>
+<style >
 
-#card{
-    position: sticky !important;
-    top: 8rem !important;
 
-}
 
 </style>

@@ -9,6 +9,8 @@ import { Link, useForm, router, usePage } from '@inertiajs/vue3';
 
 import { useLayoutStore } from '@/store/store';
 
+import axios from 'axios';
+
 const layoutStore = useLayoutStore();
 const isShowChatInfo = ref(true);
 const activeTab = ref('tabImages');
@@ -60,6 +62,139 @@ const form = useForm({
     files:null,
 })
 
+const proposalModal =ref(false);
+const refuserProposalModal=ref(false);
+const acceptProposalModal = ref(false);
+
+
+const accepterProposal=(id)=>{
+    proposal.proposalId = id;
+    acceptProposalModal.value=true;
+}
+
+const refuserProposal = (id) => {
+
+        proposal.proposalId = id;
+    refuserProposalModal.value=true;
+
+
+
+
+}
+
+const declinePropasal =()=>{
+
+    if (proposal.proposalId != '') {
+        proposal.post(route('declinePropasalUser'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                refuserProposalModal.value = false;
+                 bottomScroll2();
+
+            }
+        })
+    }
+}
+
+const acceptPropasalUser=()=>{
+    if(proposal.proposalId !='')
+    {
+        proposal.post(route('acceptPropasalUser'),{
+            preserveScroll: true,
+            onSuccess:()=>{
+                acceptProposalModal.value = false;
+                 bottomScroll2();
+
+            }
+        })
+    }
+}
+
+const chooseProposalLoading=ref(false);
+const chooseProposal = ref(false);
+
+const changerProposal=async (id)=>{
+
+    try{
+         const response = await axios.post(route('proposalGetPrice'), {
+            proposal_id: id,
+        });
+
+
+        proposal.price= response.data.price;
+        proposal.proposalId = id;
+         chooseProposal.value = !chooseProposal.value;
+    }catch (e){
+
+       // alert(e.message);
+
+    }
+}
+
+const changePrice =()=>{
+    if (proposal.proposalId != '') {
+
+        proposal.post(route('proposalChangePrice'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                chooseProposal.value = false,
+                proposal.service_id = ''
+            },
+
+        })
+
+    } else {
+        alert('id absence')
+    }
+
+}
+
+const  annulerProposal=()=>{
+
+};
+
+const proposal=useForm({
+    price:'',
+    service_id:'',
+    freelance_user_id: props.user?.id,
+    user_id: props.user?.id,
+    chat_id: props.chatId,
+    proposalId:'',
+})
+const DiscuterPrice=(id)=>{
+
+
+    proposal.service_id=id;
+    if(proposal.service_id!='')
+    {
+     proposalModal.value= !proposalModal.value
+
+    }else{
+        alert('id absence')
+    }
+    //alert(id);
+}
+
+const sendPropasal=()=>{
+
+     if (proposal.service_id != '') {
+
+        proposal.post(route('proposalPrice'),{
+            preserveScroll: true,
+             onSuccess:()=>{
+                proposalModal.value = false,
+                    proposal.service_id = ''
+             },
+
+        })
+
+    } else {
+        alert('id absence')
+    }
+
+
+
+}
 
 const sendMessage=()=>{
 
@@ -125,41 +260,24 @@ const groupedMessages =computed(() => {
     return grouped;
 });
 
+
 const groupedMessages2 = computed(() => {
     if (!props.messages) return null;
     const grouped = {};
-
-    let currentDate = null;
-
     props.messages.forEach((message, index) => {
-        if (message.created_at) {
-            const date = formatMessageDate(message.created_at);
+        const date = message.created_at ? formatMessageDate(message.created_at) : null;
 
-            if (!grouped[date]) {
-                grouped[date] = [];
-            }
-            grouped[date].push(message);
-
-            currentDate = date; // Mettre à jour la date courante pour la comparaison ultérieure
-        } else {
-            // Si le message précédent est daté ultérieurement et c'est un message temporaire, utiliser la date actuelle
-            if (currentDate && index > 0) {
-                const previousDate = formatMessageDate(props.messages[index - 1].created_at);
-                if (currentDate < previousDate) {
-                    const date = formatMessageDate(new Date()); // Date actuelle
-                    if (!grouped[date]) {
-                        grouped[date] = [];
-                    }
-                    grouped[date].push(message);
-                }
-            }
+        if (!grouped[date]) {
+            grouped[date] = [];
         }
+        grouped[date].push({
+            message,
+            shouldRenderButtons: shouldRenderButtons(message, index),
+            shouldRenderChangerButton: shouldRenderChangerButton(message, index),
+        });
     });
-
     return grouped;
 });
-
-
 
 
 
@@ -197,7 +315,10 @@ window.Echo.private(`chat.${page.props.auth.user.id}`)
 
 
        // topScroll();
-         bottomScroll();
+         //bottomScroll();
+
+         bottomScroll2();
+
 
         // props.messages.push(e.message);
        // console.log(e.message);
@@ -263,6 +384,44 @@ const getHourFromDate = created_at => {
     return `${hour}:${minutes}`;
 };
 
+
+const shouldRenderButtons = (message, index) => {
+    return (
+        message.proposal != null &&
+        message.proposal.status === 'pending' &&
+        page.props.auth.user.id === message.proposal_user &&
+        message.sender_id !== message.proposal_user &&
+        isLastPendingMessage(index)
+    );
+};
+
+const shouldRenderChangerButton = (message, index) => {
+    return (
+        message.proposal != null &&
+        message.proposal.status === 'rejected' &&
+        message.receiver_id === page.props.auth.user.id &&
+        page.props.auth.user.id != message.proposal_user
+        && isLastRejectedMessage(index)
+    );
+};
+
+const isLastPendingMessage = (index) => {
+    for (let i = props.messages.length - 1; i >= 0; i--) {
+        if (props.messages[i].proposal && props.messages[i].proposal.status === 'pending') {
+            return i === index;
+        }
+    }
+    return false;
+};
+
+const isLastRejectedMessage = (index) => {
+    for (let i = props.messages.length - 1; i >= 0; i--) {
+        if (props.messages[i].proposal && props.messages[i].proposal.status === 'rejected') {
+            return i === index;
+        }
+    }
+    return false;
+};
 
 
 </script>
@@ -406,11 +565,11 @@ const getHourFromDate = created_at => {
                           enter-active-class="transition-all duration-500 easy-in-out"
                           enter-to-class="opacity-100 [transform:translate3d(0,0,0)]"
                         >
-                <div v-if="groupedMessages"
+                <div v-if="groupedMessages2"
                     class="space-y-5">
 
 
-                    <template v-for="(messages, date) in groupedMessages" :key="date">
+                    <template v-for="(messages, date) in groupedMessages2" :key="date">
                     <div v-if="date !== 'null'" class="flex items-center mx-4 space-x-3">
                         <div class="flex-1 h-px bg-slate-200 dark:bg-navy-500"></div>
                         <p>{{ date }}</p>
@@ -419,11 +578,12 @@ const getHourFromDate = created_at => {
 
 
 
-                    <div v-for="message in messages" :key="message">
+
+                    <div v-for="(groupedMessage, index) in messages" :key="index">
                         <div
-                            :class="message.receiver_id == props.user.id ?'justify-end ':'items-start'"
+                            :class="groupedMessage.message.receiver_id == props.user.id ?'justify-end ':'items-start'"
                                 class="flex  space-x-2.5 sm:space-x-5">
-                            <div :class="message.receiver_id == props.user.id ?'hidden':'flex'"
+                            <div :class="groupedMessage.message.receiver_id == props.user.id ?'hidden':'flex'"
                             class="avatar">
                             <Photo :user="user" />
 
@@ -432,35 +592,81 @@ const getHourFromDate = created_at => {
 
                             <div class="flex flex-col items-start space-y-3.5">
                                 <div
-                                :class="message.receiver_id == props.user.id ? 'ml-4 md:ml-10 ':'mr-4 sm:mr-10'"
+                                :class="groupedMessage.message.receiver_id == props.user.id ? 'ml-4 md:ml-10 ':'mr-4 sm:mr-10'"
                                 class="max-w-lg">
-                                    <div v-if="message.body !=null"
-                                        :class="message.receiver_id == props.user.id?'rounded-br-none dark:text-white bg-info/10 text-slate-700 dark:bg-accent':' bg-white text-slate-700 dark:text-navy-100 dark:bg-navy-700 rounded-tl-none '"
+                                    <div v-if="groupedMessage.message.body !=null"
+                                        :class="groupedMessage.message.receiver_id == props.user.id?'rounded-br-none dark:text-white bg-info/10 text-slate-700 dark:bg-accent':' bg-white text-slate-700 dark:text-navy-100 dark:bg-navy-700 rounded-tl-none '"
                                         class="p-3 shadow-sm rounded-2xl">
-                                        {{ message.body }}
+
+                                        <p v-html="groupedMessage.message.body"></p>
+
+
 
 
                                     </div>
-                                    <span class="flex items-center justify-end" v-if="message.temporary != null">
+                                    <div v-if="groupedMessage.message.service !=null">
+
+                                            <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">Ce message est lié à un service :</p>
+
+                                            <div class="flex flex-col">
+                                                    <div class="flex items-center p-3 bg-gray-200 rounded-lg shadow-sm dark:bg-navy-700 dark:text-navy-100">
+                                                                    <img class="w-10 h-10 mr-2 rounded-lg" :src="'/storage/'+ groupedMessage.message.service.files[0]"
+                                                                        alt="Service Image">
+
+                                                            <Link :href="route('oneService', groupedMessage.message.service.service_numero)"
+                                                            class="truncate hover:text-amber-500 ">{{ groupedMessage.message.service.title }}</Link>
+                                                    </div>
+                                                    <div class="mt-4">
+
+
+
+                                                        <template v-if="$page.props.auth.user.id != groupedMessage.message.user_service">
+                                                        <Button size="small" outlined @click="DiscuterPrice(groupedMessage.message.service.id)" label="Discuter prix"/>
+                                                        </template>
+
+                                                    </div>
+                                            </div>
+
+                                    </div>
+
+
+
+                                    <div v-if="groupedMessage.shouldRenderButtons">
+                                        <div class="flex gap-2 mt-4">
+                                            <Button size="small"
+                                                        outlined
+                                                        @click="accepterProposal(groupedMessage.message.proposal.id)"
+                                                        label="Accepter"/>
+                                            <Button size="small"
+                                            severity="danger"
+                                            outlined
+                                            @click="refuserProposal(groupedMessage.message.proposal.id)"
+                                            label="Refuser"/>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2" v-if="groupedMessage.shouldRenderChangerButton">
+
+                                        <Button size="small"
+                                                        outlined
+                                                        @click="changerProposal(groupedMessage.message.proposal.id)"
+                                                        label="Changer"/>
+                                    </div>
+                                    <span class="flex items-center justify-end" v-if="groupedMessage.message.temporary != null">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                 </svg>
 
                                     </span>
 
-
-
-
-
-                                <div v-if="message.file !=null">
-                                    <template v-if="isImage(message.file[0])">
+                                <div v-if="groupedMessage.message.file !=null">
+                                    <template v-if="isImage(groupedMessage.message.file[0])">
                                     <div class="relative group">
                                     <img class="object-cover rounded-lg h-44"
-                                        :src="'/storage/'+ message.file[0]" alt="image" />
+                                        :src="'/storage/'+ groupedMessage.message.file[0]" alt="image" />
 
                                     <div
                                         class="absolute top-0 flex items-center justify-center w-full h-full transition-all duration-300 rounded-lg opacity-0 bg-black/30 group-hover:opacity-100">
-                                        <a :href="'/storage/' + message.file[0]" target="_blank"
+                                        <a :href="'/storage/' + groupedMessage.message.file[0]" target="_blank"
                                             class="p-0 font-medium text-white rounded-full btn2 h-9 w-9 bg-info hover:bg-info-focus focus:bg-info-focus active:bg-info-focus/90">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -472,17 +678,18 @@ const getHourFromDate = created_at => {
                                  </div>
                                  </template>
                                  <template v-else>
-                                    <a :href="'/storage/' + message.file[0]" target="_blank"
-                                            :class="message.receiver_id == props.user.id ? 'rounded-br-none dark:text-white bg-info/10 text-slate-700 dark:bg-accent' : ' bg-white text-slate-700 dark:text-navy-100 dark:bg-navy-700 rounded-tl-none '"
+                                    <a :href="'/storage/' + groupedMessage.message.file[0]" target="_blank"
+                                            :class="groupedMessage.message.receiver_id == props.user.id ? 'rounded-br-none dark:text-white bg-info/10 text-slate-700 dark:bg-accent' : ' bg-white text-slate-700 dark:text-navy-100 dark:bg-navy-700 rounded-tl-none '"
                                             class="p-3 mb-4 shadow-sm rounded-2xl">
-                                           {{ getFileName(message.file[0]) }}
+                                           {{ getFileName(groupedMessage.message.file[0]) }}
                                  </a>
-
                                  </template>
                                 </div>
-                                    <p v-if="getHourFromDate(message.created_at) !=='NaN:NaN'" :class="message.receiver_id == props.user.id ?' text-left':'text-right'"
+
+
+                                <p v-if="getHourFromDate(groupedMessage.message.created_at) !=='NaN:NaN'" :class="groupedMessage.message.receiver_id == props.user.id ?' text-left':'text-right'"
                                     class="mt-2 ml-auto text-xs text-right text-slate-400 dark:text-navy-300" >
-                                         {{ getHourFromDate(message.created_at)}}
+                                         {{ getHourFromDate(groupedMessage.message.created_at)}}
                                     </p>
                                 </div>
 
@@ -758,8 +965,8 @@ const getHourFromDate = created_at => {
 
 
 
-            <Dialog v-model:visible="visible"
-            position="'bottom'"
+        <Dialog v-model:visible="visible"
+            position="bottom"
              modal
               header="Fichier"
               :style="{ width: '50rem' }"
@@ -770,10 +977,20 @@ const getHourFromDate = created_at => {
                     <div class="card">
                     <Toast />
                     <FileUpload name="demo[]"
+
+
                     :auto="true"
                     @select="onSelect"
                     :multiple="true"
                     :maxFileSize="5000000">
+                     <template #header="{ chooseCallback }">
+                        <div class="flex flex-wrap flex-1 gap-2 justify-content-between align-items-center">
+                            <div class="flex gap-2">
+                                <Button @click="chooseCallback()" icon="pi pi-images" rounded outlined></Button>
+
+                            </div>
+                        </div>
+                    </template>
                         <template #empty>
                             <p>Tirez et déposez des fichiers ici pour les télécharger.</p>
                         </template>
@@ -785,10 +1002,116 @@ const getHourFromDate = created_at => {
 
                 </div>
                 <div class="flex justify-end gap-4 mt-4">
-                    <Button label="Envoyer" @click="sendMessage()" />
-                     <Button  severity="'danger'" @click="cancelFile()" label="Annuler" />
+                    <Button label="Envoyer" outlined @click="sendMessage()" />
+                     <Button  severity="danger" outlined @click="cancelFile()" label="Annuler" />
                 </div>
             </div>
+
+        </Dialog>
+
+         <Dialog v-model:visible="proposalModal"
+                position="bottom"
+                 modal
+                  header="Proposer un prix "
+                  :style="{ width: '30rem' }"
+                  :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+                  >
+
+                  <div>
+                     <form @submit.prevent="sendPropasal">
+                <div class="mb-4">
+                    <label for="price" class="block mb-1 font-bold">Proposer un prix :</label>
+
+
+                <InputNumber showButtons
+                    v-model="proposal.price"
+                    placeholder="Proposer un prixs"
+                    class="w-full" inputId="Prix" />
+
+
+                </div>
+
+                <Button type="submit" label="Proposer" />
+            </form>
+
+                </div>
+
+        </Dialog>
+        <Dialog v-model:visible="acceptProposalModal"
+                    position="bottom"
+                     modal
+                      header="Accepter prix "
+                      :style="{ width: '30rem' }"
+                      :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+                      >
+
+                      <div>
+                         <form @submit.prevent="acceptPropasalUser">
+                            <div class="mb-4">
+                                <label for="price" class="block mb-1 font-bold">Proposer un prix :</label>
+                            </div>
+
+                            <Button type="submit" label="Accepter" />
+                     </form>
+
+                    </div>
+
+        </Dialog>
+        <Dialog v-model:visible="refuserProposalModal"
+                        position="bottom"
+                         modal
+                          header="Refuser prix "
+                          :style="{ width: '30rem' }"
+                          :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+                          >
+
+                          <div>
+                             <form @submit.prevent="declinePropasal">
+
+                        <div class="flex gap-4">
+
+                            <Button
+                            type="submit"
+                            severety="danger"
+                            outlined
+                             label="Refuser"  />
+                        </div>
+
+                    </form>
+
+                        </div>
+
+        </Dialog>
+
+        <Dialog v-model:visible="chooseProposal"
+                position="bottom"
+                    modal
+                    header="Changer prix "
+                    :style="{ width: '30rem' }"
+                    :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+
+                              <div>
+                                 <form @submit.prevent="changePrice">
+                                        <div class="mb-4">
+                                            <label for="price" class="block mb-1 font-bold">Proposer un autre prix :</label>
+
+                                               <InputNumber showButtons
+                                               v-model="proposal.price"
+                                               placeholder="Prix du service"
+                                               class="w-full" inputId="Prix" />
+
+
+
+                                        </div>
+                            <div class="flex gap-4">
+
+                                <Button  type="submit" label="Changer" outlined />
+                                <Button  @click="annulerProposal" outlined severity="danger" label="Annuler"  />
+                            </div>
+
+                        </form>
+
+                            </div>
 
         </Dialog>
 

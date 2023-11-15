@@ -77,4 +77,9 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function proposal()
+    {
+        return $this->hasOne(Proposal::class);
+    }
 }

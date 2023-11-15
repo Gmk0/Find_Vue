@@ -85,8 +85,8 @@ const like = ref(props.freelance.like);
 
                 <div v-if="props.freelance.user.profile_photo_path !=null"
 
-                class="flex items-center opacity-0 hover:opacity-100">
-                    <button @click="toggler=!toggler" class="absolute top-1/2 left-1/2">
+                class="flex items-center">
+                    <button @click="toggler=!toggler" class="absolute text-lg top-2 left-2">
                         <i class="w-6 pi pi-eye"></i>
                     </button>
 

@@ -178,6 +178,12 @@ Route::middleware([
 
             Route::post('/chat-create', 'createChat')->name('user.createChat');
             Route::post('/chat-message', 'SendMessage')->name('chat.Send');
+            Route::post('/contactFreelance', 'contactFreelance')->name('contactFreelance');
+            Route::post('/proposalPrice', 'proposalPrice')->name('proposalPrice');
+
+            Route::post('/proposal-get-price', 'proposalGetPrice')->name('proposalGetPrice');
+
+            Route::post('/proposal-change-price', 'proposalChangePrice')->name('proposalChangePrice');
 
         });
 
@@ -188,8 +194,12 @@ Route::middleware([
 
         Route::get('/panier',  'checkout')->name('panier');
         Route::post('/checkoutMaxi', 'checkoutMaxi')->name('checkoutMaxi');
+        Route::post('/checkoutMaxiCustom', 'checkoutMaxiCustom')->name('checkoutMaxiCustom');
         Route::get('/checkout/status-maxi',  'paiment_maxi')->name('checkoutStatusMaxiService');
+        Route::get('/checkout/status-maxi-custom',  'paimentMaxiCustom')->name('checkoutStatusMaxiServiceCustom');
         Route::get('/paiement-status/{transaction_numero}',  'paiementStatus')->name('paiementStatus');
+
+        Route::get('/paiement-service/{uniqueId}', 'LinkCustomPaid')->name('customLink.paid');
     });
 
 
@@ -267,6 +277,11 @@ Route::middleware([
         Route::controller(ChatController::class)->group(function () {
 
             Route::get('/chat/{id?}','freelanceChat')->name('freelance.chat');
+            Route::post('/acceptPropasalUser', 'acceptPropasalUser')->name('acceptPropasalUser');
+
+                Route::post('/declinePropasalUser', 'declinePropasalUser')->name('declinePropasalUser');
+
+
 
         });
 
@@ -277,9 +292,14 @@ Route::middleware([
             Route::get('/realisations', 'realisations')->name('freelance.realisations');
                 Route::get('/realisations/ajout', 'realisationsAjout')->name('freelance.realisationsAjout');
 
-            Route::post('/realisations-add', 'addRealisation')->name('addRealisation');
+                Route::get('/realisations/edit/{id}', 'realisationsEdit')->name('freelance.realisationsEdit');
+                Route::post('/realisations/edit-post', 'editRealisation')->name('freelance.editRealisation');
 
+            Route::post('/realisations-add', 'addRealisation')->name('addRealisation');
+            Route::post('/removeOneFile', 'removeOneFile')->name('removeOneFile');
             Route::post('/profile-add', 'addProfilePartOne')->name('addProfilePartOne');
+
+            Route::post('/removeRealisation', 'removeRealisation')->name('removeRealisation');
 
 
             Route::post('/addCertification', 'addCertification')->name('addCertification');

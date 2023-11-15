@@ -54,7 +54,7 @@
                        <form @submit.prevent="edition()" class="grid grid-cols-1 gap-4 p-4 border rounded-md dark:border-gray-300 min-h-72 ">
 
 
-                            <div class="grid grid-cols-2 gap-2">
+                            <div class="grid lg:grid-cols-2 gap-2">
                                   <div class="w-full col-span-1 mb-4">
                                    <InputLabel for="titre" value="titre" />
 
@@ -68,7 +68,7 @@
 
                             </div>
 
-                                <div class="grid grid-cols-2 gap-2">
+                                <div class="grid lg:grid-cols-2 gap-2">
 
                                     <div class="mt-4 W-full">
                                     <Dropdown v-model="category"
@@ -95,7 +95,7 @@
                                     </div>
                                 </div>
 
-                            <div class="grid grid-cols-2 gap-2">
+                            <div class="grid lg:grid-cols-2 gap-2">
 
                                     <div class="w-full col-span-1 mb-4">
                                         <InputLabel for="titre" value="Prix" />
@@ -109,7 +109,7 @@
                                        <InputError class="mt-2" :message="form.errors.basic_revision" />
                                     </div>
                              </div>
-                                <div class="grid grid-cols-2 gap-2 mt-4">
+                                <div class="grid lg:grid-cols-2 gap-2 mt-4">
 
                                         <div class="w-full col-span-2 mb-4">
                                             <InputLabel for="description" value="Description" />
@@ -139,7 +139,7 @@
                                      </div>
 
 
-                                 <div class="grid grid-cols-2 gap-2">
+                                 <div class="grid lg:grid-cols-2 gap-2">
 
                                         <div class="w-full col-span-1 mb-4">
                                             <InputLabel for="support" value="support" />
@@ -152,7 +152,7 @@
                                         <InputText v-model="form.video_url" placeholder="lien d'une video du  service" class="w-full mt-2" id="titre" />
                                         </div>
                                  </div>
-                                  <div class="grid grid-cols-2 gap-2">
+                                  <div class="grid lg:grid-cols-2 gap-2">
 
                                             <div class="w-full col-span-1 mb-4">
                                                 <InputLabel for="temps" value="Temps" />
@@ -171,7 +171,7 @@
 
                                         </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2">
+                                <div class="grid lg:grid-cols-2 gap-2">
 
                                 <div class="w-full col-span-1 mb-4">
                                     <InputLabel for="titre" value="Publier" />
@@ -209,7 +209,7 @@
                                 </div>
                             </div>
                         </div>
-                       <div class="grid grid-cols-2 gap-2 mt-4">
+                       <div class="grid lg:grid-cols-2 gap-2 mt-4">
                         <div class="w-full col-span-2 mb-4">
                             <InputLabel for="titre" class="mb-4" value="Image" />
                             <FileUpload
@@ -223,8 +223,16 @@
                             :multiple="true"
                             accept="image/*"
                             :maxFileSize="1000000">
+                              <template #header="{ chooseCallback }">
+                                <div class="flex flex-wrap flex-1 gap-2 justify-content-between align-items-center">
+                                    <div class="flex gap-2">
+                                        <Button @click="chooseCallback()" icon="pi pi-images" rounded outlined></Button>
+
+                                    </div>
+                                </div>
+                            </template>
                                 <template #empty>
-                                    <p>Drag and drop files to here to upload.</p>
+                                    <p>Tirez et déposez des fichiers ici pour les télécharger.</p>
                                 </template>
                             </FileUpload>
 

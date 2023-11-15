@@ -32,6 +32,6 @@ class UserSetting extends Model
         'feedback_submitted' => 'boolean',
         'feedback' => 'array',
         'user_id'=>'string',
-        'addresse_facturation' => AsArrayObject::class,
+        'addresse_facturation' => 'array',
     ];
 }

@@ -34,39 +34,104 @@ class ProfileFreelance extends Controller
     public function realisationsEdit($id)
     {
 
+        $realisations = auth()->user()->realisations->where('id', $id);
+
+        $realisationsWithMedia = $realisations->map(function ($realisation) {
+            return [
+                'id' => $realisation->id,
+                'description' => $realisation->description,
+                'media' => $realisation->getMedia('realisations')->map(function ($media) {
+                    return [
+                        'url' => $media->getUrl(),
+                        'alt' => $media->name,
+                    ];
+                }),
+            ];
+        });
 
 
-        return Inertia::render(
-            'Freelance/Profile/RealisationEdit'
-        );
+
+        return Inertia::render('Freelance/Profile/RealisationEdit',['realisations' => $realisationsWithMedia]);
     }
 
     public function realisations()
     {
 
         $realisations = auth()->user()->realisations;
+
+        $realisationsWithMedia = $realisations->map(function ($realisation) {
+            return [
+                'id' => $realisation->id,
+                'description' => $realisation->description,
+                'media' => $realisation->getMedia('realisations')->map(function ($media) {
+                    return [
+                        'id' => $media->id,
+                        'url' => $media->getUrl(),
+                        'alt' => $media->name,
+                    ];
+                }),
+            ];
+        });
         return Inertia::render('Freelance/Profile/Realisations'
-        ,['realisations' => RealisationResource::collection($realisations)]);
+        ,['realisations' => $realisationsWithMedia]);
+    }
+    public function removeOneFile(Request $request)
+    {
+        try{
+
+            $media =Realisation::find($request->realisation_id)->getMedia('*');
+
+
+            $media[$request->media_id]->delete();
+
+        }catch(\Exception $e){
+           return  redirect()->back()->withErrors(['message'=>$e->getMessage()]);
+
+        }
+
+    }
+
+    public function editRealisation(Request $request)
+    {
+
+        $request->validate(['description' => 'required']);
+        try {
+
+           DB::beginTransaction();
+            $realisation = Realisation::find($request->id);
+            $realisation->description=$realisation->description;
+            $realisation->update();
+
+
+
+
+            if ($request->file('image')) {
+
+
+
+                $realisation->addMultipleMediaFromRequest(['image'])
+                    ->each(function ($fileAdder) {
+                        $fileAdder
+                            ->toMediaCollection('realisations');
+                    });
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+          //  dd($e->getMessage());
+            return redirect()->back()->withErrors(['message' => $e->getMessage()]);
+        }
     }
 
     public function addRealisation(Request $request)
     {
 
         $request->validate(['image' => 'required']);
-
-
-
-
-
         try{
 
             DB::beginTransaction();
-
-
-
-
-
-
             $realisation = Realisation::create([
                 'description' => $request->description,
                 'user_id' => auth()->user()->id,
@@ -88,9 +153,18 @@ class ProfileFreelance extends Controller
 
         }catch (\Exception $e){
             DB::rollBack();
-
           return redirect()->back()->withErrors(['message' => $e->getMessage()]);
         }
+
+    }
+
+    public function removeRealisation(Request $request)
+    {
+
+
+
+        $realisation=Realisation::FindOrFail($request->id)->delete();
+
 
     }
 

@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'freelance_exist' => \App\Http\Middleware\FreelanceExist::class,
         'freelance' => \App\Http\Middleware\FreelanceAccess::class,
+        'freelancePanel' => \App\Http\Middleware\FreelanceAccessPanel::class,
     ];
 }
