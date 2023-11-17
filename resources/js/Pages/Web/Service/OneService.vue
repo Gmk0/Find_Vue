@@ -42,6 +42,7 @@ const contactMe = ref(false);
 const props = defineProps({
     service: Object,
     otherService : Array,
+    commentaires :Array,
 });
 
 const like = ref(props.service.data.likeUser);
@@ -51,6 +52,22 @@ const level = ref('basic');
 const service=computed(()=> props.service.data )
 
 const price=ref(props.service.data.basic_price);
+
+const swiperInstanceRealisation = ref(null);
+
+const onSwiperInstanceRealisation = (swiper) => {
+    swiperInstanceRealisation.value = swiper;
+};
+
+const navigateCommentaire = (direction) => {
+    if (swiperInstanceServices.value) {
+        if (direction === 'prev') {
+            swiperInstanceServices.value.slidePrev();
+        } else if (direction === 'next') {
+            swiperInstanceServices.value.slideNext();
+        }
+    }
+};
 
 
 const changePrice =(Newprice)=>{
@@ -605,10 +622,40 @@ defineOptions({
                                             </TabPanel>
                                             <TabPanel header="Commentaires">
 
+                                                <div v-if="props.commentaires.length >0">
+                                                      <div class="flex gap-4 p-2">
+
+                                                <button @click="navigateCommentaire('prev')"
+                                                    class="p-0 rounded-full btn2 btn-outline btn-circle btn-sm prev-btn hover:bg-slate-300/20 focus:bg-slate-300/20 dark:active:bg-slate-300/25 active:bg-slate-100/25 disabled:pointer-events-none disabled:select-none disabled:opacity-60 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                                        stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+                                                    </svg>
+                                                </button>
+                                                <button @click="navigateCommentaire('next')"
+                                                    class="p-0 rounded-full btn2 btn-outline btn-circle btn-sm next-btn hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 disabled:pointer-events-none disabled:select-none disabled:opacity-60 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                                        stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                </button>
+                                             </div>
+                                                </div>
+
+                                                <swiper  :modules="[Navigation, Autoplay, Pagination, Scrollbar, EffectFade, A11y]"
+                                                        effect="fade"
+                                                        :slides-per-view="1"
+                                                        navigation
+                                                        @swiper="onSwiperInstanceRealisation">
+
+                                                    <swiper-slide v-for="commentaire in props.commentaires">
+
+
                                                     <div>
                                                         <div class="p-4 mb-4 bg-gray-100 rounded-lg dark:bg-gray-600">
                                                         <p class="text-sm text-gray-700 md:text-base dark:text-gray-300">
-                                                        Hello</p>
+                                                            {{ commentaire.commentaire  }}
+                                                        </p>
 
                                                         <div class="flex items-center my-4">
                                                             <svg class="w-4 h-4 mr-1 text-yellow-500 fill-current"
@@ -618,17 +665,19 @@ defineOptions({
                                                             </svg>
 
                                                             <span
-                                                                class="text-sm font-semibold text-gray-700 dark:text-gray-100">(3)
+                                                                class="text-sm font-semibold text-gray-700 dark:text-gray-100">  {{ commentaire.satisfaction }}
                                                             </span>
                                                         </div>
                                                             <div>
 
-                                                                <div>
+                                                                <div class="flex gap-2 items-center">
+                                                                    <Photo :user="commentaire.user" taille="10" />
+                                                                     <div>
+                                                                            <p class="font-bold dark:text-gray-200 text-gray-800">Georges</p>
+                                                                    </div>
 
                                                                 </div>
-                                                                <div>
-                                                                        <p class="font-bold text-gray-800">Bro</p>
-                                                                </div>
+
                                                             </div>
 
                                                         </div>
@@ -636,6 +685,8 @@ defineOptions({
 
                                                     </div>
 
+                                                    </swiper-slide>
+                                                </swiper>
 
                                             </TabPanel>
                                         </TabView>

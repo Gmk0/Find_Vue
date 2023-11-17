@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ServiceResourceData;
 use App\Models\Category;
+use App\Models\FeedbackService;
 use Illuminate\Http\Request;
 
 use Inertia\Inertia;
@@ -191,15 +192,32 @@ class CategoryController extends Controller
             return redirect()->back();
         }
 
-        //$conversation=Conversation::where('')
+        $commentaires = FeedbackService::whereHas('Order', function ($query) use($service)   {
+            $query->whereHas('service', function ($q) use($service) {
+                $q->where('id', $service->id);
+            });
+        })->where('commentaires', '!=', null)->where('is_publish', 1)
+        ->get()->map(function ($commentaire){
+
+            return[
+                'commentaire' => $commentaire->commentaires,
+                'satisfaction' => $commentaire->satisfaction,
+                'user' => $commentaire->order->user?->only('id','name','profile_photo_path','profile_photo_url'),
+                ];
+
+        });
+
 
         $otherService=Service::where('id','!=' ,$service->id)->where('category_id', $service->category_id)->take(6)->get();
+
+
 
 
         return Inertia::render('Web/Service/OneService',
         [
             'service'=>ServiceResourceData::make($service),
             'otherService' => ServiceResourceData::collection($otherService),
+            'commentaires'=>$commentaires,
 
         ]);
     }

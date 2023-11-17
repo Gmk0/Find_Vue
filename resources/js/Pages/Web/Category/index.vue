@@ -61,7 +61,7 @@
 
                 <Link v-for="category in categories" :href="route('categoryName', category.name)"
                     class="flex flex-row items-center gap-2 px-2 py-4 duration-200 bg-white border shadow shadow-lg cursor-pointer group rounded-xl border-amber-500/10 hover:bg-amber-600 dark:bg-gray-800">
-                <img src="/storage/illustration/business.svg" class="w-12 rounded-md lg:w-20 lg:h-20" alt="">
+                <img :src="'/storage/'+ category.illustration" class="w-12 rounded-md lg:w-20 lg:h-20" alt="">
                     <div class="flex flex-col gap-2">
                          <h4
                         class="mt-3 mb-1 md:text-[20px] text-sm dark:text-white block  font-semibold text-slate-600 duration-200 group-hover:text-white">
@@ -101,7 +101,12 @@
 
 
                     <div v-for="sub in category.sub_categories" :key="sub.id" class="mb-4">
-                        <Link :href="route('SubcategoryName', [category.name, sub.name])" class="px-4 text-base font-semibold text-gray-600 dark:text-gray-200">{{ sub.name }} </Link>
+                        <Link :href="route('SubcategoryName', [category.name, sub.name])" class="px-4 text-base font-semibold text-gray-600 dark:text-gray-200">{{ sub.name }}
+
+                            <span>
+
+                            </span>
+                        </Link>
                     </div>
 
                 </div>

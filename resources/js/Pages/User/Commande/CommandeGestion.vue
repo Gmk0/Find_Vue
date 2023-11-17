@@ -198,21 +198,32 @@
                             </div>
 
                                 <div  class="w-full">
+                                    <div>
+                                          <Button outlined severity="info" @click="contacterUser" label="Contact"  />
+                                    </div>
 
-                                    <Button severity="info" @click="contacterUser" label="Contact"  />
+
 
                                 </div>
 
 
 
                             <div v-if="order.feedback?.etat == 'Livré'" class="w-full">
+                                <div>
+                                    <Button @click="visible = !visible" outlined="" severity="info" label="Feedback"  />
 
-                                <Button @click="visible =!visible" severity="info" label="Feedback"  />
+                                </div>
+
+
 
                             </div>
                              <div v-if="order.feedback?.etat == 'Livré' && order.is_paid ==null " class="w-full">
 
-                                    <Button @click="debloquer =!debloquer" severity="info" label="Debloquer Paiment"  />
+                                <div>
+                                     <Button @click="debloquer = !debloquer" outlined severity="success" label="Debloquer Paiment"  />
+
+
+                                </div>
 
                                 </div>
 

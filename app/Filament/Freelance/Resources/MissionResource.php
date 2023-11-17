@@ -5,13 +5,20 @@ namespace App\Filament\Freelance\Resources;
 use App\Filament\Freelance\Resources\MissionResource\Pages;
 use App\Filament\Freelance\Resources\MissionResource\RelationManagers;
 use App\Models\Mission;
+use Filament\Actions\Action;
 use Filament\Forms;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action as ActionsAction;
+use Filament\Tables\Columns\Layout\Grid as LayoutGrid;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\Layout\Panel;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\TextColumn;
 
 class MissionResource extends Resource
 {
@@ -61,49 +68,40 @@ class MissionResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->contentGrid([
+                'md' => 1,
+                'xl' => 1,
+            ])
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('category.name')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
 
-                Tables\Columns\TextColumn::make('budget')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('begin_mission')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('end_mission')
-                    ->date()
-                    ->sortable(),
+            LayoutGrid::make(['md'=>2
 
 
 
-                Tables\Columns\TextColumn::make('status')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+            ])->schema([
+                TextColumn::make('title')->description('titre'),
+                TextColumn::make('budget')->description('budget')->money('usd', true),
+                TextColumn::make('description')->description('description')->columnSpanFull(),
+
+            ]),
+
+
+
+
+
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                //Tables\Actions\ViewAction::make(),
                 //Tables\Actions\EditAction::make(),
+
+                ActionsAction::make('Postuler')
+            ->url(fn (Mission $record): string => static::getUrl('postuler', ['record' => $record]))
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+
             ]);
     }
 
@@ -118,9 +116,10 @@ class MissionResource extends Resource
     {
         return [
             'index' => Pages\ListMissions::route('/'),
-            'create' => Pages\CreateMission::route('/create'),
-            'view' => Pages\ViewMission::route('/{record}'),
-            'edit' => Pages\EditMission::route('/{record}/edit'),
+            'postuler'=>Pages\PostulerMission::route('/{record}/postuler')
+            //'create' => Pages\CreateMission::route('/create'),
+            //'view' => Pages\ViewMission::route('/{record}'),
+           // 'edit' => Pages\EditMission::route('/{record}/edit'),
         ];
     }
 }

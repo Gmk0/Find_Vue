@@ -458,7 +458,7 @@
                     <div v-for="category in categories">
                         <a href=""
                             class="flex flex-col items-center px-2 py-4 duration-200 bg-white border shadow-lg cursor-pointer group rounded-xl border-amber-500/10 shadow-amber-300/10 hover:bg-amber-600">
-                            <img src=""
+                            <img :src="'/storage/'+ category.illustration"
                                 class="w-20 h-20 rounded-md" alt="">
                             <h4
                                 class="mt-3 mb-1 md:text-[20px] text-[16px]   font-semibold text-slate-600 duration-200 group-hover:text-white">

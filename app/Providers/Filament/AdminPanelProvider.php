@@ -29,6 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->brandLogo(asset('images/logo/find_02.png'))
             ->login()
+            ->domain(env('FILAMENT_DOMAIN',''))
             ->colors([
                 'primary' => Color::Amber,
             ])

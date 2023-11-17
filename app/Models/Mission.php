@@ -110,6 +110,11 @@ class Mission extends Model
     }
 
 
+    public function missionAccept():HasOne
+    {
+        return $this->MissionResponses()->one()->where('status', 'approved');
+    }
+
     public function scopeFilter($query, array $filters)
     {
 

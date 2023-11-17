@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Freelance\Resources\OrderResource\Widgets\OrderStat;
+use App\Filament\Freelance\Widgets\OrderDash;
 use App\Http\Middleware\FreelanceAccess;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -34,6 +35,7 @@ class FreelancePanelProvider extends PanelProvider
             ->login()
             ->sidebarCollapsibleOnDesktop(true)
             ->databaseNotifications()
+            ->viteTheme('resources/css/filament/freelance/theme.css')
             ->profile()
             ->spa(true)
 
@@ -50,6 +52,7 @@ class FreelancePanelProvider extends PanelProvider
             ->widgets([
 
                 Widgets\AccountWidget::class,
+                OrderDash::class,
                 //OrderStat::class,
                // Widgets\FilamentInfoWidget::class,
             ])

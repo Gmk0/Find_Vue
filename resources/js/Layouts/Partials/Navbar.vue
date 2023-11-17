@@ -476,7 +476,7 @@
                                 </div>
                             </div>
 
-                        <div class="container mt-4 border-t border-gray-800 dark:border-gray-50 ">
+                        <div v-if="$page.props.auth.user" class="container mt-4 border-t border-gray-800 dark:border-gray-50 ">
                             <div class="pt-2 pb-3">
                                   <Link :href="route('user.dashboard')" @click="navOpen = false"
                                         class="flex flex-row items-center px-3 py-2 text-base font-medium text-gray-800 rounded-md dark:text-gray-100 hover:text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:text-gray-900 focus:bg-gray-200"
@@ -504,7 +504,7 @@
                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                                                     </svg>
-                                        <span class="ml-2">Conversation</span>
+                                        <span class="ml-2">Conversation </span>
                                 </Link>
                                  <template v-if="$page.props.auth.freelance">
                                    <Link :href="route('freelance.dashboard')" @click="navOpen = false"
@@ -519,6 +519,18 @@
                                             </svg>
                                             <span class="ml-2">Dashboard freelance</span>
                                     </Link>
+                                       <Link :href="route('freelance.chat')" @click="navOpen = false"
+                                                class="flex flex-row items-center px-2 py-2 font-medium text-gray-800 dark:text-gray-200 text-md focus:text-gray-900 hover:text-gray-900 focus:outline-none dark:hover:bg-gray-600"
+                                                role="menuitem">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                   >
+                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                    <circle cx="12" cy="7" r="4"></circle>
+                                                </svg>
+                                                <span class="ml-2">Conversation freelance</span>
+                                        </Link>
 
                                     </template>
 

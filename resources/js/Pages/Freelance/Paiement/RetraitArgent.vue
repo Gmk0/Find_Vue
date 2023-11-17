@@ -55,7 +55,7 @@
                             </div>
                             <div class="text-white">
                                 <p class="text-lg font-semibold tracking-wide">
-                                    300
+                                    {{ solde }}
                                 </p>
                                 <p class="mt-1 text-xs font-medium">
 
@@ -109,7 +109,7 @@
 
 
                             <div>
-                                <x-button positive wire:click="choixRetrait()" label="Proceder au Retrait"></x-button>
+                                <Button outlined  label="Proceder au Retrait" />
                             </div>
                         </div>
                     </div>
@@ -196,6 +196,11 @@ import FreelanceLayout from '@/Layouts/FreelanceLayout.vue';
 defineOptions({
     layout: FreelanceLayout,
 
+});
+
+
+defineProps({
+    solde:String,
 });
 
 </script>

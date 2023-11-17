@@ -28,6 +28,7 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required(),
                 Forms\Components\MarkdownEditor::make('description'),
+            Forms\Components\Toggle::make('afficher'),
             Forms\Components\FileUpload::make('illustration')
             ->preserveFilenames()
 
@@ -42,9 +43,10 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
+                ->wrap()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('illustration')
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make('illustration'),
+            Tables\Columns\ToggleColumn::make('afficher'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
