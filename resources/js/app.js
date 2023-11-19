@@ -163,7 +163,7 @@ createInertiaApp({
         return vm;
     },
     progress: {
-        color: '#FFA500',
+        color: '#FFFF',
         showSpinner: true,
 
     },

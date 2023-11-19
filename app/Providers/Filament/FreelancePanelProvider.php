@@ -2,7 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Freelance\Resources\OrderResource\Widgets\LastOrder;
 use App\Filament\Freelance\Resources\OrderResource\Widgets\OrderStat;
+use App\Filament\Freelance\Widgets\HomeWidget;
 use App\Filament\Freelance\Widgets\OrderDash;
 use App\Http\Middleware\FreelanceAccess;
 use Filament\Http\Middleware\Authenticate;
@@ -23,6 +25,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Awcodes\Overlook\OverlookPlugin;
 use Awcodes\Overlook\Widgets\OverlookWidget;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
+use JibayMcs\FilamentTour\FilamentTourPlugin;
 
 class FreelancePanelProvider extends PanelProvider
 {
@@ -37,22 +40,26 @@ class FreelancePanelProvider extends PanelProvider
             ->databaseNotifications()
             ->viteTheme('resources/css/filament/freelance/theme.css')
             ->profile()
+
             ->spa(true)
 
             ->colors([
                 'primary' => Color::Amber,
             ])
+
            // ->domain('freelance')
             ->discoverResources(in: app_path('Filament/Freelance/Resources'), for: 'App\\Filament\\Freelance\\Resources')
             ->discoverPages(in: app_path('Filament/Freelance/Pages'), for: 'App\\Filament\\Freelance\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+               // Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Freelance/Widgets'), for: 'App\\Filament\\Freelance\\Widgets')
             ->widgets([
 
                 Widgets\AccountWidget::class,
                 OrderDash::class,
+                HomeWidget::class,
+                LastOrder::class,
                 //OrderStat::class,
                // Widgets\FilamentInfoWidget::class,
             ])
@@ -94,6 +101,8 @@ class FreelancePanelProvider extends PanelProvider
                     'xl' => 5,
                     '2xl' => null,
                 ]),
+                FilamentTourPlugin::make()->onlyVisibleOnce(false)
+            ->enableCssSelector(),
 
                 ])
             ->authMiddleware([

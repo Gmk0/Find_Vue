@@ -78,31 +78,22 @@ const addToCart = () => {
 
             <div class="relative flex flex-row lg:flex-col">
 
-                <div class=" relative group w-[48%] md:w-full">
+                <div class="relative group w-[48%] md:w-full">
 
-                <Swiper
-                :modules="[Navigation, Autoplay, Pagination, Scrollbar, EffectFade, A11y]"
-                effect="fade"
-                :slides-per-view="1"
-                navigation
-                :autoplay="{
-                    delay: 4000,
-                    disableOnInteraction: false
-                }"
-                >
 
-                <swiper-slide v-for="(image,index) in props.service.image">
+
+
                     <div class="p-2">
-                         <div class="w-full h-48 transition duration-500 ease-out bg-center bg-cover border rounded-xl lg:h-44"
-                            :style="'background-image: url(/storage/' + image + ')'">
+                         <div class=" h-48 transition duration-500 ease-out bg-center bg-cover border rounded-xl lg:h-44"
+                            :style="'background-image: url(/storage/' +  props.service.image[0] + ')'">
 
                         </div>
 
                     </div>
 
 
-                </swiper-slide>
-                </Swiper>
+
+
                  <div v-if="props.service.image.lenght > 1" class="px-4 ">
                                 <button type="button" @click="navigateFreelance('prev')" class="absolute left-0 z-50 p-4 ml-3 transition-opacity opacity-0 top-1/2 btn-outline btn-circle btn-sm group-hover:opacity-100 btn">
                                     prev

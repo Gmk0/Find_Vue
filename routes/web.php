@@ -358,6 +358,8 @@ Route::controller(ApiUserController::class)->group(function(){
     Route::get('/api/fetchLastNotification', 'fetchLastNotification')->name('fetchLastNotification');
     Route::get('/api/removeNotification/{id}', 'removeNotification')->name('removeNotification');
 
+    Route::get('/api/fetchLastMissions','lastMissions')->name('lastMissions');
+
 
 
 });

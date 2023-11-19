@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\welcomeFreelance;
 use App\Models\Freelance;
 use App\Notifications\VerificationMailPhone;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class RegistrationController extends Controller
 {
@@ -90,7 +92,14 @@ class RegistrationController extends Controller
 
             $data = $request->all();
             Freelance::create($data);
-            return redirect(route('freelance.dashboard'));
+
+
+
+
+            return Inertia::location(route('filament.freelance.pages.dashboard'));
+         //   return redirect(route('freelance.'));
+
+
 
         }catch(\Exception $e){
 
@@ -101,6 +110,16 @@ class RegistrationController extends Controller
 
 
         //return response()->json(['data' => $data]);
+    }
+
+    public function sendMail()
+    {
+        try {
+            Mail::to(auth()->user()->email)->send(new welcomeFreelance(auth()->user()));
+        } catch (\Exception $e) {
+
+            error_log($e->getMessage());
+        }
     }
 
     public function updateProfileUser(Request $request)

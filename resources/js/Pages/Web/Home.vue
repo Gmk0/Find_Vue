@@ -122,36 +122,7 @@
                 <div class="relative w-full lg:-mt-10" id="girl">
 
                     <!-- calendar -->
-                    <div data-aos="fade-up" data-aos-delay="300" data-aos-once="true"
-                        class="absolute top-20 left-6 floating-4">
-                        <img class="h-12 bg-white rounded-lg bg-opacity-80 sm:h-16" src="/canva/feedback.png">
-                    </div>
-                    <!-- red -->
-                    <div data-aos="fade-up" data-aos-delay="400" data-aos-once="true"
-                        class="absolute right-24 top-28 floating">
-                        <svg class="h-16 sm:h-24" viewBox="0 0 149 149" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g filter="url(#filter0_d)">
-                                <rect x="40" y="32" width="69" height="69" rx="14" fill="#F3627C" />
-                            </g>
-                            <rect x="51.35" y="44.075" width="47.3" height="44.85" rx="8" fill="white" />
-                            <path d="M74.5 54.425V78.575" stroke="#F25471" stroke-width="4" stroke-linecap="round" />
-                            <path d="M65.875 58.7375L65.875 78.575" stroke="#F25471" stroke-width="4" stroke-linecap="round" />
-                            <path d="M83.125 63.9125V78.575" stroke="#F25471" stroke-width="4" stroke-linecap="round" />
-                            <defs>
-                                <filter id="filter0_d" x="0" y="0" width="149" height="149" filterUnits="userSpaceOnUse"
-                                    color-interpolation-filters="sRGB">
-                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
-                                    <feOffset dy="8" />
-                                    <feGaussianBlur stdDeviation="20" />
-                                    <feColorMatrix type="matrix"
-                                        values="0 0 0 0 0.825 0 0 0 0 0.300438 0 0 0 0 0.396718 0 0 0 0.26 0" />
-                                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
-                                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
-                                </filter>
-                            </defs>
-                        </svg>
-                    </div>
+
                     <!-- ux class -->
 
                 </div>
@@ -256,7 +227,7 @@
 
                       <swiper class="flex py-8"
                             :modules="[Navigation, Pagination, Scrollbar, EffectCube, A11y]"
-                            effect="cube"
+
                             :spaceBetween="30"
                             :slides-per-view="1"
                             :space-between="25"
@@ -266,7 +237,7 @@
                     <swiper-slide class="mb-8">
                         <div class="!bg-transparent px-2 md:px-0">
                             <div
-                                class="px-2 bg-white border border-gray-100 dark:border-gray-300 rounded-3xl dark:bg-gray-800 dark:shadow-none md:mx-auto lg:w-11/12 xl:w-8/12">
+                                class="px-2 bg-white border border-gray-300 dark:border-gray-300 rounded-3xl dark:bg-gray-800 dark:shadow-none md:mx-auto lg:w-11/12 xl:w-8/12">
                                 <div class="grid md:grid-cols-5">
 
                                     <div class="w-full m-2 h-50 aspect-w-8 aspect-h-9 md:col-span-2 rounded-2xl">
@@ -458,7 +429,7 @@
                     <div v-for="category in categories">
                         <a href=""
                             class="flex flex-col items-center px-2 py-4 duration-200 bg-white border shadow-lg cursor-pointer group rounded-xl border-amber-500/10 shadow-amber-300/10 hover:bg-amber-600">
-                            <img :src="'/storage/'+ category.illustration"
+                            <img v-if="category.illustration =! null" :src="'/storage/'+ category.illustration"
                                 class="w-20 h-20 rounded-md" alt="">
                             <h4
                                 class="mt-3 mb-1 md:text-[20px] text-[16px]   font-semibold text-slate-600 duration-200 group-hover:text-white">
@@ -468,6 +439,185 @@
                     </div>
 
                 </div>
+            </div>
+
+        </div>
+
+        <div class=" bg-gray-50 lg:min-h-screen dark:bg-gray-900">
+              <div class="max-w-6xl px-8 py-6 mx-auto md:px-6">
+                    <!-- heading text -->
+                    <div class="mb-10 text-center">
+                        <span class="font-medium text-amber-600">Mission</span>
+                        <h1 class="text-2xl font-bold text-slate-700 dark:text-gray-200 sm:text-xl">Découvrez Quelques Missions</h1>
+
+                    </div>
+
+                      <div class="py-4 mx-2">
+
+                        <div class="flex items-end justify-end mb-2">
+                            <div class="flex gap-4">
+
+
+
+                                <button @click="navigate('prev')"
+                                    class="w-10 h-10 p-0 rounded-full btn2 prev-btn hover:bg-slate-300/20 focus:bg-slate-300/20 dark:active:bg-slate-300/25 active:bg-slate-100/25 disabled:pointer-events-none disabled:select-none disabled:opacity-60 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+                                <button @click="navigate('next')"
+                                    class="w-10 h-10 p-0 rounded-full btn2 next-btn hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 disabled:pointer-events-none disabled:select-none disabled:opacity-60 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                        </div>
+
+
+
+                     <swiper class="flex py-8 mb-4"
+                        :modules="[Navigation, Pagination, Scrollbar, EffectCube, A11y]"
+
+                        :spaceBetween="30"
+
+                        :space-between="25"
+                        :breakpoints="{ 300: { slidesPerView: 1 }, 900: { slidesPerView: 3, } }"
+                        @swiper="onSwiperInitialized"
+                        >
+                        <swiper-slide v-for="mission in getMissions" class="p-2">
+
+                        <div class="mb-4 p-2  lg:flex-col rounded-md shadow-md">
+                            <img class="object-cover object-center w-full h-48  bg-center bg-cover  shrink-0"
+                                src="/images/illustrations/missionF.svg" alt="image" />
+                            <div class="flex flex-col w-full px-4 py-3 bg-white grow sm:px-5">
+                                <div class="flex items-center justify-between">
+                                    <a class="text-xs+ text-info" href="#">
+                                        {{ mission.category.name }}</a>
+                                    <div class="-mr-1.5 flex space-x-1">
+                                        <button
+                                            class="hidden p-0 rounded-full btn2 h-7 w-7 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                            </svg>
+                                        </button>
+
+                                        <div class="p-2">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <Link :href="route('freelance.missions.postuler', mission.mission_numero)"
+                                        class="text-lg font-medium text-slate-700 hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light">
+                                        {{ mission.title }}</Link>
+                                </div>
+                                <p  class="mt-1 line-clamp-3">
+
+                                    <template v-if="!showMore">
+                                        <div class="max-w-xs break-words">
+
+                                            {{ truncateText(mission.description, 70) }}
+                                        </div>
+
+                                    </template>
+                                    <template v-else>
+                                          <div class="max-w-xs break-words">
+                                        {{ mission.description }}
+
+                                        </div>
+
+                                    </template>
+
+
+                                <div v-if="mission.description.length > 70">
+                                    <button @click="showMore = !showMore">
+                                        <span v-show="showMore" class="text-blue-600">Lire moins</span>
+                                        <span v-show="!showMore" class="text-blue-600">Lire la suite</span>
+                                    </button>
+
+                                </div>
+
+
+
+
+
+
+                                </p>
+                                <div class="grow">
+                                    <div class="flex items-center mt-2 text-xs">
+                                        <a href="#" class="flex items-center space-x-2 hover:text-slate-800 dark:hover:text-navy-100">
+                                            <div class="w-6 h-6 avatar">
+
+                                                <Photo :user="mission.user" :taille="'16'" />
+
+                                            </div>
+                                            <span class="line-clamp-1">{{ mission.user.name }}</span>
+                                        </a>
+                                        <div class="self-stretch w-px mx-3 my-1 bg-slate-200 dark:bg-navy-500"></div>
+                                        <span class="shrink-0 text-slate-400 dark:text-navy-300">
+                                            {{ mission.created_at }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between gap-4 mt-1">
+
+                                           <div class="flex items-center ">
+                                            <h1 class="text-lg font-bold text-amber-600">{{ mission.budget }} $</h1>
+
+                                        </div>
+                                    <div v-if="mission.status == 'completed'">
+                                        <Button size="small" outlined severity="success" label="Mission terminer" />
+
+                                    </div>
+
+                                    <div v-else-if="mission.status == 'active'">
+                                           <Button size="small"
+                                           outlined severity="success"
+                                           label="Evolution" />
+
+                                    </div>
+                                    <div v-else-if="mission.status == 'pending' && $page.props.auth.user !=null"  class="flex gap-4 mt-4">
+
+
+                                               <Link :href="route('freelance.missions.postuler', mission.mission_numero)">
+                                                 <Button  size="small"
+                                                   outlined severity="info"
+                                                   label="Postuler" />
+                                            </Link>
+
+
+                                    </div>
+
+                                    <div v-if="$page.props.auth.user ==null" class="px-4">
+                                        <Link :href="route('login')">
+                                              <Button size="small"
+                                               outlined severity="info"
+                                               label="connecter vous" />
+                                        </Link>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        </swiper-slide>
+
+                        </swiper>
+
+
+
+                    </div>
+
+
+
+
+
+
+
             </div>
 
         </div>
@@ -797,11 +947,11 @@
 
 import WebLayout from '@/Layouts/WebLayout.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { useStore } from '@/store/store';// Assurez-vous d'ajuster le chemin d'importation
+import { useStore, useMissions } from '@/store/store';// Assurez-vous d'ajuster le chemin d'importation
 import { onMounted } from 'vue';
 
 import { Collapse } from 'vue-collapsed';
-import {ref} from 'vue';
+import {ref, computed } from 'vue';
 
 import {DocumentTextIcon, CheckCircleIcon } from '@heroicons/vue/24/solid'
 
@@ -889,13 +1039,30 @@ function handleAccordion(selectedIndex) {
     });
 }
 
+const swiperInstance=ref(null);
+const navigate = (direction) => {
+    if (swiperInstance.value) {
+        if (direction === 'prev') {
+            swiperInstance.value.slidePrev();
+        } else if (direction === 'next') {
+            swiperInstance.value.slideNext();
+        }
+    }
+};
+
+const onSwiperInitialized = (swiper) => {
+    swiperInstance.value = swiper;
+};
 
 const store = useStore();
 
+const missions =useMissions();
+const getMissions= computed(()=> missions.missionGeters);
 
 onMounted(() => {
     // Change la valeur de isNotHome dans le store
     store.updateIsHome();
+    missions.fetchLastMission();
 
 
 
@@ -907,9 +1074,14 @@ defineOptions({
 
 });
 
+const truncateText = (text, length) => {
+    return text.length > length ? text.slice(0, length) + '...' : text;
+}
 
 
 
+
+const showMore=ref(false);
 
 
 </script>

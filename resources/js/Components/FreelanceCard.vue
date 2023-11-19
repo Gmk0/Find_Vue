@@ -123,7 +123,7 @@ const like = ref(props.freelance.like);
             <div class="p-3">
                 <div class="flex items-center justify-between mb-2">
                     <h5 class="block font-sans text-base antialiased leading-snug tracking-normal text-gray-800 dark:text-white">
-                    {{ props.freelance.user.name }}
+                    {{ props.freelance.nomComplet }}
                     </h5>
                     <p
                         class="flex items-center gap-1.5 font-sans text-sm font-normal leading-relaxed text-gray-800 dark:text-white  antialiased">

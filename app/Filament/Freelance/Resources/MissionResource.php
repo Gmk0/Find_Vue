@@ -25,6 +25,7 @@ class MissionResource extends Resource
     protected static ?string $model = Mission::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Missions';
 
     public static function form(Form $form): Form
     {

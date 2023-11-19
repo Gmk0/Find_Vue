@@ -24,4 +24,18 @@ class ListOrders extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
+
+    public function getTabs(): array
+    {
+        return [
+            null => ListRecords\Tab::make('All'),
+
+            'Livré' => ListRecords\Tab::make()->query(fn ($query) => $query->whereHas('feedback', function($q){
+                $q->where('etat','=','Livré');
+            })),
+            'shipped' => ListRecords\Tab::make()->query(fn ($query) => $query->where('status', 'shipped')),
+            'delivered' => ListRecords\Tab::make()->query(fn ($query) => $query->where('status', 'delivered')),
+            'cancelled' => ListRecords\Tab::make()->query(fn ($query) => $query->where('status', 'cancelled')),
+        ];
+    }
 }

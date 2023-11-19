@@ -228,9 +228,12 @@
                 <div v-if="!$page.props.auth.user" class="flex items-center gap-6 ml-2" >
 
 
-                    <Link :href="route('login')" class="relative items-center justify-center hidden w-full h-12 px-2 mx-auto text-base text-white bg-transparent rounded-full lg:flex group hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
+                    <Link :href="route('login')" class="relative items-center justify-center hidden w-full h-12 px-2 mx-auto text-base  bg-transparent rounded-full lg:flex group hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
 
-                                <span>Connexion</span>
+
+                                 <span  class="dark:!text-white"  :class="{ 'lg:text-white': !isSticky && !isNotHome, 'lg:hidden': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">Connexion</span>
+
+                                                <span class="dark:!text-white text-gray-800"  :class="{ 'hidden': !isNotHome }">Connexion</span>
 
                             </Link>
 
@@ -241,7 +244,7 @@
 
                         </Link>
 
-                        <Link :href="route('register')"  class="relative flex items-center justify-center h-10 px-4 mx-auto mr-4 text-sm duration-300 rounded-md lg:hidden bg-gray-50 before:absolute before:inset-0 before:transition hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
+                        <Link :href="route('register')"  class="relative flex items-center justify-center h-10 px-4 mx-auto  text-sm duration-300 rounded-md lg:hidden bg-gray-50 before:absolute before:inset-0 before:transition hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
 
                                   <span class="relative text-base font-semibold text-amber-600">S'inscrire</span>
 

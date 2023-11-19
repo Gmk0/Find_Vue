@@ -46,4 +46,9 @@ class Category extends Model
     {
         return $this->hasMany(SubCategory::class);
     }
+
+    public function tags():HasMany
+    {
+        return $this->hasMany(TagSearch::class);
+    }
 }

@@ -4,6 +4,9 @@ namespace App\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance as Middleware;
 
+use Illuminate\Foundation\Http\MaintenanceModeBypassCookie;
+use Illuminate\Http\RedirectResponse;
+
 class PreventRequestsDuringMaintenance extends Middleware
 {
     /**
@@ -14,4 +17,11 @@ class PreventRequestsDuringMaintenance extends Middleware
     protected $except = [
         //
     ];
+
+    protected function bypassResponse(string $secret): RedirectResponse
+    {
+        return redirect('admin')->withCookie(
+            MaintenanceModeBypassCookie::create($secret)
+        );
+    }
 }

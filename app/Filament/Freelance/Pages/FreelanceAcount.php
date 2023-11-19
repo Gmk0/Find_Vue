@@ -25,6 +25,7 @@ class FreelanceAcount extends Page implements HasForms
 
     protected static ?string $navigationLabel = 'Mon compte freelance';
     protected static ?string $title = 'Mon compte freelance';
+    protected static ?string $navigationGroup = 'Mon compte';
 
 
     public Freelance $record;
@@ -98,7 +99,7 @@ class FreelanceAcount extends Page implements HasForms
             ->columns(3),
             Repeater::make('certificat')
             ->schema([
-                TextInput::make('certificate')->required(),
+                TextInput::make('certifier')->required(),
                 TextInput::make('delivrer')->required(),
                 Select::make('annee')
                 ->options($this->dateAnne())->native(false),
@@ -121,7 +122,7 @@ class FreelanceAcount extends Page implements HasForms
             ->columns(2),
             Repeater::make('langue')
             ->schema([
-                TextInput::make('langue')->required(),
+
                     Select::make('langue')
                     ->options([
                         'Français' => 'Français',

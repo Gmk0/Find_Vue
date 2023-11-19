@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MissionResourceData;
 use App\Models\Message;
+use App\Models\Mission;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\User;
@@ -83,6 +85,24 @@ class ApiUserController extends Controller
             return response()->json(['success' => false], 500);
         }
 
+
+    }
+
+    public function lastMissions()
+    {
+        try {
+            $missions = Mission::where('status','=', 'pending')->latest()->take(10)->get();
+
+           // $notification->read_at = now();
+
+
+
+
+            return response()->json(['missions' => MissionResourceData::collection($missions)], 200);
+        } catch (\Exception $e) {
+
+            return response()->json(['success' => false], 500);
+        }
 
     }
 

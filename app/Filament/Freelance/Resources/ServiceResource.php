@@ -22,12 +22,14 @@ use Filament\Forms\Get;
 use Illuminate\Support\Collection;
 use App\Models\SubCategory;
 use App\Models\Category;
+use App\Models\TagSearch;
 
 class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-inbox-stack';
+    protected static ?string $navigationGroup = 'Services';
 
     public static function form(Form $form): Form
     {
@@ -36,19 +38,17 @@ class ServiceResource extends Resource
                 Fieldset::make('Titre')->schema([
                 TextInput::make('title')->label('Titre')->helperText('Donner un titre a votre service ')->required(),
 
-                TagsInput::make('tag')->helperText('le tag pour faciliter la recherche ')->suggestions([
-                    'tailwindcss',
-                    'alpinejs',
-                    'laravel',
-                    'livewire',
-                    'photographie',
-                ])->placeholder('laravel , React js, vue js'),
+                Select::make('tags')->label('tags')
+                ->options(function () {
+                        return TagSearch::where('category_id', auth()->user()->freelance->category_id)->pluck('tag', 'tag');
+                })->multiple()
+                    ->native(false),
 
             ]),
             Fieldset::make('Sous categories')
             ->schema([
                 Forms\Components\Select::make('category_id')->label('categorie')
-                    ->options(Category::query()->pluck('name', 'id'))
+                    ->options(Category::where('id', auth()->user()->freelance->category_id)->pluck('name', 'id'))
                     ->live()
                     ->searchable()
                     ->native(false),
@@ -65,7 +65,12 @@ class ServiceResource extends Resource
             Fieldset::make('Prix')
                 ->schema([
                     // ...
-                    TextInput::make('basic_price')->label('Prix du Service')->required(),
+                    TextInput::make('basic_price')
+                    ->label('Prix du Service')
+                    ->numeric()
+                    ->inputMode('decimal')
+                    ->helperText('3.5% sera ajouter a votre prix pour les frais de transaction ')
+                    ->required(),
 
                     TextInput::make('basic_revision')->label('Revisions')
                 ])
@@ -73,7 +78,14 @@ class ServiceResource extends Resource
             RichEditor::make('description')
             ->columnSpanFull(),
 
-            RichEditor::make('need_service')->label('Besoin service')->helperText('Ce dont vous auriez besoin pour realiser le service')->columnSpanFull(),
+            RichEditor::make('need_service')->label('Besoin service')
+            ->helperText('Ce dont vous auriez besoin pour realiser le service')
+            ->toolbarButtons([
+                'bulletList',
+                'orderedList',
+                'undo',
+            ])
+            ->columnSpanFull(),
 
             FileUpload::make('files')->label('Image Decrivant le service')
             ->multiple()
@@ -99,7 +111,7 @@ class ServiceResource extends Resource
                                 'laravel',
                                 'livewire',
                                 'photographie',
-                            ])->placeholder('Maintenance, Suivie'),
+             ])->placeholder('Maintenance, Suivie')->hidden(),
                             TextInput::make('video_url')->label('video(facultatif)')
                             ->url()
                                 ->prefix('https://')
@@ -128,12 +140,12 @@ class ServiceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('freelance.id')
-                    ->numeric()
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('category.name')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                ->
+            toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('service_numero')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('title')
@@ -142,49 +154,69 @@ class ServiceResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('basic_support')
-                    ->searchable(),
+                    ->searchable()
+                ->
+            toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('basic_revision')
                     ->numeric()
-                    ->sortable(),
+                ->toggleable( isToggledHiddenByDefault: true)
+                ->sortable(),
                 Tables\Columns\TextColumn::make('basic_delivery_time')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                ->
+            toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('premium_price')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                ->
+            toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('premium_support')
-                    ->searchable(),
+                    ->searchable()
+                ->
+            toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('premium_revision')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                ->
+            toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('premium_delivery_time')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                ->
+            toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('extra_price')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true)
+,
                 Tables\Columns\TextColumn::make('extra_support')
+            ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('extra_revision')
+                ->toggleable(isToggledHiddenByDefault: true)
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('extra_delivery_time')
+            ->toggleable(isToggledHiddenByDefault: true)
                     ->numeric()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('files')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('format')
-                    ->searchable(),
+
+
                 Tables\Columns\TextColumn::make('delivery_time_unit')
+            ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('video_url')
+                ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('view_count')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('like')
                     ->numeric()
+                ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_publish')
                     ->boolean(),

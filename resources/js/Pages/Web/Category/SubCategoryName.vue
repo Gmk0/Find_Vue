@@ -123,16 +123,19 @@ defineOptions({
      <div class="relative w-full min-h-screen py-16 pb-12 ">
 
             <div>
-                <div class="relative flex items-center justify-between h-16 px-8 lg:h-24 dark:bg-gray-600 bg-skin-fill">
+                <div class="relative flex items-center justify-between h-16 px-8 lg:h-20 dark:bg-gray-600 bg-skin-fill">
 
                         <div class="flex items-center justify-center ">
                             <h1 class="text-lg font-bold text-white lg:text-4xl">{{ props.subcategory.name }}</h1>
                         </div>
                         <div class="flex">
-                            <Link :href="route('createProject')">
-                                <Button label="Soumettre un projet"  raised severity="info" size="small"/>
+                             <Link :href="route('createProject')"  class="relative lg:flex items-center hidden  justify-center h-10 px-4 mx-auto  text-sm duration-300 rounded-md  bg-gray-50 before:absolute before:inset-0 before:transition hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
 
-                            </Link>
+                                <span class="relative text-base font-semibold text-amber-600">Soumettre un projet</span>
+
+                        </Link>
+
+
 
                         </div>
                 </div>
@@ -184,13 +187,17 @@ defineOptions({
                 <hr  class="hidden lg:block"/>
 
                 <div class="relative mt-4 ">
-                      <div class="sticky top-0 z-30 grid h-auto grid-cols-12 px-4 py-2 bg-white dark:bg-gray-800 lg:z-0 lg:bg-transparent lg:relative">
-                            <div class="lg:col-span-3"></div>
+                      <div class="  relative z-30 flex flex-col lg:grid h-auto grid-cols-12 px-4 py-2 bg-white dark:bg-gray-800 lg:z-0 lg:bg-transparent lg:relative">
 
-                           <div class="grid col-span-12 gap-4 lg:col-span-9 lg:grid-cols-12 lg:gap-2 ">
-                                <div class="px-4 lg:col-span-12">
-                                    <TextInput v-model="form.search" class="py-3 w-full   !shadow-md" placeholder="recherche"
-                                        icon='search' />
+                            <div class="lg:col-span-3 hidden lg:flex"></div>
+                            <div class="lg:col-span-9 w-full mb-4">
+                                  <div class="px-4 lg:col-span-12">
+                                        <TextInput v-model="form.search" class="py-3 w-full   !shadow-md" placeholder="recherche"
+                                            icon='search' />
+                            </div>
+
+                           <div class="grid sticky top-0 col-span-12 gap-4  lg:grid-cols-12 lg:gap-2 ">
+
                                 </div>
                                 <div class="flex flex-row justify-between gap-2 px-4 lg:col-span-3">
                                     <div class="">
@@ -452,8 +459,8 @@ defineOptions({
 
 
                                             <div
-                                                class="absolute inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">
-                                                {{ category.service_count }}</div>
+                                                class="absolute p-2 inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-gray-400 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">
+                                                {{ subcategory.service_count }}</div>
                                         </Link>
                                     </div>
 

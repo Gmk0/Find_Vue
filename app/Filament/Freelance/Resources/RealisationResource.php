@@ -20,6 +20,7 @@ class RealisationResource extends Resource
     protected static ?string $model = Realisation::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
+    protected static ?string $navigationGroup = 'Services';
 
     public static function form(Form $form): Form
     {
@@ -30,6 +31,8 @@ class RealisationResource extends Resource
                     ->required()
                     ->columnSpanFull(),
             SpatieMediaLibraryFileUpload::make('realisation')
+            ->image()
+            ->optimize('jpg')
             ->multiple()
             ->collection('realisations')
             ->enableReordering(),
@@ -52,6 +55,8 @@ class RealisationResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             SpatieMediaLibraryImageColumn::make('realisation')
+
+
             ->collection('realisations'),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()

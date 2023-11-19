@@ -46,6 +46,7 @@ class FreelanceController extends Controller
                 ->through(fn ($freelance) => [
                     'id' => $freelance->id,
                     'nom' => $freelance->nom,
+                    'nomComplet'=>ucfirst($freelance->prenom).' '.$freelance->nom,
                     'prenom' => $freelance->prenom,
                     'level' => $freelance->level,
                     'identifiant' => $freelance->identifiant,

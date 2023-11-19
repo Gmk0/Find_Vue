@@ -342,6 +342,43 @@ export const useNotification = defineStore('useNotification',{
 });
 
 
+export const useMissions= defineStore('useMissions',{
+
+    state: () => ({
+        missions: [],
+
+    }),
+    getters:{
+        missionGeters:(state)=>state.missions
+
+    },
+    actions: {
+
+        async fetchLastMission()
+        {
+            try {
+                const response = await axios.get(`/api/fetchLastMissions`);
+                if (response.status === 200) {
+                    this.missions = response.data.missions;
+
+
+
+
+                } else if (response.status === 203) {
+
+                    console.log('Aucun element n\'est renvoyé.');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des element :', error);
+            }
+
+        }
+
+    }
+
+})
+
+
 
 
 

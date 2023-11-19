@@ -22,8 +22,10 @@ class OrderStat extends BaseWidget
     {
         return [
             Stat::make('Total commande', $this->getPageTableQuery()->count()),
-            Stat::make('Bounce rate', $this->getPageTableQuery()->where('status','completed')->count()),
-            Stat::make('Average time on page', '3:12'),
+            Stat::make('Commande Livré', $this->getPageTableQuery()->whereHas('feedback',function($q){$q->where('etat','=','Livré');})->count()),
+            Stat::make('Commande en Attente', $this->getPageTableQuery()->whereHas('feedback', function ($q) {
+                $q->where('etat', '!=', 'Livré');
+            })->count()),
         ];
     }
 }

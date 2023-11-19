@@ -41,6 +41,8 @@ class Freelance extends Model
         'level',
         'solde',
         'realisations',
+        'status_compte',
+        'type_compte',
     ];
 
     /**
@@ -125,6 +127,8 @@ class Freelance extends Model
 
 
         static::created(function ($freelance) {
+
+            Mail::to(auth()->user()->email)->send(new welcomeFreelance(auth()->user()));
         });
     }
 

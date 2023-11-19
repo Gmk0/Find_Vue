@@ -18,6 +18,9 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
+use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
+use Amendozaaguiar\FilamentRouteStatistics\FilamentRouteStatisticsPlugin;
+use Brickx\MaintenanceSwitch\MaintenanceSwitchPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -29,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->brandLogo(asset('images/logo/find_02.png'))
             ->login()
+            ->spa(true)
             ->domain(env('FILAMENT_DOMAIN',''))
             ->colors([
                 'primary' => Color::Amber,
@@ -61,6 +65,10 @@ class AdminPanelProvider extends PanelProvider
                 hasAvatars: false, // Enables the avatar upload form component (default = false)
                 slug: 'my-profile' // Sets the slug for the profile page (default = 'my-profile')
             ),
+            \FilipFonal\FilamentLogManager\FilamentLogManager::make(),
+            FilamentSpatieLaravelHealthPlugin::make(),
+            FilamentRouteStatisticsPlugin::make(),
+            MaintenanceSwitchPlugin::make(),
         ])
             ->authMiddleware([
                 Authenticate::class,

@@ -5,8 +5,10 @@ namespace App\Filament\Freelance\Resources;
 use App\Filament\Freelance\Resources\OrderResource\Pages;
 use App\Filament\Freelance\Resources\OrderResource\Pages\OrderGestion;
 use App\Filament\Freelance\Resources\OrderResource\RelationManagers;
+use App\Filament\Freelance\Resources\OrderResource\Widgets\LastOrder;
 use App\Filament\Freelance\Resources\OrderResource\Widgets\OrderStat;
 use App\Models\Order;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -22,6 +24,7 @@ class OrderResource extends Resource
     protected static ?string $model = Order::class;
 
     protected static ?string $navigationIcon = 'heroicon-m-shopping-cart';
+    protected static ?string $navigationGroup = 'Commandes';
 
     public static function form(Form $form): Form
     {
@@ -64,16 +67,30 @@ class OrderResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('total_amount')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                ->summarize([
+                    Tables\Columns\Summarizers\Sum::make()
+                        ->money(),
+                ]),
                 Tables\Columns\TextColumn::make('quantity')
+                ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('progress')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('is_paid')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('status')
+                ->badge()
+                ->colors([
+
+                    'primary' => 'pending',
+                    'warning' => 'rejeted',
+                    'success' => 'completed',
+
+                ])
                     ->searchable(),
             Tables\Columns\TextColumn::make('feedback.etat')
                 ->searchable(),
@@ -87,13 +104,50 @@ class OrderResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                //Tables\Filters\TrashedFilter::make(),
+
+            Tables\Filters\Filter::make('created_at')
+                ->form([
+                    Forms\Components\DatePicker::make('created_from')
+                        ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
+                    Forms\Components\DatePicker::make('created_until')
+                        ->placeholder(fn ($state): string => now()->format('M d, Y')),
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['created_from'] ?? null,
+                            fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                        )
+                        ->when(
+                            $data['created_until'] ?? null,
+                            fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                        );
+                })
+                ->indicateUsing(function (array $data): array {
+                    $indicators = [];
+                    if ($data['created_from'] ?? null) {
+                        $indicators['created_from'] = 'Order from ' . Carbon::parse($data['created_from'])->toFormattedDateString();
+                    }
+                    if ($data['created_until'] ?? null) {
+                        $indicators['created_until'] = 'Order until ' . Carbon::parse($data['created_until'])->toFormattedDateString();
+                    }
+
+                    return $indicators;
+                }),
+
+
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Action::make('GESTION')
                 ->url(fn (Order $record): string => static::getUrl('gestion',['record' => $record]))
                 //Tables\Actions\EditAction::make(),
+            ])->groups([
+                Tables\Grouping\Group::make('created_at')
+                    ->label('Par Date')
+                    ->date()
+                    ->collapsible(),
             ]);
     }
 
@@ -105,7 +159,7 @@ class OrderResource extends Resource
     }
     public static function getWidgets(): array
     {
-        return [OrderStat::class,];
+        return [OrderStat::class,LastOrder::class];
     }
 
 

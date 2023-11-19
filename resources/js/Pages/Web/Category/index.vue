@@ -83,7 +83,7 @@
 
         </div>
 
-        <div class="min-h-screen px-4 pt-8 bg-white dark:bg-gray-800 md:px-8">
+        <div class="lg:min-h-screen px-4 pt-8 bg-white dark:bg-gray-800 md:px-8">
 
             <div class="flex justify-start">
                 <h1 class="text-2xl font-semibold text-black dark:text-white">
@@ -101,7 +101,7 @@
 
 
                     <div v-for="sub in category.sub_categories" :key="sub.id" class="mb-4">
-                        <Link :href="route('SubcategoryName', [category.name, sub.name])" class="px-4 text-base font-semibold text-gray-600 dark:text-gray-200">{{ sub.name }}
+                        <Link :href="route('SubcategoryName', [category.name, sub.name])" class="px-4  text-sm block lg:text-base font-semibold text-gray-600 dark:text-gray-200">{{ sub.name }}
 
                             <span>
 
