@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('route_statistics', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignUuid('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->unsignedBigInteger('team_id')->nullable(); // Can be changed to the following if your application uses teams: $table->foreignId('team_id')->nullable()->constrained();
             $table->string('method')->nullable();
             $table->string('route')->nullable();

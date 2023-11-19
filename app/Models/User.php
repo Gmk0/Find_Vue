@@ -22,7 +22,9 @@ use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Support\Facades\Storage;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable as AuthTwoFactorAuthenticatable;
 
-class User extends Authenticatable implements MustVerifyEmail, HasAvatar
+use Filament\Panel;
+
+class User extends Authenticatable implements MustVerifyEmail, HasAvatar, FilamentUser
 {
     use HasApiTokens;
     use HasFactory;
@@ -48,6 +50,16 @@ class User extends Authenticatable implements MustVerifyEmail, HasAvatar
         'password',
         'phone',
     ];
+
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if ($panel->getId() === 'admin') {
+            return str_ends_with($this->email, '@find-freelance.com') && $this->hasVerifiedEmail();
+        }
+        return true;
+    }
+
 
     public function getFilamentAvatarUrl(): ?string
     {
@@ -164,12 +176,11 @@ class User extends Authenticatable implements MustVerifyEmail, HasAvatar
         return $this->HasMany(Realisation::class);
     }
 
-    public function freelanceExit() :bool
+    public function freelanceExit(): bool
     {
-        if($this->freelance !=null)
-        {
+        if ($this->freelance != null) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
