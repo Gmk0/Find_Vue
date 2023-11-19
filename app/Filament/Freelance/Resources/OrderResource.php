@@ -18,6 +18,7 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Contracts\Support\Htmlable;
 
 class OrderResource extends Resource
 {
@@ -25,6 +26,7 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-shopping-cart';
     protected static ?string $navigationGroup = 'Commandes';
+   // protected static ?string $recordTitleAttribute = 'Commandes';
 
     public static function form(Form $form): Form
     {
@@ -161,6 +163,7 @@ class OrderResource extends Resource
     {
         return [OrderStat::class,LastOrder::class];
     }
+
 
 
 

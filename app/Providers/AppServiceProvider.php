@@ -8,6 +8,9 @@ use Spatie\Health\Checks\Checks\OptimizedAppCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\CacheCheck;
+use Spatie\Health\Checks\Checks\DatabaseCheck;
+use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -30,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
             DebugModeCheck::new(),
             EnvironmentCheck::new(),
             CacheCheck::new(),
+            DatabaseCheck::new(),
+            UsedDiskSpaceCheck::new(),
         ]);
     }
 }

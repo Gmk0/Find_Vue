@@ -69,6 +69,7 @@ class AdminPanelProvider extends PanelProvider
             FilamentSpatieLaravelHealthPlugin::make(),
             FilamentRouteStatisticsPlugin::make(),
             MaintenanceSwitchPlugin::make(),
+          //  \Hasnayeen\Themes\ThemesPlugin::make(),
         ])
             ->authMiddleware([
                 Authenticate::class,

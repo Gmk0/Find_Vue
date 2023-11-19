@@ -128,7 +128,7 @@ class Freelance extends Model
 
         static::created(function ($freelance) {
 
-            Mail::to(auth()->user()->email)->send(new welcomeFreelance(auth()->user()));
+           // Mail::to(auth()->user()->email)->send(new welcomeFreelance(auth()->user()));
         });
     }
 

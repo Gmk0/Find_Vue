@@ -87,7 +87,7 @@ const declinePropasal =()=>{
     if (proposal.proposalId != '') {
         proposal.post(route('declinePropasalUser'), {
             preserveScroll: true,
-            onSuccess: () => {
+            onFinish: () => {
                 refuserProposalModal.value = false;
                  bottomScroll2();
 
@@ -101,7 +101,7 @@ const acceptPropasalUser=()=>{
     {
         proposal.post(route('acceptPropasalUser'),{
             preserveScroll: true,
-            onSuccess:()=>{
+            onFinish:()=>{
                 acceptProposalModal.value = false;
                  bottomScroll2();
 
@@ -136,7 +136,7 @@ const changePrice =()=>{
 
         proposal.post(route('proposalChangePrice'), {
             preserveScroll: true,
-            onSuccess: () => {
+            onFinish: () => {
                 chooseProposal.value = false,
                 proposal.service_id = ''
             },
@@ -181,9 +181,10 @@ const sendPropasal=()=>{
 
         proposal.post(route('proposalPrice'),{
             preserveScroll: true,
-             onSuccess:()=>{
+             onFinish:()=>{
                 proposalModal.value = false,
-                    proposal.service_id = ''
+                    proposal.service_id = '',
+                    bottomScroll2()
              },
 
         })

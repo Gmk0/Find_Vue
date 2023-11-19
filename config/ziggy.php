@@ -3,5 +3,5 @@
 
 
 return [
-    'except' => ['filament.admin.*'],
+    'except' => ['filament.*'],
 ];

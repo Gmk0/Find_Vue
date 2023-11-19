@@ -37,6 +37,7 @@ class PostulerMission extends Page implements HasInfolists,HasForms
     public Mission $record;
 
     public $response =null;
+    public $otherMission= null;
     public function mount($record)
     {
         //dd($record);
@@ -45,6 +46,8 @@ class PostulerMission extends Page implements HasInfolists,HasForms
 
         $response=MissionResponse::where('freelance_id',auth()->user()->freelance->id)
         ->where('mission_id',$this->record->id)->first();
+
+        $this->otherMission=Mission::all();
 
         if($response!=null)
         {

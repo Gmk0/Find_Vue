@@ -26,6 +26,7 @@ use Awcodes\Overlook\OverlookPlugin;
 use Awcodes\Overlook\Widgets\OverlookWidget;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use JibayMcs\FilamentTour\FilamentTourPlugin;
+use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 
 class FreelancePanelProvider extends PanelProvider
 {
@@ -73,7 +74,8 @@ class FreelancePanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-              \App\Http\Middleware\FreelanceAccessPanel::class
+              \App\Http\Middleware\FreelanceAccessPanel::class,
+            //\Hasnayeen\Themes\Http\Middleware\SetTheme::class,
             ])->plugins([
 
             BreezyCore::make()
@@ -89,7 +91,7 @@ class FreelancePanelProvider extends PanelProvider
                 slug: 'my-profile'
             )->enableTwoFactorAuthentication(
                     force: false, // force the user to enable 2FA before they can use the application (default = false)
-                    action: CustomTwoFactorPage::class // optionally, use a custom 2FA page
+                    action: CustomTwoFactorPage::class, // optionally, use a custom 2FA page
                 ),
             OverlookPlugin::make()
                 ->sort(2)
@@ -101,8 +103,11 @@ class FreelancePanelProvider extends PanelProvider
                     'xl' => 5,
                     '2xl' => null,
                 ]),
-                FilamentTourPlugin::make()->onlyVisibleOnce(false)
-            ->enableCssSelector(),
+                FilamentTourPlugin::make()->onlyVisibleOnce(true)
+                ->enableCssSelector(),
+                    SpotlightPlugin::make(),
+                 //\Hasnayeen\Themes\ThemesPlugin::make(),
+
 
                 ])
             ->authMiddleware([
