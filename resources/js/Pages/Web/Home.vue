@@ -443,7 +443,7 @@
 
         </div>
 
-        <div class=" bg-gray-50 lg:min-h-screen dark:bg-gray-900">
+        <div v-if="getMissions!=null" class=" bg-gray-50 lg:min-h-screen dark:bg-gray-900">
               <div class="max-w-6xl px-8 py-6 mx-auto md:px-6">
                     <!-- heading text -->
                     <div class="mb-10 text-center">
@@ -596,7 +596,7 @@
                                         <Link :href="route('login')">
                                               <Button size="small"
                                                outlined severity="info"
-                                               label="connecter vous" />
+                                               label="connexion" />
                                         </Link>
                                     </div>
 

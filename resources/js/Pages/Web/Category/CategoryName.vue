@@ -35,7 +35,7 @@
                                     <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                                     </svg>
-                                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">{{ props.category.name }}</span>
+                                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 break-before-auto dark:text-gray-400">{{ props.category.name }}</span>
                                 </div>
                                 </li>
                         </ol>
@@ -57,9 +57,11 @@
                             <div class="flex flex-row justify-between gap-2 px-4 lg:col-span-3">
                                 <div class="">
                                     <div class="block lg:hidden">
-                                        <button @click="showFiltre = !showFiltre" class="border py-1.5 px-4 rounded-md ">
-                                            filtre
-                                        </button>
+
+                                        <Button icon="pi pi-filter-fill" size="small"  @click="showFiltre = !showFiltre"
+                                                rounded
+                                                outlined
+                                                aria-label="Filter" />
                                     </div>
                                 </div>
                                 <div class="flex gap-2 lg:hidden ">

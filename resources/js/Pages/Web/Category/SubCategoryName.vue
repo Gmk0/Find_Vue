@@ -92,6 +92,10 @@ const toogleAbout =()=>{
 }
 
 
+const truncateText = (text, length) => {
+    return text.length > length ? text.slice(0, length) + '...' : text;
+}
+
 
 watch(form, throttle(() => {
 
@@ -160,7 +164,7 @@ defineOptions({
                             <svg class="w-3 hidden h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                             </svg>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">{{props.category.name}}</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400"> {{ truncateText(props.category.name,12)}}</span>
                         </Link>
                         </li>
                          <li aria-current="page">
@@ -168,7 +172,7 @@ defineOptions({
                                 <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                                 </svg>
-                                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">{{ props.subcategory.name }}</span>
+                                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">{{ truncateText(props.subcategory.name,12) }}</span>
                             </div>
                             </li>
                     </ol>
@@ -201,10 +205,12 @@ defineOptions({
                                 </div>
                                 <div class="flex flex-row justify-between gap-2 px-4 lg:col-span-3">
                                     <div class="">
-                                        <div class="block lg:hidden">
-                                            <button @click="showFiltre = !showFiltre" class="border py-1.5 px-4 rounded-md ">
-                                                filtre
-                                            </button>
+                                        <div class="block m-2 lg:hidden">
+
+                                             <Button size="small" icon="pi pi-filter-fill"  @click="showFiltre = !showFiltre"
+                                            rounded
+                                            outlined
+                                            aria-label="Filter" />
                                         </div>
                                     </div>
                                      <div class="block m-2 lg:hidden">

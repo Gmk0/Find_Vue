@@ -20,7 +20,7 @@
                                     class="absolute right-0 pt-1 text-base transition-transform fa fa-chevron-down "></i>
                             </button>
                         </h6>
-                         <Collapse :when="isOpen" class="px-6 overflow-hidden leading-normal collapse">
+                         <Collapse :when="isOpen" class="px-6 overflow-hidden  collapse">
 
 
                                 <ul class="flex flex-col w-full px-4 space-y-2 text-left list-none list-inside text-gray-50">
@@ -51,46 +51,46 @@
                             </button>
                         </h6>
 
-                        <Collapse :when="isOpen2" class="px-6 overflow-hidden leading-normal collapse">
+                        <Collapse :when="isOpen2" class="px-6 overflow-hidden  collapse">
 
 
                                 <ul class="flex flex-col w-full px-4 text-left list-none text-gray-50">
-                                    <li><a href=""                                            class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">Privacy
-                                            Policy</a></li>
-                                    <li><a href=""
-                                            class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100 ">Contact</a>
+                                    <li><Link :href="route('terms.show')"                                            class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">Privacy
+                                            Policy</Link></li>
+                                    <li><Link href="/contact"
+                                            class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100 ">Contact</Link>
                                     </li>
 
-                                    <li><a href=""
+                                    <li> <Link :href="route('terms.show')"
                                             class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">Terms
                                             of
-                                            Service</a></li>
+                                            Service</Link></li>
                                 </ul>
                          </Collapse>
 
 
                     </div>
 
-                    <div  class="relative mb-3">
+                    <div  class="relative hidden mb-3">
                             <h6 class="mb-0">
                                 <button @click="handleCollapse3"
                                     class="relative flex items-center w-full p-4 text-base font-semibold text-left transition-all ease-in border-solid cursor-pointer text-gray-50 border-slate-100 dark:text-gray-500 rounded-t-1 group text-dark-500"
                                     data-collapse-target="animated-collapse-1">
-                                    <span>Guides</span>
+                                    <span>Freelance</span>
                                     <i :class="isOpen3 ? 'rotate-180 transition-transform' : ''"
                                         class="absolute right-0 pt-1 text-base transition-transform fa fa-chevron-down "></i>
                                 </button>
                             </h6>
-                              <Collapse :when="isOpen3" class="px-6 overflow-hidden leading-normal collapse">
+                              <Collapse :when="isOpen3" class="px-6 overflow-hidden  collapse">
 
 
                                     <ul class="flex flex-col w-full px-4 font-thin text-left list-none text-gray-50">
-                                        <li><a href=""
-                                                class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">Freelance</a>
+                                        <li><Link href="/find-freelance"
+                                                class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">Trouver un Freelance</Link>
                                         </li>
-                                        <li><a href=""
+                                        <li><Link :href="route('createProject')"
                                                 class="inline-block py-2 pl-3 pr-5 text-white hover:text-gray-800 dark:hover:text-gray-100">
-                                                Mission</a>
+                                                Mission</Link>
                                         </li>
 
                                     </ul>
@@ -108,7 +108,7 @@
                             </button>
                         </h6>
 
-                        <Collapse :when="isOpen4" class="px-6 overflow-hidden leading-normal collapse">
+                        <Collapse :when="isOpen4" class="px-6 overflow-hidden  collapse">
 
 
                                   <ul class="flex flex-col w-full p-0 px-4 font-thin text-left list-none text-gray-50">

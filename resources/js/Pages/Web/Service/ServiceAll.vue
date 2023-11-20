@@ -1,9 +1,9 @@
 <template>
     <div class="flex flex-col min-h-screen pt-16 mb-6 bg-gray-100 dark:bg-gray-800">
 
-         <div x-show="!isLoading" x-cloak class="flex flex-col p-2 mx-6 my-8 bg-white rounded-lg md:min-h-64 dark:bg-gray-800">
+         <div  class="flex flex-col p-2 mx-6 my-8 bg-white rounded-lg md:min-h-64 dark:bg-gray-800">
                 <div class="mb-2">
-                    <h3 class="text-xl leading-snug text-center dark:text-gray-400 text-slate-800">
+                    <h3 class="md:text-xl text-lg  text-center dark:text-gray-400 text-slate-800">
                         Découvrez une communauté de freelances talentueux prêts à donner vie à vos projets.
                         Trouvez le service parfait pour vous, choisissez parmi une large sélection de compétences et laissez
                         notre
@@ -64,7 +64,7 @@
             </div>
          </div>
 
-         <div class="py-8 mx-6">
+         <div class="py-8 mx-2 lg:mx-6">
                     <div class="flex items-center justify-between px-4">
                         <p class="text-xl font-medium text-slate-700 dark:text-navy-100">
                             Les Services populaire
@@ -109,7 +109,7 @@
                     </div>
                 </div>
 
-           <div class="py-8 mx-6">
+           <div class="py-8 mx-2 lg:mx-6">
                 <div class="flex items-center justify-between px-4">
                     <p class="text-xl font-medium text-slate-700 dark:text-navy-100">
                         Les Freelance populaire
@@ -154,7 +154,7 @@
                 </div>
             </div>
 
-             <div class="flex flex-col p-2 mx-4 mt-4 bg-white rounded-lg dark:bg-gray-800 md:mx-6 justify-beetwen">
+             <div class="flex flex-col p-2 mx-2 mt-4 bg-white rounded-lg dark:bg-gray-800 md:mx-6 justify-beetwen">
 
                 <div class="mb-4">
                     <h1 class="text-xl font-bold text-gray-800 dark:text-gray-300">Services que vous pourriez aimer</h1>
@@ -163,7 +163,7 @@
 
 
                 <div
-                    class="grid grid-cols-1 gap-4 mx-auto lg:max-6-5xl lg:mx-auto lg:p-4 md:grid-cols-3 lg:md:grid-cols-4 md:gap-4">
+                    class="grid grid-cols-1 gap-4  lg:max-w-5xl lg:mx-auto lg:p-4 md:grid-cols-3 lg:md:grid-cols-4 md:gap-4">
 
 
                     <div v-for="service in props.servicesBest">
@@ -196,8 +196,7 @@
                         talentueux sera ravie de vous aider..</p>
 
                         <Link :href="route('createProject')"
-                        class="px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">Soumettre un
-                        projet</Link>
+                        class="px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">Soumettre une mission</Link>
 
 
                 </div>

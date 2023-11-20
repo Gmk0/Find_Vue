@@ -181,7 +181,7 @@ defineOptions({
                         <div class="block lg:hidden">
 
 
-                            <Button icon="pi pi-filter-fill" @click="showFilters = !showFilters"
+                            <Button icon="pi pi-filter-fill"  @click="showFilters = !showFilters"
                             rounded
                             outlined
                             aria-label="Filter" />

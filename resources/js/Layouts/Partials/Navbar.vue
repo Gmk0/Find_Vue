@@ -324,7 +324,7 @@
 
                             <div class="flex-1 border-gray-800 dark:border-white custom-scrollbar">
                                 <div class="pt-4 pb-3">
-                                    <Link :href="route('home')"
+                                    <Link :href="route('home')" @click="navOpen = false"
                                         class="flex flex-row items-center px-3 py-2 text-base font-medium text-gray-800 rounded-md dark:text-white focus:outline-none focus:dark:text-white focus:text-white focus:bg-amber-600">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -384,7 +384,7 @@
                                                         {{ category.name }}
                                                      </Link>
 
-                                                     <div v-for="subcategory in category.subcategories" class="px-8">
+                                                     <div v-for="subcategory in category.subcategories" class="px-8" @click="navOpen = false">
                                                         <Link :href="route('SubcategoryName', [category.name, subcategory.name])" class="flex flex-row items-center px-3 py-2 text-base font-medium text-gray-800 rounded-md dark:text-white hover:text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:text-gray-900 focus:bg-gray-200" :to="{ name: 'sub.name', params: { name: category.name, sub: subcategory.name } }">
                                                             {{ subcategory.name }}
                                                         </Link>
@@ -420,7 +420,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
                                             </svg>
 
-                                        <span class="ml-2">Trouver un Freelancer</span>
+                                        <span class="ml-2">Trouver un Freelance</span>
                                         </Link>
 
                                    <Link :href="route('createProject')" @click="navOpen = false"
@@ -522,6 +522,18 @@
                                             </svg>
                                             <span class="ml-2">Dashboard freelance</span>
                                     </Link>
+                                     <a href="/freelance-gestion" @click="navOpen = false"
+                                                class="flex flex-row items-center px-2 py-2 font-medium text-gray-800 dark:text-gray-200 text-md focus:text-gray-900 hover:text-gray-900 focus:outline-none dark:hover:bg-gray-600"
+                                                role="menuitem">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                   >
+                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                    <circle cx="12" cy="7" r="4"></circle>
+                                                </svg>
+                                                <span class="ml-2">Dashboard freelance Pro</span>
+                                        </a>
                                        <Link :href="route('freelance.chat')" @click="navOpen = false"
                                                 class="flex flex-row items-center px-2 py-2 font-medium text-gray-800 dark:text-gray-200 text-md focus:text-gray-900 hover:text-gray-900 focus:outline-none dark:hover:bg-gray-600"
                                                 role="menuitem">
@@ -632,6 +644,9 @@ onMounted(() => {
 });
 
 
+const truncateText = (text, length) => {
+    return text.length > length ? text.slice(0, length) + '...' : text;
+}
 
 const open = ref(false);
 const navOpen = ref(false);

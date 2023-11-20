@@ -113,7 +113,7 @@ const addToCart = () => {
               <div class="w-[52%]  md:w-full flex gap-1 lg:px-4 px-2 pt-1 pb-2 flex-col">
                 <div class="flex justify-between mt-1 lg:mt-0 ">
                     <div class="flex gap-1">
-                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-1 text-yellow-200" viewBox="0 0 20 20"
+                 <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-6 lg:h-6 w-4 h-4 mr-1 text-yellow-200" viewBox="0 0 20 20"
                     fill="currentColor">
                     <path
                         d="M10 13.165l-4.53 2.73 1.088-5.997L.976 6.305l6.018-.873L10 0l2.006 5.432 6.018.873-4.582 3.593 1.088 5.997L10 13.165z" />
@@ -166,9 +166,9 @@ const addToCart = () => {
 
 
         </div>
-        <div class="mt-2">
+        <div class="lg:mt-2 mt-3">
             <div class="flex items-center gap-1">
-                <Photo :user="props.service.user" taille="10" />
+                <Photo :user="props.service.user" taille="8" />
 
 
                 <a href="" class="flex">

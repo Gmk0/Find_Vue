@@ -243,7 +243,7 @@ defineOptions({
 
          <Toast position="bottom-right" group="br" />
 
-        <div class="container relative px-4 py-4 mx-auto">
+        <div class="container relative px-4 py-4 lg:mx-auto">
 
             <div class="relative flex flex-col gap-4 lg:flex-row lg:space-x-4">
                 <div id="card" class="relative flex-col mx-2 mb-6 lg:flex lg:order-2 lg:mb-0 lg:w-1/3">
@@ -253,7 +253,7 @@ defineOptions({
 
                         <div class="mt-2 sm:col-span-8 lg:col-span-7">
 
-                                <h2 class="flex text-lg font-bold text-gray-800 truncate lg:hidden dark:text-gray-300 sm:pr-12">
+                                <h2 class="block  text-base my-4 lg:text-lg font-bold text-gray-800 truncate lg:hidden dark:text-gray-300 ">
                                 {{ service.title }}
                                 </h2>
                             <section aria-labelledby="information-heading" class="mt-1 ">
@@ -446,8 +446,8 @@ defineOptions({
                     </div>
                 </div>
 
-                <div class="w-full px-4 bg-gray-50 dark:bg-gray-800 md:w-2/3">
-                    <div class="p-4 dark:bg-gray-800">
+                <div class="w-full lg:px-4 px-2 bg-gray-50 dark:bg-gray-800 md:w-2/3">
+                    <div class="lg:p-4 dark:bg-gray-800">
                         <div class="flex flex-col mb-4">
 
                             <div>
@@ -489,7 +489,7 @@ defineOptions({
                                                 >
                                                 <swiper-slide v-for="(image, index) in props.service.data.files">
 
-                                                    <img class="object-fill rounded-md h-full lg:h-10/12 swiper-lazy"
+                                                    <img class="object-cover w-auto rounded-md h-auto lg:h-10/12 swiper-lazy"
                                                         :src = "'/storage/' + image"
                                                         :alt="image" />
                                                 </swiper-slide>
@@ -520,7 +520,7 @@ defineOptions({
 
                                     </div>
 
-                                    <div class="mt-8 card">
+                                    <div class="mt-8">
                                         <TabView>
                                             <TabPanel header="INFO">
 
@@ -577,8 +577,8 @@ defineOptions({
 
                                                     </div>
                                                     <div class="grid grid-cols-2 gap-4 mb-6">
-                                                            <div>
-                                                            <p class="font-bold text-gray-500 dark:text-gray-200">Besoin pour ce service :</p>
+                                                            <div class="col-span-2">
+                                                            <p class="font-bold text-base text-gray-500 dark:text-gray-200">Besoin pour ce service :</p>
 
 
                                                             <div class="prose" v-html="service.need_service"></div>
@@ -589,7 +589,7 @@ defineOptions({
 
                                                 </div>
                                             </TabPanel>
-                                            <TabPanel header="Example">
+                                        <TabPanel header="Example">
 
 
                                             <div v-if="service.example != null" class="grid grid-cols-1 gap-4 ">
