@@ -1,1 +1,0 @@
-import{o as a,c as e,w as t,u as o,z as s,a as c}from"./app-840c2e3f.js";const r=c("img",{class:"w-24 h-auto",src:"/images/logo/find_02.png",alt:"FIND"},null,-1),l={__name:"AuthenticationCardLogo",setup(n){return(_,i)=>(a(),e(o(s),{href:"/"},{default:t(()=>[r]),_:1}))}};export{l as _};
