@@ -248,7 +248,7 @@ defineOptions({
 
                         <transition name="fade">
                          <div v-if="step === 2" class="flex flex-col w-full mt-4">
-                                <div class="flex gap-8">
+                                <div class="flex flex-col gap-4 md:flex-row lg:gap-8">
 
 
 
@@ -318,14 +318,14 @@ defineOptions({
 
                         </div>
                         <div>
-                             <button v-if="step ===1" @click="changeStep(2)" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                             <button v-if="step ===1" @click="changeStep(2)" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                     Continuer
                             </button>
 
                             <button type="button"
                             @click="submit()"
                             v-if="step ===2"
-                             class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
+                             class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
                                 Soumettre
                             </button>
 
