@@ -34,7 +34,7 @@ class LastOrder extends BaseWidget
                 ->badge()
                 ->colors([
 
-                'primary' => 'pending',
+                    'primary' => 'pending',
                     'warning' => 'rejeted',
                     'success' => 'completed',
 

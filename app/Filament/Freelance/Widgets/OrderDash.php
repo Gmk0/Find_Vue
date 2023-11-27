@@ -21,8 +21,8 @@ class OrderDash extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Total Revenue', auth()->user()->freelance->solde .' $'),
-            Stat::make('Nouveau commande', $this->getPageTableQuery()->where('status','completed')->count()),
+            Stat::make('Total Revenu', auth()->user()->freelance->solde .' $'),
+            Stat::make('Nouvelle commande', $this->getPageTableQuery()->where('status','completed')->count()),
             Stat::make('Commande Livré', $this->getPageTableQuery()->whereHas('feedback', function($q){
                 $q->where('etat','=','Livré');
             })->count())
