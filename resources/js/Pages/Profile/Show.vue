@@ -12,6 +12,8 @@ import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfile
 
 import NotificationSeeting from '@/Components/NotificationSeeting.vue'
 
+import Parainage from '@/Components/Parainage.vue';
+
 
 
 defineProps({
@@ -119,22 +121,39 @@ defineOptions({
                                 </li>
 
                                 <li>
-                                    <a @click="activeTab = 'Notification'"
-                                        :class="activeTab === 'Notification' ? 'border-amber-600 border-b text-slate-800 ' : 'hover:bg-slate-100  hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100'"
+                                    <a @click="activeTab = 'Parainage'"
+                                        :class="activeTab === 'Parainage' ? 'border-amber-600 border-b text-slate-800 ' : 'hover:bg-slate-100  hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100'"
                                         class=" group flex items-center space-x-2 rounded-lg  px-4 py-2.5 tracking-wide text-white outline-none transition-all "
                                         href="#">
+
                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                            :class="activeTab === 'Notification' ? 'dark:text-white text-slate-800' : 'transition-colors text-slate-400 group-hover:text-slate-500 group-focus:text-slate-500 dark:text-navy-300 dark:group-hover:text-navy-200 dark:group-focus:text-navy-200'"
+                                            :class="activeTab === 'Parainage' ? 'dark:text-white text-slate-800' : 'transition-colors text-slate-400 group-hover:text-slate-500 group-focus:text-slate-500 dark:text-navy-300 dark:group-hover:text-navy-200 dark:group-focus:text-navy-200'"
                                             class="w-5 h-5 " fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                             stroke-width="1.5">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                         </svg>
 
                                         <span
-                                            :class="activeTab === 'Notification' ? 'dark:text-white text-slate-800' : 'text-slate-400 group-hover:text-slate-500 group-focus:text-slate-500 dark:text-navy-300 dark:group-hover:text-navy-200 dark:group-focus:text-navy-200'">Notification</span>
+                                            :class="activeTab === 'Parainage' ? 'dark:text-white text-slate-800' : 'text-slate-400 group-hover:text-slate-500 group-focus:text-slate-500 dark:text-navy-300 dark:group-hover:text-navy-200 dark:group-focus:text-navy-200'">Parainage</span>
                                     </a>
                                 </li>
+                                 <li>
+                                        <a @click="activeTab = 'Notification'"
+                                            :class="activeTab === 'Notification' ? 'border-amber-600 border-b text-slate-800 ' : 'hover:bg-slate-100  hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100'"
+                                            class=" group flex items-center space-x-2 rounded-lg  px-4 py-2.5 tracking-wide text-white outline-none transition-all "
+                                            href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                :class="activeTab === 'Notification' ? 'dark:text-white text-slate-800' : 'transition-colors text-slate-400 group-hover:text-slate-500 group-focus:text-slate-500 dark:text-navy-300 dark:group-hover:text-navy-200 dark:group-focus:text-navy-200'"
+                                                class="w-5 h-5 " fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                stroke-width="1.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                            </svg>
+
+                                            <span
+                                                :class="activeTab === 'Notification' ? 'dark:text-white text-slate-800' : 'text-slate-400 group-hover:text-slate-500 group-focus:text-slate-500 dark:text-navy-300 dark:group-hover:text-navy-200 dark:group-focus:text-navy-200'">Notification</span>
+                                        </a>
+                                    </li>
                                 <li>
                                     <a @click="activeTab = 'Security'"
                                         :class="activeTab === 'Security' ? 'border-amber-600 border-b' : 'hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100'"
@@ -224,13 +243,18 @@ defineOptions({
                             x-transition:enter-start="opacity-0 [transform:translate3d(1rem,0,0)]"
                             x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" class="col-span-12 lg:col-span-8">
 
-
                          <NotificationSeeting />
 
-
-
-
                         </div>
+                         <div  v-if="activeTab === 'Parainage'"
+                          x-transition:enter="transition-all duration-300 easy-in-out"
+                                x-transition:enter-start="opacity-0 [transform:translate3d(1rem,0,0)]"
+                                x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" class="col-span-12 lg:col-span-8">
+
+                             <Parainage />
+
+                            </div>
+
 
 
                          <div  v-if="activeTab === 'Privacy'"

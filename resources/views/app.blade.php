@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
+        <link rel="shortcut icon" href="/images/logo/find_01.png" type="image/x-icon">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title inertia>{{ config('app.name', 'FIND') }}</title>
-
-
-                <link  rel="stylesheet" href="/css/new.css">
-
+        <link  rel="stylesheet" href="/css/new.css">
         <link rel="stylesheet" href="/css/plugin.css">
         <link rel="stylesheet" href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css" />
 

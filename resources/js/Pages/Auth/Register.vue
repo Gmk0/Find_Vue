@@ -8,6 +8,13 @@ import TextInput from '@/Components/TextInput.vue';
 
 import { ref } from 'vue';
 
+const props=defineProps({
+    code:{
+         type: String,
+          default: '',
+    },
+})
+
 const form = useForm({
     name: '',
     email: '',
@@ -15,6 +22,7 @@ const form = useForm({
     phone: '',
     password_confirmation: '',
     terms: false,
+    referral_code: props.code,
 });
 
 const tel=ref('');
@@ -36,8 +44,8 @@ const onPhoneInput=()=> {
 
 
     // Limitez la saisie à un maximum de 10 chiffres
-    if (form.phone.length > 10) {
-        form.phone = form.phone.slice(0, 10);
+    if (form.phone.length > 15) {
+        form.phone = form.phone.slice(0, 15);
     }
 
 }
@@ -199,16 +207,15 @@ const submit = () => {
                                                 <div class="flex gap-2">
                                                     <select v-model="tel" @change="onUpdateTel()" class="border-gray-300 rounded-md shadow-sm dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 focus:border-amber-500 focus:ring-amber-500">
                                                         <option value="" >code</option>
-                                                        <option value="+243">+ 243</option>
-                                                        <option value="+242">+ 242</option>
-                                                        <option value="+244">+ 244</option>
+                                                        <option value="243">+ 243</option>
+                                                        <option value="242">+ 242</option>
+                                                        <option value="244">+ 244</option>
                                                     </select>
                                                      <TextInput
                                                         id="phone"
                                                         v-model="form.phone"
                                                         type="tel"
-                                                        maxlength="14"
-                                                        pattern="\d{9,10}"
+                                                        maxlength="15"
                                                         class="block w-full mt-1"
                                                         required
                                                         autofocus
@@ -260,6 +267,16 @@ const submit = () => {
                                             />
                                             <InputError class="mt-2" :message="form.errors.password_confirmation" />
                                         </div>
+                                         <div class="mt-4">
+                                                <InputLabel for="Code" value="Code de parrainage (facultatif)" />
+                                                <TextInput
+                                                    id="Code"
+                                                    v-model="form.referral_code"
+                                                    type="text"
+                                                    class="block w-full mt-1"
+                                                />
+                                                <InputError class="mt-2" :message="form.errors.referral_code" />
+                                            </div>
 
                                         <div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="mt-4">
                                             <InputLabel for="terms">

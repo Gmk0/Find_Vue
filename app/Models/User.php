@@ -49,6 +49,9 @@ class User extends Authenticatable implements  HasAvatar, FilamentUser
         'email',
         'password',
         'phone',
+        'referral_code',
+        'referral_by',
+        'gift_used',
     ];
 
 
@@ -159,6 +162,25 @@ class User extends Authenticatable implements  HasAvatar, FilamentUser
     {
         return $this->hasMany(Mission::class);
     }
+
+    // Dans une classe de service ou un événement
+
+
+    // app/Services/ReferralService.php
+
+
+
+    public function referrals(): HasMany
+    {
+        return $this->hasMany(User::class, 'referral_by');
+    }
+
+    public function countReferrals(): int
+    {
+        return $this->referrals()->count();
+    }
+
+
 
 
 

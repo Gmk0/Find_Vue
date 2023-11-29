@@ -152,6 +152,7 @@
                     </li>
 
                     </ul>
+
                 </nav>
 
                 <div v-if="hoverOpen" @mouseleave="hoverOpen=false" class="absolute z-50 hidden w-full h-16 mx-auto right-4 top-16">
@@ -181,6 +182,7 @@
 
 
                              <CartComponent />
+
 
 
 
@@ -228,23 +230,27 @@
                 <div v-if="!$page.props.auth.user" class="flex items-center gap-6 ml-2" >
 
 
-                    <Link :href="route('login')" class="relative items-center justify-center hidden w-full h-12 px-2 mx-auto text-base  bg-transparent rounded-full lg:flex group hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
+
+                    <a href="#" @click="userStateLogin.loginUser()" class="relative items-center justify-center hidden w-full h-12 px-2 mx-auto text-base bg-transparent rounded-full lg:flex group hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
 
 
                                  <span  class="dark:!text-white"  :class="{ 'lg:text-white': !isSticky && !isNotHome, 'lg:hidden': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">Connexion</span>
 
-                                                <span class="dark:!text-white text-gray-800"  :class="{ 'hidden': !isNotHome }">Connexion</span>
+                                                <span class="dark:!text-white text-gray-800"  :class="{ 'hidden': !isNotHome }">
 
-                            </Link>
 
-                        <Link :href="route('register')"  class="relative items-center justify-center hidden w-full h-12 px-8 mx-auto rounded-full lg:flex bg-skin-fill group dark:bg-skin-fill hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
+                                                </span>
+
+                    </a>
+
+                        <Link :href="route('register',['code'])"  class="relative items-center justify-center hidden w-full h-12 px-8 mx-auto rounded-full lg:flex bg-skin-fill group dark:bg-skin-fill hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
 
                              <span
                                     class="relative text-base font-semibold text-white dark:text-white underline-none">S'inscrire</span>
 
                         </Link>
 
-                        <Link :href="route('register')"  class="relative flex items-center justify-center h-10 px-4 mx-auto  text-sm duration-300 rounded-md lg:hidden bg-gray-50 before:absolute before:inset-0 before:transition hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
+                        <Link :href="route('register',['code'])"  class="relative flex items-center justify-center h-10 px-4 mx-auto text-sm duration-300 rounded-md lg:hidden bg-gray-50 before:absolute before:inset-0 before:transition hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
 
                                   <span class="relative text-base font-semibold text-amber-600">S'inscrire</span>
 
@@ -297,10 +303,10 @@
                             </div>
 
                             <div v-else>
-                            <Link :href="route('login')" @click="navOpen = false"
+                            <a href="#"  @click="loginUser()"
                                 class="relative flex items-center justify-center w-full h-12 px-8 mx-auto duration-300 rounded-full dark:border dark:border-white bg-skin-fill before:absolute before:inset-0 before:transition hover:scale-105 active:duration-75 active:scale-95 sm:w-max">
                                 <span class="relative text-base font-semibold text-white">Connexion</span>
-                            </Link>
+                            </a>
 
 
                             </div>
@@ -581,6 +587,7 @@
 
 
 
+                 <Login />
 
     </div>
 </template>
@@ -595,7 +602,11 @@ import userInfo from '@/Components/userInfo.vue';
 import { Collapse } from 'vue-collapsed';
 import CartComponent from '@/Components/CartComponent.vue';
 
-import { useSubcategoriesStore, useCategoryStore } from '@/store/store';
+import Login from '@/Components/Login.vue';
+
+import { useSubcategoriesStore, useStore, useCategoryStore } from '@/store/store';
+
+
 
 //import pkg from 'primevue/config/config.esm.js';
 //const { usePrimeVue } = pkg;
@@ -619,6 +630,8 @@ const logout = () => {
     router.post(route('logout'));
 };
 
+
+const userStateLogin= useStore();
 const categoriesStore = useCategoryStore();
 const subcategoriesStore = useSubcategoriesStore();
 
@@ -659,11 +672,16 @@ const isNotHome = computed(()=>{
     return  page.url === '/' ? false : true;
 });
 
-const toogleNav = () => {
+const loginUser = () => {
 
-    navOpen.value = !navOpen.value
+
+    navOpen.value = !navOpen.value;
+    userStateLogin.loginUser();
+
 
 }
+
+
 
 const expandedItems = ref([]);
 

@@ -91,11 +91,12 @@ import NavGuest from '@/Layouts/Partials/NavGuest.vue';
 import Message from 'primevue/message';
 
 
+import VueClipboard from 'vue3-clipboard'
+import VueSocialSharing from 'vue-social-sharing'
 
 
 
-
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'FIND';
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate)
@@ -109,9 +110,14 @@ createInertiaApp({
             .use(ZiggyVue)
             .use(pinia)
             .use(VueSweetalert2)
+            .use(VueSocialSharing)
             .use(PrimeVue, { unstyled: true, pt: Tailwind })
             .use(ToastService)
             .use(ConfirmationService)
+            .use(VueClipboard, {
+                autoSetContainer: true,
+                appendToBody: true,
+            })
             .directive('Tooltip', Tooltip)
             .component('AppLayout', AppLayout)
             .component('pagination',Pagination)
@@ -153,6 +159,7 @@ createInertiaApp({
             .component('CardGuest', CardGuest)
             .component('NavGuest', NavGuest)
             .component('Message',Message)
+
            // .component('Show', Show)
              // Enregistrez votre composant de layout
 

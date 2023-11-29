@@ -44,6 +44,13 @@ const expandedItems = ref([]);
 
 
 const LayoutStore = useLayoutStore();
+
+
+const getHourFromDate = created_at => {
+   const date = new Date(created_at);
+
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+};
 </script>
 
 <template>
@@ -180,7 +187,7 @@ const LayoutStore = useLayoutStore();
                         <div class="mt-4">
                             <h2
                                 class="px-3 text-xs+ font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
-                                Dernier messages
+                                Dernier message
                             </h2>
 
 
@@ -194,7 +201,7 @@ const LayoutStore = useLayoutStore();
                                         <div class="mb-1 line-clamp-2">
                                             <Link :href="route('user.chat', message.conversation_id)"
                                                 class="font-medium text-slate-700 hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light">
-                                                {{ message.body }}</Link>
+                                               <span v-html="message.body"></span></Link>
                                         </div>
                                         <div class="flex items-center justify-between">
                                             <div class="flex flex-col space-x-2">
@@ -212,7 +219,7 @@ const LayoutStore = useLayoutStore();
                                                 <div>
 
                                                       <p class="text-xs font-medium line-clamp-1">
-                                                            {{ message.created_at }}
+                                                              {{ getHourFromDate(message.created_at) }}
                                                         </p>
 
                                                 </div>

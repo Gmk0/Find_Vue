@@ -23,7 +23,9 @@ use App\Http\Controllers\Web\MissionController;
 use App\Http\Controllers\Web\ReportController;
 use App\Http\Controllers\Web\ServiceController;
 use App\Http\Controllers\WebController;
+use App\Http\Controllers\AuthController;
 use App\Models\Category;
+use App\Http\Controllers\User\parainageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -62,6 +64,8 @@ Route::controller(RegistrationController::class)->group(function(){
 
 
 });
+
+Route::get('/auth/register/{code?}',[AuthController::class,'register'])->name('auth.register');
 
 Route::controller(FreelanceController::class)->group(function(){
 
@@ -200,6 +204,15 @@ Route::middleware([
         Route::get('/paiement-status/{transaction_numero}',  'paiementStatus')->name('paiementStatus');
 
         Route::get('/paiement-service/{uniqueId}', 'LinkCustomPaid')->name('customLink.paid');
+    });
+
+    Route::controller(parainageController::class)->group(function(){
+        Route::get('/api/getCodeUser', 'getCodeUser');
+
+        Route::post('/api/generate-code-parainage','generateCode');
+
+        Route::get('/api/getAllUserParainer', 'getAllUser');
+
     });
 
 
@@ -350,17 +363,14 @@ Route::controller(ApiController::class)->group(function(){
 });
 
 
-Route::controller(ApiUserController::class)->group(function(){
 
+
+Route::controller(ApiUserController::class)->group(function(){
     Route::get('/api/fetchLastUserMessage/{id}', 'fetchLastUserMessage')->name('fetchAllSubCategory');
     Route::get('/api/fetchLastCommande/{id}', 'fetchLastCommande')->name('fetchLastCommande');
-
     Route::get('/api/fetchLastNotification', 'fetchLastNotification')->name('fetchLastNotification');
     Route::get('/api/removeNotification/{id}', 'removeNotification')->name('removeNotification');
-
     Route::get('/api/fetchLastMissions','lastMissions')->name('lastMissions');
-
-
 
 });
 

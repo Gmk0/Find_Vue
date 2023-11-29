@@ -1,6 +1,6 @@
 <script setup>
 
-import { useLayoutStore, useCategoryStore, useNotification } from '@/store/store';
+import { useLayoutStore, useCategoryStore, useNotification, useParrainage } from '@/store/store';
 
 import { onMounted } from 'vue';
 import MainSidebarUser from '@/Layouts/UserPartial/MainSidebarUser.vue';
@@ -12,6 +12,7 @@ import Footer from '@/Components/Footer.vue';
 
 
 const categoryStore = useCategoryStore();
+const Parainage = useParrainage();
 const layoutStore = useLayoutStore();
 const notification = useNotification();
 //const userStore = useAuthStore();
@@ -22,6 +23,7 @@ onMounted(()=>{
     categoryStore.fetchCategories();
 
     notification.fetchLastNotification();
+
 
 
 });

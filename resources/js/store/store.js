@@ -41,11 +41,61 @@ export const useCategoryStore = defineStore('category', {
 persist:true,
 });
 
+export const useParrainage = defineStore('useParrainage', {
+    state: () => ({
+        parrainagesUser: [],
+        referalCode: null,
+    }),
+    getters: {
+        getReferalCode: (state) => state.referalCode,
+        getUsers: (state) => state.parrainagesUser,
+    },
+
+    actions: {
+        async getCodeUser() {
+            try {
+                const response = await axios.get('/api/getCodeUser');
+
+                this.referalCode = response.data.referral_code;
+
+                console.log(this.referalCode);
+
+            } catch (e) {
+
+            }
+        },
+        async getAllUser() {
+            try {
+                const response = await axios.get('/api/getAllUserParainer');
+
+                if(response.status === 200) {
+
+                this.parrainagesUser = response.data.users;
+
+                console.log(this.parrainagesUser);
+                }else{
+                    console.log("error:" + response.status)
+                }
+
+            } catch (e) {
+
+                console.log(e)
+
+            }
+        }
+    }
+
+
+})
+
+
+
 
 export const useStore = defineStore({
     id: 'isNotHome',
     state: () => ({
         isNotHome: false,
+        login: false,
     }),
     actions: {
         updateIsHome() {
@@ -54,11 +104,15 @@ export const useStore = defineStore({
         updateIsNotHomeTrue() {
             this.isNotHome = true;
         },
+        loginUser(){
+            this.login=!this.login;
+        }
     },
     getters: {
         getVariable() {
             return this.isNotHome;
         },
+        canLogin: (state) => state.login,
     },
 
 });
