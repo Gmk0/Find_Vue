@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('referral_code')->nullable();
-            $table->char('referral_by',36)->nullable();
+           // $table->char('referral_by',36)->nullable();
             $table->boolean('gift_used')->default(false);
-            $table->foreignUuid('referral_by')->references('id')->on('users');
+            $table->foreignUuid('referral_by')->nullable()->references('id')->on('users')->nullable();
             //
         });
     }
