@@ -214,10 +214,10 @@
              <Dialog v-model:visible="modal"
 
 
-             :style="{ width: '30rem' }"
+             :style="{ width: '25rem' }"
              :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
              position="center"
-              :modal="true"
+                :modal="true"
               header="Partager"
 
              :draggable="false"
@@ -370,7 +370,7 @@ const  networks= [
 
 ]
  const sharing= {
-        url: 'https://www.find-freelance.com/register',
+        url: link,
         title: 'Rejoignez-nous sur FIND!.',
         description: 'Inscrivez-vous sur Find Freelance et découvrez un monde d\'opportunités.Utilisez mon lien de parrainage pour une inscription rapide et facile!.',
         quote: 'Explorez de nouvelles opportunités et élargissez vos horizons sur Find Freelance. Rejoignez-moi dès maintenant!',

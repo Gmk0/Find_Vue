@@ -65,7 +65,7 @@ Route::controller(RegistrationController::class)->group(function(){
 
 });
 
-Route::get('/auth/register/{code?}',[AuthController::class,'register'])->name('auth.register');
+Route::get('/auth/register/{code?}',[AuthController::class,'register'])->name('auth.register')->middleware('guest');
 
 Route::controller(FreelanceController::class)->group(function(){
 
@@ -371,6 +371,8 @@ Route::controller(ApiUserController::class)->group(function(){
     Route::get('/api/fetchLastNotification', 'fetchLastNotification')->name('fetchLastNotification');
     Route::get('/api/removeNotification/{id}', 'removeNotification')->name('removeNotification');
     Route::get('/api/fetchLastMissions','lastMissions')->name('lastMissions');
+    Route::get('/api/getNotificationParametres','getNotificationParametres');
+    Route::post('/api/UpdateNotificationParametres', 'updateNotificationParametres')->name('updateNotificationParametres');
 
 });
 

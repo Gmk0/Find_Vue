@@ -495,7 +495,7 @@
                                                         </svg>
                                         <span class="ml-2">Dashboard</span>
                                     </Link>
-                                <Link :href="route('user.profile')" @click="navOpen = false"
+                                <Link :href="route('profile.show')" @click="navOpen = false"
                                     class="flex flex-row items-center px-2 py-2 text-base font-medium text-gray-800 rounded-md dark:text-gray-100 hover:text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:text-gray-900 focus:bg-gray-200"
                                     role="menuitem">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"

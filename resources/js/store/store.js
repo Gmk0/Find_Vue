@@ -351,9 +351,11 @@ export const useNotification = defineStore('useNotification',{
         lastNotification: [],
         lastCommande: false,
         statusElement: [],
+        notificationParametres: null,
     }),
     getters: {
         lastNotificationGet: (state) => state.lastNotification,
+        getParametres: (state) => state.notificationParametres,
        // lastCommandeUser: (state) => state.statusElement,
 
     },
@@ -390,7 +392,23 @@ export const useNotification = defineStore('useNotification',{
             } catch (error) {
                 console.error('Erreur lors de la récupération des element :', error);
             }
-        }
+        },
+        async getNotificationParametres()
+        {
+            try{
+
+                const response = await axios.get('/api/getNotificationParametres');
+
+                if(response.status==200)
+                {
+                    this.notificationParametres = response.data.userSetting;
+
+
+                }
+            }catch (error) {
+
+            }
+        },
     }
 
 });

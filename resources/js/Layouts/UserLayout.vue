@@ -21,8 +21,8 @@ const notification = useNotification();
 onMounted(()=>{
 
     categoryStore.fetchCategories();
-
     notification.fetchLastNotification();
+    notification.getNotificationParametres();
 
 
 

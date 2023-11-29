@@ -9,6 +9,7 @@ use App\Models\Mission;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\User;
+use App\Models\UserSetting;
 use Illuminate\Http\Request;
 
 class ApiUserController extends Controller
@@ -102,6 +103,48 @@ class ApiUserController extends Controller
         } catch (\Exception $e) {
 
             return response()->json(['success' => false], 500);
+        }
+
+    }
+
+    public function getNotificationParametres()
+    {
+        try {
+
+
+            $userSetting= auth()->user()->userSetting;
+
+            if($userSetting == null)
+            {
+                $userSetting=new UserSetting();
+                $userSetting->user_id = auth()->id();
+                $userSetting->save();
+            }
+
+
+            return response()->json(['userSetting' => $userSetting], 200);
+        } catch (\Exception $e) {
+
+            return response()->json(['success' => false], 401);
+        }
+
+
+
+    }
+
+    public function updateNotificationParametres(Request $request)
+    {
+
+
+        try {
+
+
+            $userSetting = auth()->user()->userSetting;
+            $userSetting->update($request->all());
+        }catch(\Exception $e){
+
+            return redirect()->back()->withErrors(['message' => $e->getMessage()]);
+
         }
 
     }
