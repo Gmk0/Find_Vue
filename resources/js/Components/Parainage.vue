@@ -381,25 +381,4 @@ const  networks= [
 
 </script>
 
-<style lang="css">
-.btn-copy, .btn-share {
-        cursor: pointer;
-        margin-right: 10px;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        text-decoration: none;
-        color: #333;
-        display: flex;
-        align-items: center;
-    }
 
-    .btn-copy:hover, .btn-share:hover {
-        background-color: #f0f0f0;
-    }
-
-    .fa {
-        margin-right: 5px;
-    }
-
-</style>
