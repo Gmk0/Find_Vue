@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('referral_code')->nullable();
-            $table->foreignUuid('referral_by')->constrained('users')->nullable();
+            $table->char('referral_by',36)->nullable();
             $table->boolean('gift_used')->default(false);
-           // $table->foreign('referral_by')->references('id')->on('users');
+            $table->foreignUuid('referral_by')->references('id')->on('users');
             //
         });
     }
@@ -26,11 +26,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
             $table->dropColumn('referral_code');
             $table->dropColumn('referral_by');
             $table->dropColumn('gift_used');
-
+            //
         });
     }
 };
