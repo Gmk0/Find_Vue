@@ -89,6 +89,7 @@ class User extends Authenticatable implements  HasAvatar, FilamentUser
     protected $casts = [
         'email_verified_at' => 'datetime',
         'id' => 'string',
+        'referral_by'=>'string',
         'last_activity' => 'datetime:Y-m-d H:i:s',
     ];
 
