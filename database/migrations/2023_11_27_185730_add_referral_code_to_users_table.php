@@ -27,6 +27,10 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
+            $table->dropColumn('referral_code');
+            $table->dropColumn('referral_by');
+            $table->dropColumn('gift_used');
+
         });
     }
 };
