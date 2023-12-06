@@ -9,7 +9,7 @@
 
 
 
-            <main  class="min-h-screen">
+            <main  class="relative min-h-screen">
                 <slot />
             </main>
 

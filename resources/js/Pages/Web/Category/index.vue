@@ -56,7 +56,7 @@
             </div>
 
 
-            <div class="grid grid-cols-2 gap-4 mt-8 mb-8 md:gap-6 md:grid-cols-4 xl:gap-8">
+            <div class="grid grid-cols-2 gap-4 mt-8  md:gap-6 md:grid-cols-4 xl:gap-8">
 
 
                 <Link v-for="category in categories" :href="route('categoryName', category.name)"
@@ -83,7 +83,7 @@
 
         </div>
 
-        <div class="lg:min-h-screen px-4 pt-8 bg-white dark:bg-gray-800 md:px-8">
+        <div class="lg:min-h-screen px-4 pt-4 bg-white dark:bg-gray-800 md:px-8">
 
             <div class="flex justify-start">
                 <h1 class="text-2xl font-semibold text-black dark:text-white">

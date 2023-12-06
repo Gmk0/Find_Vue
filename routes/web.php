@@ -393,3 +393,8 @@ Route::get('/storage-link', function () {
 Route::get('/view-cache', function () {
     Artisan::call('view:cache');
 });
+
+
+Route::get('/test', function () {
+    return Inertia::render('Test/Test');
+});

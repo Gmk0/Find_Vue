@@ -266,37 +266,68 @@ const isSectionValid = (step) => {
         removeError();
 
 
-        if (!localisation.value.addresse|| !selectedCategoryId.value || !freelanceElement.value.taux || !selectedCategoryId.value
-        || !selectedSubcategoryId.value || !freelanceElement.value.experience
-        || !localisation.value.commune || !localisation.value.ville || !experience.value) {
-            swal('Veuillez remplir tous les champs de la premiere section.');
-            return false;
-        }
+            if (!selectedCategoryId.value) {
+                swal('Veuillez sélectionner une catégorie.');
+                    return false;
+                } else if (!localisation.value.addresse) {
+                    swal('Veuillez saisir votre adresse.');
+
+                    return false;
+                } else if (!freelanceElement.value.taux) {
+                    swal('Veuillez saisir votre taux horaire.');
+                    return false;
+                } else if (!selectedSubcategoryId.value) {
+                    swal('Veuillez sélectionner une sous-catégorie.');
+                    return false;
+                } else if (!freelanceElement.value.experience) {
+                    swal('Veuillez saisir votre expérience en années.');
+                    return false;
+                } else if (!localisation.value.commune) {
+                    swal('Veuillez saisir votre commune.');
+                    return false;
+                } else if (!localisation.value.ville) {
+                    swal('Veuillez saisir votre ville.');
+                    return false;
+                }
+
     } else if (step === 2) {
 
-         addLangue();
-           removeError();
+        addLangue();
+        removeError();
 
-           if(!freelanceElement.value.description.length > 150)
-           {
-            error.value.description="la description doit au moins deppaser 150 Caractere"
-            return false;
-           }
-
-        if (!freelanceElement.value.nom||!freelanceElement.value.prenom|| !langue.value ||!freelanceElement.value.description) {
-
-           swal('Veuillez remplir tous les champs de la deuxieme section.');
+        if (freelanceElement.value.description.length <= 150) {
+            swal('La description doit au moins dépasser 150 caractères.');
+            error.value.description = 'La description doit au moins dépasser 150 caractères.';
             return false;
         }
-    }else if(step === 3) {
+
+        if (!freelanceElement.value.nom) {
+                swal('Veuillez saisir votre nom.');
+                return false;
+            } else if (!freelanceElement.value.prenom) {
+                swal('Veuillez saisir votre prénom.');
+                return false;
+            } else if (!langue.value.length ==0) {
+                swal('Veuillez sélectionner une langue.');
+                return false;
+            } else if (!freelanceElement.value.description) {
+                swal('Veuillez saisir une description.');
+                return false;
+
+            }
+    }
+    else if(step === 3) {
         addEducation();
         addCertification();
-          removeError();
+            removeError();
 
-        if(!education.value || !certification.value){
-            swal('Veuillez remplir tous les champs de la troisieme section.');
-            return false;
-        }
+        if (!education.value) {
+                swal('Veuillez saisir votre formation.');
+                return false;
+            } else if (!certification.value) {
+                swal('Veuillez saisir vos certifications.');
+                return false;
+            }
     }
 
     return true;
@@ -386,6 +417,7 @@ watch(selectedCategoryId, () => {
     fetchSubcategories();
 });
 
+const registerLoad=ref(false)
 
 const register =()=>{
 
@@ -416,11 +448,16 @@ const register =()=>{
      data.post(route('register.freelance'),{
         onSuccess: () => {
             console.log('La requête a réussi.');
+             registerLoad.value = false;
             // Ajoutez ici le code que vous souhaitez exécuter en cas de succès
+        },
+        onStart:()=> {
+            registerLoad.value=true;
         },
         onError: (errors) => {
 
             swal(errors.message);
+             registerLoad.value = false;
            // console.log('La requête a échoué avec des erreurs :', errors);
             // Ajoutez ici le code que vous souhaitez exécuter en cas d'échec
         },
@@ -1737,7 +1774,7 @@ for (let index = 1999; index < year ; index++) {
 
                                 <div v-if="$page.props.auth.user.email_verified_at !=null" class="flex gap-4 text-base italic text-gray-600">
                                      <span class="">Email verifier</span>
-                                     <span><i class="pi pi-check"></i></span>
+                                     <span><i class="pi pi-check"></i> </span>
 
                                 </div>
                                 <div v-else class="flex justify-between text-base italic">
@@ -1748,6 +1785,7 @@ for (let index = 1999; index < year ; index++) {
                                         severity="success"
                                         raised
 
+                                        label="verifier"
 
                                          @click="verification()"
                                         :loading="loadingVerifEmail"
@@ -1854,7 +1892,7 @@ for (let index = 1999; index < year ; index++) {
                         Continuer
                     </button>
 
-                    <button v-if="$page.props.auth.user.email_verified_at !=null" v-show="step == 5" @click="register()"
+                    <button :class="{ 'opacity-25': registerLoad }" :disabled="registerLoad" v-if="$page.props.auth.user.email_verified_at !=null" v-show="step == 5" @click="register()"
                         class="middle none center rounded-lg bg-green-600 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         data-ripple-light="true">
                         S'inscrire
