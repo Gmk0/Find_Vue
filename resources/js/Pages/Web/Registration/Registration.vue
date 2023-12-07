@@ -1964,4 +1964,4 @@ for (let index = 1999; index < year ; index++) {
 
 
 
-<style lang="scss" scoped></style>
+<style ></style>

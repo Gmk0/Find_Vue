@@ -301,10 +301,10 @@
 
 
                                 <div>
-                                       <pagination class="mt-6" :links="props.services.links" />
-
+                                    <pagination class="mt-6" :links="props.services.links" />
 
                                 </div>
+
 
 
                             </div>

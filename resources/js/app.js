@@ -1,4 +1,4 @@
-//import './bootstrap';
+import './bootstrap';
 import '../css/app.css';
 import '../css/nav.css';
 import 'aos/dist/aos.css';
