@@ -429,7 +429,7 @@
                     <div v-for="category in categories">
                         <Link :href="route('categoryName', category.name)"
                             class="flex flex-col items-center px-2 py-4 duration-200 bg-white border shadow-lg cursor-pointer group rounded-xl border-amber-500/10 shadow-amber-300/10 hover:bg-amber-600">
-                            <img v-if="category.illustration =! null" :src="'/storage/'+ category.illustration"
+                            <img :src="'/storage/'+ category.illustration"
                                 class="w-20 h-20 rounded-md" alt="">
                             <h4
                                 class="mt-3 mb-1 md:text-[20px] text-[16px]   font-semibold text-slate-600 duration-200 group-hover:text-white">
