@@ -9,13 +9,9 @@ class AuthController extends Controller
 {
     //
 
-    public function register($code = null)
+    public function register($codes = null)
     {
 
-
-
-
-
-        return Inertia::render('Auth/Register',['code'=>$code]);
+        return Inertia::render('Auth/Register',['code'=> $codes]);
     }
 }
