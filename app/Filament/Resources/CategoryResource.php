@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 class CategoryResource extends Resource
 {
@@ -28,11 +30,14 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required(),
                 Forms\Components\MarkdownEditor::make('description'),
-            Forms\Components\Toggle::make('afficher'),
-            Forms\Components\FileUpload::make('illustration')
-            ->preserveFilenames()
 
-            ->directory('illustration'),
+            SpatieMediaLibraryFileUpload::make('illustration')
+            ->image()
+            ->optimize('jpg')
+            ->collection('categories')
+            ->preserveFilenames(),
+            Forms\Components\Toggle::make('afficher'),
+
             ]);
     }
 
@@ -45,7 +50,8 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                 ->wrap()
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('illustration'),
+            SpatieMediaLibraryImageColumn::make('illustration')
+            ->collection('categories'),
             Tables\Columns\ToggleColumn::make('afficher'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

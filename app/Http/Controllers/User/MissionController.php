@@ -37,6 +37,10 @@ class MissionController extends Controller
 
     public function missionEditSave(Request $request)
     {
+
+
+
+
         $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -70,7 +74,12 @@ class MissionController extends Controller
             'begin_mission' => $request->dateD,
             'end_mission' => $request->dateF,
             'exigences' => $request->exigence,
+            'masquer'=>$request->masquer,
         ]);
+
+
+
+
 
 
     }
@@ -101,7 +110,7 @@ class MissionController extends Controller
 
         }catch(\Exception $e){
 
-            dd($e->getMessage());
+            return redirect()->back()->withErrors(['message' => $e->getMessage()]);
         }
 
 
@@ -133,6 +142,7 @@ class MissionController extends Controller
             // $Response->notifyFreelance();
 
         } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['message' => $e->getMessage()]);
         }
 
     }
@@ -147,6 +157,7 @@ class MissionController extends Controller
             // $Response->notifyFreelance();
 
         } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['message' => $e->getMessage()]);
         }
     }
 
@@ -232,6 +243,39 @@ class MissionController extends Controller
             'missionResponse' => MissionResponseResource::make($mission_response),
             'userSetting'=>auth()->user()->userSetting,
             ]);
+
+    }
+
+    public function deleteMission(Request $request)
+    {
+        $request->validate([
+            'mission_id' => 'required',
+
+        ]);
+
+        try{
+            $mission = Mission::findOrFail($request->mission_id);
+
+            if ($mission->getApprovedMissionResponse() != null) {
+
+                return redirect()->back()->withErrors(['message' =>"Impossible d'effacer la mission vous avez deja acceptance une proposition"]);
+            } else {
+                $mission->delete();
+
+                return redirect()->route('user.missions');
+            }
+
+        }catch(\Exception $e){
+
+            return redirect()->back()->withErrors(['message' => "une erreur est survenue"]);
+
+
+        };
+
+
+
+
+
 
     }
 

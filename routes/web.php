@@ -51,6 +51,7 @@ Route::controller(WebController::class)->group(function(){
 
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/feed-back', 'feedBack')->name('feedBack');
+     Route::post('/send-feedback','sendFedback')->name('sendFeedbackPost')->middleware('auth');
 
 });
 
@@ -118,6 +119,7 @@ Route::middleware([
 
 
 
+
     Route::prefix('user')->group(function(){
 
         Route::controller(UserController::class)->group(function(){
@@ -154,7 +156,7 @@ Route::middleware([
             Route::post('/mission/removeFile', 'removeFileMission')->name('removeFileMission');
             Route::post('/mission-accepter', 'accepterMission')->name('accepterMission');
             Route::post('/mission-refuser', 'refuserMission')->name('refuserMission');
-
+            Route::post('/mission-delete', 'deleteMission')->name('deleteMission');
             Route::post('/mission-contacterUser', 'contacterUser')->name('user.missions.contacterUser');
         });
 
@@ -225,9 +227,6 @@ Route::middleware([
 
 
     Route::middleware('freelance')->group(function(){
-
-
-
     Route::prefix('freelance')->group(function(){
 
         Route::controller(FreelanceAuth::class)->group(function(){
@@ -373,6 +372,8 @@ Route::controller(ApiUserController::class)->group(function(){
     Route::get('/api/fetchLastMissions','lastMissions')->name('lastMissions');
     Route::get('/api/getNotificationParametres','getNotificationParametres');
     Route::post('/api/UpdateNotificationParametres', 'updateNotificationParametres')->name('updateNotificationParametres');
+
+    Route::get('/api/getLastFaq', 'fetchLastFaq');
 
 });
 

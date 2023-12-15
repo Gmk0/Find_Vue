@@ -29,6 +29,7 @@ class MissionResourceData extends JsonResource
             'transaction'=>$this->transaction??null,
             'is_paid'=>$this->is_paid,
             'status'=>$this->status,
+            'masquer'=>$this->masquer,
             'MissionResponses'=>$this->missionResponses,
             'nombreResponses'=>$this->whenCounted('missionResponses'),
             'created_at'=>$this->created_at->format('d/m/Y'),

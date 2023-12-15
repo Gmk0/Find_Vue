@@ -22,9 +22,20 @@ class CategoryController extends Controller
     public function index()
     {
 
-        //$category= Category::query();
+
+        $categories = Category::get()->map(function ($categories) {
+            return [
+                'id' => $categories->id,
+                'name' => $categories->name,
+                'media' => [
+                    'url' => $categories->getFirstMediaUrl('categories'),
+                    'name' => $categories->name
+                ],
+            ];
+        });
+
         return Inertia::render('Web/Category/index',[
-            'categories' => Category::all(),
+            'categories' => $categories,
             'categoriesAll'=>Category::with('subCategories')->get()
             ]);
     }

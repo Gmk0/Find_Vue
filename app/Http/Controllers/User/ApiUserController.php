@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MissionResourceData;
+use App\Models\Faq;
 use App\Models\Message;
 use App\Models\Mission;
 use App\Models\Notification;
@@ -92,18 +93,23 @@ class ApiUserController extends Controller
     public function lastMissions()
     {
         try {
-            $missions = Mission::where('status','=', 'pending')->latest()->take(10)->get();
-
-           // $notification->read_at = now();
-
-
-
+            $missions = Mission::where('status','=', 'pending')->where('masquer',false)->latest()->take(10)->get();
 
             return response()->json(['missions' => MissionResourceData::collection($missions)], 200);
         } catch (\Exception $e) {
 
             return response()->json(['success' => false], 500);
         }
+
+    }
+
+    public function fetchLastFaq()
+    {
+
+
+        $faqs = Faq::select('id','questions', 'reponses')->where('publier',true)->limit(4)->get();
+        return response()->json(['faqs' => $faqs], 200);
+
 
     }
 

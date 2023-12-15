@@ -19,8 +19,13 @@ class ApiController extends Controller
             return [
                 'id' => $categories->id,
                 'name' => $categories->name,
-                'illustration' => $categories->illustration,
                 'subcategories' => $categories->subCategories ? $categories->subCategories : null,
+                'media' => $categories->getMedia('categories')->map(function ($media) {
+                    return [
+                        'url' => $media->getUrl(),
+                        'alt' => $media->name,
+                    ];
+                }),
             ];
         });
 
