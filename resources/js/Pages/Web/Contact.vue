@@ -1,10 +1,10 @@
 <template>
 
 
-     <div class="min-h-screen pt-16 mx-auto max-w-7xl lg:px-8">
+     <div class="min-h-screen pt-16 mx-auto max-w-7xl bg-gray-100 dark:bg-gray-900 lg:px-8">
 
             <section
-                class="relative  overflow-hidden bg-gray-100 dark:bg-gray-900 pt-8 pb-12  lg:pb-[90px]">
+                class="relative  overflow-hidden  pt-8 pb-12  lg:pb-[90px]">
                 <div class="container px-4 mx-auto">
                     <div class="flex flex-wrap -mx-4">
                         <div class="w-full px-4">
@@ -21,7 +21,7 @@
                             </div>
                         </div>
                     </div>
-                       <div class="grid grid-cols-1 gap-12 mt-10 lg:grid-cols-2">
+                       <div class="grid grid-cols-1 gap-12 mt-6 lg:grid-cols-2">
                     <div class="grid grid-cols-1 gap-8 p-4 bg-white rounded-lg dark:bg-gray-800 md:grid-cols-2">
                         <div>
                             <span class="inline-block p-3 text-blue-500 rounded-full bg-blue-100/80 dark:bg-gray-800">

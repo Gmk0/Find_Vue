@@ -96,6 +96,7 @@ import VueSocialSharing from 'vue-social-sharing'
 
 
 
+
 const appName = import.meta.env.VITE_APP_NAME || 'FIND';
 
 const pinia = createPinia();

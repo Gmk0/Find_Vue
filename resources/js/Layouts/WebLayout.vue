@@ -20,7 +20,7 @@
             <Footer/>
         </div>
 
-
+         <Login />
     </div>
 </template>
 
@@ -30,6 +30,7 @@ import { Head,usePage } from '@inertiajs/vue3';
 import Navbar from '@/Layouts/Partials/Navbar.vue';
 import Footer from '@/Layouts/Partials/Footer.vue';
 import { onMounted, computed } from 'vue';
+import Login from '@/Components/Login.vue';
 
 
 

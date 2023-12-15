@@ -60,17 +60,18 @@
 
 
                 <Link v-for="category in categories" :href="route('categoryName', category.name)"
-                    class="flex flex-row items-center gap-2 px-2 py-4 duration-200 bg-white border shadow shadow-lg cursor-pointer group rounded-xl border-amber-500/10 hover:bg-amber-600 dark:bg-gray-800">
-                <img :src="'/storage/'+ category.illustration" class="w-12 rounded-md lg:w-20 lg:h-20" alt="">
-                    <div class="flex flex-col gap-2">
-                         <h4
-                        class="mt-3 mb-1 md:text-[20px] text-sm dark:text-white block  font-semibold text-slate-600 duration-200 group-hover:text-white">
-                        {{ category.name }}</h4>
+                    class="flex flex-row items-center gap-2 px-2 py-4 duration-200 bg-white border shadow  cursor-pointer group rounded-xl border-amber-500/10 hover:bg-amber-600 dark:bg-gray-800">
+                <img v-if="category.media.url !=''" :src="category.media.url" class="w-12 rounded-md lg:w-20 lg:h-20" :alt="category.media.alt">
+                <img v-else src="/images/logo/ff3.png" class="w-12 rounded-md lg:w-20 lg:h-20" :alt="category.media.alt">
+                <div class="flex flex-col gap-2">
+                        <h4
+                    class="mt-3 mb-1 md:text-[20px] text-sm dark:text-white block  font-semibold text-slate-600 duration-200 group-hover:text-white">
+                    {{ category.name }}</h4>
 
-                        <div>
-                            <span></span>
-                        </div>
+                    <div>
+                        <span></span>
                     </div>
+                </div>
 
                 </Link>
 

@@ -133,10 +133,10 @@
 
 
             <div data-aos="fade-right" data-aos-duration="800"
-                class="absolute top-0 left-0 z-50 px-6 py-8 mt-8 lg:col-span-6 lg:py-12 md:mb-8 xl:place-self-center xl:mt-0 lg:mb-0 lg:w-1/2">
-                <div class="pt-[8rem] px-1">
+                class="absolute top-0 left-0 z-50 px-6 py-8 xl:py-10 lg:mt-8 2xl:mt-16 lg:col-span-6 lg:py-12 md:mb-8 xl:place-self-center  lg:mb-0 lg:w-1/2">
+                <div class="pt-[8rem] 2xl:pt-[10rem] px-1">
 
-                    <h1 class="text-3xl font-bold text-center text-white md:text-3xl xl:text-5xl lg:text-left">
+                    <h1 class="text-3xl font-bold text-center text-white md:text-3xl lg:text-4xl 2xl:text-6xl lg:text-left">
                         Votre satisfaction dans nos services Freelance <br />
                     </h1>
 
@@ -155,11 +155,11 @@
 
         <div id="features" class="bg-gray-100 dark:bg-gray-900">
 
-            <div data-aos="" class="z-10 max-w-6xl px-8 py-8 mx-auto overflow-hidden md:px-6">
+            <div data-aos="" class="z-10 lg:max-w-6xl 2xl:max-w-7xl px-8 2xl:px-2 py-8 lg:mx-auto overflow-hidden md:px-6">
                 <div class="flex ">
                     <div data-aos="fade-up" data-aos-duration="500" class="w-full lg:w-5/12">
                         <h1
-                            class="text-slate-800 mb-4  dark:text-white text-2xl font-bold leading-snug lg:text-[40px] xl:text-[42px]">
+                            class="text-slate-800 mb-4 xl:mb-6  dark:text-white text-2xl font-bold leading-snug lg:text-[40px] xl:text-5xl">
 
                             Atteignez vos objectifs plus rapidement avec
 
@@ -169,11 +169,11 @@
                         <div class="grid grid-cols-1 gap-2 mx-auto md:mx-0 md:grid-cols-2">
 
                             <Link :href="route('find_freelance')"
-                                class="w-10/12 rounded-md mx-auto text-center bg-amber-600 px-8 py-2.5 font-semibold text-white shadow-md shadow-amber-500/20 hover:bg-amber-700 duration-200 sm:w-auto">Trouver
+                                class="w-10/12 rounded-md mx-auto 2xl:py-3  2xl:text-lg text-center bg-amber-600 px-8 py-2.5 font-semibold text-white shadow-md shadow-amber-500/20 hover:bg-amber-700 duration-200 sm:w-auto">Trouver
                                 un freelance</Link>
 
                             <Link :href="route('register.begin')"
-                                class="mt-4 md:mt-0 mx-auto text-center box-border w-10/12   rounded-md border border-amber-500/20 px-8 py-2.5 font-semibold text-amber-600 shadow-md shadow-amber-500/10 hover:bg-gray-100 duration-200   ">Dévenir
+                                class="mt-4 md:mt-0 mx-auto text-center box-border w-10/12 2xl:py-3  2xl:text-lg   rounded-md border border-amber-500/20 px-8 py-2.5 font-semibold text-amber-600 shadow-md shadow-amber-500/10 hover:bg-gray-100 duration-200   ">Dévenir
 
                                 freelance</Link>
 
@@ -188,13 +188,13 @@
                         <div class="grid grid-cols-2 gap-6 mx-6 mt-6 md:mx-0 px-auto md:gap-2 md:grid-cols-3 ">
 
                             <img src="/images/brand/influeworld.png" alt="influeworld"
-                                class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
+                                class="w-32 h-16 px-5 py-3 xl:w-36  xl:py-auto xl:px-auto xl:h-20 duration-200 grayscale hover:grayscale-0 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
 
                               <img src="/images/brand/makutano.png" alt="makutano"
-                                    class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
+                                    class="w-32 h-16 px-5 xl:px-auto xl:py-auto py-3 xl:w-36 xl:h-20 duration-200 grayscale hover:grayscale-0 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
 
                                 <img src="/images/brand/silikin.png" alt="silikin"
-                                    class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
+                                    class="w-32 h-16 px-5 py-3 xl:px-auto xl:py-auto xl:w-36 xl:h-20 duration-200 border  grayscale hover:grayscale-0 rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
 
                         </div>
 
@@ -203,7 +203,7 @@
                     <div class="hidden px-4 lg:block lg:w-1/12"></div>
 
                     <div data-aos="fade-left" data-aos-duration="500" class="hidden w-full px-4 lg:block md:w-6/12">
-                        <div class="lg:ml-auto lg:text-right">
+                        <div class="lg:ml-auto  lg:text-right">
                             <div class="relative z-10 inline-block pt-11 lg:pt-0">
                                 <img src="/images/hero/women.jpeg" alt="hero div img" class="w-3/4 rounded-full lg:ml-auto">
                             </div>
@@ -214,18 +214,18 @@
         </div>
 
 
-         <div id="talkAbout" class="bg-white dark:bg-gray-800 lg:min-h-screen">
+         <div id="talkAbout" class="bg-white dark:bg-gray-800  lg:min-h-screen">
 
-            <div class="container max-w-6xl p-4 m-4 mx-auto md:p-6">
-                <div class="mb-10 text-center">
+            <div class="container max-w-6xl 2xl:max-w-7xl 2xl:p-2 p-4 m-4 mx-auto md:p-6">
+                <div class="mb-10 xl:mb-14 text-center">
                     <span class="font-medium text-amber-600">Presentation</span>
                     <h1 class="text-2xl font-bold text-slate-700 dark:text-gray-200 ">Ils en Parlent mieux Que nous</h1>
 
                 </div>
 
-                <div>
+                <div class="my-10">
 
-                      <swiper class="flex py-8"
+                      <swiper class="flex xl:py-12 py-8"
                             :modules="[Navigation, Pagination, Scrollbar, EffectCube, A11y]"
 
                             :spaceBetween="30"
@@ -234,24 +234,24 @@
                             :pagination="{ clickable: true }"
                             >
 
-                    <swiper-slide class="mb-8">
+                    <swiper-slide class="mb-8 xl:mb-12">
                         <div class="!bg-transparent px-2 md:px-0">
                             <div
                                 class="px-2 bg-white border border-gray-300 dark:border-gray-300 rounded-3xl dark:bg-gray-800 dark:shadow-none md:mx-auto lg:w-11/12 xl:w-8/12">
                                 <div class="grid md:grid-cols-5">
 
-                                    <div class="w-full m-2 h-50 aspect-w-8 aspect-h-9 md:col-span-2 rounded-2xl">
+                                    <div class="w-full m-2 h-50 xl:h-72 aspect-w-8 aspect-h-9 md:col-span-2 rounded-2xl">
 
-                                        <iframe class="rounded-sm w-11/2 h-9/12 aspect-video hover:aspect-square"
+                                        <iframe class="rounded-sm w-full h-full aspect-video hover:aspect-square"
                                             src="https://www.youtube.com/embed/rw_3Yv-rhZM" frameborder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                             allowfullscreen></iframe>
                                     </div>
                                     <div class="p-6 mx-auto space-y-6 text-center md:col-span-3 sm:p-8">
-                                        <div class="w-20 mx-auto">
+                                        <div class="w-20 xl:w-28 mx-auto">
                                             <img src="images/brand/influnet.jpg" alt="company logo" loading="lazy" />
                                         </div>
-                                        <p class="dark:text-gray-200">
+                                        <p class="dark:text-gray-200 xl:text-lg">
                                             <span class="font-serif "></span> Find est une plateforme incontournable pour tous
                                             les demandeurs de services. J'ai été impressionné par la qualité des
                                             freelances proposés.
@@ -273,18 +273,18 @@
                                 <div class="grid md:grid-cols-5">
 
 
-                                    <div class="w-full m-2 h-50 aspect-w-8 aspect-h-9 md:col-span-2 rounded-2xl">
+                                    <div class="w-full m-2 xl:h-72 h-50 aspect-w-8 aspect-h-9 md:col-span-2 rounded-2xl">
 
-                                        <iframe class="rounded-sm w-11/2 h-9/12 aspect-video hover:aspect-square"
+                                        <iframe class="rounded-sm w-full h-full aspect-video hover:aspect-square"
                                             src="https://www.youtube.com/embed/rw_3Yv-rhZM" frameborder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                             allowfullscreen></iframe>
                                     </div>
                                     <div class="p-6 mx-auto space-y-6 text-center md:col-span-3 sm:p-8">
-                                        <div class="w-20 mx-auto">
+                                        <div class="w-20 xl:w-28 mx-auto">
                                             <img src="images/brand/influnet.jpg" alt="company logo" loading="lazy" />
                                         </div>
-                                        <p class="dark:text-gray-200">
+                                        <p class="dark:text-gray-200 xl:text-lg">
                                             <span class="font-serif "></span> Find est un outil essentiel pour tous ceux qui
                                             cherchent à trouver des freelances qualifiés. La plateforme est vraiment
                                             bien conçue et facile à utiliser
@@ -303,21 +303,11 @@
                     </swiper>
 
                 </div>
-
-
-
-
-
-
-
-
-                <!-- single-blog -->
-
             </div>
 
         </div>
 
-          <div  id="monde2" class="bg-white lg:min-h-screen dark:bg-gray-900">
+          <div  id="monde2" class="bg- xl:min-h-full lg:min-h-screen dark:bg-gray-900">
 
             <div class="p-4">
                 <div class="px-6 m-auto text-gray-600 xl:container md:px-12 xl:px-16">
@@ -427,10 +417,14 @@
                 <!-- box wrapper -->
                 <div class="grid grid-cols-2 gap-4 md:gap-6 md:grid-cols-4 xl:gap-8">
                     <div v-for="category in categories">
+
+
                         <Link :href="route('categoryName', category.name)"
                             class="flex flex-col items-center px-2 py-4 duration-200 bg-white border shadow-lg cursor-pointer group rounded-xl border-amber-500/10 shadow-amber-300/10 hover:bg-amber-600">
-                            <img :src="'/storage/'+ category.illustration"
-                                class="w-20 h-20 rounded-md" alt="">
+
+                            <img v-if ="category.media.url !=''" :src="category.media.url" class="w-20 h-20 rounded-md" :alt="category.media.url">
+                             <img v-else src="/images/logo/ff3.png" class="w-20 h-20 rounded-md" :alt="category.media.url">
+
                             <h4
                                 class="mt-3 mb-1 md:text-[20px] text-[16px]   font-semibold text-slate-600 duration-200 group-hover:text-white">
                                 {{ category.name }}</h4>
@@ -886,6 +880,7 @@
 
                 </div>
 
+
                 <div class="grid sm:grid-cols-2">
                     <div data-aos="fade-right" data-aos-duration="1000" class="w-full px-4">
                         <img src="/images//services/faq.png" alt="hero div img" class="rounded-full lg:ml-auto">
@@ -897,27 +892,27 @@
                             <div class="mt-6 text-lg leading-loose">
 
                             <div>
-                                <div v-for="(faq, index) in faqs" :key="faq.question">
+                                <div v-for="(faq, index) in faqsGet" :key="faq.id">
                                 <button
                                     class="flex items-center justify-between w-full py-3 mt-4 font-bold text-gray-800 border-b dark:text-white"
                                     :class="index !== faqs.length - 1 && 'border-b border-gray-400'"
-                                    @click="toggleFaq(index)"
+                                    @click="toggleAccordion(faq.id)"
                                 >
-                                    <div class="text-left">{{ faq.question }}</div>
+                                    <div class="text-left">{{ faq.questions }}</div>
 
-                                    <svg v-show="!faq.isOpen" class="fill-current" viewBox="0 0 24 24" width="24" height="24">
+                                    <svg v-show="!expandedItems.includes(faq.id)" class="fill-current" viewBox="0 0 24 24" width="24" height="24">
                                     <path class="heroicon-ui"
                                                     d="M12 22a10 10 0 110-20 10 10 0 010 20zm0-2a8 8 0 100-16 8 8 0 000 16zm1-9h2a1 1 0 010 2h-2v2a1 1 0 01-2 0v-2H9a1 1 0 010-2h2V9a1 1 0 012 0v2z" />
                                     </svg>
-                                    <svg v-show="faq.isOpen" class="fill-current" viewBox="0 0 24 24" width="24" height="24">
+                                    <svg v-show="expandedItems.includes(faq.id)" class="fill-current" viewBox="0 0 24 24" width="24" height="24">
                                          <path class="heroicon-ui"
                                                     d="M12 22a10 10 0 110-20 10 10 0 010 20zm0-2a8 8 0 100-16 8 8 0 000 16zm4-8a1 1 0 01-1 1H9a1 1 0 010-2h6a1 1 0 011 1z" />
                                     </svg>
                                 </button>
 
-                                 <Collapse :when="faq.isOpen" class="collapse">
+                                 <Collapse :when="expandedItems.includes(faq.id)" class="collapse">
 
-                                    <p class="mt-2 text-sm text-gray-800 dark:text-white">{{ faq.answer }}</p>
+                                    <p class="mt-2 text-sm text-gray-800 dark:text-white">{{ faq.reponses }}</p>
 
                                 </Collapse>
 
@@ -947,7 +942,7 @@
 
 import WebLayout from '@/Layouts/WebLayout.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { useStore, useMissions } from '@/store/store';// Assurez-vous d'ajuster le chemin d'importation
+import { useStore, useMissions, homeSetting } from '@/store/store';// Assurez-vous d'ajuster le chemin d'importation
 import { onMounted } from 'vue';
 
 import { Collapse } from 'vue-collapsed';
@@ -990,6 +985,8 @@ const setTestimonialActive = (index) => {
     testimonialActive.value = index;
 };
 
+
+
 const faqs = ref([
     {
         question: 'Qu’est ce que Find ?',
@@ -1029,15 +1026,20 @@ const toggleFaq = (index) => {
     });
 };
 
-function handleAccordion(selectedIndex) {
-    faqs.value.forEach((faq, index) => {
-        if (index === selectedIndex) {
-            faq.isOpen = !faq.isOpen;
-        } else {
-            faq.isOpen = false;
-        }
-    });
-}
+
+const expandedItems = ref([]);
+
+const toggleAccordion = (key) => {
+
+    if (expandedItems.value.includes(key)) {
+        expandedItems.value = expandedItems.value.filter((item) => item !== key);
+
+    } else {
+        expandedItems.value=[];
+        expandedItems.value.push(key);
+    }
+};
+
 
 const swiperInstance=ref(null);
 const navigate = (direction) => {
@@ -1055,7 +1057,9 @@ const onSwiperInitialized = (swiper) => {
 };
 
 const store = useStore();
+const homeSettingStore = homeSetting()
 
+const faqsGet= computed(()=> homeSettingStore.faqsGetter)
 const missions =useMissions();
 const getMissions= computed(()=> missions.missionGeters);
 
@@ -1063,6 +1067,7 @@ onMounted(() => {
     // Change la valeur de isNotHome dans le store
     store.updateIsHome();
     missions.fetchLastMission();
+    homeSettingStore.fetchLastFaq();
 
 
 

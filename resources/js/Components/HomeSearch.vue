@@ -1,14 +1,14 @@
 <template>
     <div>
         <div>
-            <div class="flex flex-col w-full mt-6">
+            <div class="flex flex-col w-full lg:mt-6 2xl:mt-10 mt-6">
                 <div class="relative">
 
                     <form @submit.prevent="searchResult"
-                        class="relative flex p-1 mb-4 bg-white shadow-2xl lg:dark:bg-white rounded-xl md:p-2">
+                        class="relative flex p-1 mb-4 bg-white shadow-2xl lg:dark:bg-white rounded-xl 2xl:p-4 md:p-2">
 
                         <input required v-model="search" @focus="afficher"
-                            class="w-full p-4 mr-2 text-gray-600 border-white focus:border-white rounded-xl " type="text">
+                            class="w-full 2xl:p-6 p-4 mr-2 text-gray-600 border-white focus:border-white rounded-xl " type="text">
                         <button type="submit" class="px-6 py-3 ml-auto text-center transition rounded-lg bg-skin-fill">
                             <span class="hidden font-semibold text-white md:block">
                                 Recherche
@@ -70,25 +70,25 @@
                 <div class="flex justify-center gap-4 mt-4">
                     <div class="flex items-center space-x-2">
 
-                        <a href="{{route('categories')}}"
-                            class="flex items-center h-8 px-2 text-gray-100 border border-gray-100 rounded-full dark:border-purple-500">
-                            Photographie</a>
+                        <Link href="/categories'"
+                            class="flex items-center h-8 2xl:h-12 2xl:text-lg px-2 text-gray-100 border border-gray-100 rounded-full dark:border-amber-600">
+                            Photographie</Link>
                     </div>
                     <div class="flex items-center space-x-2">
 
-                        <a href="{{route('categories')}}"
-                            class="flex items-center h-8 px-2 text-gray-100 border border-gray-100 rounded-full dark:border-purple-500">
+                        <Link href="/categories"
+                            class="flex items-center h-8 2xl:h-12 2xl:text-lg px-2 text-gray-100 border border-gray-100 rounded-full dark:border-amber-600">
                             Design
-                        </a>
+                        </Link>
                     </div>
                     <div class="flex items-center space-x-2">
 
-                        <a href="{{route('categories')}}"
-                            class="flex items-center h-8 px-2 text-gray-100 border border-gray-100 rounded-full dark:border-purple-500">
-                            Technologie</a>
+                        <Link href='/categories'
+                            class="flex items-center h-8 px-2 2xl:h-12 2xl:text-lg text-gray-100 border border-gray-100 rounded-full dark:border-amber-600">
+                            Technologie</Link>
                     </div>
                 </div>
-                <p class="mt-2 text-center text-gray-200 dark:text-gray-500">Catégories les plus populaires</p>
+                <p class="mt-2 text-center 2xl:text-lg text-gray-100 ">Catégories les plus populaires</p>
 
 
             </div>

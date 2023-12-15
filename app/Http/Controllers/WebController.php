@@ -13,9 +13,21 @@ class WebController extends Controller
 
     public function index(){
 
-        $category = Category::all();
 
-        return Inertia::render('Web/Home', ['categories' => $category]);
+
+        $categories = Category::get()->map(function ($categories) {
+            return [
+                'id' => $categories->id,
+                'name' => $categories->name,
+                'media' =>[
+                    'url' => $categories->getFirstMediaUrl('categories'),
+                    'name' => $categories->name],
+            ];
+        });
+
+
+
+        return Inertia::render('Web/Home', ['categories' => $categories]);
     }
     public function about()
     {
@@ -38,5 +50,15 @@ class WebController extends Controller
     public function feedBack()
     {
         return Inertia::render('Web/FeedBack');
+    }
+    public function sendFedback(Request $request)
+    {
+
+        $user=auth()->user()->UserSetting;
+
+
+
+        //dd($request->user());
+
     }
 }

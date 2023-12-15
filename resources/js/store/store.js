@@ -435,7 +435,6 @@ export const useMissions= defineStore('useMissions',{
 
 
 
-
                 } else if (response.status === 203) {
 
                     console.log('Aucun element n\'est renvoyé.');
@@ -450,6 +449,30 @@ export const useMissions= defineStore('useMissions',{
 
 })
 
+export const homeSetting = defineStore('homeSetting',{
+
+    state: ()=>({
+        faqs:[]
+    }),
+    getters:{
+        faqsGetter: (state) => state.faqs
+    },
+    actions: {
+
+        async fetchLastFaq() {
+            try {
+                const response = await axios.get(`/api/getLastFaq`);
+                if (response.status === 200) {
+                    this.faqs = response.data.faqs;
+                } else if (response.status === 203) {
+                    console.log('Aucun element n\'est renvoyé.');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des element :', error);
+            }
+        }
+    },
+});
 
 
 

@@ -32,6 +32,7 @@ class Mission extends Model
         'progress',
         'exigences',
         'transaction_id',
+        'masquer',
         'is_paid',
         'status',
     ];
@@ -71,6 +72,9 @@ class Mission extends Model
             FeedbackService::create(['mission_id' => $model->id]);
         });
 
+        static::deleting(function ($mission) {
+            $mission->MissionResponses()->delete();
+        });
         static::deleted(function ($model) {
 
             FeedbackService::where('mission_id', $model->id)->delete();
