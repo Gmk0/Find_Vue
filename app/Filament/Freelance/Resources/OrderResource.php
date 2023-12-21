@@ -95,6 +95,12 @@ class OrderResource extends Resource
                 ])
                     ->searchable(),
             Tables\Columns\TextColumn::make('feedback.etat')
+                ->badge()
+                ->colors([
+                'success'=> 'Livré',
+                'warning'=>'En attente de traitement',
+                'primary'=>'En transit'
+                    ])
                 ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

@@ -29,14 +29,14 @@ class CategoryResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required(),
-                Forms\Components\MarkdownEditor::make('description'),
+                Forms\Components\MarkdownEditor::make('description')->columnSpanFull(),
 
             SpatieMediaLibraryFileUpload::make('illustration')
             ->image()
             ->optimize('jpg')
             ->collection('categories')
             ->preserveFilenames(),
-            Forms\Components\Toggle::make('afficher'),
+            Forms\Components\Toggle::make('afficher')->columnSpanFull(),
 
             ]);
     }
@@ -81,6 +81,7 @@ class CategoryResource extends Resource
     {
         return [
             RelationManagers\TagsRelationManager::class,
+            RelationManagers\SubCategoriesRelationManager::class,
         ];
     }
 

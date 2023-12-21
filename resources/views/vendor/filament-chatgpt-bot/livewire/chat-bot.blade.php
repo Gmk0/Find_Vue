@@ -1,11 +1,12 @@
-<div class="relative w-full">
+<div x-data="{show:false}" class="relative w-full">
     <!-- component -->
     <div class="fixed bottom-0 right-0 z-30 p-4 border-gray-500 shadow cursor-pointer">
-        <div class="relative flex items-center justify-center w-8 h-8 p-1 m-2 text-white rounded-full" style="background-color: {{ $panelHidden ? '#888' : 'rgb(16, 163, 127)' }};" wire:click="$toggle('panelHidden')" id="btn-chat">
+        <div class="relative flex items-center justify-center w-8 h-8 p-1 m-2 text-white rounded-full" style="background-color: {{ $panelHidden ? '#888' : 'rgb(16, 163, 127)' }};" @click="show=!show" id="btn-chat">
             <x-filament-chatgpt-bot::chatgpt-svg />
         </div>
     </div>
-    <div class="flex-1 lg:p-2 p-6 justify-between flex flex-col h-screen border border-solid border-blue-500 fixed {{ $winPosition=="left"?"left-0":"right-0" }} bottom-0 bg-white dark:bg-dark-900 shadow z-30 {{ $panelHidden ? 'hidden' : '' }}" style="{{ $winWidth }}" id="chat-window">
+    <div x-show='show' x-cloak class="flex-1  lg:p-2 p-6 justify-between flex flex-col  lg:h-screen border border-solid border-blue-500 fixed {{ $winPosition=="left"?"left-0":"right-0" }} bottom-0 bg-white dark:bg-dark-900 shadow z-30"
+    style="{{ $winWidth }}" id="chat-window">
         <div class="flex justify-between py-3 border-b-2 border-gray-200 sm:items-center">
             <div class="relative flex items-center space-x-4">
                 <div class="relative">
@@ -47,7 +48,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
                     </svg>
                 </button>
-                <button type="button" class="inline-flex items-center justify-center w-8 h-8 text-gray-500 transition duration-500 ease-in-out border rounded-lg hover:bg-gray-300 focus:outline-none" wire:click="$toggle('panelHidden')" title="Hide panel" style="margin-left:0.25rem;">
+                <button type="button" class="inline-flex items-center justify-center w-8 h-8 text-gray-500 transition duration-500 ease-in-out border rounded-lg hover:bg-gray-300 focus:outline-none" @click="show=!show" title="Hide panel" style="margin-left:0.25rem;">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
                       </svg>

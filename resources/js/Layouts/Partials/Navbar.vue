@@ -13,9 +13,9 @@
         <div class="grid items-center justify-between w-full grid-cols-12 lg:mx-auto">
             <!--Desktop Logo-->
             <div class="hidden logo md:col-span-2 lg:block">
-                <a href="">
+                <Link :href="route('home')">
                     <img src="/images/logo/find_02.png" class="hidden w-20 lg:block" alt="FInd" title="Find" />
-                </a>
+                </Link>
             </div>
             <!--End Desktop Logo-->
             <div class="col-span-3 lg:col-span-8">

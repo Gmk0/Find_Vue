@@ -78,7 +78,7 @@ defineOptions({
 
                 <div class="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
                     <div class="col-span-12 lg:col-span-4">
-                        <div style="top:8rem;" class="sticky p-4 bg-white rounded-[25px] dark:bg-gray-800 sm:p-5">
+                        <div style="top:8rem;" class="sticky p-4 bg-white rounded-[25px] dark:bg-gray-900 sm:p-5">
                             <div class="flex items-center space-x-4">
                                 <div class="avatar h-14 w-14">
 

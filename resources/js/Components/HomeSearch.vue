@@ -1,14 +1,14 @@
 <template>
     <div>
         <div>
-            <div class="flex flex-col w-full lg:mt-6 2xl:mt-10 mt-6">
+            <div class="flex flex-col w-full mt-6 lg:mt-6 2xl:mt-10">
                 <div class="relative">
 
                     <form @submit.prevent="searchResult"
                         class="relative flex p-1 mb-4 bg-white shadow-2xl lg:dark:bg-white rounded-xl 2xl:p-4 md:p-2">
 
                         <input required v-model="search" @focus="afficher"
-                            class="w-full 2xl:p-6 p-4 mr-2 text-gray-600 border-white focus:border-white rounded-xl " type="text">
+                            class="w-full p-4 mr-2 text-gray-600 border-white 2xl:p-6 focus:border-white rounded-xl " type="text">
                         <button type="submit" class="px-6 py-3 ml-auto text-center transition rounded-lg bg-skin-fill">
                             <span class="hidden font-semibold text-white md:block">
                                 Recherche
@@ -48,7 +48,7 @@
                         <a v-else class="block p-2 text-gray-800" href="#">Pas de résultat</a>
 
 
-                        <div class="mt-2 p-2">
+                        <div class="p-2 mt-2">
                              <button @click="searchPerformed=!searchPerformed" class="btn btn-sm btn-circle btn-outline">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
@@ -71,24 +71,24 @@
                     <div class="flex items-center space-x-2">
 
                         <Link href="/categories'"
-                            class="flex items-center h-8 2xl:h-12 2xl:text-lg px-2 text-gray-100 border border-gray-100 rounded-full dark:border-amber-600">
+                            class="flex items-center h-8 px-2 text-gray-100 border border-gray-100 rounded-full 2xl:h-12 2xl:text-lg dark:border-gray-100">
                             Photographie</Link>
                     </div>
                     <div class="flex items-center space-x-2">
 
                         <Link href="/categories"
-                            class="flex items-center h-8 2xl:h-12 2xl:text-lg px-2 text-gray-100 border border-gray-100 rounded-full dark:border-amber-600">
+                            class="flex items-center h-8 px-2 text-gray-100 border border-gray-100 rounded-full 2xl:h-12 2xl:text-lg dark:border-gray-100">
                             Design
                         </Link>
                     </div>
                     <div class="flex items-center space-x-2">
 
                         <Link href='/categories'
-                            class="flex items-center h-8 px-2 2xl:h-12 2xl:text-lg text-gray-100 border border-gray-100 rounded-full dark:border-amber-600">
+                            class="flex items-center h-8 px-2 text-gray-100 border border-gray-100 rounded-full 2xl:h-12 2xl:text-lg dark:border-gray-100">
                             Technologie</Link>
                     </div>
                 </div>
-                <p class="mt-2 text-center 2xl:text-lg text-gray-100 ">Catégories les plus populaires</p>
+                <p class="mt-2 text-center text-gray-100 2xl:text-lg ">Catégories les plus populaires</p>
 
 
             </div>

@@ -189,7 +189,7 @@ defineOptions({
                                     required
                                     v-model="form.title"
                                     autofocus
-                                    class="w-full"
+                                    class="w-full "
                                     placeholder="Titre"
 
                                 />

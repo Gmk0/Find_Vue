@@ -1,115 +1,15 @@
-   <!--
-<template>
 
-    <div>
-        <div class="max-w-2xl p-6 mx-auto mt-8 bg-white rounded shadow-md dark:bg-gray-800">
-      <div class="max-w-2xl p-6 mx-auto mt-8  rounded">
-            <div class="mb-6">
-                <h2 class="mb-2 text-2xl font-bold">Votre code Parainage :</h2>
-                <p v-if="codeParainage !=null" class="text-blue-500 text-lg" id="codeParainage">{{ codeParainage }}</p>
-
-                <div v-else class="flex flex-col gap-4">
-                    <p class="text-base text-gray-800 dark:text-gray-50">Vous n'avez pas encore de code de parainage veuillez en generer Un</p>
-
-                    <div>
-                    <Button :loading="loading" @click="genererCode()" label="Generer un code de parainage" outlined />
-                    </div>
-
-                </div>
-
-                <Button  label="Partager" @click="modelShare()" outlined />
-            </div>
-
-
-        </div>
-
-        <div v-if="codeParainage != null">
-
-        <div class="mt-8">
-                    <h2 class="mb-2 text-xl font-bold">Vos parrainages :</h2>
-                    <ul class="pl-6 list-disc">
-                    <li>Nom Utilisateur 1 (utilisateur1@email.com)</li>
-                    <li>Nom Utilisateur 2 (utilisateur2@email.com)</li>
-
-                    </ul>
-        </div>
-
-      <div class="mt-8">
-        <h2 class="mb-2 text-xl font-bold">Cadeaux :</h2>
-        <p class="text-gray-700">Vous avez parrainé 10 utilisateurs. Parrainez 5 de plus pour recevoir des cadeaux.</p>
-      </div>
-      </div>
-    </div>
-
-
-    <Dialog v-model:visible="modal"
-
-
-         :style="{ width: '30rem' }"
-         :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
-         position="center"
-          :modal="true"
-          header="Partager"
-
-         :draggable="false"
-         >
-
-         <div class="flex flex-col">
-
-
-
-            <div class="flex flex-row overflow-auto  py-2">
-                 <button   v-for="network in networks" class="p-2 flex items-center flex-col">
-                <ShareNetwork class="rounded-full p-4"
-
-                    :network="network.network"
-                    :key="network.network"
-                    :style="{ backgroundColor: network.color}"
-                    :url="sharing.url"
-                    :title="sharing.title"
-                    :description="sharing.description"
-                    :quote="sharing.quote"
-                    :hashtags="sharing.hashtags"
-                    :twitterUser="sharing.twitterUser">
-                <i :class="network.icon"></i>
-
-                </ShareNetwork>
-                <span class="p-2 ">{{ network.name }}</span>
-            </button>
-
-            </div>
-            <div class="flex mt-4 gap-2">
-                <div class="w-[80%]">
-                    <TextInput v-model="link" class="block w-full mt-1" />
-
-                </div>
-                <div class="w-[20%]">
-                    <Button label="copier"  v-clipboard:copy="link"
-                     v-clipboard:success="onCopy"
-                     v-clipboard:error="onError"
-                     size="small" outlined />
-                </div>
-            </div>
-
-         </div>
-
-        </Dialog>
-
-
-    </div>
-</template>
--->
 
 <template>
 
      <div class="md:grid md:grid-cols-1 md:gap-6">
-            <div class="md:col-span-1 flex justify-between">
+            <div class="flex justify-between md:col-span-1">
             <div class="px-4 sm:px-0">
-                <h3 class="text-lg font-medium dark:text-gray-50 text-gray-900">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-50">
                   Boostez vos Avantages avec le Parrainage!
                 </h3>
 
-                <p class="mt-1 text-sm dark:text-gray-100 text-gray-600">
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-100">
                        <span class="dark:text-gray-50">Mettez à jour votre profil et votre adresse e-mail pour débloquer des avantages exclusifs grâce à notre programme de parrainage. Invitez vos amis à rejoindre et profitez ensemble des opportunités exceptionnelles qui vous attendent!</span>
                 </p>
             </div>
@@ -117,12 +17,12 @@
 
         </div>
 
-            <div class="mt-5 md:mt-0 md:col-span-2 rounded-md">
+            <div class="mt-5 rounded-md md:mt-0 md:col-span-2">
                 <div>
-                    <div class="px-4 py-5 bg-white shadow dark:bg-gray-800 sm:p-6">
+                    <div class="px-4 py-5 bg-white shadow dark:bg-gray-900 sm:p-6">
                         <div class="">
                         <div v-if="!skeleton" class="mb-6">
-                            <h2 v-if="codeParainage != null" class="mb-2 text-2xl dark:text-gray-100  font-bold">Votre code Parainage : <span class="dark:text-gray-50 ">{{ codeParainage }}</span></h2>
+                            <h2 v-if="codeParainage != null" class="mb-2 text-2xl font-bold dark:text-gray-100">Votre code Parainage : <span class="dark:text-gray-50 ">{{ codeParainage }}</span></h2>
 
                             <div v-else class="flex flex-col gap-4">
                                 <p class="text-base text-gray-800 dark:text-gray-50">Vous n'avez pas encore de code de parainage veuillez en generer Un</p>
@@ -139,51 +39,25 @@
 
                         </div>
 
-                         <div v-if="skeleton" class="border-round border-1 surface-border p-4 surface-card">
-                                    <ul class="m-0 p-0 list-none">
-                                        <li class="mb-3">
+                         <div v-if="skeleton" class="p-4 border-round border-1 surface-border surface-card">
+                                    <ul class="p-0 m-0 list-none">
+                                        <li v-for="i in 4" :key="i" class="mb-3">
                                             <div class="flex">
-                                                <Skeleton shape="circle" size="4rem" class="mr-2"></Skeleton>
+                                                <Skeleton shape="circle" size="4rem" class="mr-2 dark:!bg-gray-200"></Skeleton>
                                                 <div class="align-self-center" style="flex: 1">
-                                                    <Skeleton width="100%" class="mb-2"></Skeleton>
-                                                    <Skeleton width="75%"></Skeleton>
+                                                    <Skeleton width="100%" class="mb-2 dark:!bg-gray-200"></Skeleton>
+                                                    <Skeleton width="75%" class="dark:!bg-gray-200"></Skeleton>
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="mb-3">
-                                            <div class="flex">
-                                                <Skeleton shape="circle" size="4rem" class="mr-2"></Skeleton>
-                                                <div class="align-self-center" style="flex: 1">
-                                                    <Skeleton width="100%" class="mb-2"></Skeleton>
-                                                    <Skeleton width="75%"></Skeleton>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="mb-3">
-                                            <div class="flex">
-                                                <Skeleton shape="circle" size="4rem" class="mr-2"></Skeleton>
-                                                <div class="align-self-center" style="flex: 1">
-                                                    <Skeleton width="100%" class="mb-2"></Skeleton>
-                                                    <Skeleton width="75%"></Skeleton>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="flex">
-                                                <Skeleton shape="circle" size="4rem" class="mr-2"></Skeleton>
-                                                <div class="align-self-center" style="flex: 1">
-                                                    <Skeleton width="100%" class="mb-2"></Skeleton>
-                                                    <Skeleton width="75%"></Skeleton>
-                                                </div>
-                                            </div>
-                                        </li>
+
                                     </ul>
                             </div>
 
                         <div v-else>
                         <div v-if="utilisateurParainer.length > 0" class="mt-4">
                                 <div class="py-4">
-                                    <h1 class="text-base  dark:text-gray-100">Utilisateurs Parrainés</h1>
+                                    <h1 class="text-base dark:text-gray-100">Utilisateurs Parrainés</h1>
                                 </div>
                                 <div v-for="user in utilisateurParainer" :key="user.id" class="flex items-center mt-4">
                                     <Photo :user="user" />
@@ -227,9 +101,9 @@
 
 
 
-                <div class="flex flex-row overflow-auto  py-2">
-                     <button   v-for="network in networks" class="p-2 flex items-center flex-col">
-                    <ShareNetwork class="rounded-full text-white p-4"
+                <div class="flex flex-row py-2 overflow-auto scrollbar-sm">
+                     <button   v-for="network in networks" class="flex flex-col items-center p-2">
+                    <ShareNetwork class="p-4 text-white rounded-full"
 
                         :network="network.network"
                         :key="network.network"
@@ -247,7 +121,7 @@
                 </button>
 
                 </div>
-                <div class="flex mt-4 gap-2">
+                <div class="flex gap-2 mt-4">
                     <div class="w-[80%]">
                         <TextInput v-model="link" class="block w-full mt-1" />
 
@@ -267,10 +141,11 @@
 </template>
 <script setup>
 
-import {computed ,ref, onMounted } from 'vue';
+import {computed ,ref, onMounted, watch } from 'vue';
 
 import {useParrainage} from '@/store/store';
 import axios from 'axios';
+
 
 
 
@@ -340,8 +215,14 @@ const genererCode= async ()=>{
 }
 
 
-const link=route('auth.register', codeParainage.value);
+const link=ref("");
 const modal= ref(false);
+
+watch((codeParainage)=>{
+
+    link.value = route('auth.register', parrainageStore.getReferalCode);
+
+})
 const modelShare=()=>{
 
     modal.value = !modal.value;
@@ -370,7 +251,7 @@ const  networks= [
 
 ]
  const sharing= {
-        url: link,
+        url: parrainageStore.getReferalCode,
         title: 'Rejoignez-nous sur FIND!.',
         description: 'Inscrivez-vous sur Find Freelance et découvrez un monde d\'opportunités.Utilisez mon lien de parrainage pour une inscription rapide et facile!.',
         quote: 'Explorez de nouvelles opportunités et élargissez vos horizons sur Find Freelance. Rejoignez-moi dès maintenant!',

@@ -13,7 +13,7 @@ return new class extends Migration
         ) {
             $table->id();
             $table->string('authenticatable_type');
-            $table->unsignedBigInteger('authenticatable_id');
+            $table->uuid('authenticatable_id');
             $table->string('panel_id')->nullable();
             $table->string('guard')->nullable();
             $table->string('ip_address', 45)->nullable();

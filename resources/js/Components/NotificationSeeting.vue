@@ -1,12 +1,12 @@
 <template>
        <div class="md:grid md:grid-cols-1 md:gap-6">
-            <div class="md:col-span-1 flex justify-between">
+            <div class="flex justify-between md:col-span-1">
                 <div class="px-4 sm:px-0">
-                   <h3 class="text-lg font-medium dark:text-gray-50 text-gray-900">
+                   <h3 class="text-lg font-medium text-gray-900 dark:text-gray-50">
                     Paramètres de notifications
                     </h3>
 
-                    <p class="mt-1 text-sm dark:text-gray-100 text-gray-600">
+                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-100">
                     Restez informé(e) sur les dernières opportunités! Personnalisez vos notifications et profitez d'avantages exclusifs en mettant à jour votre profil.
                     </p>
 
@@ -15,8 +15,8 @@
 
             </div>
 
-                <div class="mt-5 md:mt-0 md:col-span-2 rounded-md">
-                    <div class="p-4 space-y-4 bg-white  dark:bg-gray-800">
+                <div class="mt-5 rounded-md md:mt-0 md:col-span-2">
+                    <div class="p-4 space-y-4 bg-white dark:bg-gray-900">
 
 
                     <div class="flex items-center">

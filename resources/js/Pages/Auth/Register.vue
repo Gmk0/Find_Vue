@@ -29,7 +29,7 @@ const tel=ref('');
 
 const onUpdateTel = () => {
     form.phone='';
-    form.phone = tel.value + form.phone;
+    //form.phone = tel.value + form.phone;
 };
 
 
@@ -44,8 +44,8 @@ const onPhoneInput=()=> {
 
 
     // Limitez la saisie à un maximum de 10 chiffres
-    if (form.phone.length > 15) {
-        form.phone = form.phone.slice(0, 15);
+    if (form.phone.length > 11) {
+        form.phone = form.phone.slice(0, 11);
     }
 
 }
@@ -53,7 +53,10 @@ const onPhoneInput=()=> {
 const submit = () => {
 
 
-    form.post(route('register'), {
+    form.transform(data => ({
+        ...data,
+        phone: tel.value + form.phone,
+    })).post(route('register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
@@ -205,7 +208,7 @@ const submit = () => {
                                          <div class="mt-4">
                                                 <InputLabel for="phone" value="telephone" />
                                                 <div class="flex gap-2">
-                                                    <select v-model="tel" @change="onUpdateTel()" class="border-gray-300 rounded-md shadow-sm dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 focus:border-amber-500 focus:ring-amber-500">
+                                                    <select required v-model="tel" @change="onUpdateTel()" class="border-gray-300 rounded-md shadow-sm dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 focus:border-amber-500 focus:ring-amber-500">
                                                         <option value="" >code</option>
                                                         <option value="243">+ 243</option>
                                                         <option value="242">+ 242</option>
@@ -215,7 +218,7 @@ const submit = () => {
                                                         id="phone"
                                                         v-model="form.phone"
                                                         type="tel"
-                                                        maxlength="15"
+                                                        maxlength="11"
                                                         class="block w-full mt-1"
                                                         required
                                                         autofocus

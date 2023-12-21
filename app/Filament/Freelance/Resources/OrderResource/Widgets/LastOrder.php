@@ -12,6 +12,7 @@ use Filament\Widgets\TableWidget as BaseWidget;
 class LastOrder extends BaseWidget
 {
     protected int | string | array $columnSpan = 'full';
+    protected int | string | array $title="Order";
     public function table(Table $table): Table
     {
         return $table
@@ -35,7 +36,7 @@ class LastOrder extends BaseWidget
                 ->colors([
 
                     'primary' => 'pending',
-                    'warning' => 'rejeted',
+                    'danger' => 'failed',
                     'success' => 'completed',
 
                 ]),

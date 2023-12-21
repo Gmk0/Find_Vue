@@ -8,13 +8,34 @@
                  <Swiper
                         :modules="[Navigation, Autoplay, Pagination, Scrollbar, EffectFade, A11y]"
                         effect="fade"
+                        loop="true"
                         :spaceBetween="30"
                         :slides-per-view="1"
                         :autoplay="{
-                            delay: 4000,
+                            delay: 3000,
                             disableOnInteraction: false
                         }"
                         >
+                        <swiper-slide>
+
+                            <div class="slide slideshow--medium">
+                                <div class="blur-up lazyload bg-size">
+                                    <img class="blur-up lazyload bg-[#FFAA76] " data-src="/canva/sans.png" src="/canva/sans.png"
+                                        alt="women sans" title="women sans" />
+                                    <div class="slideshow__text-wrap slideshow__overlay classic middle">
+                                        <div class="slideshow__text-content classic middle">
+                                            <div class="container">
+                                                <div class="wrap-caption right">
+                                                    <h2 class="h1 mega-title slideshow__title"></h2>
+                                                    <span class="mega-subtitle slideshow__subtitle"></span>
+                                                    <span class=""></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </swiper-slide>
                         <swiper-slide>
                         <div class="relative slide slideshow--medium">
                             <div class="blur-up lazyload bg-size">
@@ -41,26 +62,7 @@
                         </div>
                         </swiper-slide>
 
-                        <swiper-slide>
 
-                        <div class="slide slideshow--medium">
-                            <div class="blur-up lazyload bg-size">
-                                <img class="blur-up lazyload bg-[#FFAA76] " data-src="/canva/sans.png" src="/canva/sans.png"
-                                    alt="women sans" title="women sans" />
-                                <div class="slideshow__text-wrap slideshow__overlay classic middle">
-                                    <div class="slideshow__text-content classic middle">
-                                        <div class="container">
-                                            <div class="wrap-caption right">
-                                                <h2 class="h1 mega-title slideshow__title"></h2>
-                                                <span class="mega-subtitle slideshow__subtitle"></span>
-                                                <span class=""></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </swiper-slide>
 
 
                         <swiper-slide>
@@ -133,7 +135,7 @@
 
 
             <div data-aos="fade-right" data-aos-duration="800"
-                class="absolute top-0 left-0 z-50 px-6 py-8 xl:py-10 lg:mt-8 2xl:mt-16 lg:col-span-6 lg:py-12 md:mb-8 xl:place-self-center  lg:mb-0 lg:w-1/2">
+                class="absolute top-0 left-0 z-50 px-6 py-8 xl:py-10 lg:mt-8 2xl:mt-16 lg:col-span-6 lg:py-12 md:mb-8 xl:place-self-center lg:mb-0 lg:w-1/2">
                 <div class="pt-[8rem] 2xl:pt-[10rem] px-1">
 
                     <h1 class="text-3xl font-bold text-center text-white md:text-3xl lg:text-4xl 2xl:text-6xl lg:text-left">
@@ -155,7 +157,7 @@
 
         <div id="features" class="bg-gray-100 dark:bg-gray-900">
 
-            <div data-aos="" class="z-10 lg:max-w-6xl 2xl:max-w-7xl px-8 2xl:px-2 py-8 lg:mx-auto overflow-hidden md:px-6">
+            <div data-aos="" class="z-10 px-8 py-8 overflow-hidden lg:max-w-6xl 2xl:max-w-7xl 2xl:px-2 lg:mx-auto md:px-6">
                 <div class="flex ">
                     <div data-aos="fade-up" data-aos-duration="500" class="w-full lg:w-5/12">
                         <h1
@@ -188,13 +190,13 @@
                         <div class="grid grid-cols-2 gap-6 mx-6 mt-6 md:mx-0 px-auto md:gap-2 md:grid-cols-3 ">
 
                             <img src="/images/brand/influeworld.png" alt="influeworld"
-                                class="w-32 h-16 px-5 py-3 xl:w-36  xl:py-auto xl:px-auto xl:h-20 duration-200 grayscale hover:grayscale-0 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
+                                class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer xl:w-36 xl:py-auto xl:px-auto xl:h-20 grayscale hover:grayscale-0 bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
 
                               <img src="/images/brand/makutano.png" alt="makutano"
-                                    class="w-32 h-16 px-5 xl:px-auto xl:py-auto py-3 xl:w-36 xl:h-20 duration-200 grayscale hover:grayscale-0 border rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
+                                    class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer xl:px-auto xl:py-auto xl:w-36 xl:h-20 grayscale hover:grayscale-0 bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
 
                                 <img src="/images/brand/silikin.png" alt="silikin"
-                                    class="w-32 h-16 px-5 py-3 xl:px-auto xl:py-auto xl:w-36 xl:h-20 duration-200 border  grayscale hover:grayscale-0 rounded-lg shadow-md cursor-pointer bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
+                                    class="w-32 h-16 px-5 py-3 duration-200 border rounded-lg shadow-md cursor-pointer xl:px-auto xl:py-auto xl:w-36 xl:h-20 grayscale hover:grayscale-0 bg-gray-50 border-blue-300/20 shadow-blue-500/5 hover:scale-95 sm:w-36">
 
                         </div>
 
@@ -203,7 +205,7 @@
                     <div class="hidden px-4 lg:block lg:w-1/12"></div>
 
                     <div data-aos="fade-left" data-aos-duration="500" class="hidden w-full px-4 lg:block md:w-6/12">
-                        <div class="lg:ml-auto  lg:text-right">
+                        <div class="lg:ml-auto lg:text-right">
                             <div class="relative z-10 inline-block pt-11 lg:pt-0">
                                 <img src="/images/hero/women.jpeg" alt="hero div img" class="w-3/4 rounded-full lg:ml-auto">
                             </div>
@@ -214,10 +216,10 @@
         </div>
 
 
-         <div id="talkAbout" class="bg-white dark:bg-gray-800  lg:min-h-screen">
+         <div id="talkAbout" class="bg-white dark:bg-gray-800 lg:min-h-screen">
 
-            <div class="container max-w-6xl 2xl:max-w-7xl 2xl:p-2 p-4 m-4 mx-auto md:p-6">
-                <div class="mb-10 xl:mb-14 text-center">
+            <div class="container max-w-6xl p-4 m-4 mx-auto 2xl:max-w-7xl 2xl:p-2 md:p-6">
+                <div class="mb-10 text-center xl:mb-14">
                     <span class="font-medium text-amber-600">Presentation</span>
                     <h1 class="text-2xl font-bold text-slate-700 dark:text-gray-200 ">Ils en Parlent mieux Que nous</h1>
 
@@ -225,7 +227,7 @@
 
                 <div class="my-10">
 
-                      <swiper class="flex xl:py-12 py-8"
+                      <swiper class="flex py-8 xl:py-12"
                             :modules="[Navigation, Pagination, Scrollbar, EffectCube, A11y]"
 
                             :spaceBetween="30"
@@ -242,13 +244,13 @@
 
                                     <div class="w-full m-2 h-50 xl:h-72 aspect-w-8 aspect-h-9 md:col-span-2 rounded-2xl">
 
-                                        <iframe class="rounded-sm w-full h-full aspect-video hover:aspect-square"
+                                        <iframe class="w-full h-full rounded-sm aspect-video hover:aspect-square"
                                             src="https://www.youtube.com/embed/rw_3Yv-rhZM" frameborder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                             allowfullscreen></iframe>
                                     </div>
                                     <div class="p-6 mx-auto space-y-6 text-center md:col-span-3 sm:p-8">
-                                        <div class="w-20 xl:w-28 mx-auto">
+                                        <div class="w-20 mx-auto xl:w-28">
                                             <img src="images/brand/influnet.jpg" alt="company logo" loading="lazy" />
                                         </div>
                                         <p class="dark:text-gray-200 xl:text-lg">
@@ -275,13 +277,13 @@
 
                                     <div class="w-full m-2 xl:h-72 h-50 aspect-w-8 aspect-h-9 md:col-span-2 rounded-2xl">
 
-                                        <iframe class="rounded-sm w-full h-full aspect-video hover:aspect-square"
+                                        <iframe class="w-full h-full rounded-sm aspect-video hover:aspect-square"
                                             src="https://www.youtube.com/embed/rw_3Yv-rhZM" frameborder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                             allowfullscreen></iframe>
                                     </div>
                                     <div class="p-6 mx-auto space-y-6 text-center md:col-span-3 sm:p-8">
-                                        <div class="w-20 xl:w-28 mx-auto">
+                                        <div class="w-20 mx-auto xl:w-28">
                                             <img src="images/brand/influnet.jpg" alt="company logo" loading="lazy" />
                                         </div>
                                         <p class="dark:text-gray-200 xl:text-lg">
@@ -482,8 +484,8 @@
                         >
                         <swiper-slide v-for="mission in getMissions" class="p-2">
 
-                        <div class="mb-4 p-2  lg:flex-col rounded-md shadow-md">
-                            <img class="object-cover object-center w-full h-48  bg-center bg-cover  shrink-0"
+                        <div class="p-2 mb-4 rounded-md shadow-md lg:flex-col">
+                            <img class="object-cover object-center w-full h-48 bg-center bg-cover shrink-0"
                                 src="/images/illustrations/missionF.svg" alt="image" />
                             <div class="flex flex-col w-full px-4 py-3 bg-white grow sm:px-5">
                                 <div class="flex items-center justify-between">
@@ -895,7 +897,7 @@
                                 <div v-for="(faq, index) in faqsGet" :key="faq.id">
                                 <button
                                     class="flex items-center justify-between w-full py-3 mt-4 font-bold text-gray-800 border-b dark:text-white"
-                                    :class="index !== faqs.length - 1 && 'border-b border-gray-400'"
+                                    :class="index !== faqsGet.length - 1 && 'border-b border-gray-400'"
                                     @click="toggleAccordion(faq.id)"
                                 >
                                     <div class="text-left">{{ faq.questions }}</div>
@@ -986,45 +988,6 @@ const setTestimonialActive = (index) => {
 };
 
 
-
-const faqs = ref([
-    {
-        question: 'Qu’est ce que Find ?',
-        answer: 'Find est une plate-forme destinée à mettre en relation les entreprises et les particuliers demandèrent des services avec des travailleurs indépendants dans différents domaines tels que : Design et graphisme, photographie et tant d’autres . Find propose à ses travailleurs indépendants la possibilité de vendre leurs services aux entreprises et à toute personne désireuse d’un service se trouvant sur la plate-forme',
-        isOpen: true,
-    },
-    {
-        question: 'Que veut dire le terme Freelance ?',
-        answer: 'Le mot freelance est une nomenclature anglaise désignant une personne qui travaille pour elle-même sans contrat permanent avec un employeur, et qui est essentiellement son propre patron.',
-        isOpen: false,
-    },
-    {
-        question: 'La plate-forme est-elle gratuite ?',
-        answer: 'Oui la plate-forme est gratuite pour ceux qui veulent acheter un service. Pour les Freelance ( vendeurs) , ils doivent souscrire à un pack d’abonnement',
-        isOpen: false,
-    },
-
-    {
-        question: 'Comment se fait le paiement pour celui qui commande le service ?',
-        answer: 'Pour celui qui commande un service, il aura la possibilité de payer par Mobile money local ( M-pesa, Airtel money, Orange money soit par visa et Mastercard.',
-        isOpen: false,
-    },
-    {
-        question: 'Pourquoi payer avant la livraison du service ?',
-        answer: 'Il est essentiel d’effectuer un paiement avant la prestation du service pour certifier votre dévouement, ce qui garantit que le freelance ne travaillera pas en vain. De plus, le freelance ne recevra votre argent qu’après réception de votre commande, ce qui garantit la sécurité des deux parties.',
-        isOpen: false,
-    },
-]);
-
-const toggleFaq = (index) => {
-    faqs.value.forEach((faq, faqIndex) => {
-        if (faqIndex !== index) {
-            faq.isOpen = false;
-        } else {
-            faq.isOpen = !faq.isOpen;
-        }
-    });
-};
 
 
 const expandedItems = ref([]);

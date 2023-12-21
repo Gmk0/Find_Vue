@@ -58,7 +58,6 @@ export const useParrainage = defineStore('useParrainage', {
 
                 this.referalCode = response.data.referral_code;
 
-                console.log(this.referalCode);
 
             } catch (e) {
 
@@ -72,7 +71,7 @@ export const useParrainage = defineStore('useParrainage', {
 
                 this.parrainagesUser = response.data.users;
 
-                console.log(this.parrainagesUser);
+
                 }else{
                     console.log("error:" + response.status)
                 }
