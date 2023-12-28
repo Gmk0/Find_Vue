@@ -49,6 +49,7 @@ window.Echo.private(`chat.${page.props.auth.user.id}`)
     <div class="flex overflow-hidden min-h-100vh grow dark:bg-navy-900">
         <div class="overflow-hidden">
             <div class="sidebar print:hidden">
+
                 <!-- Main Sidebar -->
 
                 <MainSidebarF />

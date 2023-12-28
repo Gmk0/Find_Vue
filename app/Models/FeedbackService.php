@@ -35,8 +35,8 @@ class FeedbackService extends Model
     protected $casts = [
 
         'id' => 'integer',
-        'order_id' => 'integer',
-        'mission_id' => 'integer',
+        'order_id' => 'string',
+        'mission_id' => 'string',
         'delai_livraison_estimee' => 'date:d-m-Y',
         'is_publish' => 'boolean'
 

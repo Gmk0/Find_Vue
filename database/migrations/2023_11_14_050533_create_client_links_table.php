@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('client_links', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained();
             $table->string('uniqueId');
             $table->foreignId('proposal_id')->nullable();

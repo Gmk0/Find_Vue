@@ -64,6 +64,50 @@
             </div>
         </div>
     </div>
+
+    @if($record->feedback->etat=="Livré" && $record->progress==100)
+    <div>
+        <h1 class="mb-4 text-gray-800 dark:text-gray-200">Vous avez deja livrer (realiser) la commande</h1>
+
+        <div class="mb-4">
+            <h1 class="text-gray-800 dark:text-gray-200">Le Feedback du client</h1>
+        </div>
+        <div class="p-4 mb-4 bg-gray-100 rounded-lg dark:bg-gray-700">
+
+            <p class="text-sm text-gray-700 md:text-base dark:text-gray-300">
+                {{ $record->feedback->commentaires ?
+                $record->feedback->commentaires : 'pas de commentaire' }}</p>
+
+            <div class="flex items-center my-4">
+                <svg class="w-4 h-4 mr-1 text-yellow-500 fill-current" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M10 14.155L4.284 17.84l.828-5.076L.898 7.865l5.059-.736L10 2l2.043 5.129 5.059.736-3.215 3.9.828 5.076z" />
+                </svg>
+
+                <span class="text-sm font-semibold text-gray-700 dark:text-gray-100">
+                    ({{ $record->feedback->satisfaction ?
+                    $record->feedback->satisfaction : 0 }})
+                </span>
+            </div>
+
+            <div class="flex gap-4">
+
+                <label>
+                    <x-filament::input.checkbox wire:change='publisherComment()' wire:model="is_publish" />
+
+                    <span>
+                        Publier
+                    </span>
+                </label>
+
+            </div>
+        </div>
+
+
+    </div>
+    @endif
+
 </x-filament::card>
 
 <x-filament::card>

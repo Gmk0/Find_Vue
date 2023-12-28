@@ -1,15 +1,17 @@
 <template>
     <div class="bg-white dark:bg-gray-800">
 
+
         <Head :title="titlePage" />
 
         <div class="pageWrapper">
             <Navbar/>
 
-
+            <Error />
 
 
             <main  class=" min-h-screen">
+
                 <slot />
             </main>
 

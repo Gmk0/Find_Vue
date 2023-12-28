@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900 pt-16 mx-auto  2xl:px-2 lg:px-8">
+    <div class="min-h-screen bg-gray-100 dark:bg-gray-900 pt-16 lg:mx-auto  2xl:mx-0 2xl:px-2 lg:px-8">
 
         <section class="relative  overflow-hidden  pt-8 pb-12  lg:pb-[90px]">
             <div class="container px-4 mx-auto">
@@ -20,7 +20,7 @@
                 </div>
                  <div class="max-w-6xl px-8 pt-2 mx-auto">
 
-            <form @submit.prevent="sendFeedback()" class="grid grid-cols-2 mb-4">
+            <form @submit.prevent="sendFeedback()" class="lg:grid flex  lg:gap-2 gap-6 flex-col-reverse mb-8  lg:grid-cols-2 lg:mb-4">
                 <div class="flex flex-col gap-4">
 
                      <TextInput
@@ -66,7 +66,7 @@
 
 
                 </div>
-                <div class="px-4">
+                <div class="px-4 lg:mt-0 mt-4">
 
                         <div class="bg-white rounded-lg dark:bg-gray-700">
 
@@ -144,8 +144,8 @@ const userStateLogin = useStore();
 const page= usePage();
 
 const form = useForm({
-    name: page.props.auth?.user.name,
-    email: page.props.auth?.user.email,
+    name: page.props.auth.user?.name,
+    email: page.props.auth.user?.email,
     message: '',
 });
 

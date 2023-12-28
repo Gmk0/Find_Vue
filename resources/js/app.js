@@ -59,7 +59,7 @@ import Button from 'primevue/button';
 import InputError from '@/Components/InputError.vue';
 import Textarea from 'primevue/textarea';
 import Photo from '@/Components/Photo.vue';
-
+import CardGift from '@/Components/CardGift.vue';
 import RadioButton from 'primevue/radiobutton';
 import Tooltip from 'primevue/tooltip';
 
@@ -91,8 +91,10 @@ import NavGuest from '@/Layouts/Partials/NavGuest.vue';
 import Message from 'primevue/message';
 
 
-import VueClipboard from 'vue3-clipboard'
-import VueSocialSharing from 'vue-social-sharing'
+import VueClipboard from 'vue3-clipboard';
+import VueSocialSharing from 'vue-social-sharing';
+
+
 
 
 
@@ -112,6 +114,7 @@ createInertiaApp({
             .use(pinia)
             .use(VueSweetalert2)
             .use(VueSocialSharing)
+
             .use(PrimeVue, { unstyled: true, pt: Tailwind })
             .use(ToastService)
             .use(ConfirmationService)
@@ -160,6 +163,7 @@ createInertiaApp({
             .component('CardGuest', CardGuest)
             .component('NavGuest', NavGuest)
             .component('Message',Message)
+            .component('CardGift', CardGift)
 
            // .component('Show', Show)
              // Enregistrez votre composant de layout

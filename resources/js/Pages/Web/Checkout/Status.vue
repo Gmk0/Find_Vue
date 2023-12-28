@@ -36,7 +36,7 @@ const totalPrice = computed(() => usecartStore.totalCost);
 
 </script>
 <template>
-    <WebLayout>
+
         <div>
             <div class="min-h-screen py-5 pt-16 custom overflow-y-auto-scrollbar bg-gray-50 min-w-screen dark:bg-gray-900">
 
@@ -92,7 +92,7 @@ const totalPrice = computed(() => usecartStore.totalCost);
             </div>
 
         </div>
-    </WebLayout>
+
 </template>
 
 <style scoped>

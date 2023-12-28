@@ -8,11 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 
 class Mission extends Model
 {
     use HasFactory;
 
+
+    public $incrementing = false;
+    protected $keyType = 'string';
     /**
      * The attributes that are mass assignable.
      *
@@ -43,14 +47,14 @@ class Mission extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
+        'id' => 'string',
         'category_id' => 'integer',
         'sub_category' => 'array',
         'files' => AsArrayObject::class,
         'budget' => 'decimal:2',
         'begin_mission' => 'date',
         'end_mission' =>'date',
-        'transaction_id' => 'integer',
+        'transaction_id' => 'string',
         'masquer' => 'boolean',
         'created_at' =>'date:d-M-Y',
         'is_paid' => 'datetime',
@@ -63,7 +67,7 @@ class Mission extends Model
         parent::boot();
         static::creating(function ($model) {
 
-           // $model->user_id = auth()->user()->id;
+            $model->id = Str::uuid()->toString();
             $model->mission_numero = 'MS' . date('YmdHms');
         });
 
@@ -146,6 +150,10 @@ class Mission extends Model
         return $this->missionResponses()->where('status', 'approved')->first();
     }
 
+    public function getApprovedMissionResponseUser()
+    {
+        return $this->missionResponses()->where('status', 'approved')->where('freelance_id',auth()->user()->freelance?->id)->first();
+    }
 
     public function isReadyForPayment(): bool
     {

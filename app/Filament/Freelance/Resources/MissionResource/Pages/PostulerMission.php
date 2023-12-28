@@ -5,6 +5,7 @@ namespace App\Filament\Freelance\Resources\MissionResource\Pages;
 use App\Filament\Freelance\Resources\MissionResource;
 use App\Models\Mission;
 use App\Models\MissionResponse;
+use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;
@@ -20,16 +21,23 @@ use Filament\Infolists\Infolist;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Notifications\Notification;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
 
-class PostulerMission extends Page implements HasInfolists,HasForms
+class PostulerMission extends Page implements HasInfolists,HasForms, HasActions
 {
     use InteractsWithInfolists;
     use InteractsWithForms;
+
+
+    use InteractsWithActions;
     protected static string $resource = MissionResource::class;
 
     public ?array $data;
 
     public ?array $dataTwo;
+
+    protected $listeners=['refresh'=> '$refresh'];
 
     protected static string $view = 'filament.freelance.resources.mission-resource.pages.postuler-mission';
 
@@ -132,6 +140,43 @@ class PostulerMission extends Page implements HasInfolists,HasForms
            // ->model($this->record);
     }
 
+    public function effacerProposition()
+    {
+
+         $this->response->delete();
+         return redirect()->back();
+
+    }
+
+    public function annulerAction(): Action
+    {
+        return Action::make('annuler')
+        ->label('Annuler')
+        ->requiresConfirmation()
+            ->modalHeading('Annuler la proposition')
+            ->modalDescription('Êtes-vous sûr de vouloir Annuler votre proposition .')
+            ->modalSubmitActionLabel('Oui, Annuler')
+            ->color('danger')
+            ->modalIcon('heroicon-o-pencil')
+            ->modalIconColor('danger')
+            ->action(function (array $arguments) {
+                $order = MissionResponse::find($arguments['id']);
+
+            $this->deleteAction($order);
+
+
+
+            });
+    }
+    public function deleteAction(MissionResponse $response){
+
+        $response->delete();
+
+
+
+        return $this->redirect(route('filament.freelance.resources.missions.index'),true);
+
+    }
     public function postuler()
     {
 
@@ -152,6 +197,7 @@ class PostulerMission extends Page implements HasInfolists,HasForms
             $this->sendNotification();
 
 
+        $this->dispatch('refresh');
     }
 
     public function changerPost()
@@ -168,14 +214,14 @@ class PostulerMission extends Page implements HasInfolists,HasForms
             ->title('Modification reuissie')
             ->send();
 
-
+        $this->dispatch('refresh');
 
     }
     protected function sendNotification(): void
     {
         Notification::make()
             ->success()
-            ->title('Vous avez recu une proposition pour votre mission')
+            ->title('Votre proposition  a éte bien envoyer')
             ->send()
             ->sendToDatabase($this->record->user);
 

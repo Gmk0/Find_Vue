@@ -1,6 +1,6 @@
 <template>
-    <div class="min-h-screen pt-16 ">
-        <div class="container relative px-4 py-4 overflow-auto bg-gray-200">
+    <div class="min-h-screen py-20 ">
+        <div class="container relative hidden px-4 py-4 overflow-auto bg-gray-200">
                     <div class="sticky flex items-center justify-center py-12 mx-auto">
                         <h1 class="text-5xl">Cultiver, Concevoir & S'Éclater</h1>
                     </div>
@@ -27,6 +27,7 @@
 import WebLayout from '@/Layouts/WebLayout.vue';
 import { Link } from '@inertiajs/vue3';
 import { ref, onBeforeUnmount, onMounted } from 'vue';
+
 // Assurez-vous d'ajuster le chemin d'importation
 //import { onMounted } from 'vue';
 

@@ -14,7 +14,7 @@
             <!--Desktop Logo-->
             <div class="hidden logo md:col-span-2 lg:block">
                 <Link :href="route('home')">
-                    <img src="/images/logo/find_02.png" class="hidden w-20 lg:block" alt="FInd" title="Find" />
+                    <img src="/images/optimize/find_02.png" class="hidden w-20 lg:block" alt="FInd" title="Find" />
                 </Link>
             </div>
             <!--End Desktop Logo-->
@@ -126,12 +126,12 @@
 
                         </li>
                     <li class="lvl1 parent dropdown">
-                        <Link  :href="route('home')">
+                        <a  href="#">
                                 <span class="dark:!text-white"  :class="{ 'lg:text-white': !isSticky && !isNotHome, 'lg:hidden': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">A propos</span>
 
                                 <span class="dark:!text-white"  :class="{ 'hidden': !isNotHome }">A propos</span>
 
-                        </Link>
+                        </a>
                         <ul class="dropdown">
                              <li>
                                 <Link :href="route('contact')">Contact</Link>
@@ -169,9 +169,9 @@
             <div class="block col-span-6 mx-auto lg:col-span-2 lg:hidden mobile-logo">
                 <div class="logo">
                     <Link :href="route('home')">
-                                <img v-show="!isNotHome" class="flex w-20 dark:hidden "   src="/images/logo/find_03.png" alt="logo-find" >
-                                <img v-show="isNotHome" src="/images/logo/find_02.png" alt="logo-find" class="w-24">
-                                <img v-show="!isNotHome"  class="hidden w-24 dark:flex" src="/images/logo/find_02.png" alt="logo-find">
+                                <img v-show="!isNotHome" class="flex w-20 dark:hidden "   src="/images/optimize/find_03.png" alt="logo-find" >
+                                <img v-show="isNotHome" src="/images/optimize/find_02.png" alt="logo-find" class="w-24">
+                                <img v-show="!isNotHome"  class="hidden w-24 dark:flex" src="/images/optimize/find_02.png" alt="logo-find">
                     </Link>
                 </div>
             </div>
@@ -236,10 +236,7 @@
 
                                  <span  class="dark:!text-white"  :class="{ 'lg:text-white': !isSticky && !isNotHome, 'lg:hidden': isNotHome && !isSticky, 'hidden': isSticky && isNotHome }">Connexion</span>
 
-                                                <span class="dark:!text-white text-gray-800"  :class="{ 'hidden': !isNotHome }">
-
-
-                                                </span>
+                                <span class="dark:!text-white text-gray-800"  :class="{ 'hidden': !isNotHome }">Connexion</span>
 
                     </a>
 

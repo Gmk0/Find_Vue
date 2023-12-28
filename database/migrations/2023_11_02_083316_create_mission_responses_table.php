@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('mission_responses', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('response_numero')->unique();
             $table->foreignId('freelance_id')->constrained();
-            $table->foreignId('mission_id')->constrained();
+            $table->foreignUuid('mission_id')->constrained();
             $table->text('content');
             $table->decimal('budget', 8, 2);
             $table->enum('status', ["pending", "approved", "rejected"])->default('pending');

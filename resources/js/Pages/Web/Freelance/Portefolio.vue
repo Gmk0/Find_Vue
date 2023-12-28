@@ -26,11 +26,13 @@ import { Collapse } from 'vue-collapsed';
 
 const props= defineProps({
     freelance:Object,
-    services:Array,
+    services: Object,
     realisations : Array,
 })
 
 const freelance= computed(()=>props.freelance.data);
+
+const services= computed(()=>props.services.data);
 
 
 
@@ -120,7 +122,7 @@ realisation.media.forEach((media) => {
 <template>
    <div class="relative min-h-screen pt-16 overflow-auto">
 
-        <div class="relative flex flex-col  bg-gray-100 dark:bg-gray-900 lg:flex-row">
+        <div class="relative flex flex-col bg-gray-100 dark:bg-gray-900 lg:flex-row">
 
 
 
@@ -128,8 +130,9 @@ realisation.media.forEach((media) => {
 
 
                  <div class="sticky top-0">
+
                                  <div class="flex items-center justify-center ">
-                                    <Photo :user="props.freelance.data.user" :taille="36" />
+                                    <Photo :user="freelance.user" taille="32" />
                                 </div>
                                 <div>
 
@@ -145,7 +148,7 @@ realisation.media.forEach((media) => {
 
                             </div>
 
-                    <div class="px-6 overflow-y-auto relative scrollbar-sm ">
+                    <div class="relative px-6 overflow-y-auto scrollbar-sm ">
 
 
                         <h1 class="mt-4 text-lg font-bold text-gray-800 lg:text-lg xl:text-xl 2xl:text-3xl">
@@ -167,10 +170,10 @@ realisation.media.forEach((media) => {
                             <span class="text-base text-gray-700 dark:text-gray-100">{{ props.freelance.data.category.name }}</span>
                         </h2>
 
-                        <h2 class="flex justify-between gap-1 mt-4 font-medium dark:text-gray-200 text-gray-800">
+                        <h2 class="flex justify-between gap-1 mt-4 font-medium text-gray-800 dark:text-gray-200">
 
                             <div class="flex gap-1">
-                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                               <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
@@ -192,7 +195,7 @@ realisation.media.forEach((media) => {
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                                 </svg>
-                                <span class=" text-gray-600 ">Niveau</span>
+                                <span class="text-gray-600 ">Niveau</span>
 
                             </div>
 
@@ -222,7 +225,7 @@ realisation.media.forEach((media) => {
                             </div>
                         </div>
 
-                        <div class="flex   flex-col mt-4">
+                        <div class="flex flex-col mt-4">
 
                             <div class="text-base text-gray-600 dark:text-gray-500">
                                 <h1>Sous categorie cle</h1>
@@ -322,9 +325,9 @@ realisation.media.forEach((media) => {
                                 <Collapse :when="open" class="overflow-hidden transition-all duration-300 ease-in-out ">
                                     <div class="p-4 text-sm leading-normal text-blue-gray-500/80">
 
-                                        <div v-for="(certificat , index) in props.freelance.data.certificat" class="rounded-lg flex flex-col ">
+                                        <div v-for="(certificat , index) in props.freelance.data.certificat" class="flex flex-col rounded-lg ">
                                             <div class="text-base font-bold text-gray-700 dark:text-gray-500">
-                                                <div class="flex gap-2  lg:justify-between">
+                                                <div class="flex gap-2 lg:justify-between">
                                                     <span>Certifier </span>
                                                     <span
                                                         class="block text-gray-700 dark:text-gray-200">{{ certificat['certifier'] }}</span>
@@ -338,7 +341,7 @@ realisation.media.forEach((media) => {
 
                                                         Par :
                                                     </span>
-                                                    <span class="text-gray-700 block dark:text-gray-200">
+                                                    <span class="block text-gray-700 dark:text-gray-200">
                                                         {{ certificat['delivrer'] }} / {{ certificat['annee'] }}
 
                                                     </span>
@@ -351,7 +354,7 @@ realisation.media.forEach((media) => {
 
                                                             Année :
                                                         </span>
-                                                        <span class="text-gray-700 block dark:text-gray-200">
+                                                        <span class="block text-gray-700 dark:text-gray-200">
                                                               {{ certificat['annee'] }}
 
                                                         </span>
@@ -387,7 +390,7 @@ realisation.media.forEach((media) => {
                                         <div v-for="(diplome, index) in props.freelance.data.diplome" class="flex flex-col gap-4">
 
                                              <div class="text-base font-bold text-gray-700 dark:text-gray-500">
-                                                    <div class="flex gap-2  lg:justify-between">
+                                                    <div class="flex gap-2 lg:justify-between">
                                                         <span>Diplome en :</span>
                                                         <span
                                                             class="block text-gray-700 dark:text-gray-200">{{ diplome['diplome'] }}</span>
@@ -395,7 +398,7 @@ realisation.media.forEach((media) => {
 
                                             </div>
                                               <div class="text-base font-bold text-gray-700 dark:text-gray-500">
-                                                        <div class="flex gap-2  lg:justify-between">
+                                                        <div class="flex gap-2 lg:justify-between">
                                                             <span>Institut:</span>
                                                             <span
                                                                 class="block text-gray-700 dark:text-gray-200">{{ diplome['universite'] }}</span>
@@ -403,7 +406,7 @@ realisation.media.forEach((media) => {
 
                                                 </div>
                                                  <div class="text-base font-bold text-gray-700 dark:text-gray-500">
-                                                            <div class="flex gap-2  lg:justify-between">
+                                                            <div class="flex gap-2 lg:justify-between">
                                                                 <span>Annee:</span>
                                                                 <span
                                                                     class="block text-gray-700 dark:text-gray-200">{{diplome['annee'] }}</span>
@@ -514,7 +517,7 @@ realisation.media.forEach((media) => {
                 <section class="bg-gray-100 dark:bg-gray-800 ">
                     <div class="px-2 py-12 mx-auto max-w-7xl sm:px-4 lg:px-4">
                         <div class="mx-auto text-center ">
-                            <h2 class="text-3xl font-bold dark:text-gray-100 text-gray-800">Mes Services</h2>
+                            <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100">Mes Services</h2>
                             <p class="mt-4 text-gray-500 dark:text-gray-200">Voici quelques-uns des services que j'ai créés
                                 sur
                                 la plateforme :</p>
@@ -553,7 +556,7 @@ realisation.media.forEach((media) => {
                                             :space-between="25"
                                              @swiper="onSwiperInitializedService"
                                             >
-                                         <swiper-slide v-for="service in props.services.data" class="">
+                                         <swiper-slide v-for="service in services" class="">
 
                                          <ServiceCard :service="service" />
                                       </swiper-slide>
@@ -699,11 +702,11 @@ realisation.media.forEach((media) => {
 
 
 
-                <section class="lg:p-6 mt-6 bg-gray-100 rounded-md shadow-sm dark:bg-gray-900">
+                <section class="mt-6 bg-gray-100 rounded-md shadow-sm lg:p-6 dark:bg-gray-900">
 
 
                     <div class="max-w-4xl mx-auto mb-4 text-center">
-                            <h2 class="text-3xl font-bold dark:text-gray-200 text-gray-800">Mes réalisations</h2>
+                            <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-200">Mes réalisations</h2>
                             <p class="mt-4 text-gray-500 dark:text-gray-100">Voici ce que mes clients satisfaits ont à dire :</p>
                     </div>
 
@@ -712,10 +715,7 @@ realisation.media.forEach((media) => {
 
                             <div v-if="props.realisations.length !=0" class="mb-4">
                                     <button @click="toggler =!toggler"
-                                        class="relative p-2 rounded-full w-16
-                                            bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 focus:ring focus:outline-none
-                                            dark:bg-gradient-to-r dark:from-indigo-500 dark:to-blue-500 dark:text-white dark:hover:from-indigo-600 dark:hover:to-blue-600
-                                            dark:focus:ring dark:focus:outline-none">
+                                        class="relative w-16 p-2 text-white rounded-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 focus:ring focus:outline-none dark:bg-gradient-to-r dark:from-indigo-500 dark:to-blue-500 dark:text-white dark:hover:from-indigo-600 dark:hover:to-blue-600 dark:focus:ring dark:focus:outline-none">
                                     <span class="sr-only">Play</span>
                                     <svg class="w-6 h-6 m-auto " fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -752,7 +752,7 @@ realisation.media.forEach((media) => {
                     <div class="">
 
 
-                        <div class="p-4 bg-white dark:bg-gray-800 rounded-md shadow">
+                        <div class="p-4 bg-white rounded-md shadow dark:bg-gray-800">
 
                                  <Swiper
                                         :modules="[Navigation,Scrollbar, Pagination,A11y]"
@@ -774,7 +774,7 @@ realisation.media.forEach((media) => {
                                             </div>
 
 
-                                                <div class="mt-auto p-4 rounded-md dark:bg-gray-700 bg-gray-200">
+                                                <div class="p-4 mt-auto bg-gray-200 rounded-md dark:bg-gray-700">
                                                     {{realisation.description}}
                                                 </div>
                                         </swiper-slide>

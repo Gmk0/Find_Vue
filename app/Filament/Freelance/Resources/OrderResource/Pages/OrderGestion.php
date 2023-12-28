@@ -23,6 +23,7 @@ class OrderGestion extends Page implements HasForms
 
     public Order $record;
     public ?array $data = [];
+    public $is_publish=false;
 
     public function mount()
     {
@@ -31,6 +32,8 @@ class OrderGestion extends Page implements HasForms
             'etat'=> $this->record->feedback->etat,
             'delai_livraison_estimee'=> $this->record->feedback->delai_livraison_estimee
             ]);
+
+            $this->is_publish=$this->record->feedback->is_publish;
 
     }
 
@@ -77,6 +80,8 @@ class OrderGestion extends Page implements HasForms
             $feedback->update(['etat'=>$data['etat'], 'delai_livraison_estimee'=>$data['delai_livraison_estimee']]);
             $this->sendNotification();
 
+            $this->notifyClient($this->record->user);
+
         }catch(\Exception $e){
 
             Notification::make()
@@ -91,13 +96,34 @@ class OrderGestion extends Page implements HasForms
 
        // dd($data['feedback']);
      }
+     public function publisherComment()
+     {
 
+        $feedback = $this->record->feedback;
+
+        $feedback->is_publish=$this->is_publish;
+         $feedback->update();
+
+
+     }
+
+      function notifyClient($user)
+     {
+
+        Notification::make()
+            ->success()
+            ->title(__('Mise à jour de votre commande'))
+            ->body("l'evolution de votre commande")
+            //->send()
+            ->sendToDatabase($user);
+     }
     protected function sendNotification(): void
     {
         Notification::make()
             ->success()
-            ->title(__('filament-breezy::default.profile.personal_info.notify'))
+            ->title("Mise à jour de la commande")
             ->send()
             ->sendToDatabase(auth()->user());
+
     }
 }

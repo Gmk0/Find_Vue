@@ -2,7 +2,7 @@
 
 
 <template>
-    <div class="flex flex-col min-h-screen gap-6 px-4 lg:mx-auto md:p-6 md:max-w-7xl md:container px-auto bg-inherit">
+    <div class="flex flex-col min-h-screen gap-6 px-4 bg-green-400 lg:mx-auto md:p-6 md:max-w-7xl md:container px-auto bg-inherit">
 
         <div class="flex flex-col">
             <div>
@@ -79,8 +79,8 @@
                             <div class="mb-2 text-gray-600 dark:text-gray-300">Tarif : <span
                                     class="text-gray-700 dark:text-gray-200">{{ proposition.budget }} $</span></div>
                             <div class="mt-4 text-gray-600 dark:text-gray-300">Description</div>
-                            <div class="text-gray-700 dark:text-gray-200">
-                            {{proposition.content}}
+                            <div v-html="proposition.content" class="prose text-gray-700 dark:text-gray-200">
+
                             </div>
 
 

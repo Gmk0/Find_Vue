@@ -127,7 +127,7 @@ class CommandeController extends Controller
 
             DB::rollback();
 
-            return redirect()->back()->withErrors(['message' => 'une erreur s\'est produite']);
+            return redirect()->back()->withErrors(['message' => 'une erreur s\'est produite'. $e->getMessage()]);
 
         }
     }

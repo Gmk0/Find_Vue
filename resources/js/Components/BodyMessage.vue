@@ -429,7 +429,7 @@ const isLastRejectedMessage = (index) => {
 
 <template>
 
-
+    <Error />
 
            <main
 

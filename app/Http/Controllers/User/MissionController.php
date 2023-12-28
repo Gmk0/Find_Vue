@@ -136,9 +136,13 @@ class MissionController extends Controller
 
         try {
 
-            $Response = MissionResponse::findOrfail($request->responce_id);
-            $Response->status = 'approved';
-            $Response->update();
+            $response = MissionResponse::findOrfail($request->responce_id);
+            $mission= $response->mission;
+            $response->status = 'approved';
+            $response->update();
+
+            $mission->status = 'active';
+            $mission->update();
             // $Response->notifyFreelance();
 
         } catch (\Exception $e) {
@@ -258,7 +262,7 @@ class MissionController extends Controller
 
             if ($mission->getApprovedMissionResponse() != null) {
 
-                return redirect()->back()->withErrors(['message' =>"Impossible d'effacer la mission vous avez deja acceptance une proposition"]);
+                return redirect()->back()->withErrors(['message' =>"Impossible d'effacer la mission vous avez deja accepter une proposition"]);
             } else {
                 $mission->delete();
 

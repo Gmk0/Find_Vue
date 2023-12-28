@@ -97,7 +97,7 @@ class CategoryController extends Controller
                         ];
                 }),
                 'category'=> $categoryGet,
-                'tags'=>$service->pluck('tag')
+                'tags'=>$service->pluck('tags')
                 ->map(function ($tag) {
                     // Vérifiez si $tag est une chaîne avant de la décoder
                     return is_string($tag) ? json_decode($tag, true) : $tag;
@@ -172,7 +172,7 @@ class CategoryController extends Controller
 
                     'subcategory' => $subcategoryElement,
                     'category'=> $subcategoryElement->category,
-                    'tags' => $service->pluck('tag')
+                    'tags' => $service->pluck('tags')
                     ->map(function ($tag) {
                         // Vérifiez si $tag est une chaîne avant de la décoder
                         return is_string($tag) ? json_decode($tag, true) : $tag;

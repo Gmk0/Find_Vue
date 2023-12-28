@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Transaction extends Model
 {
     use HasFactory;
+
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -35,11 +39,12 @@ class Transaction extends Model
      */
 
     protected $casts = [
-        'id' => 'integer',
+        'id' => 'string',
         'user_id' => 'string',
         'payment_method' => 'array',
         'amount' => 'decimal:2',
     ];
+
 
     public static function boot()
     {
@@ -47,6 +52,7 @@ class Transaction extends Model
 
         static::creating(function ($transaction) {
 
+            $transaction->id =Str::uuid()->toString();
             // $transaction->user_id = auth()->user()->id;
             $transaction->transaction_numero = 'TC' . date('YmdH')
                 . rand(10, 99);
@@ -60,7 +66,7 @@ class Transaction extends Model
            // $user->notify(new OrderUserNotifiy($this));
         } catch (\Exception $e) {
 
-            dd($e->getMessage());
+           // dd($e->getMessage());
         }
     }
     public function orders(): HasMany

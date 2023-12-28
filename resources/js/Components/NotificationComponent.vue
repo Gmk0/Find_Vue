@@ -114,7 +114,7 @@
 
 
                                 <div v-if="notifications.length > 0 ">
-                                <div v-for="notification in notifications" class="flex mb-4 items-center space-x-3">
+                                <div v-for="notification in notifications" class="flex items-center mb-4 space-x-3">
                                     <div
                                         class="flex items-center justify-center w-10 h-10 rounded-lg shrink-0 bg-amber-600/10 dark:bg-amber-600/15">
                                         <i :class="{'text-amber-600 dark:text--amber-600': notification.data.icon }"></i>
@@ -123,7 +123,7 @@
 
                                     <a href="#" @click="newLink(notification.id , notification.data?.url)" class="flex flex-col items-start">
 
-                                        <p v-if="!notification.data.title" class="font-medium text-slate-600 dark:text-navy-100">
+                                        <p v-if="notification.data.title != null" class="font-medium text-slate-600 dark:text-navy-100">
                                             {{ notification.data.title }}
                                         </p>
 

@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('services', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('service_numero');
             $table->string('title');
-            $table->json('tag');
-            $table->text('description');
-            $table->decimal('basic_price', 8, 2);
-            $table->string('basic_support');
-            $table->integer('basic_revision');
-            $table->integer('basic_delivery_time');
+            $table->json('tags')->nullable();
+            $table->text('description')->nullable();
+            $table->decimal('basic_price', 8, 2)->nullable();
+            $table->string('basic_support')->nullable();
+            $table->integer('basic_revision')->nullable();
+            $table->integer('basic_delivery_time')->nullable();
             $table->decimal('premium_price', 8, 2)->nullable();
             $table->string('premium_support')->nullable();
             $table->integer('premium_revision')->nullable();
@@ -41,6 +41,7 @@ return new class extends Migration
             $table->bigInteger('view_count')->default(0);
             $table->bigInteger('like')->default(0);
             $table->boolean('is_publish',)->default(false);
+            $table->boolean('is_gift',)->default(false);
             $table->foreignId('freelance_id')->constrained();
             $table->foreignId('category_id')->constrained();
             $table->timestamps();

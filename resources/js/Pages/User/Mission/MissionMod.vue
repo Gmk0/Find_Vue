@@ -207,18 +207,18 @@
                                  </div>
                                </div>
 
-                               <div class="flex px-6 lg:justify-end py-8 lg:items-end">
+                               <div class="flex px-6 py-8 lg:justify-end lg:items-end">
                                 <div>
                                    <label class="relative inline-flex items-center cursor-pointer">
                                     <input type="checkbox" v-model="form.masquer" class="sr-only peer">
                                     <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                                    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Afficher</span>
+                                    <span class="text-sm font-medium text-gray-900 ms-3 dark:text-gray-300">Afficher</span>
                                     </label>
                                 </div>
 
                                </div>
 
-                             <div class="flex gap-6 justify-center mt-4">
+                             <div class="flex justify-center gap-6 mt-4">
 
                                 <div>
                                 <Button
@@ -231,7 +231,7 @@
                                  <div>
                                      <Button
                                     type="button"
-                                    label="Effacer"
+                                    label="Supprimer"
                                     severity="danger"
                                     @click="visible=!visible"
                                     outlined
@@ -251,7 +251,7 @@
             Êtes-vous sûr de vouloir supprimer cette mission ? Veuillez noter que si vous avez déjà accepté une proposition pour cette mission, il sera impossible de la supprimer. Si vous êtes sûr, cliquez sur ‘Confirmer’. Sinon, cliquez sur ‘Annuler’
 
         </p>
-            <div class="flex gap-6 justify-center mt-4">
+            <div class="flex justify-center gap-6 mt-4">
 
                         <div>
                         <Button
@@ -327,7 +327,8 @@ const effacer = () => {
 
     form.post(route('deleteMission'),{
         onError:(error)=>{
-             toast.add({ severity: 'info', summary: 'Message', detail: error.message, group: 'br', life: 1000 });
+             toast.add({ severity: 'info', summary: 'Message', detail: error.message, group: 'br', life: 3000 });
+             visible.value = false;
         }
     })
 

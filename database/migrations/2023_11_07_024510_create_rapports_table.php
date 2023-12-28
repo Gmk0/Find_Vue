@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('rapports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->nullable();
-            $table->foreignId('mission_id')->nullable();
+            $table->foreignUuid('order_id')->nullable();
+            $table->foreignUuid('mission_id')->nullable();
             $table->text('description');
             $table->timestamps();
         });

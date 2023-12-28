@@ -147,8 +147,10 @@ class OrderResource extends Resource
 
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+               // Tables\Actions\ViewAction::make(),
                 Action::make('GESTION')
+                ->button()
+                ->outlined()
                 ->url(fn (Order $record): string => static::getUrl('gestion',['record' => $record]))
                 //Tables\Actions\EditAction::make(),
             ])->groups([

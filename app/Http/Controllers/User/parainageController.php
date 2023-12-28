@@ -3,8 +3,17 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ServiceResourceData;
+use App\Models\FeedbackService;
+use App\Models\Order;
+use App\Models\Service;
+use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
+
 class parainageController extends Controller
 {
     //
@@ -77,5 +86,129 @@ class parainageController extends Controller
         $generatedCode = $initials . $additionalChars;
 
         return $generatedCode;
+    }
+
+
+    public function gift($id = null)
+    {
+
+        $user = User::find($id);
+
+        if ($user->gift_used) {
+            session()->flash('error', "woops vous avez deja utilisé l'offre");
+            return redirect()->back();
+        }
+
+        $services=Service::where('is_gift',true)->get();
+
+
+        return Inertia::render('User/Profile/GiftUser',['services'=>ServiceResourceData::collection($services)]);
+    }
+
+    public function getGift($id,$service_numero)
+    {
+        $service = Service::where('service_numero', $service_numero)
+        ->where('is_gift', true)
+            ->first();
+
+        if ($service == null) {
+            return redirect()->back();
+        }
+
+        $commentaires = FeedbackService::whereHas('Order', function ($query) use ($service) {
+            $query->whereHas('service', function ($q) use ($service) {
+                $q->where('id', $service->id);
+            });
+        })->where('commentaires', '!=', null)->where('is_publish', 1)
+        ->get()->map(function ($commentaire) {
+
+            return [
+                'commentaire' => $commentaire->commentaires,
+                'satisfaction' => $commentaire->satisfaction,
+                'user' => $commentaire->order->user?->only('id', 'name', 'profile_photo_path', 'profile_photo_url'),
+            ];
+        });
+
+
+        $otherService = Service::where('id', '!=', $service->id)->where('is_gift', true)->take(6)->get();
+
+
+
+
+        return Inertia::render(
+            'User/Profile/GetOneGift',
+            [
+                'service' => ServiceResourceData::make($service),
+                'otherService' => ServiceResourceData::collection($otherService),
+                'commentaires' => $commentaires,
+
+            ]
+        );
+    }
+
+    public function getGiftPost(Request $request)
+    {
+
+
+
+        $user=User::find($request->id_client);
+
+        if($user->gift_used)
+        {
+            return redirect()->back()->withErrors(['message' => "woops vous avez deja utilisé l'offre"]);
+        }
+
+
+        try{
+            $service = Service::where('service_numero', $request->service_numero)->first();
+
+            DB::beginTransaction();
+
+            $payment = new Transaction();
+            $payment->user_id = $request->id_client;
+            $payment->amount = 0;
+            $payment->payment_method = ['last4' => "Maxi", 'brand' => "free"];
+            $payment->payment_token = $this->references();
+            $payment->type = "paiement";
+            $payment->status = "completed";
+            $payment->save();
+
+            $order = Order::create([
+                'service_id' => $service->id,
+                'user_id' => auth()->user()->id,
+                'total_amount' => 0,
+                'quantity' => 1,
+                'type' => 'service',
+                'status' => 'completed',
+                'transaction_id' =>  $payment->id,
+            ]);
+
+            $user->gift_used = true;
+            $user->save();
+            DB::commit();
+
+            return redirect()->route('paiementStatus', ['transaction_numero' => $payment->transaction_numero]);
+        }catch(\Exception $e){
+
+            DB::rollback();
+            return redirect()->back()->withErrors(['message' => $e->getMessage()]);
+
+        }
+
+
+
+
+    }
+
+    function references()
+    {
+        // Générer une chaîne aléatoire unique de 16 caractères
+        $randomString = uniqid();
+        // Extraire les 8 premiers caractères de la chaîne aléatoire pour obtenir l'ID unique de 8 caractères
+        $uniqueId = substr($randomString, 0, 8);
+        // Compteur pour incrémenter la fin de l'ID unique
+        $counter = DB::table('transactions')->count() + 1;
+        // Concaténer le compteur à la fin de l'ID unique
+        return  $finalId = 'TR' . $uniqueId . $counter;
     }
 }

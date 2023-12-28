@@ -8,10 +8,15 @@ use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class MissionResponse extends Model
 {
     use HasFactory;
+
+
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -34,7 +39,7 @@ class MissionResponse extends Model
     {
         parent::boot();
         static::creating(function ($model) {
-
+            $model->id = Str::uuid()->toString();
             $model->response_numero = 'MSR' . date('YmdHms');
         });
     }
@@ -44,9 +49,9 @@ class MissionResponse extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
+        'id' => 'string',
         'freelance_id' => 'integer',
-        'mission_id' => 'integer',
+        'mission_id' => 'string',
         'budget' => 'decimal:2',
         'is_paid' => 'datetime',
     ];
@@ -67,6 +72,11 @@ class MissionResponse extends Model
             // dd($e->getMessage());
 
         }
+    }
+    public function missionApproved():bool
+    {
+        return $this->status== 'approved'? true:false;
+
     }
 
 

@@ -74,10 +74,14 @@
                             <p class="mb-4 text-base text-gray-600 dark:text-gray-400 md:mb-2">Date de creation :
                                 <span>{{ missionResponse.mission.created_at }}</span>
                             </p>
-                            <p class="mb-4 text-base font-medium text-gray-600 md:mb-2 dark:text-gray-300">Délai d'echance :
-                                Du {{ missionResponse.mission.begin_mission }} au
-                                {{ missionResponse.mission.end_mission }}
+                            <p class="mb-4 text-base font-medium text-gray-600 md:mb-2 dark:text-gray-300">Debut :
+                                Du {{ missionResponse.mission.begin_mission }}
+
                             </p>
+                            <p class="mb-4 text-base font-medium text-gray-600 md:mb-2 dark:text-gray-300">Fin  :
+
+                                    {{ missionResponse.mission.end_mission }}
+                                </p>
 
                             <p class="mb-4 text-base text-gray-600 md:mb-2 dark:text-gray-300">Budjet :
                                 <span class="text-lg font-bold text-amber-600 ">{{ missionResponse.budget }}$</span>
@@ -115,7 +119,7 @@
                             </p>
 
 
-                            <p class="mb-4 text-base text-gray-600 md:mb-2 dark:text-gray-300">statut :
+                            <p class="mb-4 text-base text-gray-600 md:mb-2 dark:text-gray-300">Avancement :
 
 
                                 <span v-if="missionResponse.feedbackmission.etat==='En attente de traitement'" class="text-red-300 px-1.5 py-0.5 rounded-lg ">En attente de traitement</span>
@@ -123,7 +127,7 @@
                                 <span v-else-if="missionResponse.feedbackmission.etat==='Livré'" class="text-green-500 px-1.5 py-0.5 rounded-lg ">Livré</span>
 
 
-                                <span v-else-if="missionResponse.feedbackmission.etat==='En cours de preparation'" class="text-red-200 px-1.5 py-0.5 rounded-lg ">En cours de préparation</span>
+                                <span v-else-if="missionResponse.feedbackmission.etat==='En cours de préparation'" class="text-blue-400 px-1.5 py-0.5 rounded-lg ">En cours de préparation</span>
 
                                 <span v-else class="bg-red-500 px-1.5 py-0.5 rounded-lg ">En transit</span>
 
@@ -156,7 +160,7 @@
                             </h1>
                             <div class="flex items-center mt-4">
 
-                                <Photo :user="missionResponse.freelance_user" :taille="'20'" />
+                                <Photo :user="missionResponse.freelance_user" taille="20" />
                                 <div class="ml-4">
                                     <p class="text-sm text-gray-600 dark:text-gray-300">{{ missionResponse.freelance_user.name }}
                                     </p>

@@ -10,11 +10,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 
 class Order extends Model
 {
     use HasFactory;
 
+
+    public $incrementing = false;
+    protected $keyType = 'string';
     /**
      * The attributes that are mass assignable.
      *
@@ -39,18 +43,18 @@ class Order extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'service_id' => 'integer',
+        'id' => 'string',
+        'service_id' => 'string',
         'total_amount' => 'decimal:2',
         'is_paid' => 'datetime',
-        'transaction_id' => 'integer',
+        'transaction_id' => 'string',
     ];
 
     public static function boot()
     {
         parent::boot();
         static::creating(function ($order) {
-
+            $order->id = Str::uuid()->toString();
             // $order->user_id = auth()->user()->id;
             $order->order_numero = 'CMD' . date('YmdHm') . rand(10, 99);
         });

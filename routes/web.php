@@ -118,6 +118,11 @@ Route::middleware([
     Route::get('facturaction/{facture}', [ReportController::class, 'facture'])->where('facture', '(.*)')->name('facturation');
 
 
+    Route::get('/gift/{id}/{service_numero}', [parainageController::class, 'getGift'])->name('getGift')->middleware('auth');
+
+    Route::get('/gift/{id?}', [parainageController::class,'gift'])->name('gift')->middleware('auth');
+
+    Route::post('/getGift', [parainageController::class, 'getGiftPost'])->name('getGiftPost')->middleware('auth');
 
 
     Route::prefix('user')->group(function(){
@@ -215,6 +220,7 @@ Route::middleware([
 
         Route::get('/api/getAllUserParainer', 'getAllUser');
 
+
     });
 
 
@@ -232,6 +238,7 @@ Route::middleware([
         Route::controller(FreelanceAuth::class)->group(function(){
             Route::get('/dashboard', 'dashboard')->name('freelance.dashboard');
         });
+
 
         Route::controller(ServiceFreelance::class)->group(function(){
 
@@ -334,6 +341,18 @@ Route::middleware([
 
         });
 
+
+
+         Route::controller(ChatController::class)->group(function () {
+
+            Route::get('/chat/{id?}','freelanceChat')->name('freelance.chat');
+            Route::post('/acceptPropasalUser', 'acceptPropasalUser')->name('acceptPropasalUser');
+
+                Route::post('/declinePropasalUser', 'declinePropasalUser')->name('declinePropasalUser');
+
+
+
+        });
 
 
 

@@ -37,7 +37,7 @@ class Message extends Model
         'id' => 'integer',
         'conversation_id' => 'integer',
         'file' => 'array',
-        'service_id' => 'integer',
+        'service_id' => 'string',
         'proposal_id' => 'integer',
         'order_id' => 'integer',
         'receiver_id' => 'string',

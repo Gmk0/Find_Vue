@@ -50,7 +50,7 @@ resize();
     <div class="" :class="{ 'is-sidebar-open': layoutStore.SidebarExpanded }">
 
 
-
+        <Error />
 
 
         <!-- Page Wrapper -->

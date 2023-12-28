@@ -307,7 +307,7 @@ const isSectionValid = (step) => {
             } else if (!freelanceElement.value.prenom) {
                 swal('Veuillez saisir votre prénom.');
                 return false;
-            } else if (!langue.value.length ==0) {
+            } else if (langue.value.length ==0) {
                 swal('Veuillez sélectionner une langue.');
                 return false;
             } else if (!freelanceElement.value.description) {
@@ -826,9 +826,8 @@ for (let index = 1999; index < year ; index++) {
 
 
                                             <div>
-                                                <button @click="addExperience" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                                    Ajouter
-                                                </button>
+                                                <Button @click="addExperience" label="Ajouter" severity="info" outlined />
+
                                             </div>
                                         </div>
 
@@ -1118,8 +1117,7 @@ for (let index = 1999; index < year ; index++) {
 
 
                                     </div>
-                                    <span class="text-gray-800 dark:text-gray-200">La
-                                            description doit contenir au moins 150 caractères</span>
+
                                     </div>
 
                                 </div>
@@ -1198,9 +1196,8 @@ for (let index = 1999; index < year ; index++) {
 
                                                 </div>
                                                 <div>
-                                                    <button @click="addLangue" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                                        Ajouter
-                                                    </button>
+                                                     <Button @click="addLangue" label="Ajouter" severity="info" outlined />
+
                                                 </div>
                                             </div>
 
@@ -1336,10 +1333,12 @@ for (let index = 1999; index < year ; index++) {
 
                                                 </div>
 
+                                                <div>
+                                                     <Button @click="addEducation" label="Ajouter" severity="info" outlined />
 
-                                                     <button @click="addEducation" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                                        Ajouter
-                                                    </button>
+                                                </div>
+
+
 
 
 
@@ -1481,9 +1480,10 @@ for (let index = 1999; index < year ; index++) {
 
                                                      </div>
 
-                                                         <button @click="addCertification" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                                            Ajouter
-                                                        </button>
+                                                     <div>
+                                                         <Button @click="addCertification" label="Ajouter" severity="info" outlined />
+                                                     </div>
+
 
 
 
@@ -1699,9 +1699,8 @@ for (let index = 1999; index < year ; index++) {
 
                                                 </div>
                                                 <div>
-                                                    <button @click="addComptes" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                                        Ajouter
-                                                    </button>
+                                                       <Button @click="addComptes" label="Ajouter" severity="info" outlined />
+
                                                 </div>
                                             </div>
 
@@ -1783,7 +1782,7 @@ for (let index = 1999; index < year ; index++) {
                                     <div>
                                         <Button
                                         severity="success"
-                                        raised
+                                        outlined
 
                                         label="verifier"
 
@@ -1892,7 +1891,7 @@ for (let index = 1999; index < year ; index++) {
                         Continuer
                     </button>
 
-                    <button :class="{ 'opacity-25': registerLoad }" :disabled="registerLoad" v-if="$page.props.auth.user.email_verified_at !=null" v-show="step == 5" @click="register()"
+                    <button :class="{ 'opacity-25': registerLoad }" :disabled="registerLoad" v-if="$page.props.auth.user.email_verified_at ==null" v-show="step == 5" @click="register()"
                         class="middle none center rounded-lg bg-green-600 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         data-ripple-light="true">
                         S'inscrire

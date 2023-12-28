@@ -103,7 +103,7 @@ class FreelancePanelProvider extends PanelProvider
                     'xl' => 5,
                     '2xl' => null,
                 ]),
-                FilamentTourPlugin::make()->onlyVisibleOnce(false)
+                FilamentTourPlugin::make()->onlyVisibleOnce(true)
                 ->enableCssSelector(),
                     SpotlightPlugin::make(),
                  //\Hasnayeen\Themes\ThemesPlugin::make(),

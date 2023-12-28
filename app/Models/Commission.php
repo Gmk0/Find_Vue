@@ -30,6 +30,7 @@ class Commission extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'string',
+        'order_id'=>'string',
     ];
 
     public function user(): BelongsTo

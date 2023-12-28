@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('file')->nullable();
             $table->boolean('is_read')->default(0);
             $table->string('type')->nullable();
-            $table->foreignId('service_id')->nullable();
-            $table->foreignId('order_id')->nullable();
+            $table->foreignUuid('service_id')->nullable();
+            $table->foreignUuid('order_id')->nullable();
             $table->timestamps();
         });
 

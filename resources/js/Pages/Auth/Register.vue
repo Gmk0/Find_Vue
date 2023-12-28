@@ -5,6 +5,8 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+//import VueTelInput from 'vue-tel-input';
+
 
 import { ref } from 'vue';
 
@@ -287,7 +289,7 @@ const submit = () => {
                                                     <Checkbox id="terms" v-model:checked="form.terms" name="terms" required />
 
                                                     <div class="ml-2">
-                                                        j'accepte <a target="_blank" :href="route('terms.show')" class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Conditions d'utilisation</a> et <a target="_blank" :href="route('policy.show')" class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Politique de confidentialité</a>
+                                                        j'accepte <a target="_blank" :href="route('terms.show')" class="text-sm text-gray-600 underline rounded-md hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Conditions d'utilisation</a> et <a target="_blank" :href="route('policy.show')" class="text-sm text-gray-600 underline rounded-md hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Politique de confidentialité</a>
                                                     </div>
                                                 </div>
                                                 <InputError class="mt-2" :message="form.errors.terms" />

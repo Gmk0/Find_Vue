@@ -45,7 +45,7 @@
 
                <div  class="grid grid-cols-1 gap-4 mx-auto lg:grid-cols-2 xl:grid-cols-2">
                 <div v-for="mission in missions"
-                :class="{'border border-green-500' : mission.is_paid =!null}"
+                :class="{'border border-blue-500' : mission.status =='pending', 'border border-green-500': mission.status != 'pending' }"
                 class="mb-4 card lg:flex-row">
                     <img class="object-cover object-center w-full h-48 bg-center bg-cover rounded-t-lg shrink-0 lg:h-auto lg:w-48 lg:rounded-t-none lg:rounded-l-lg"
                         src="/images/illustrations/missionF.svg" alt="image" />
@@ -132,9 +132,11 @@
                             </div>
 
                             <div v-else-if="mission.status =='active'">
+                                <Link :href="route('user.missions.missionGestion',[mission.mission_numero,mission.missionApproved.response_numero])">
                                    <Button size="small"
                                    outlined severity="success"
                                    label="Evolution" />
+                                </Link>
 
                             </div>
 
@@ -144,7 +146,7 @@
                                 <Link :href="route('user.missions.candidature', mission.mission_numero)">
                                  <Button size="small"
                                        outlined severity="success"
-                                       label="Proposition" :badge="mission.nombreResponses? mission.nombreResponses:0" />
+                                       label="Proposition" :badge="mission.nombreResponses ? mission.nombreResponses:0" />
                                 </Link>
                                        <Link :href="route('user.missionEdit', mission.mission_numero)">
                                          <Button  size="small"

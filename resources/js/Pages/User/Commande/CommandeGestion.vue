@@ -45,6 +45,7 @@
 
 
 
+         <Toast position="bottom-right" group="br" />
 
 
         <div class="">
@@ -341,8 +342,8 @@
                         <Textarea v-model="form.description" class="w-full" />
                       </div>
                       <div class="flex gap-4 mt-4">
-                        <Button @click="envoyerFeddback" label="Envoyer"   />
-                        <Button severity="danger" @click="visible =!visible" label="Annuler"  />
+                        <Button @click="envoyerFeddback" label="Envoyer" outlined  />
+                        <Button severity="danger" outlined @click="visible =!visible" label="Annuler"  />
                       </div>
                  </div>
 
@@ -374,7 +375,7 @@
                           </div>
                           <div class="flex items-center justify-center gap-4 mt-4">
 
-                            <Button @click="debloquerPaiement" severity="success" label="Oui, je confirme"/>
+                            <Button @click="debloquerPaiement" outlined severity="success" label="Oui, je confirme"/>
                           </div>
                      </div>
 
@@ -402,6 +403,9 @@ import Avatar from 'primevue/avatar';
 //import Button from 'primevue/button';
 import {computed ,ref} from 'vue';
 import { Link , useForm } from '@inertiajs/vue3';
+import { useToast } from "primevue/usetoast";
+
+const toast = useToast();
 
 
 const props = defineProps({
@@ -463,7 +467,8 @@ const envoyerFeddback=()=>{
         },
         onError :(error)=>{
 
-            alert(error.message);
+             toast.add({ severity: 'danger', summary: 'Message', detail: error.message, group: 'br', life: 3000 });
+            //alert(error.message);
         }
 
     })
@@ -478,11 +483,13 @@ const debloquerPaiement = ()=>{
         onSuccess:()=>{
 
             debloquer.value=false;
-             alert('tres bien');
+             //alert('tres bien');
+              toast.add({ severity: 'info', summary: 'Message', detail: 'Paiement debloquer avec success', group: 'br', life: 3000 });
 
         },
         onError:(error)=>{
-            alert(error.message);
+             toast.add({ severity: 'danger', summary: 'Message', detail: error.message, group: 'br', life: 3000 });
+            //alert(error.message);
 
 
         }

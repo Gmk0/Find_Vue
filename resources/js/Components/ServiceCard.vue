@@ -47,6 +47,7 @@ const navigateFreelance = (direction) => {
 };
 
 const url='/storage/';
+const imageDefault='/images/illustrations/missionF.svg';
 
 const addToCart = () => {
     const item =
@@ -55,7 +56,7 @@ const addToCart = () => {
         name: props.service.title,
         price: props.service.basic_price,
         level: 'basic',
-        image: url + props.service.image[0]
+        image: url + props.service.image ? props.service.image[0]: imageDefault,
     }; // Exemple d'article
     usecartStore.addItem(item);
 
@@ -84,8 +85,12 @@ const addToCart = () => {
 
 
                     <div class="p-2">
-                         <div class=" h-48 transition duration-500 ease-out bg-center bg-cover border rounded-xl lg:h-44"
+                         <div v-if="props.service.image != null" class=" h-48 transition duration-500 ease-out bg-center bg-cover border rounded-xl lg:h-44"
                             :style="'background-image: url(/storage/' +  props.service.image[0] + ')'">
+
+                        </div>
+                         <div v-else class=" h-48 transition duration-500 ease-out bg-center bg-cover border rounded-xl lg:h-44"
+                                :style="'background-image: url(' + imageDefault + ')'">
 
                         </div>
 
@@ -93,6 +98,7 @@ const addToCart = () => {
 
 
 
+                    <!--
 
                  <div v-if="props.service.image.lenght > 1" class="px-4 ">
                                 <button type="button" @click="navigateFreelance('prev')" class="absolute left-0 z-50 p-4 ml-3 transition-opacity opacity-0 top-1/2 btn-outline btn-circle btn-sm group-hover:opacity-100 btn">
@@ -103,6 +109,7 @@ const addToCart = () => {
                                 </button>
 
                     </div>
+                    -->
 
 
 
@@ -124,7 +131,7 @@ const addToCart = () => {
             </div>
             <div class="flex">
                 <p class="text-sm text-gray-700 dark:text-gray-300">
-                    {{ props.service.freelance.level }}</p>
+                    {{ props.service.freelance.level  }}</p>
 
                 <!--
                 <div wire:ignore x-data="{ like: @json($service->isFavorite()) }"

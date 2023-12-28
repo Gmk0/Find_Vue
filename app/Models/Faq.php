@@ -10,6 +10,9 @@ class Faq extends Model
     use HasFactory;
 
 
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable=['questions','reponses','publier'];
 
 

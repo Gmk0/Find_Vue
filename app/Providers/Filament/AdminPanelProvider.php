@@ -21,7 +21,6 @@ use Jeffgreco13\FilamentBreezy\BreezyCore;
 use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 use Amendozaaguiar\FilamentRouteStatistics\FilamentRouteStatisticsPlugin;
 use Brickx\MaintenanceSwitch\MaintenanceSwitchPlugin;
-
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -57,6 +56,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+
             ])
             ->plugins([
                 BreezyCore::make()->myProfile(

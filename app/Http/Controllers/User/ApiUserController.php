@@ -108,7 +108,17 @@ class ApiUserController extends Controller
 
 
         $faqs = Faq::select('id','questions', 'reponses')->where('publier',true)->limit(4)->get();
-        return response()->json(['faqs' => $faqs], 200);
+
+        if($faqs !=null)
+        {
+
+            return response()->json(['faqs' => $faqs], 200);
+        }else{
+            return response()->json([], 204);
+
+        }
+
+
 
 
     }

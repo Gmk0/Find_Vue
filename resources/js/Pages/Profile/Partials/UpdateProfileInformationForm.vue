@@ -162,21 +162,24 @@ const clearPhotoFileInput = () => {
 
                 <div v-if="$page.props.jetstream.hasEmailVerification && user.email_verified_at === null">
                     <p class="mt-2 text-sm">
-                        Your email address is unverified.
+
+                        Votre addresse email n'est pas verifié.
 
                         <Link
                             :href="route('verification.send')"
                             method="post"
                             as="button"
-                            class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            class="text-sm text-gray-600 underline rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             @click.prevent="sendEmailVerification"
                         >
-                            Click here to re-send the verification email.
+
+                            Cliquez ici pour renvoyer l'adresse mail.
                         </Link>
                     </p>
 
                     <div v-show="verificationLinkSent" class="mt-2 text-sm font-medium text-green-600">
-                        A new verification link has been sent to your email address.
+
+                        Un nouveau lien a ete envoyer dans votre adresse mail.
                     </div>
                 </div>
             </div>
@@ -184,11 +187,11 @@ const clearPhotoFileInput = () => {
 
         <template #actions>
             <ActionMessage :on="form.recentlySuccessful" class="mr-3">
-                Saved.
+                Enregistré.
             </ActionMessage>
 
             <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Save
+                Enregistrer
             </PrimaryButton>
         </template>
     </FormSection>

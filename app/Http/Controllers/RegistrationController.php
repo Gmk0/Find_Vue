@@ -94,8 +94,6 @@ class RegistrationController extends Controller
             Freelance::create($data);
 
 
-
-
             return Inertia::location(route('filament.freelance.pages.dashboard'));
          //   return redirect(route('freelance.'));
 

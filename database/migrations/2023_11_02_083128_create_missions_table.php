@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('missions', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('title');
             $table->string('mission_numero')->unique();
             $table->foreignUuid('user_id')->constrained();
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->date('begin_mission')->nullable();
             $table->date('end_mission')->nullable();
             $table->integer('progress')->nullable();
-            $table->foreignId('transaction_id')->nullable()->constrained();
+            $table->foreignUuid('transaction_id')->nullable()->constrained();
             $table->dateTime('is_paid')->nullable();
             $table->boolean('masquer')->default(false);
             $table->enum('status', ['pending', "active", "inactive", "completed"])->default('pending');

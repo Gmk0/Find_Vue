@@ -132,6 +132,9 @@ class ServiceResource extends Resource
 
             Toggle::make('is_publish')->label('Publier'),
 
+            Toggle::make('is_gift')->label('cadeaux')
+            ->visible(fn (): bool => str_ends_with(auth()->user()->email, '@find-freelance.com') ),
+
 
             ]);
     }

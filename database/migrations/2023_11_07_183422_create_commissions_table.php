@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('commissions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->nullable();
+            $table->foreignUuid('order_id')->nullable();
             $table->foreignUuid('user_id')->constrained();
-            $table->foreignId('mission_id')->nullable();
-            $table->foreignId('transaction_id')->nullable();
+            $table->foreignUuid('mission_id')->nullable();
+            $table->foreignUuid('transaction_id')->nullable();
             $table->decimal('amount');
             $table->decimal('net_amount');
             $table->string('percent');

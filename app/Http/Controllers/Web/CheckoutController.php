@@ -14,6 +14,7 @@ use App\Tools\Paiement;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
 {
@@ -52,7 +53,7 @@ class CheckoutController extends Controller
             $payment = new Transaction();
             $payment->user_id = auth()->id();
             $payment->amount = $total;
-            $payment->payment_method = ['last4' => "Bon", 'brand' => "maxicash"];
+            $payment->payment_method = ['last4' => "Maxi", 'brand' => "maxicash"];
             $payment->payment_token = $this->references();
             $payment->type = "paiement";
             $payment->save();
@@ -97,7 +98,7 @@ class CheckoutController extends Controller
         }catch(\Exception $e){
             DB::rollBack();
 
-            dd($e->getMessage());
+           // dd($e->getMessage());
 
         }
 
@@ -203,6 +204,14 @@ class CheckoutController extends Controller
             $proposal=Proposal::find($clientLink->proposal_id);
 
 
+
+            if($proposal->transaction_id !=null)
+            {
+                //$clientLink->delete();
+
+                session()->flash('error', 'Vous avez deja utiliser ce lien');
+                return redirect()->back();
+            }
             $service=$proposal->service;
             $userSetting = auth()->user()->userSetting;
 
@@ -240,9 +249,13 @@ class CheckoutController extends Controller
                 'pays' => $form['pays'],
 
             ];
-           // dd($userSeeting->addresse_facturation['pays']);
-            $userSeeting->addresse_facturation = $localisation;
+
+
+
+            $userSeeting['addresse_facturation'] = $localisation;
             $userSeeting->update();
+
+
 
 
 

@@ -159,7 +159,7 @@ defineOptions({
 <template>
     <div class="min-h-screen pt-16">
         <div class="relative flex flex-col pb-8 bg-gray-100 dark:bg-gray-900">
-            <div class="relative h-20 bg-blue-500 dark:bg-gray-600 ">
+            <div class="relative h-20 bg-skin-fill dark:bg-gray-600 ">
 
                 <div class="absolute inset-0 flex items-center justify-center">
                     <h1 class="text-xl font-bold text-white lg:text-4xl">Trouve un freelance</h1>

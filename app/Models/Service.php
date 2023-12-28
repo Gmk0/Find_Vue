@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
+use Illuminate\Support\Str;
 
 class Service extends Model
 {
     use HasFactory;
+
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +22,10 @@ class Service extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'service_numero',
         'title',
-        'tag',
+        'tags',
         'description',
         'basic_price',
         'basic_support',
@@ -46,6 +51,7 @@ class Service extends Model
         'is_publish',
         'freelance_id',
         'category_id',
+        'is_gift',
     ];
 
     /**
@@ -54,7 +60,8 @@ class Service extends Model
      * @var array
      */
     protected $casts = [
-        'tag' => 'array',
+        'id'=>'string',
+        'tags' => 'array',
         'basic_price' => 'decimal:2',
         'sub_category' => 'array',
         'files' => 'array',
@@ -68,6 +75,7 @@ class Service extends Model
         'freelance_id' => 'integer',
         'example'=> 'array',
         'category_id' => 'integer',
+        'is_gift'=> 'boolean',
     ];
 
 
@@ -185,7 +193,7 @@ class Service extends Model
             })->when(!empty($filters['price']), function ($query) use($filters) {
             $query->whereBetween('basic_price', [10, $filters['price']]);
         })->when(!empty($filters['tag']), function ($query) use($filters) {
-            $query->where('tag', 'like', '%'. $filters['tag'] .'%');
+            $query->where('tags', 'like', '%'. $filters['tag'] .'%');
         })->when(!empty($filters['deliveryTime']), function ($query) use($filters) {
             list($min,$max) = explode('-', $filters['deliveryTime']);
 
@@ -213,6 +221,7 @@ class Service extends Model
         parent::boot();
 
         static::creating(function ($service) {
+            $service->id = Str::uuid()->toString();
             $service->service_numero = 'SV' . date('YmdHms');
             $service->freelance_id = auth()->user()->freelance->id;
         });

@@ -1,6 +1,6 @@
 <template>
 
-         <div class="relative min-h-screen slideshow slideshow-wrapper pb-section sliderFull">
+         <div class="relative min-h-screen 2xl:min-h-full slideshow slideshow-wrapper pb-section sliderFull">
 
             <div class="hidden lg:block">
 
@@ -8,7 +8,7 @@
                  <Swiper
                         :modules="[Navigation, Autoplay, Pagination, Scrollbar, EffectFade, A11y]"
                         effect="fade"
-                        loop="true"
+                        :loop="true"
                         :spaceBetween="30"
                         :slides-per-view="1"
                         :autoplay="{
@@ -20,7 +20,7 @@
 
                             <div class="slide slideshow--medium">
                                 <div class="blur-up lazyload bg-size">
-                                    <img class="blur-up lazyload bg-[#FFAA76] " data-src="/canva/sans.png" src="/canva/sans.png"
+                                    <img class="blur-up lazyload bg-[#FFAA76] " data-src="/images/optimize/sans.png" src="/images/optimize/sans.png"
                                         alt="women sans" title="women sans" />
                                     <div class="slideshow__text-wrap slideshow__overlay classic middle">
                                         <div class="slideshow__text-content classic middle">
@@ -68,7 +68,7 @@
                         <swiper-slide>
                         <div class="slide slideshow--medium">
                             <div class="blur-up lazyload bg-size">
-                                <img class="blur-up lazyload " data-src="/canva/homme.png" src="/canva/homme.png"
+                                <img class="blur-up lazyload " data-src="/images/optimize/homme.png" src="/images/optimize/homme.png"
                                     alt="New Season Styles" title="New Season Styles" />
                                 <div class="slideshow__text-wrap slideshow__overlay classic middle">
                                     <div class="slideshow__text-content classic middle">
@@ -138,7 +138,7 @@
                 class="absolute top-0 left-0 z-50 px-6 py-8 xl:py-10 lg:mt-8 2xl:mt-16 lg:col-span-6 lg:py-12 md:mb-8 xl:place-self-center lg:mb-0 lg:w-1/2">
                 <div class="pt-[8rem] 2xl:pt-[10rem] px-1">
 
-                    <h1 class="text-3xl font-bold text-center text-white md:text-3xl lg:text-4xl 2xl:text-6xl lg:text-left">
+                    <h1 class="text-3xl font-bold text-center text-white lg:text-5xl 2xl:text-6xl lg:text-left">
                         Votre satisfaction dans nos services Freelance <br />
                     </h1>
 
@@ -216,7 +216,7 @@
         </div>
 
 
-         <div id="talkAbout" class="bg-white dark:bg-gray-800 lg:min-h-screen">
+         <div id="talkAbout" class="bg-white dark:bg-gray-800 lg:min-h-screen xl:min-h-full">
 
             <div class="container max-w-6xl p-4 m-4 mx-auto 2xl:max-w-7xl 2xl:p-2 md:p-6">
                 <div class="mb-10 text-center xl:mb-14">
@@ -912,9 +912,9 @@
                                     </svg>
                                 </button>
 
-                                 <Collapse :when="expandedItems.includes(faq.id)" class="collapse">
+                                 <Collapse :when="expandedItems.includes(faq.id)" class="m-2 collapse">
 
-                                    <p class="mt-2 text-sm text-gray-800 dark:text-white">{{ faq.reponses }}</p>
+                                    <p class="m-2 text-sm text-gray-800 dark:text-white">{{ faq.reponses }}</p>
 
                                 </Collapse>
 

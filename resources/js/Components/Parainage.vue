@@ -17,6 +17,8 @@
 
         </div>
 
+
+
             <div class="mt-5 rounded-md md:mt-0 md:col-span-2">
                 <div>
                     <div class="px-4 py-5 bg-white shadow dark:bg-gray-900 sm:p-6">
@@ -65,11 +67,26 @@
                                         <a href="" class="text-sm text-gray-600 dark:text-gray-300">{{ user.name }}</a>
                                     </div>
                                 </div>
-                                <div v-if="utilisateurParainer.length >= 10" class="mt-4">
-                                    <p class="text-green-500">Félicitations! Vous avez parrainé 10 utilisateurs et vous avez gagné un cadeau spécial!</p>
+                                <div v-if="!$page.props.auth.user.gift_used">
+
+
+                                <div v-if="utilisateurParainer.length >= 1" class="mt-4 ">
+                                    <p class="text-lg text-amber-500 mb-4">Félicitations! Vous avez parrainé 10 utilisateurs et vous avez gagné un cadeau spécial! 🥳​🥳​</p>
+                                    <Link  class="mt-6 text-lg text-green-500 ">
+                                        <Link :href="route('gift',$page.props.auth.user.id)" >Recuperez votre cadeau 🎁</Link>
+
+                                    </Link>
+
                                 </div>
                                  <div class="mt-4" v-else>
                                     <p>Parrainez encore {{ 10 - utilisateurParainer.length }} utilisateurs pour recevoir un cadeau spécial!</p>
+                                </div>
+                                </div>
+                                <div class="mt-8" v-else>
+                                    <Link  class="mt-6 text-lg text-green-500 ">
+                                            <Link  >Offre deja utiliser 🎁</Link>
+
+                                    </Link>
                                 </div>
                         </div>
 
@@ -158,12 +175,14 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 
 import Skeleton from 'primevue/skeleton';
+import { usePage } from '@inertiajs/vue3';
 
 
 const parrainageStore = useParrainage();
 const codeParainage = computed(()=> parrainageStore.getReferalCode);
 const utilisateurParainer= computed(() => parrainageStore.getUsers);
 
+//const page =usePage();
 const loading=ref(false);
 
 const skeleton = ref(true);
@@ -218,9 +237,9 @@ const genererCode= async ()=>{
 const link=ref("");
 const modal= ref(false);
 
-watch((codeParainage)=>{
+watch(codeParainage,(value)=>{
 
-    link.value = route('auth.register', parrainageStore.getReferalCode);
+    link.value = route('auth.register', value);
 
 })
 const modelShare=()=>{
@@ -251,7 +270,7 @@ const  networks= [
 
 ]
  const sharing= {
-        url: parrainageStore.getReferalCode,
+        url: link.value,
         title: 'Rejoignez-nous sur FIND!.',
         description: 'Inscrivez-vous sur Find Freelance et découvrez un monde d\'opportunités.Utilisez mon lien de parrainage pour une inscription rapide et facile!.',
         quote: 'Explorez de nouvelles opportunités et élargissez vos horizons sur Find Freelance. Rejoignez-moi dès maintenant!',

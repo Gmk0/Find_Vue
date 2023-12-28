@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('transaction_numero');
             $table->foreignUuid('user_id')->constrained();
             $table->decimal('amount', 8, 2);

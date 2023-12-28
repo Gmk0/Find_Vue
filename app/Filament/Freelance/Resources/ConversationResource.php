@@ -72,6 +72,12 @@ class ConversationResource extends Resource
             //
         ];
     }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::$model::where('status','=', 'pending')->count();
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->where('freelance_id', auth()->user()->freelance->id);

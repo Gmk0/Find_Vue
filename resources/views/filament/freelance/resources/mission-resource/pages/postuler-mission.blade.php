@@ -25,19 +25,21 @@
 
     @if($response !=null)
 
-    <div class="p-4 mt-4 text-center">
+    <div class="flex gap-6 p-4 mt-4 text-center">
         <x-filament::button wire:click='changerPost()' type='button' class="align-center">
             <span>Changer<span>
 
 
         </x-filament::button>
+
+        {{ ($this->annulerAction)(['id' => $response->id]) }}
     </div>
+
+
     @else
     <div class="p-4 mt-4 text-center">
         <x-filament::button type="submit" form="submit" class="align-center">
-            Postuler
-
-
+            Postuler <span wire:loading wire:target='postuler'>.....</span>
         </x-filament::button>
     </div>
 

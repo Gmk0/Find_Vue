@@ -34,35 +34,7 @@ class MissionResource extends Resource
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
-                Forms\Components\Select::make('category_id')
-                    ->relationship('category', 'name')
-                    ->required(),
-                Forms\Components\Select::make('transaction_id')
-                    ->relationship('transaction', 'id'),
-                Forms\Components\TextInput::make('title')
-                    ->required(),
-                Forms\Components\TextInput::make('mission_numero')
-                    ->required(),
-                Forms\Components\Textarea::make('sub_category')
-                    ->columnSpanFull(),
-                Forms\Components\Textarea::make('description')
-                    ->columnSpanFull(),
-                Forms\Components\Textarea::make('exigences')
-                    ->columnSpanFull(),
-                Forms\Components\Textarea::make('files')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('budget')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\DatePicker::make('begin_mission'),
-                Forms\Components\DatePicker::make('end_mission'),
-                Forms\Components\TextInput::make('progress')
-                    ->numeric(),
-                Forms\Components\DateTimePicker::make('is_paid'),
-                Forms\Components\Toggle::make('masquer')
-                    ->required(),
-                Forms\Components\TextInput::make('status')
-                    ->required(),
+
             ]);
     }
 
@@ -80,9 +52,12 @@ class MissionResource extends Resource
 
 
             ])->schema([
-                TextColumn::make('title')->description('titre'),
-                TextColumn::make('budget')->description('budget')->money('usd', true),
-                TextColumn::make('description')->description('description')->columnSpanFull(),
+                TextColumn::make('title')->description('titre')->searchable(),
+                TextColumn::make('budget')->description('budget')->money('usd', true)->searchable(),
+                TextColumn::make('description')->description('description')
+            ->words()->columnSpanFull(),
+                TextColumn::make('begin_mission')->description('Date debut')->date(),
+                TextColumn::make('end_mission')->description('Date Fin')->date()
 
             ]),
 
@@ -100,17 +75,35 @@ class MissionResource extends Resource
 
                 ActionsAction::make('Postuler')
             ->url(fn (Mission $record): string => static::getUrl('postuler', ['record' => $record]))
+            ->button()
+            ->icon('heroicon-m-pencil-square')
+            ->outlined(),
+
+            ActionsAction::make('Mission accepter')
+            ->url(fn (Mission $record): string => static::getUrl('postuler', ['record' => $record]))
+            ->visible(fn(Mission $record): bool =>$record->getApprovedMissionResponseUser() ? true : false)
+            ->button()
+            ->color('success')
+            ->icon('heroicon-m-pencil-square')
+            ->outlined(),
             ])
             ->bulkActions([
 
             ]);
     }
 
+
+
     public static function getRelations(): array
     {
         return [
             //
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('masquer',false)->where('status', 'pending');
     }
 
     public static function getPages(): array
