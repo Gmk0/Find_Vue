@@ -54,12 +54,12 @@ class CategoryController extends Controller
 
             return Inertia::render('Web/Category/CategoryName',
             [
-                'filters' => RequestFacade::all('search', 'orderBy','sub_category', 'deliveryTime', 'price', 'level', 'tag'),
+                'filters' => RequestFacade::all('search', 'orderBy','sub_category', 'deliveryTime', 'price','priceMin', 'level', 'tag'),
                 'services'=>$service->
                 with('freelance')
                 //->with('freelance.user')
                 //->orderBy('created_at', 'asc')
-                ->filter(RequestFacade::only('search', 'sub_category', 'orderBy', 'price', 'level', 'deliveryTime', 'tag'))
+                ->filter(RequestFacade::only('search', 'sub_category', 'orderBy', 'price', 'level', 'deliveryTime', 'priceMin', 'tag'))
                 ->paginate(10)
                 ->withQueryString()
                 ->through(fn ($service) => [

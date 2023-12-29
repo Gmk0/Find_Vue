@@ -17,6 +17,7 @@ const form = useForm({
     _method: 'PUT',
     name: props.user.name,
     email: props.user.email,
+    phone: props.user.phone,
     photo: null,
 });
 
@@ -135,26 +136,25 @@ const clearPhotoFileInput = () => {
 
             <!-- Name -->
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="name" value="Name" />
-                <TextInput
-                    id="name"
+
+                <MazInput
                     v-model="form.name"
                     type="text"
-                    class="block w-full mt-1"
                     required
-                    autocomplete="name"
+                    label="Nom d'utilisateur"
+
                 />
                 <InputError :message="form.errors.name" class="mt-2" />
             </div>
 
             <!-- Email -->
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="email" value="Email" />
-                <TextInput
-                    id="email"
+
+                <MazInput
+
                     v-model="form.email"
                     type="email"
-                    class="block w-full mt-1"
+                    label="email"
                     required
                     autocomplete="username"
                 />
@@ -183,6 +183,17 @@ const clearPhotoFileInput = () => {
                     </div>
                 </div>
             </div>
+             <div class="col-span-6 sm:col-span-4">
+
+                    <MazInput
+                        v-model="form.phone"
+                        type="text"
+                        required
+                        label="Telephone"
+
+                    />
+                    <InputError :message="form.errors.phone" class="mt-2" />
+                </div>
         </template>
 
         <template #actions>

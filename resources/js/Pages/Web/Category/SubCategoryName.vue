@@ -32,6 +32,7 @@ const form = ref({
     search: props.filters.search,
     price: props.filters.price,
     level: props.filters.level,
+    priceMin: props.filters.priceMin,
     tag: props.filters.tag,
     deliveryTime: props.filters.deliveryTime,
     orderBy: props.filters.orderBy,
@@ -196,8 +197,8 @@ defineOptions({
                             <div class="lg:col-span-3 hidden lg:flex"></div>
                             <div class="lg:col-span-9 w-full mb-4">
                                   <div class="px-4 lg:col-span-12">
-                                        <TextInput v-model="form.search" class="py-3 w-full   !shadow-md" placeholder="recherche"
-                                            icon='search' />
+                                        <MazInput v-model="form.search" right-icon="globe-alt" placeholder="recherche"
+                                             />
                             </div>
 
                            <div class="grid sticky top-0 col-span-12 gap-4  lg:grid-cols-12 lg:gap-2 ">
@@ -253,10 +254,20 @@ defineOptions({
 
 
 
-                                                <div aria-hidden="true" class="flex justify-between px-1">
+                                                 <div aria-hidden="true" class="flex flex-col gap-4 justify-between px-1">
+                                                      <span class="text-base dark:text-gray-100 mb-4"> Prix Service</span>
                                                     <div class="flex justify-between gap-4 p-2 border">
-                                                    <TextInput value="10 $" disabled class="w-1/2 rounded-md dark:bg-gray-900 " size="small" />
-                                                      <TextInput v-model.number="form.price" placeholder="a" class="w-1/2 rounded-md dark:bg-gray-900 " size="small" />
+                                                         <MazInputNumber  v-model="form.priceMin" :no-buttons="true"   />
+                                                          <MazInputNumber
+                                                            v-model="form.price"
+                                                            placeholder="Prix"
+                                                            :no-buttons="true"
+                                                            :min="5"
+                                                            :max="10000"
+                                                            style="width: 200px;"
+
+                                                        />
+
                                                     </div>
                                                 </div>
 

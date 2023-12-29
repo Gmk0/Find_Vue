@@ -1,6 +1,6 @@
 @import 'responsive.css';
 
-
+@import 'new.css';
 
 @import 'primeicons/primeicons.css';
 
@@ -12,7 +12,7 @@
 @import 'swiper/css/scrollbar';
 @import 'swiper/css/effect-cube';
 @import 'swiper/css/autoplay';
-@import 'vue-tel-input/vue-tel-input.css';
+
 
 
 @tailwind base;

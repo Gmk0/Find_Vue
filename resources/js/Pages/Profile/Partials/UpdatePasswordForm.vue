@@ -54,7 +54,7 @@ const updatePassword = () => {
         <template #form>
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="current_password" value="mot de passe actuel" />
-                <TextInput
+                <MazInput
                     id="current_password"
                     ref="currentPasswordInput"
                     v-model="form.current_password"
@@ -67,7 +67,7 @@ const updatePassword = () => {
 
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="password" value="Nouveau mot de passe" />
-                <TextInput
+                <MazInput
                     id="password"
                     ref="passwordInput"
                     v-model="form.password"
@@ -80,7 +80,7 @@ const updatePassword = () => {
 
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="password_confirmation" value="Confirmer le mot de passe" />
-                <TextInput
+                <MazInput
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
@@ -93,11 +93,11 @@ const updatePassword = () => {
 
         <template #actions>
             <ActionMessage :on="form.recentlySuccessful" class="mr-3">
-                Saved.
+                Enregistré.
             </ActionMessage>
 
             <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Save
+                Enregistrer
             </PrimaryButton>
         </template>
     </FormSection>

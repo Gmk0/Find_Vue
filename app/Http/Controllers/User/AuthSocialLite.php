@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Mail\WelcomeMailSocial;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Str;
 
 class AuthSocialLite extends Controller
 {
@@ -46,7 +49,7 @@ class AuthSocialLite extends Controller
 
                 return redirect()->route('home');
             } else {
-                $password = "default";
+                $password = Str::random(8);
                 $newUser = User::updateOrCreate(['email' => $user->email], [
                     'name' => $user->name,
                     'google_id' => $user->id,
@@ -55,7 +58,8 @@ class AuthSocialLite extends Controller
 
                 ]);
 
-
+                // Envoi d'un email avec le nouveau mot de passe
+                Mail::to($newUser->email)->send(new WelcomeMailSocial($newUser->name, $password));
                 Auth::login($newUser);
 
                 return redirect()->route('categories');
@@ -67,6 +71,10 @@ class AuthSocialLite extends Controller
         }
     }
 
+    public function sendMail()
+    {
+
+    }
 
     public function redirectToFacebook()
     {

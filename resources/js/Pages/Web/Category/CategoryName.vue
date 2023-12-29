@@ -50,8 +50,8 @@
                        <div class="grid col-span-12 gap-4 lg:col-span-9 lg:grid-cols-12 lg:gap-2 ">
                             <div class="px-4 lg:col-span-12">
 
-                            <TextInput v-model="form.search" class="py-3 w-full   !shadow-md" placeholder="recherche"
-                                icon='search' />
+                            <MazInput v-model="form.search"  placeholder="recherche"
+                                right-icon='magnifying-glass' />
 
                             </div>
                             <div class="flex flex-row justify-between gap-2 px-4 lg:col-span-3">
@@ -66,7 +66,13 @@
                                 </div>
                                 <div class="flex gap-2 lg:hidden ">
                                     <div>
-                                          <Dropdown v-model="form.orderBy" optionValue="code" :options="trieElement" showClear optionLabel="name" placeholder="Trier par"  class="w-full md:w-14rem" />
+                                          <MazSelect
+                                          v-model="form.orderBy"
+                                          option-key-value="code"
+                                          :options="trieElement"
+                                         option-key-label="name"
+                                           placeholder="Trier par"
+                                            />
 
                                     </div>
                                 </div>
@@ -98,12 +104,12 @@
 
 
                                                 class="flex gap-2 p-2 transition-all transform rounded-lg shadow-sm bg-gray-50 dark: hover:translate-x-4">
-                                                <img src=""
+                                                <img v-if="subcategory.illustration !=null" src=""
                                                     class="object-fill w-8 p-1 rounded-md" alt="">
                                                 <span class="text-gray-700 dark:text-gray-50">{{ subcategory.name }}</span>
                                                 <!-- Adjusted span for the number -->
                                                 <span
-                                                    class="ml-2 bg-white text-gray-800  px-1 py-0.5 text-[10px] rounded-full">{{subcategory.service_count }}</span>
+                                                    class="ml-2 bg-white dark:bg-gray-4 text-gray-800  px-1 py-0.5 text-[10px] rounded-full">{{subcategory.service_count }}</span>
                                             </button>
                                         </div>
 
@@ -121,10 +127,20 @@
 
                                             </div>
 
-                                            <div aria-hidden="true" class="flex justify-between px-1">
+                                            <div aria-hidden="true" class="flex flex-col gap-4 justify-between px-1">
+                                                  <span class="text-base dark:text-gray-100 mb-4"> Prix Service</span>
                                                 <div class="flex justify-between gap-4 p-2 border">
-                                                     <TextInput value="10 $" disabled class="w-1/2 rounded-md "  />
-                                                  <TextInput v-model.number="form.price" placeholder=" a" class="w-1/2 rounded-md"  />
+                                                     <MazInputNumber  v-model="form.priceMin" :no-buttons="true"   />
+                                                      <MazInputNumber
+                                                        v-model="form.price"
+                                                        placeholder="Prix"
+                                                        :no-buttons="true"
+                                                        :min="5"
+                                                        :max="10000"
+                                                        style="width: 200px;"
+
+                                                    />
+
                                                 </div>
                                             </div>
 
@@ -398,6 +414,7 @@ const form = ref({
     search : props.filters.search,
     sub_categorie: props.filters.search,
     price: props.filters.price,
+    priceMin: props.filters.priceMin,
     level: props.filters.level,
     tag: props.filters.tag,
     deliveryTime: props.filters.deliveryTime,

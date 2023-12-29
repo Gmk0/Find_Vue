@@ -173,8 +173,9 @@ defineOptions({
                 <div class="relative grid col-span-12 gap-4 py-4 lg:px-6 lg:grid-cols-12 lg:col-span-9 lg:gap-2 ">
                     <div class="px-4 lg:col-span-9">
 
-                        <TextInput v-model="form.search" class="py-3 w-full   !shadow-md" placeholder="recherche"
-                                            icon='search' />
+                        <MazInput v-model="form.search"
+                        placeholder="recherche"
+                                            right-iconicon='magnifying-glass' />
                     </div>
                     <div class="sticky top-0 flex flex-row justify-between gap-2 px-4 lg:col-span-3">
 

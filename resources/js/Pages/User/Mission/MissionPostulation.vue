@@ -48,7 +48,7 @@
 
             </div>
 
-            <h1 class="mt-4 text-3xl font-bold text-black dark:text-white">Candidature</h1>
+            <h1 class="mt-4 text-3xl font-bold text-black dark:text-white">Proposition</h1>
 
         </div>
 
@@ -126,8 +126,8 @@
 
 
 
-                    <div v-if="missionResponce.length ===0" class="text-lg text-gray-800">
-                        Vous avez zero Proposition pour cette mission
+                    <div v-if="missionResponce.length ===0" class="text-lg dark:text-gray-300 text-gray-800">
+                       Vous n'avez aucune proposition pour cette mission
                     </div>
 
 

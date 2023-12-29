@@ -195,91 +195,74 @@ const submit = () => {
                                     <form @submit.prevent="submit" role="grid grid-cols-1 gap-6">
 
                                          <div class="mb-4">
-                                            <InputLabel for="name" value="Nom d'utilisateur" />
-                                            <TextInput
-                                                id="name"
-                                                v-model="form.name"
-                                                type="text"
-                                                class="block w-full mt-1"
-                                                required
-                                                autofocus
-                                                autocomplete="name"
-                                            />
+                                            <MazInput
+                                            label="Nom"
+                                            type="text"
+                                            v-model="form.name"
+                                            :color="'#9acd32'" />
+
                                             <InputError class="mt-2" :message="form.errors.name" />
                                         </div>
                                          <div class="mt-4">
-                                                <InputLabel for="phone" value="telephone" />
-                                                <div class="flex gap-2">
-                                                    <select required v-model="tel" @change="onUpdateTel()" class="border-gray-300 rounded-md shadow-sm dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 focus:border-amber-500 focus:ring-amber-500">
-                                                        <option value="" >code</option>
-                                                        <option value="243">+ 243</option>
-                                                        <option value="242">+ 242</option>
-                                                        <option value="244">+ 244</option>
-                                                    </select>
-                                                     <TextInput
-                                                        id="phone"
-                                                        v-model="form.phone"
-                                                        type="tel"
-                                                        maxlength="11"
-                                                        class="block w-full mt-1"
-                                                        required
-                                                        autofocus
-                                                        autocomplete="phone"
-                                                        @input="onPhoneInput"
-                                                    />
-                                                </div>
+                                                <MazPhoneNumberInput
+                                                label="Telephone"
+                                                country-locale="fr-FR"
+                                                v-model="form.phone"
+                                                :translations="{
+                                                    countrySelector: {
+                                                        placeholder: 'Code pays',
+                                                        error: 'Choisissez un pays',
+                                                        searchPlaceholder: 'Rechercher un pays',
+                                                    },
+                                                    phoneInput: {
+                                                        placeholder: 'Numéro de téléphone',
+                                                        example: 'Exemple :',
+                                                    },
+                                                }"
 
-
-
+                                                />
                                                 <InputError class="mt-2" :message="form.errors.phone" />
                                             </div>
 
                                         <div class="mt-4">
-                                            <InputLabel for="email" value="Email" />
-                                            <TextInput
-                                                id="email"
-                                                v-model="form.email"
+                                            <MazInput
+                                                label="Email"
                                                 type="email"
-                                                class="block w-full mt-1"
-                                                required
-                                                autocomplete="username"
-                                            />
+                                                v-model="form.email"
+                                                :color="'#9acd32'" />
                                             <InputError class="mt-2" :message="form.errors.email" />
                                         </div>
 
                                         <div class="mt-4">
-                                            <InputLabel for="password" value="Mot de passe" />
-                                            <TextInput
-                                                id="password"
-                                                v-model="form.password"
-                                                type="password"
-                                                class="block w-full mt-1"
-                                                required
-                                                autocomplete="new-password"
-                                            />
+                                             <MazInput
+                                                    label="Mot de passe"
+                                                    type="password"
+                                                    v-model="form.password"
+                                                    required
+                                                    :color="'#9acd32'" />
+
                                             <InputError class="mt-2" :message="form.errors.password" />
                                         </div>
 
                                         <div class="mt-4">
-                                            <InputLabel for="password_confirmation" value="Confirmer" />
-                                            <TextInput
-                                                id="password_confirmation"
-                                                v-model="form.password_confirmation"
-                                                type="password"
-                                                class="block w-full mt-1"
-                                                required
-                                                autocomplete="new-password"
-                                            />
+
+                                            <MazInput
+                                            label="Mot de passe Confirmer"
+                                            type="password"
+                                            v-model="form.password_confirmation"
+                                            required
+                                            :color="'#9acd32'" />
+
                                             <InputError class="mt-2" :message="form.errors.password_confirmation" />
                                         </div>
                                          <div class="mt-4">
-                                                <InputLabel for="Code" value="Code de parrainage (facultatif)" />
-                                                <TextInput
-                                                    id="Code"
-                                                    v-model="form.referral_code"
-                                                    type="text"
-                                                    class="block w-full mt-1"
-                                                />
+
+                                                <MazInput
+                                                label="Code de parrainage (facultatif)"
+                                                type="text"
+                                                v-model="form.referral_code"
+
+                                                :color="'#9acd32'" />
                                                 <InputError class="mt-2" :message="form.errors.referral_code" />
                                             </div>
 

@@ -993,13 +993,17 @@ const isLastRejectedMessage = (index) => {
                         </div>
                     </template>
                         <template #empty>
-                            <p>Tirez et déposez des fichiers ici pour les télécharger.</p>
+                        <p>Glissez-déposez des fichiers ici pour les télécharger.</p>
                         </template>
+
                     </FileUpload>
                 </div>
                 <div class="mt-1">
 
-                    <Textarea rows="1" v-model="form.message" cols="1" placeholder="Rajouter un message"  class="w-full" />
+                    <MazInput
+                     v-model="form.message"
+
+                    placeholder="Rajouter un message"  />
 
                 </div>
                 <div class="flex justify-end gap-4 mt-4">
@@ -1020,14 +1024,14 @@ const isLastRejectedMessage = (index) => {
 
                   <div>
                      <form @submit.prevent="sendPropasal">
-                <div class="mb-4">
-                    <label for="price" class="block mb-1 font-bold">Proposer un prix :</label>
+                <div class="mb-4 p-2">
 
 
-                <InputNumber showButtons
+                <MazInputNumber
+
                     v-model="proposal.price"
-                    placeholder="Proposer un prixs"
-                    class="w-full" inputId="Prix" />
+                    placeholder="Proposer un prix"
+                     />
 
 
                 </div>
@@ -1094,12 +1098,12 @@ const isLastRejectedMessage = (index) => {
                               <div>
                                  <form @submit.prevent="changePrice">
                                         <div class="mb-4">
-                                            <label for="price" class="block mb-1 font-bold">Proposer un autre prix :</label>
 
-                                               <InputNumber showButtons
+
+                                               <MazInputNumber
                                                v-model="proposal.price"
                                                placeholder="Prix du service"
-                                               class="w-full" inputId="Prix" />
+                                                />
 
 
 

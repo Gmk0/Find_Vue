@@ -3,7 +3,7 @@ import WebLayout from '@/Layouts/WebLayout.vue';
 
 import Steps from 'primevue/steps';
 
-
+import MazBtn from 'maz-ui/components/MazBtn'
 
 //import Button from 'primevue/button';
 
@@ -11,6 +11,8 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 //import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import MazStepper from 'maz-ui/components/MazStepper'
+import MazPicker from 'maz-ui/components/MazPicker';
 
 import Dropdown from 'primevue/dropdown';
 
@@ -50,18 +52,43 @@ const submit=()=>{
 
 
 
-    if(!form.budget  || !form.dateD || !form.dateF)
-    {
-        swal('veuillez remplir tout les champs requis')
+    if (!form.budget || !form.dateD || !form.dateF || !form.title || !form.description || !form.category_id) {
+        let errorMessage = 'Veuillez remplir tous les champs requis: ';
+
+        if (!form.budget) {
+            errorMessage += 'Budget, ';
+        }
+
+        if (!form.dateD) {
+            errorMessage += 'Date de début, ';
+        }
+
+        if (!form.dateF) {
+            errorMessage += 'Date de fin, ';
+        }
+
+        if (!form.title) {
+            errorMessage += 'Titre, ';
+        }
+
+        if (!form.description) {
+            errorMessage += 'Description, ';
+        }
+
+        if (!form.category_id) {
+            errorMessage += 'Catégorie, ';
+        }
+
+        // Remove the trailing comma and display the message
+        swal(errorMessage.slice(0, -2));
         return false;
     }
+
 
     form.post(route('storeMission'),{
         onSuccess: () =>{
             form.reset(),
-            step.value = 1,
-            swal('Mission creer avec success')
-
+            swal('Mission créée avec succès');
         },
         onError: (error) => console.log(error)
     });
@@ -70,7 +97,7 @@ const submit=()=>{
 }
 
 
-
+const formattedPrice = ref();
 
 const toast = useToast();
 
@@ -86,6 +113,12 @@ const onSelect = (event) => {
     form.image = event.files;
 };
 
+const currentDate = new Date();
+
+const minMaxDates = ref({
+    min: currentDate.toISOString().split('T')[0],
+    max: currentDate.toISOString().split('T')[0],
+})
 
 
 
@@ -152,7 +185,7 @@ defineOptions({
 
             <div class="flex flex-col w-full mx-auto h-min-72 lg:col-span-1 lg:mx-0 ">
 
-                <div class="">
+                <div class="hidden">
 
                     <div class="p-4 border rounded-lg ">
                         <ol class="flex flex-col w-full space-y-4 lg:flex-row lg:items-center lg:justify-around sm:flex sm:space-x-8 sm:space-y-0">
@@ -184,25 +217,23 @@ defineOptions({
                         <div v-if="step === 1" class="flex flex-col mt-4 ">
                             <div class="w-full">
 
-                                <InputText
-                                    id="name"
-                                    required
+                                <MazInput
+
+
                                     v-model="form.title"
-                                    autofocus
-                                    class="w-full "
+
+
                                     placeholder="Titre"
 
                                 />
                                 <InputError class="mt-2" :message="form.errors.title" />
 
                             </div>
-                            <div class="w-full mt-4">
+                            <div class="w-full mb-4 mt-4">
 
-                                <Textarea
+                                <MazTextarea
                                 v-model="form.description"
-                                rows="4"
-                                cols="10"
-                                class="w-full" placeholder="Decrivez votre mission..." />
+                                placeholder="Decrivez votre mission..." />
 
                                      <InputError class="mt-2" :message="form.errors.description" />
 
@@ -226,19 +257,24 @@ defineOptions({
                                 </div>
                                  </template>
                                     <template #empty>
-                                        <p>Drag and drop files to here to upload.</p>
+                                        <p>Glissez et déposez les fichiers ici pour les uploader.</p>
                                     </template>
                                 </FileUpload>
                              </div>
 
 
-                            <div class="mt-4 W-full">
-                                <Dropdown v-model="form.category_id"
-                                optionValue="id"
-                                :options="props.categories"
-                                 showClear optionLabel="name"
+
+                            <div class="mt-4 W-full mb-4">
+                                <MazSelect
+                                v-model="form.category_id"
+                                 :options="props.categories"
+                                option-value-key="id"
+                                option-label-key="name"
+                                option-input-value-key="name"
+
+
                                   placeholder="Categories"
-                                  class="!w-full" />
+                                  />
 
                                    <InputError class="mt-2" :message="form.errors.category_id" />
                             </div>
@@ -337,6 +373,159 @@ defineOptions({
 
 
                 <div>
+                      <MazStepper isabled-next-steps="true">
+                <template #title-1>
+                Détails de la mission
+                </template>
+                <template #subtitle-1>
+                Décrivez la mission en détail
+                </template>
+
+
+                    <template #content-1="{ nextStep }">
+                    <form @submit.prevent="nextStep" class="flex flex-col mt-4 ">
+                                <div class="w-full">
+                                    <MazInput
+                                        v-model="form.title"
+                                        placeholder="Titre"
+                                        required
+                                    />
+                                    <InputError class="mt-2" :message="form.errors.title" />
+
+                                </div>
+                                <div class="w-full mb-4 mt-4">
+                                    <MazTextarea
+                                    v-model="form.description"
+                                    placeholder="Decrivez votre mission..." />
+
+                                         <InputError class="mt-2" :message="form.errors.description" />
+
+                                </div>
+                                 <div class="card">
+                                    <Toast />
+                                    <FileUpload
+                                    :auto="true"
+                                    @select="onSelect"
+                                    @upload="onAdvancedUpload($event)"
+                                    :multiple="true"
+                                    accept="image/*"
+                                    :maxFileSize="1000000">
+
+                                    <template #header="{ chooseCallback }">
+                                    <div class="flex flex-wrap flex-1 gap-2 justify-content-between align-items-center">
+                                        <div class="flex gap-2">
+                                            <Button @click="chooseCallback()" icon="pi pi-images" rounded outlined></Button>
+
+                                        </div>
+                                    </div>
+                                     </template>
+                                        <template #empty>
+                                            <p>Glissez et déposez les fichiers ici pour les uploader.</p>
+                                        </template>
+                                    </FileUpload>
+                                 </div>
+
+
+
+                                <div class="mt-4 W-full mb-4">
+                                    <MazSelect
+                                    v-model="form.category_id"
+                                     :options="props.categories"
+                                    option-value-key="id"
+                                    option-label-key="name"
+                                    option-input-value-key="name"
+
+
+                                      placeholder="Categories"
+                                      />
+
+                                       <InputError class="mt-2" :message="form.errors.category_id" />
+                                </div>
+                                <div>
+                                    <MazBtn type="submit">
+                                    Suivant
+                                    </MazBtn>
+                                </div>
+
+                    </form>
+                    </template>
+
+                    <template #title-2>
+                      Échéance & Budget
+                    </template>
+                    <template #subtitle-2>
+                   Date d'échéance & Budge
+                    </template>
+                    <template #title-info-2>
+
+                    </template>
+                    <template #content-2="{ nextStep, previousStep }">
+                            <div  class="flex flex-col w-full mt-4">
+                                    <div class="flex flex-col gap-4 md:flex-row lg:gap-8">
+                                    <div class="flex w-full ">
+
+                                        <MazPicker
+                                            locale="fr-FR"
+                                            :min-date="minMaxDates.min"
+                                        v-model="form.dateD"
+                                        label="Date debut"
+                                    />
+
+
+
+                                          <InputError class="mt-2" :message="form.errors.dateD" />
+                                    </div>
+                                    <div class="flex w-full">
+
+                                        <MazPicker
+                                        locale="fr-FR"
+                                        :min-date="minMaxDates.min"
+                                    v-model="form.dateF"
+                                    label="Date Fin"
+                                />
+
+
+                                                   <InputError class="mt-2" :message="form.errors.dateF" />
+
+
+                                    </div>
+                                    </div>
+                                    <div class="mt-4 mb-4">
+
+                                        <MazTextarea
+                                        id="message"
+                                        v-model="form.exigence"
+                                        placeholder="Exigences pour la mission"/>
+                                    </div>
+                                      <div>
+                                        <MazInputPrice
+                                            v-model="form.budget"
+                                            label="Budget de la mission"
+                                            currency="USD"
+                                            locale="en-US"
+                                            @formatted="formattedPrice = $event"
+                                        />
+
+
+                                                <InputError class="mt-2" :message="form.errors.budget" />
+                                        </div>
+                                </div>
+                            <div class="flex items-end mt-4">
+
+
+                       <button type="button"
+                        @click="submit()"
+
+                            class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
+                            Soumettre
+                        </button>
+                    </div>
+                    </template>
+
+
+
+          </MazStepper>
+
 
 
 

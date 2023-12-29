@@ -16,8 +16,8 @@
      :draggable="false"
      >
 
-        <div>
-             <div class="flex justify-between">
+        <div class="scrollbar-sm">
+             <div class="flex justify-between overflow-hidden scrollbar-sm">
                 <div class="text-gray-800 dark:text-gray-100">
                     <h1>Connexion</h1>
 
@@ -32,12 +32,12 @@
                 </div>
 
             </div>
-            <div class="relative flex items-center p-0 overflow-hidden">
-                <div class="container z-10">
+            <div class="relative flex items-center p-0 overflow-hidden scrollbar-sm">
+                <div class="z-10 overflow-hidden scrollbar-sm ">
                     <div class="flex flex-wrap ">
 
                         <div
-                            class="flex flex-col w-full max-w-full px-3 md:mx-auto md:flex-0 shrink-0">
+                            class="flex flex-col w-full px-3 scrollbar-sm md:mx-auto md:flex-0 shrink-0">
                             <div
                                 class="relative flex flex-col min-w-0 break-words bg-transparent border-0 shadow-none rounded-2xl bg-clip-border">
                                 <div class="p-2 pb-0 mb-0 bg-transparent border-b-0 md:p-6 rounded-t-2xl">
@@ -51,26 +51,24 @@
                                 <div class="flex-auto p-4 md:p-6">
                                     <form role="form" @submit.prevent="submit">
                                                         <div>
-                                            <InputLabel for="email" value="Email" />
-                                            <TextInput
+
+                                            <MazInput
                                                 id="email"
                                                 v-model="form.email"
                                                 type="email"
-                                                class="block w-full mt-1"
-                                                required
-                                                autofocus
-                                                autocomplete="username"
+                                                label="email"
+
                                             />
                                             <InputError class="mt-2" :message="form.errors.email" />
                                         </div>
 
                                             <div class="mt-4">
-                                            <InputLabel for="password" value="Password" />
-                                            <TextInput
-                                                id="password"
+
+                                            <MazInput
+                                                label="password"
                                                 v-model="form.password"
                                                 type="password"
-                                                class="block w-full mt-1"
+
                                                 required
                                                 autocomplete="current-password"
                                             />
@@ -170,7 +168,7 @@
                                     </form>
                                 </div>
                                 <div
-                                    class="p-2 px-1 pt-0 text-center bg-transparent border-t-0 border-t-solid rounded-b-2xl lg:px-2">
+                                    class="hidden p-2 px-1 pt-0 text-center bg-transparent border-t-0 border-t-solid rounded-b-2xl lg:px-2">
                                     <p class="mx-auto mb-2 text-sm leading-normal">
                                         Vous avez déjà un compte?
                                         <Link :href="route('register')"

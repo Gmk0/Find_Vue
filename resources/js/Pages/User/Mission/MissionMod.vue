@@ -64,12 +64,11 @@
                             <div  class="flex flex-col mt-4 ">
                                 <div class="w-full">
 
-                                    <InputText
+                                    <MazInput
                                         id="name"
                                         required
                                         v-model="form.title"
-                                        autofocus
-                                        class="w-full"
+
                                         placeholder="Titre"
 
                                     />
@@ -77,7 +76,7 @@
                                 </div>
                                 <div class="w-full mt-4">
 
-                                    <Textarea
+                                    <MazTextarea
                                     v-model="form.description"
                                     rows="4"
                                     cols="10"
@@ -86,12 +85,17 @@
                                 </div>
 
                                 <div class="mt-4 W-full">
-                                    <Dropdown v-model="form.category_id"
-                                    optionValue="id"
-                                    :options="category"
-                                     showClear optionLabel="name"
-                                      placeholder="Categories"
-                                      class="!w-full" />
+                                    <MazSelect
+                                        v-model="form.category_id"
+                                         :options="category"
+                                        option-value-key="id"
+                                        option-label-key="name"
+                                        option-input-value-key="name"
+
+
+                                          placeholder="Categories"
+                                          />
+
 
                                 </div>
 
@@ -100,20 +104,26 @@
                              <div class="flex flex-col w-full mt-4">
                                     <div class="flex gap-8">
                                     <div class="flex w-full ">
+                                       <MazPicker
+                                                locale="fr-FR"
+                                                :min-date="minMaxDates.min"
+                                            v-model="form.dateD"
+                                            label="Date debut"
+                                        />
 
-                                            <Calendar v-model="form.dateD"
-                                            class="w-full"
-                                            placeholder="Date debut" />
+
 
 
                                     </div>
                                     <div class="flex w-full">
 
-                                                <Calendar v-model="form.dateF"
-                                                class="w-full"
-                                                inputId="birth_date"
+                                        <MazPicker
+                                                    locale="fr-FR"
+                                                    :min-date="minMaxDates.min"
+                                                v-model="form.dateF"
+                                                label="Date debut"
+                                            />
 
-                                                placeholder="Date Fin" />
 
 
                                     </div>
@@ -121,25 +131,21 @@
                                     </div>
                                     <div class="mt-4 mb-4">
                                     <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Exigences</label>
-                                        <Textarea id="message"
+                                        <MazTextarea id="message"
                                         v-model="form.exigence"
-                                        rows="4"
-                                        cols="10"
-                                        class="w-full "
+
                                          placeholder="Exigences pour la mission"/>
                                     </div>
                                       <div >
-
-                                            <InputText
-                                                id="name"
-
-                                                type="text"
-                                                class="block w-full mt-1"
-                                                required
-                                                placeholder="Budget"
+                                        <MazInputPrice
                                                 v-model="form.budget"
-
+                                                label="Budget de la mission"
+                                                currency="USD"
+                                                locale="en-US"
+                                                @formatted="formattedPrice = $event"
                                             />
+
+
 
                                         </div>
                                 </div>
@@ -290,7 +296,7 @@ import { computed, ref, inject } from 'vue';
 import { useCategoryStore } from '@/store/store';
 
 import Dialog from 'primevue/dialog';
-
+import MazPicker from 'maz-ui/components/MazPicker';
 
 
 const toast= useToast();
@@ -306,13 +312,25 @@ const visible=ref(false);
 
 const mission = computed(() => props.mission.data);
 
+const formatDate = (dateString) => {
+    // Supposons que dateString est au format "03-02-2022"
+    const [day, month, year] = dateString.split('-');
+
+    // Créer un objet Date avec le format correct
+    const date = new Date(`${year}-${month}-${day}`);
+
+    // Formater la date dans le format 'YYYY-MM-DD'
+    const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+    return formattedDate;
+};
 const form = useForm({
     id:props.mission.data.id,
     title: props.mission.data.title,
     exigence: props.mission.data.exigences,
     description: props.mission.data.description,
-    dateD: props.mission.data.begin_mission,
-    dateF: props.mission.data.end_mission,
+     dateD: formatDate(props.mission.data.begin_mission),
+    dateF: formatDate(props.mission.data.end_mission),
     budget: props.mission.data.budget,
     category_id: props.mission.data.category.id,
     mission_id: props.mission.data.id,
@@ -322,6 +340,7 @@ const form = useForm({
 
 
 
+const formattedPrice = ref();
 const effacer = () => {
 
 
@@ -398,6 +417,14 @@ defineOptions({
     layout: UserLayout,
 
 });
+
+const currentDate=new Date();
+
+const minMaxDates = ref({
+    min: currentDate.toISOString().split('T')[0],
+    max: currentDate.toISOString().split('T')[0],
+})
+
 
 
 </script>

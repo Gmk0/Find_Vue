@@ -23,6 +23,8 @@ const props =   defineProps({
     user: Object,
 });
 
+const formattedPrice=ref('');
+
 const categoriesStore = useCategoryStore();
 const categories = computed(() => categoriesStore.categoriesGet.categories);
 
@@ -385,11 +387,12 @@ function getWorldLanguages() {
 
 
 const comptesSelector = ref([
-    { name: 'twitter', code: '/images/logo/X.webp' },
-    { name: 'Facebook', code: '/images/logo/facebook.png' },
-    { name: 'Tiktok', code: '/images/logo/tiktok.png' },
+    { picture: '/images/logo/tiktok.png', label: 'Tiktok', value: 'Tiktok' },
+    { picture: '/images/logo/facebook.png', label: 'Facebook', value: 'Facebook' },
+    { picture: '/images/logo/tiktok.png', label: 'twitter', value: 'twitter'},
 
 ]);
+
 
 onMounted(() => {
 
@@ -574,11 +577,11 @@ for (let index = 1999; index < year ; index++) {
             <header class="bg-white top-0 lg:relative sticky lg:z-0 z-[60] shadow dark:bg-gray-800">
                 <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div class="flex flex-col justify-between md:flex-row md:items-center">
-                        <ul class="items-center justify-around hidden gap-6 lg:flex">
+                        <ul class="items-center justify-around hidden dark:text-gray-300 gap-6 lg:flex">
                             <li :class="step === 1 ? 'text-amber-600 ' : ''" class="flex px-1 cursor-pointer ">
 
                                 <span :class="step === 1 ? 'bg-amber-600 text-white ' : ''"
-                                    class="flex items-center justify-center w-6 h-6 mr-2 border border-gray-200 rounded-full ">
+                                    class="flex items-center justify-center w-6 h-6 mr-2  border border-gray-200 rounded-full ">
 
                                     1
                                 </span>
@@ -707,14 +710,17 @@ for (let index = 1999; index < year ; index++) {
                                     class="px-4 py-5 bg-white rounded-lg shadow dark:bg-gray-800 dark:border dark:border-gray-200 sm:p-6 ">
                                     <div class="gap-6 md:grid md:grid-cols-1 md:mb-2">
                                         <div class="w-full">
-
-                                                <Dropdown
+                                            <MazSelect
                                                 v-model="selectedCategoryId"
+                                                label="Votre categorie"
+
                                                 :options="categories"
-                                                optionValue="id" optionLabel="name"
-                                                placeholder="Votre categorie"
-                                                showClear
-                                                class="!w-full" />
+                                                 option-value-key="id"
+                                                option-label-key="name"
+                                                option-input-value-key="name"
+                                            />
+
+
 
                                         </div>
 
@@ -722,26 +728,29 @@ for (let index = 1999; index < year ; index++) {
 
 
                                                 <div class="block">
-                                                       <MultiSelect
-                                                        v-model="selectedSubcategoryId"
-                                                        :options="subcategories"
-                                                        optionLabel="name"
-                                                        optionValue="id"
-                                                        class="w-full md:w-full"
-                                                        placeholder="Selectionner sous categorie"
-                                                        :maxSelectedLabels="1"  />
-
+                                                    <MazSelect
+                                                    v-model="selectedSubcategoryId"
+                                                    label="Selectionner sous categorie"
+                                                    :options="subcategories"
+                                                    option-value-key="id"
+                                                    option-label-key="name"
+                                                    option-input-value-key="name"
+                                                    search
+                                                    multiple
+                                                />
                                                 </div>
 
                                                 <div class="flex justify-content-center">
-                                                        <Dropdown
+                                                    <MazSelect
                                                         v-model="freelanceElement.experience"
+                                                        label="Experience"
                                                         :options="experienceAnnee"
-                                                        showClear
-                                                        optionValue="id"
-                                                        optionLabel="name"
-                                                        placeholder="Experience"
-                                                        class="!w-full" />
+                                                         option-value-key="id"
+                                                        option-label-key="name"
+                                                        option-input-value-key="name"
+
+                                                        />
+
                                                  </div>
 
 
@@ -801,10 +810,10 @@ for (let index = 1999; index < year ; index++) {
                                         <div class="grid gap-2 mb-4 lg:grid-cols-3">
 
                                             <div >
-                                                    <InputText
-                                                     class="w-full"
-                                                     placeholder="competences"
+                                                    <MazInput
+                                                     label="competences"
                                                      v-model="selectedExperiment.title"
+                                                     type="text"
 
                                                     />
 
@@ -812,13 +821,16 @@ for (let index = 1999; index < year ; index++) {
 
 
                                             <div>
-                                                <Dropdown
+                                                  <MazSelect
                                                     v-model="selectedExperiment.level"
+                                                    label="Experience"
                                                     :options="levelSelector"
-                                                     size="small"
-                                                    optionValue="id" optionLabel="name"
-                                                     placeholder="Experience"
-                                                    class="w-full" />
+                                                        option-value-key="id"
+                                                    option-label-key="name"
+                                                    option-input-value-key="name"
+
+                                                    />
+
 
                                             </div>
 
@@ -865,13 +877,17 @@ for (let index = 1999; index < year ; index++) {
 
 
                                     <div class="w-full lg:col-span-1 ">
+                                         <MazInputPrice
+                                            v-model="freelanceElement.taux"
+                                            label="Taux"
+                                            currency="USD"
+                                            locale="en-US"
+                                            :min="5"
+                                            :max="1000"
+                                            @formatted="formattedPrice = $event"
+                                        />
 
-                                         <InputText class="w-full"
-                                         placeholder="Taux"
-                                         type="numeric"
-                                        v-model="freelanceElement.taux"
 
-                                                        />
 
 
                                     </div>
@@ -911,19 +927,19 @@ for (let index = 1999; index < year ; index++) {
 
 
 
-                                            <InputText
-                                            class="w-full"
-                                            placeholder="Adresse"
+                                            <MazInput
+
+                                            label="Adresse"
                                             v-model="localisation.addresse"/>
-                                            <InputText
-                                            class="w-full"
-                                            placeholder="ville"
+                                            <MazInput
+
+                                            label="ville"
                                             v-model="localisation.ville"/>
 
 
-                                           <InputText
-                                           placeholder="Commune"
-                                            class="block w-full"
+                                           <MazInput
+                                           label="Commune"
+
                                            v-model="localisation.commune" />
 
                                     </div>
@@ -991,14 +1007,14 @@ for (let index = 1999; index < year ; index++) {
 
 
 
-                                            <InputText
-                                            placeholder="Nom"
+                                            <MazInput
+                                            label="Nom"
                                              v-model="freelanceElement.nom"
                                             />
 
 
-                                            <InputText class="block w-full"
-                                                placeholder="Prenom"
+                                            <MazInput class="block w-full"
+                                                label="Prenom"
                                                     v-model="freelanceElement.prenom"
                                                 />
 
@@ -1100,20 +1116,20 @@ for (let index = 1999; index < year ; index++) {
                                     class="px-4 py-5 bg-white dark:bg-gray-800 dark:border dark:border-gray-200 rounded-lg  sm:p-6 shadow {{ isset($actions) ? 'sm:rounded-tl-md sm:rounded-tr-md' : 'sm:rounded-md' }}">
 
                                     <div>
+                                         <MazTextarea
+                                    v-model="freelanceElement.description"
+                                    name="Description"
+                                    id="Description"
+                                    label="Description"
+
+                                    />
 
 
-                                     <Textarea
-                                     v-model="freelanceElement.description"
-                                     id="message"
-                                     class="!w-full"
-                                     rows="5"
-                                     cols="30"
-                                    placeholder="Description" />
 
                                     <div class="flex justify-between">
 
                                         <span>{{error.description}}</span>
-                                        <span> {{  freelanceElement.description.length}} /6000</span>
+                                        <span class="dark:text-gray-300"> {{  freelanceElement.description.length}} /6000</span>
 
 
                                     </div>
@@ -1152,8 +1168,8 @@ for (let index = 1999; index < year ; index++) {
                                     class="px-4 py-5 bg-white dark:bg-gray-800 dark:border dark:border-gray-200 rounded-lg  sm:p-6 shadow {{ isset($actions) ? 'sm:rounded-tl-md sm:rounded-tr-md' : 'sm:rounded-md' }}">
                                     <div class="">
                                             <div>
-                                                <p class="mb-2 text-lg font-bold">langues :</p>
-                                               <ul class="mb-4">
+                                                <p class="mb-2 text-lg dark:text-gray-300 font-bold">langues :</p>
+                                               <ul class="mb-4 dark:text-gray-300">
                                                     <li v-for="(educ, index) in langue " :key="index" class="flex gap-2 px-2">
                                                         <span>{{ educ.langue }} - {{ educ.level }}</span>
 
@@ -1169,30 +1185,33 @@ for (let index = 1999; index < year ; index++) {
 
                                             <div class="grid gap-2 mb-4 lg:grid-cols-3">
                                                 <div class="w-full">
-                                                      <Dropdown
+                                                      <MazSelect
                                                         v-model="selectedLangue.langue"
                                                         :options="languagesArray"
+                                                         option-value-key="name"
+                                                    option-label-key="name"
+                                                    option-input-value-key="name"
 
-                                                        filter
-
-                                                         size="small"
-                                                        optionValue="name"
-                                                        optionLabel="name"
-                                                         placeholder="Niveau"
-                                                        class="w-full " />
+                                                        label="Niveau"
+                                                        search
+                                                        />
 
 
                                                 </div>
 
                                                 <div class="w-full">
+                                                     <MazSelect
+                                                            v-model="selectedLangue.level"
+                                                            :options="levelSelector"
+                                                             option-value-key="id"
+                                                        option-label-key="name"
+                                                        option-input-value-key="name"
 
-                                                <Dropdown
-                                                    v-model="selectedLangue.level"
-                                                    :options="levelSelector"
+                                                            label="Niveau"
+                                                            search
+                                                            />
 
-                                                    optionValue="id" optionLabel="name"
-                                                     placeholder="Niveau"
-                                                    class="w-full border border-gray-300 md:w-8rem" />
+
 
                                                 </div>
                                                 <div>
@@ -1307,16 +1326,16 @@ for (let index = 1999; index < year ; index++) {
 
                                         <div class="grid gap-4 mt-4 lg:grid-cols-3 md:mb-2">
                                             <div>
-                                                 <InputText
-                                                 placeholder="Diplomer en"
-                                                 class="block w-full"
+                                                 <MazInput
+                                                 label="Diplomer en"
+
                                                  v-model="selectedEducation.diplome"/>
 
                                             </div>
                                             <div>
-                                                <InputText
-                                                placeholder="Etablissement"
-                                                class="block w-full"
+                                                <MazInput
+                                                label="Etablissement"
+
                                                 v-model="selectedEducation.universite"/>
 
 
@@ -1325,9 +1344,8 @@ for (let index = 1999; index < year ; index++) {
                                             <div class="flex gap-2">
 
                                                 <div>
-                                                    <Dropdown
-                                                    placeholder="annee"
-                                                    class="!w-[8rem]"
+                                                    <MazSelect
+                                                    label="annee"
                                                     :options="anneeSelected"
                                                     v-model="selectedEducation.annee" />
 
@@ -1453,16 +1471,16 @@ for (let index = 1999; index < year ; index++) {
 
                                         <div class="grid gap-4 mt-4 lg:grid-cols-3 md:mb-2">
                                             <div>
-                                                <InputText
-                                                class="block w-full"
-                                                placeholder="Certifier en"
+                                                <MazInput
+
+                                                label="Certifier en"
                                                 v-model="selectedCertificat.certifier"/>
 
                                             </div>
                                             <div>
-                                                 <InputText
-                                                class="block w-full"
-                                                placeholder="Delivrer par"
+                                                 <MazInput
+
+                                                label="Delivrer par"
                                                 v-model="selectedCertificat.delivrer"/>
 
                                             </div>
@@ -1472,9 +1490,8 @@ for (let index = 1999; index < year ; index++) {
 
                                                 <div class="flex gap-2">
                                                      <div>
-                                                         <Dropdown
-                                                        placeholder="annee"
-                                                        class="!w-[8rem]"
+                                                         <MazSelect
+                                                        label="annee"
                                                         :options="anneeSelected"
                                                         v-model="selectedCertificat.annee" />
 
@@ -1537,8 +1554,10 @@ for (let index = 1999; index < year ; index++) {
 
 
 
-                                        <InputText
-                                        v-model="freelanceElement.portfolio" />
+                                        <MazInput
+                                        v-model="freelanceElement.portfolio"
+                                        label='Lien du portefolio'
+                                         left-icon="globe-alt"/>
 
                                     </div>
 
@@ -1581,48 +1600,9 @@ for (let index = 1999; index < year ; index++) {
 
 
                     </div>
-                    <SectionBorder />
-
-                    <div class='mb-8 md:grid md:mb-0 md:grid-cols-3 md:gap-6'>
-                        <div class="flex justify-between md:col-span-1">
-                            <div class="px-4 sm:px-0">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                    Votre Presence Sociale
-                                </h3>
-
-                                <p class="mt-1 text-sm text-gray-600">
-                                    Connecter vos comptes Professionnelle
-                                </p>
-                            </div>
-
-
-                        </div>
-                        <div class="mt-5 mb-4 md:mt-0 md:col-span-2">
-                            <div class="grid grid-cols-2 gap-4 px-4">
-                                <label for="google">Google</label>
 
 
 
-
-
-                                <button type="button">
-                                    connecter
-                                </button>
-
-
-
-
-
-
-
-
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
 
                     <SectionBorder />
 
@@ -1650,10 +1630,10 @@ for (let index = 1999; index < year ; index++) {
 
 
                                         <div>
-                                            <p class="mb-2 text-lg font-bold">Commptes lies :</p>
+                                            <p class="mb-2 text-lg dark:text-gray-300 font-bold">Commptes lies :</p>
                                             <ul class="mb-4">
 
-                                                <li v-for="(copt , index) in comptes" class="items-center gap-2 ">
+                                                <li v-for="(copt , index) in comptes" class="items-center dark:text-gray-300 gap-2 ">
                                                     <span class="flex flex-wrap mr-1">
                                                         {{ copt.compte}} - {{ copt.lien }}
                                                     </span>
@@ -1673,27 +1653,28 @@ for (let index = 1999; index < year ; index++) {
 
                                         <div class="grid gap-2 mb-4 lg:grid-cols-3">
                                                 <div>
-                                                     <Dropdown v-model="selectedComptes.compte" :options="comptesSelector"
-                                                     optionLabel="name"
-                                                     optionValue="name"
-                                                     placeholder="Selectionner un compte"
-                                                     class="w-full md:w-14rem">
+                                                     <MazSelect
+                                                label="Select color"
+                                                v-model="selectedComptes.compte"
+                                                :options="comptesSelector"
+                                                v-slot="{ option, isSelected }"
+                                                search
+                                            >
+                                                <div class="flex items-center" style="width: 100%; gap: 1rem">
+                                                <MazAvatar size="0.8rem" :src="option.picture" />
+                                                <strong>
+                                                    {{ option.label }}
+                                                </strong>
+                                                </div>
+                                            </MazSelect>
 
-                                                           <template #option="slotProps">
-                                                            <div class="flex gap-4 align-items-center">
-                                                                <img :alt="slotProps.option.label"
-                                                                 :src="slotProps.option.code" style="width: 20px" />
-                                                                <div>{{ slotProps.option.name }}</div>
-                                                            </div>
-                                                        </template>
-
-                                                    </Dropdown>
 
                                                 </div>
 
                                                 <div>
-                                                     <InputText
-                                                        class="block w-full"
+                                                     <MazInput
+                                                        label="lien"
+                                                        left-icon='globe-alt'
                                                         v-model="selectedComptes.lien"
                                                          />
 
@@ -1760,8 +1741,8 @@ for (let index = 1999; index < year ; index++) {
 
                             <div class="grid gap-4 mb-4 md:grid-cols-2">
 
-                                    <InputText
-                                    class="w-full"
+                                    <MazInput
+                                    label="Email"
                                     v-model="freelanceElement.email"
                                     disabled
                                      />
@@ -1832,7 +1813,7 @@ for (let index = 1999; index < year ; index++) {
                             <div class="grid gap-4 px-4 md:grid-cols-2">
 
 
-                                <TextInput
+                                <MazInput
                                v-model="freelanceElement.phone"
                                 disabled
 
@@ -1922,14 +1903,14 @@ for (let index = 1999; index < year ; index++) {
 
         <div>
             <div>
-               <p class="my-2 text-lg text-gray-600 dark:text-gray-700">Veuillez vérifier vos e-mails, un code de vérification a été envoyé.</p>
+               <p class="my-2 text-lg text-gray-600 dark:text-gray-300">Veuillez vérifier vos e-mails, un code de vérification a été envoyé.</p>
 
             </div>
         <div class="px-4 pt-8">
+            <MazInputCode v-model="code.code"
+            :codeLength="6" />
 
-            <InputText class="w-full"
-             v-model="code.code"
-            placeholder="Entrez votre code ici" />
+
 
 
              <InputError class="mt-2" :message="code.errors.code" />
@@ -1941,6 +1922,7 @@ for (let index = 1999; index < year ; index++) {
               <Button
               label="Verifier"
               icon="pi pi-check"
+              outlined
               raised
 
               severity="success"

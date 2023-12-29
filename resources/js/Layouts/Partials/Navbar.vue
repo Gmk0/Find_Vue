@@ -5,7 +5,7 @@
 
 <div class="flex header-wrap !z-[100] classicHeader animated"
     :class="[
-        isSticky ? 'stickyNav fadeInDown  dark:text-white fadeInDown dark:bg-gray-800' : '',
+        isSticky ? 'stickyNav fadeInDown  dark:text-white fadeInDown dark:!bg-gray-800' : '',
         $page.url === '/' ? '' : 'dark:bg-gray-800 bg-white'
     ]"
         @scroll="handleScroll">

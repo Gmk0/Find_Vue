@@ -92,23 +92,20 @@
                             <form @submit.prevent="contacter()">
 
                                 <div class="mt-4">
-                                    <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Nom</label>
-                                    <input v-model="form.name" type="name" name="name" placeholder="Georges Mk" required
-                                        class="block w-full px-5 py-2.5 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                    <MazInput v-model="form.name" label="Name" />
+
                                 </div>
 
                                 <div class="mt-4">
-                                    <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Adresse
-                                        e-mail</label>
-                                    <input v-model="form.email" type="email" name="email" placeholder="johndoe@example.com" required
-                                        class="block w-full px-5 py-2.5 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                    <MazInput type="email" v-model="form.email" label="e-mail" />
+
                                 </div>
 
                                 <div class="w-full mt-4">
-                                    <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Message</label>
-                                    <textarea v-model="form.message" name="message" required
-                                        class="block w-full px-5 py-2.5 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg md:h-56 dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                        placeholder="Message"></textarea>
+
+                                    <MazTextarea label="Message" v-model="form.message" name="message" required
+
+                                        placeholder="Message"></MazTextarea>
                                 </div>
 
                                 <button type="submit" class="

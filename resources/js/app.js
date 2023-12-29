@@ -4,6 +4,11 @@ import '../css/nav.css';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 
+//import 'maz-ui/styles'
+
+import '../css/mazui.css';
+
+
 import $ from 'jquery';
 window.$ = $;
 window.jQuery = $;
@@ -91,12 +96,31 @@ import NavGuest from '@/Layouts/Partials/NavGuest.vue';
 import Message from 'primevue/message';
 
 
+
 import VueClipboard from 'vue3-clipboard';
 import VueSocialSharing from 'vue-social-sharing';
 
 
 
 
+import MazBtn from 'maz-ui/components/MazBtn'
+
+import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
+
+import MazInput from 'maz-ui/components/MazInput';
+import MazSelect from 'maz-ui/components/MazSelect'
+import MazInputPrice from 'maz-ui/components/MazInputPrice'
+import MazTextarea from 'maz-ui/components/MazTextarea'
+import MazAvatar from 'maz-ui/components/MazAvatar'
+import MazInputNumber from 'maz-ui/components/MazInputNumber'
+
+
+//import VuePhoneNumberInput from 'vue-phone-number-input';
+//import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+
+//import MazBtn from 'maz-ui/components/MazBtn'
+
+import MazInputCode from 'maz-ui/components/MazInputCode'
 
 
 const appName = import.meta.env.VITE_APP_NAME || 'FIND';
@@ -115,6 +139,7 @@ createInertiaApp({
             .use(VueSweetalert2)
             .use(VueSocialSharing)
 
+
             .use(PrimeVue, { unstyled: true, pt: Tailwind })
             .use(ToastService)
             .use(ConfirmationService)
@@ -122,13 +147,14 @@ createInertiaApp({
                 autoSetContainer: true,
                 appendToBody: true,
             })
+            .provide('mazIconPath', '../_icons')
             .directive('Tooltip', Tooltip)
             .component('AppLayout', AppLayout)
             .component('pagination',Pagination)
             .component('CartComponent', CartComponent)
             .component('NotificationComponent', NotificationComponent)
             .component('Link', Link)
-            .component('MultiSelect', MultiSelect)
+            .component('MazInputNumber', MazInputNumber)
             .component('Skeleton', Skeleton)
             .component('Dropdown', Dropdown)
             .component('InputText', InputText)
@@ -164,6 +190,15 @@ createInertiaApp({
             .component('NavGuest', NavGuest)
             .component('Message',Message)
             .component('CardGift', CardGift)
+            .component('MazInput', MazInput)
+            .component('MazSelect', MazSelect)
+            .component('MazPhoneNumberInput', MazPhoneNumberInput)
+            .component('MazInputPrice', MazInputPrice)
+            .component('MazTextarea', MazTextarea)
+            .component('MazAvatar', MazAvatar)
+            .component('MazInputCode', MazInputCode)
+
+            //.component('VuePhoneNumberInput', VuePhoneNumberInput)
 
            // .component('Show', Show)
              // Enregistrez votre composant de layout
@@ -175,7 +210,7 @@ createInertiaApp({
         return vm;
     },
     progress: {
-        color: '#FFFF',
+
         showSpinner: true,
 
     },

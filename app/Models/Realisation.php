@@ -8,12 +8,17 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Support\Str;
 
 class Realisation extends Model implements HasMedia
 {
     use HasFactory;
 
     use InteractsWithMedia;
+
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable=['user_id', 'description', 'afficher'];
 
 
@@ -41,6 +46,7 @@ class Realisation extends Model implements HasMedia
         parent::boot();
 
         static::creating(function ($realisation) {
+            $realisation->id = Str::uuid()->toString();
             //$service->service_numero = 'SV' . date('YmdHms');
             $realisation->user_id = auth()->id();
         });
