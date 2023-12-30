@@ -22,8 +22,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
-        <!-- Scripts -->
+       <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"  ></script>
 
         @routes
 
@@ -31,19 +30,25 @@
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
 
+
+
+
+
         <script>
             const beamsClient = new PusherPushNotifications.Client({
-            instanceId: '3a7c226c-b409-40f9-add8-ace345844730',
-
+            instanceId: '92c75cc8-3936-4286-9bc2-68b9958a4b2b',
           });
 
           beamsClient.start()
-            .then(() => beamsClient.addDeviceInterest('hello'))
+            .then(() => beamsClient.addDeviceInterest('App.Models.User.{{ auth()->id() }}'))
             .then(() => console.log('Successfully registered and subscribed!'))
             .catch(console.error);
         </script>
+
     </head>
     <body class="font-sans antialiased">
         @inertia
+
+
     </body>
 </html>

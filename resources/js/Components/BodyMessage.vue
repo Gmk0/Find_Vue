@@ -714,10 +714,12 @@ const isLastRejectedMessage = (index) => {
                          <div class="flex flex-col items-center justify-center mt-8">
                         <div class="flex flex-col items-center mx-4 space-x-3">
 
-                            <p class="text-lg">Pour plus de sécurité et votre protection, effectuez les paiements et les
+                            <div class="p-2 bg-yellow-100 rounded-md">
+                            <p class="text-lg text-gray-800">Pour plus de sécurité et votre protection, effectuez les paiements et les
                                 communications
                                 directement
                                 sur FIND.</p>
+                                </div>
 
 
                             <div class="w-4/12 py-8">
@@ -1024,7 +1026,7 @@ const isLastRejectedMessage = (index) => {
 
                   <div>
                      <form @submit.prevent="sendPropasal">
-                <div class="mb-4 p-2">
+                <div class="p-2 mb-4">
 
 
                 <MazInputNumber

@@ -45,7 +45,7 @@ const onPhoneInput=()=> {
     }
 
 
-    // Limitez la saisie à un maximum de 10 chiffres
+
     if (form.phone.length > 11) {
         form.phone = form.phone.slice(0, 11);
     }
@@ -55,9 +55,11 @@ const onPhoneInput=()=> {
 const submit = () => {
 
 
+
+
     form.transform(data => ({
         ...data,
-        phone: tel.value + form.phone,
+        phone: form.phone.replace(/^\+/, ''),
     })).post(route('register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
@@ -207,6 +209,7 @@ const submit = () => {
                                                 <MazPhoneNumberInput
                                                 label="Telephone"
                                                 country-locale="fr-FR"
+                                                success="false"
                                                 v-model="form.phone"
                                                 :translations="{
                                                     countrySelector: {

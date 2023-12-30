@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notification;
 use NotificationChannels\PusherPushNotifications\PusherChannel;
 use Pusher\PushNotifications\PushNotifications;
 use NotificationChannels\PusherPushNotifications\PusherMessage;
+use Illuminate\Notifications\Messages\VonageMessage;
 
 class OrderCreatedNotification extends Notification implements ShouldQueue
 {
@@ -24,7 +25,7 @@ class OrderCreatedNotification extends Notification implements ShouldQueue
 
     public function via($notifiable)
     {
-        return ["database", PusherChannel::class];
+        return ["database", PusherChannel::class,'mail','vonage'];
     }
 
     public function toDatabase($notifiable)
@@ -36,6 +37,14 @@ class OrderCreatedNotification extends Notification implements ShouldQueue
             'icon' => 'fa fa-cart-shopping',
 
         ];
+    }
+
+
+    public function toVonage(object $notifiable): VonageMessage
+    {
+        return (new VonageMessage)
+
+            ->content('Nouvelle commande de ' . $this->order->getMontant() . ' pour le service ' . $this->order->service->title . ' a été passée.');
     }
 
 

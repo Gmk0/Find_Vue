@@ -5,7 +5,7 @@
                         <h1 class="text-5xl">Cultiver, Concevoir & S'Éclater</h1>
                     </div>
             <div class="top-0 flex px-4 mt-auto sticky-test">
-                    <div class="flex flex-wrap gap-4 justify-end">
+                    <div class="flex flex-wrap justify-end gap-4">
                         <div v-for="i in 5" :key="i">
                             <a class="text-lg font-bold text-gray-400 transition border-b-2 border-transparent cursor-pointer hover:text-gray-700 hover:border-b-2 hover:border-amber-500 hover:shadow-md">Programmation & Tech</a>
                         </div>
@@ -17,59 +17,26 @@
 
 
 
-        <div class="px-6">test
+        <div class="px-6 pt-20">test
 
-      <MazStepper auto-validate-steps>
-            <template #title-1>
-                Sign-In
-            </template>
-            <template #subtitle-1>
-            You should be signed in to continue
-            </template>
-            <template #title-info-1>
-            Required
-            </template>
-                <template #content-1="{ nextStep }">
-                <form @submit.prevent="nextStep">
-                    <MazInput v-model="email" label="E-mail" type="email" autocomplete="new-email" name="new-email" />
-                    <br />
-                    <MazInput v-model="password" label="password" type="password" autocomplete="new-password" name="new-password" />
-                    <br />
-                    <MazBtn type="submit">
-                    Sign-In
-                    </MazBtn>
-                </form>
-                </template>
+            <form class="flex flex-col gap-6" @submit.prevent="submit">
 
-                <template #title-2>
-                Delivery address
-                </template>
-                <template #subtitle-2>
-                Where should we deliver your package?
-                </template>
-                <template #title-info-2>
+                <div>
+                    <MazTextarea required v-model="form.message">
 
-                </template>
-                <template #content-2="{ nextStep, previousStep }">
+                    </MazTextarea>
+                </div>
 
-                <MazBtn @click="nextStep">
-                    Validate
+                <MazBtn type="submit">
+                    valider
                 </MazBtn>
-                </template>
 
+            </form>
 
-
-      </MazStepper>
 
       </div>
 
 
-       <MazSelect
-        v-model="selectedValue"
-        label="Select color"
-        :color="color"
-        :options="['', 'secondary', 'info', 'success', 'danger', 'warning']"
-      />
 
     </div>
 </template>
@@ -82,7 +49,7 @@
 <script setup>
 
 import WebLayout from '@/Layouts/WebLayout.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 import { ref, onBeforeUnmount, onMounted } from 'vue';
 
 import MazBtn from 'maz-ui/components/MazBtn'
@@ -100,6 +67,25 @@ const selectedValue = ref()
 
 const phone=ref('333333');
 
+const form=useForm({
+    message:'',
+});
+
+const submit=()=>{
+    form.post('/testPhone', {
+
+        onSuccess: () => {
+            alert('ok');
+        },
+        onError: (error) => {
+            alert(error.message);
+
+        }
+    });
+
+}
+
+
 
 const filtres = ref(false);
 const isMobile = ref(false);
@@ -109,6 +95,8 @@ const toggleVisibility = () => {
         changeT.value = !changeT.value;
     }
 };
+
+
 
 const handleResize = () => {
     //isMobile.value = window.innerWidth <= 768;

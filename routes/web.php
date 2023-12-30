@@ -418,3 +418,6 @@ Route::get('/view-cache', function () {
 Route::get('/test', function () {
     return Inertia::render('Test/Test');
 });
+
+
+Route::post('/testPhone',[WebController::class, 'testPhone']);

@@ -5,8 +5,8 @@
 
      :closable="false"
      :style="{ width: '30rem' }"
-     :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
-     position="top"
+     :breakpoints="{ '1199px': '75vw','900px':'80vw', '575px': '90vw' }"
+      position="top"
       :modal="true"
        :pt="{
            mask: {
@@ -15,9 +15,9 @@
        }"
      :draggable="false"
      >
-
-        <div class="scrollbar-sm">
-             <div class="flex justify-between overflow-hidden scrollbar-sm">
+        <template #container="{ closeCallback }">
+        <div class="scrollbar-sm dark:bg-gray-800 bg-gray-100 p-4 rounded-lg !overflow-hidden">
+             <div class="flex justify-between !overflow-hidden scrollbar-sm">
                 <div class="text-gray-800 dark:text-gray-100">
                     <h1>Connexion</h1>
 
@@ -32,9 +32,9 @@
                 </div>
 
             </div>
-            <div class="relative flex items-center p-0 overflow-hidden scrollbar-sm">
-                <div class="z-10 overflow-hidden scrollbar-sm ">
-                    <div class="flex flex-wrap ">
+            <div class="relative flex items-center p-0 !overflow-hidden scrollbar-sm">
+                <div class="z-10 !overflow-hidden scrollbar-sm ">
+                    <div class="flex flex-wrap">
 
                         <div
                             class="flex flex-col w-full px-3 scrollbar-sm md:mx-auto md:flex-0 shrink-0">
@@ -182,6 +182,7 @@
                 </div>
             </div>
         </div>
+        </template>
     </Dialog>
 
     </div>

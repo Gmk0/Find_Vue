@@ -1,17 +1,12 @@
 @import 'responsive.css';
 
-@import 'new.css';
+
 
 @import 'primeicons/primeicons.css';
 
 
 
-@import 'swiper/css';
-@import 'swiper/css/pagination';
-@import 'swiper/css/navigation';
-@import 'swiper/css/scrollbar';
-@import 'swiper/css/effect-cube';
-@import 'swiper/css/autoplay';
+
 
 
 
@@ -146,4 +141,30 @@
 
 .gradient2 {
     background: linear-gradient(80deg, #fd8b3f 20%, rgb(47, 46, 46) 100%);
+}
+
+@supports selector(::-webkit-scrollbar) {
+    .scrollbar-sm::-webkit-scrollbar {
+        height: .375rem;
+        width: .375rem
+    }
+
+    .scrollbar-sm:hover::-webkit-scrollbar-thumb,
+    .scrollbar-sm:focus-within::-webkit-scrollbar-thumb {
+        border-radius: 9999px;
+        background-color: #cbd5e1cc
+    }
+
+    :is(.dark .scrollbar-sm:hover)::-webkit-scrollbar-thumb,
+    :is(.dark .scrollbar-sm:focus-within)::-webkit-scrollbar-thumb {
+        background-color: #5c6b8a
+    }
+
+    .scrollbar-sm::-webkit-scrollbar-thumb:hover {
+        background-color: #94a3b8
+    }
+
+    :is(.dark .scrollbar-sm)::-webkit-scrollbar-thumb:hover {
+        background-color: #697a9b
+    }
 }

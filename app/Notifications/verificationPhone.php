@@ -11,12 +11,14 @@ use Illuminate\Notifications\Messages\VonageMessage;
 class verificationPhone extends Notification
 {
     use Queueable;
+    public $message;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($message)
     {
+        $this->message=$message;
         //
     }
 
@@ -32,7 +34,7 @@ class verificationPhone extends Notification
     public function toVonage(object $notifiable): VonageMessage
     {
         return (new VonageMessage)
-            ->content('Your SMS message content');
+            ->content($this->message);
     }
 
     /**
