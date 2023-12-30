@@ -14,6 +14,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Set;
+use Illuminate\Support\Str;
+use Filament\Forms\Get;
 
 class CategoryResource extends Resource
 {
@@ -28,8 +31,18 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->required(),
+                    ->required()
+            ->live(debounce: 500)
+            ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                if (($get('slug') ?? '') !== Str::slug($old)) {
+                    return;
+                }
+
+                $set('slug', Str::slug($state));
+            }),
+                Forms\Components\TextInput::make('slug')->unique(),
                 Forms\Components\MarkdownEditor::make('description')->columnSpanFull(),
+
 
             SpatieMediaLibraryFileUpload::make('illustration')
             ->image()

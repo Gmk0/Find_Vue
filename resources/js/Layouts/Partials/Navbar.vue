@@ -513,18 +513,7 @@
                                         <span class="ml-2">Conversation </span>
                                 </Link>
                                  <template v-if="$page.props.auth.freelance">
-                                   <Link :href="route('freelance.dashboard')" @click="navOpen = false"
-                                            class="flex flex-row items-center px-2 py-2 font-medium text-gray-800 dark:text-gray-200 text-md focus:text-gray-900 hover:text-gray-900 focus:outline-none dark:hover:bg-gray-600"
-                                            role="menuitem">
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                               >
-                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                                <circle cx="12" cy="7" r="4"></circle>
-                                            </svg>
-                                            <span class="ml-2">Dashboard freelance</span>
-                                    </Link>
                                      <a href="/freelance-gestion" @click="navOpen = false"
                                                 class="flex flex-row items-center px-2 py-2 font-medium text-gray-800 dark:text-gray-200 text-md focus:text-gray-900 hover:text-gray-900 focus:outline-none dark:hover:bg-gray-600"
                                                 role="menuitem">
@@ -535,7 +524,7 @@
                                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                                     <circle cx="12" cy="7" r="4"></circle>
                                                 </svg>
-                                                <span class="ml-2">Dashboard freelance Pro</span>
+                                                <span class="ml-2">Espace Freelance</span>
                                         </a>
                                        <Link :href="route('freelance.chat')" @click="navOpen = false"
                                                 class="flex flex-row items-center px-2 py-2 font-medium text-gray-800 dark:text-gray-200 text-md focus:text-gray-900 hover:text-gray-900 focus:outline-none dark:hover:bg-gray-600"

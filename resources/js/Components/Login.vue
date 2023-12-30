@@ -16,7 +16,7 @@
      :draggable="false"
      >
         <template #container="{ closeCallback }">
-        <div class="scrollbar-sm dark:bg-gray-800 bg-gray-100 p-4 rounded-lg !overflow-hidden">
+        <div class="scrollbar-sm dark:bg-gray-800 bg-gray-100 p-6 rounded-lg !overflow-hidden">
              <div class="flex justify-between !overflow-hidden scrollbar-sm">
                 <div class="text-gray-800 dark:text-gray-100">
                     <h1>Connexion</h1>
@@ -100,7 +100,7 @@
                                             <button type="submit" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
                                                 class="inline-block w-full px-6 py-3 mt-6 mb-0 text-xs font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro ease-soft-in tracking-tight-soft gradient hover:scale-102 hover:shadow-soft-xs active:opacity-85">
 
-                                                <span>Connexion</span>
+                                                <span>Connexion <span v-if="form.processing">....</span></span>
 
 
 
